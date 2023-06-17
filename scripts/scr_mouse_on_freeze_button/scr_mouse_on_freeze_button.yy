@@ -1,0 +1,11 @@
+{
+  "resourceType": "GMScript",
+  "resourceVersion": "1.0",
+  "name": "scr_mouse_on_freeze_button",
+  "isCompatibility": false,
+  "isDnD": false,
+  "parent": {
+    "name": "mouse on button",
+    "path": "folders/Scripts/mouse on button.yy",
+  },
+}

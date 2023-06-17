@@ -1,0 +1,2 @@
+*.ypp filter=lfs diff=lfs merge=lfs -text
+*.gmx filter=lfs diff=lfs merge=lfs -text
