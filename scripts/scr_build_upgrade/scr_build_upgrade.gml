@@ -1,11 +1,8 @@
-/// @scr_build_unit(object)
-/// @param object
-function scr_build_upgrade(argument0) {
-	//called from building
-	///
 
-	scr_build_defend_upgrade(argument0)
-	scr_build_improved_bows(argument0)
-scr_build_invisibilty_upgrade(argument0)
-
+function scr_build_upgrade(obj_index) {
+	switch(obj_index) {
+		case obj_footman_defend_upgrade : scr_build_defend_upgrade(); break;
+		case obj_improved_bows_upgrade : scr_build_improved_bows(); break;
+		case obj_sorceress_invisibility_upgrade : scr_build_invisibilty_upgrade(); break;
+	}
 }

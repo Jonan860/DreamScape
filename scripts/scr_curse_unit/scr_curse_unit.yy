@@ -1,11 +1,11 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "scr_",
+  "name": "scr_curse_unit",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "space structure",
-    "path": "folders/Scripts/space structure.yy",
+    "name": "spells",
+    "path": "folders/Scripts/spells.yy",
   },
 }

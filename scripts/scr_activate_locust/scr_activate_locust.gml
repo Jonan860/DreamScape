@@ -1,6 +1,4 @@
-// Script assets have changed for v2.3.0 see
-// https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
-function scr_activate_locust(){
-locust_activated=1
-
+/
+function scr_activate_locust() {
+	locust_activated = 1
 }

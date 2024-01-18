@@ -10,7 +10,7 @@
   "overriddenProperties": [],
   "parent": {
     "name": "mages",
-    "path": "folders/Objects/units2/units/mages.yy",
+    "path": "folders/Objects/units/mages.yy",
   },
   "parentObjectId": {
     "name": "obj_mage",

@@ -11,7 +11,7 @@
   "overriddenProperties": [],
   "parent": {
     "name": "heroes",
-    "path": "folders/Objects/units2/units/heroes.yy",
+    "path": "folders/Objects/units/heroes.yy",
   },
   "parentObjectId": {
     "name": "obj_hero",

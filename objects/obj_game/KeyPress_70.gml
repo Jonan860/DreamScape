@@ -1,5 +1,2 @@
-/// @description Insert description here
-// You can write your code in this editor
+window_set_fullscreen(!window_get_fullscreen())
 
-var fullscreen=window_get_fullscreen()
-window_set_fullscreen(!fullscreen)

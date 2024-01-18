@@ -9,7 +9,7 @@
   "overriddenProperties": [],
   "parent": {
     "name": "summons",
-    "path": "folders/Objects/units2/units/summons.yy",
+    "path": "folders/Objects/units/summons.yy",
   },
   "parentObjectId": {
     "name": "obj_summon",

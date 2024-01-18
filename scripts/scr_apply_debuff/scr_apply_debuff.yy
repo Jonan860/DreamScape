@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "Script274",
+  "name": "scr_apply_debuff",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {

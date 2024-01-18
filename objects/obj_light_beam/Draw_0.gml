@@ -1,9 +1,7 @@
-/// @description Insert description here
-// You can write your code in this editor
-var x1=x
-var y1=y
-var x2=target_tile.x
-var y2=target_tile.y
+var x1 = x
+var y1 = y
+var x2 = target_tile.x
+var y2 = target_tile.y
 
 draw_self()
 

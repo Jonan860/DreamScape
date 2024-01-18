@@ -11,7 +11,7 @@ if(point_distance(x,y,target_tile.x,target_tile.y)<10)
 	{
 		if(scr_is_attack_hitting(accuracy,var_ground_target.evasiveness))
 		{
-scr_attack_hp_reduction(id,var_ground_target)
+			scr_attack_hp_reduction(id,var_ground_target)
 		}
 	}
 	instance_destroy()

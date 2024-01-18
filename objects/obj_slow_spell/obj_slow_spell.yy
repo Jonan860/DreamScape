@@ -11,7 +11,10 @@
     "name": "spells",
     "path": "folders/Objects/spells.yy",
   },
-  "parentObjectId": null,
+  "parentObjectId": {
+    "name": "obj_spell",
+    "path": "objects/obj_spell/obj_spell.yy",
+  },
   "persistent": false,
   "physicsAngularDamping": 0.1,
   "physicsDensity": 0.5,

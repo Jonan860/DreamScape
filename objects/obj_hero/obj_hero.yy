@@ -3,14 +3,13 @@
   "resourceVersion": "1.0",
   "name": "obj_hero",
   "eventList": [
-    {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,},
     {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,},
   ],
   "managed": true,
   "overriddenProperties": [],
   "parent": {
     "name": "heroes",
-    "path": "folders/Objects/units2/units/heroes.yy",
+    "path": "folders/Objects/units/heroes.yy",
   },
   "parentObjectId": {
     "name": "obj_unit",
