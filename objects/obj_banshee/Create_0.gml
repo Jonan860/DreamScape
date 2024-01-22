@@ -24,3 +24,9 @@ curse_icon_animation_speed = 8 //frames per sec
 curse_autocast_is_on = 1
 
 spr_q_button = spr_curse_icon_autocast
+
+draw_hud_buttons_with_info = method(scr_dra_hud_buttons_with_hover_inf_banshee, undefined)
+
+ai = method(scr_ai_spell_banshee, undefined)
+
+attack_target = method(scr_attack_target_banshee, undefined)

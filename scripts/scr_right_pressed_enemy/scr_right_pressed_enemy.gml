@@ -5,13 +5,13 @@ function scr_right_pressed_enemy(var_ground_unit,clicked_tile,var_selected_unit)
 				var already_freezed = scr_is_debuffed(global.freeze_struct)
 			}
 			if(cursor_sprite == spr_freeze_cursor and !already_freezed) {
-				if(global.ida.spell_q_lvl > 0) {
+				if(global.ida.spell_q.lvl > 0) {
 					var cooldown = global.freeze_struct.cooldown
-					var mana_cost = ds_list_find_value(global.freeze_struct.mana_cost_list, global.ida.spell_q_lvl - 1)
-					if(global.ida.spell_q_cooldown_current == 0 and scr_get_distance(global.tile_selected, clicked_tile) == 1 and global.ida.mana >= mana_cost) {
+					var mana_cost = global.freeze_struct.mana_cost_list[|global.ida.spell_q.lvl - 1]
+					if(global.ida.spell_q.cooldown_current == 0 and scr_get_distance(global.tile_selected, clicked_tile) == 1 and global.ida.mana >= mana_cost) {
 						global.ida.mana -= mana_cost
-						global.ida.spell_q_cooldown_current = cooldown
-						scr_freeze_unit(global.ida, ds_list_find_value(clicked_tile.grounds_list, 0))
+						global.ida.spell_q.cooldown_current = cooldown
+						scr_freeze_unit(global.ida, clicked_tile.grounds_list[|0])
 					}
 				}
 			} else {

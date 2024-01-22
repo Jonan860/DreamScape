@@ -6,11 +6,9 @@ if(global.game.phase == "battle") {
 	draw_rectangle(0, var_camera_height - hud_height, var_camera_width, var_camera_height, 0)
 	scr_draw_hud_buttons_with_hover_info()
 	if(global.tile_selected != noone) {
-		var var_selected_unit = ds_list_find_value(global.tile_selected.selected_units, 0)
+		var var_selected_unit = global.tile_selected.selected_units[|0]
 		with(var_selected_unit) {
-			scr_hud_draw_gui_unit_prod_building()
-			scr_hud_draw_gui_hero_mage()
-			scr_hud_draw_gui_unit()
+			hud_draw_gui()
 			if(object_is_ancestor(object_index, obj_summon) and summon_time_left != noone) {
 				with(global.hud) {	
 					draw_healthbar(summon_time_bar_x1, summon_timer_bar_y1, summon_time_bar_x2, summon_time_bar_y2, other.summon_time_left/other.max_summon_time * 100, c_black, c_purple, c_purple, 0, 1, 0)

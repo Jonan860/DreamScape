@@ -1,5 +1,4 @@
-
-function scr_build_improved_bows() {	
+build = function() {	
 	with(global.player) {
 		elven_archers_has_improved_bows = 1
 	}

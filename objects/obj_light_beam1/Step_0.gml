@@ -1,11 +1,6 @@
-/// @description Insert description here
-// You can write your code in this editor
+var var_ground_target = target_tile.grounds_list[|0]
 
-
-var var_ground_target=ds_list_find_value(target_tile.grounds_list,0)
-
-if(point_distance(x,y,target_tile.x,target_tile.y)<10)
-{
+if(point_distance(x,y,target_tile.x,target_tile.y)<10) {
 	
 	if(var_ground_target!=noone and altitude="ground")
 	{

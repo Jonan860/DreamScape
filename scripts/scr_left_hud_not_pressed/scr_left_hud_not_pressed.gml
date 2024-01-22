@@ -1,9 +1,8 @@
 function scr_left_hud_not_pressed(){
 	if(!scr_is_cursor_on_hud()) {
-		unit_to_kawarimi1 = noone
-		unit_to_kawarimi2 = noone
+		unit_to_kawarimi1 = noone; unit_to_kawarimi2 = noone
 	if(global.tile_selected != noone) {
-		var var_selected = ds_list_find_value(global.tile_selected.selected_units, 0)
+		var var_selected = global.tile_selected.selected_units[|0]
 		if(global.ida == var_selected) {
 			if(scr_is_abilities_button_pressed()) {
 				exit; ///done in draw gui
@@ -31,7 +30,7 @@ function scr_left_hud_not_pressed(){
 		var var_tile_clicked = instance_position(mouse_x, mouse_y, obj_tile)
 		if(var_tile_clicked != noone) {
 			var var_ground_unit_list = ds_map_find_value(var_tile_clicked.occupants, "ground")
-			var var_ground_unit = ds_list_find_value(var_ground_unit_list, 0)
+			var var_ground_unit = var_ground_unit_list[|0]
 			if(var_ground_unit != global.ida) {
 				global.hud.gui_display_abilities = 0
 			}

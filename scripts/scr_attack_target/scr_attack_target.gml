@@ -5,26 +5,8 @@ function scr_attack_target() {
 		}
 	}
 	action_bar = 0
-	if(scr_is_attack_hitting(accuracy, target.evasiveness)) {
-		scr_attack_target_hungry_hungry_lizard()
-		scr_attack_target_ghoul()
-		scr_attack_target_dreadlord()
-		scr_attack_target_footman()
-		scr_attack_target_skeleton()
-		if(object_index == obj_nils) {
-			if(instance_find(obj_ninjago,0) = noone) {
-				scr_attack_target_nils()
-			}
-		}
-		scr_attack_target_necromancer()
-		scr_attack_target_sorceress()
-		scr_attack_target_banshee()
-		scr_attack_target_golden_dragon()
-		scr_attack_target_abomination()
-		scr_attack_target_lich()
-		scr_attack_target_crypt_fiend()
-		scr_attack_target_carrion_beetle()
-		scr_attack_target_priest()
+	if(scr_is_attack_hitting(accuracy, target.evasiveness)) { // bör va inuti attack_target()
+		attack_target()
 	} else {
 		missing_time = 0.5 * room_speed
 	}

@@ -1,35 +1,11 @@
 function scr_get_most_south_occupiable_neighbour() {
 	with(tile) {
-		if(scr_occupiable(south_tile, "invisible")) {
-			return south_tile
-			exit;
+		for(var i = ds_list_size(list_of_neighbours) - 1; i >= 0; i--) {
+			var _tile = list_of_neighbours[|i]
+			if(scr_occupiable(_tile)) {
+				return _tile
+			}
 		}
-
-		if(scr_occupiable(south_west_tile, "invisible")) {
-			return south_west_tile
-			exit;
-		}
-
-		if(scr_occupiable(south_east_tile, "invisible")) {
-			return south_east_tile
-			exit;
-		}
-
-		if(scr_occupiable(north_west_tile, "invisible")) {
-			return north_west_tile
-			exit;
-		}
-
-		if(scr_occupiable(north_east_tile, "invisible")) {
-			return north_east_tile
-			exit;
-		}
-
-		if(scr_occupiable(north_tile, "invisible")) {
-			return north_tile
-			exit;
-		}
-
 		return noone
 	}
 }

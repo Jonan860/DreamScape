@@ -1,5 +1,5 @@
 function scr_draw_hud_button_and_hover_mage(var_selected_unit) {
-	if(object_is_ancestor(var_selected_unit.object_index,obj_mage) and var_selected_unit.owner == global.player) {
+	if(object_is_ancestor(var_selected_unit.object_index, obj_mage) and var_selected_unit.owner == global.player) {
 		with(var_selected_unit) {
 			var var_cooldown_q_quotient = spell_q_cooldown_current / spell_q_cooldown_max
 			var var_cooldown_w_quotient = spell_w_cooldown_current/spell_w_cooldown_max
@@ -7,8 +7,8 @@ function scr_draw_hud_button_and_hover_mage(var_selected_unit) {
 			var var_cooldown_r_quotient = spell_r_cooldown_current/spell_r_cooldown_max
 		
 			draw_sprite_ext(spr_q_button, 0, other.hud_q_button_x, other.hud_q_button_y, other.spell_button_width / sprite_get_width(spr_q_button), other.spell_button_height / sprite_get_height(spr_q_button), 0, -1, 1)
-			if(spell_q_lvl > 0) {
-					if(abs((mouse_x-camera_get_view_x(view_camera[0]))-other.hud_q_button_x)<other.spell_button_width/2 and abs((mouse_y-camera_get_view_y(view_camera[0]))-other.hud_q_button_y)<other.spell_button_height/2) {
+			if(spell_q.lvl > 0) {
+					if(abs((mouse_x-camera_get_view_x(view_camera[0]))-other.hud_q_button_x) < other.spell_button_width/2 and abs((mouse_y - camera_get_view_y(view_camera[0])) - other.hud_q_button_y) < other.spell_button_height/2) {
 						draw_set_color(c_green)
 						//BB//draw_rectangle(camera_get_view_width(view_camera[0])-32-2*string_width(q_info),camera_get_view_height(view_camera[0])-global.hud.hud_height-32-2*string_height(q_info),camera_get_view_width(view_camera[0]),camera_get_view_height(view_camera[0])-global.hud.hud_height,0)
 						draw_set_color(c_black)
@@ -32,7 +32,7 @@ function scr_draw_hud_button_and_hover_mage(var_selected_unit) {
 					}
 					draw_set_alpha(1)	
 				}
-				if(spell_w_lvl > 0) {
+				if(spell_w.lvl > 0) {
 					if(abs((mouse_x-camera_get_view_x(view_camera[0])) - other.hud_w_button_x) < other.spell_button_width/2 and abs((mouse_y - camera_get_view_y(view_camera[0])) - other.hud_w_button_y) < other.spell_button_height/2) {
 						draw_set_color(c_green)
 						//BB//draw_rectangle(camera_get_view_width(view_camera[0])-32-2*string_width(w_info),camera_get_view_height(view_camera[0])-global.hud.hud_height-32-2*string_height(w_info),camera_get_view_width(view_camera[0]),camera_get_view_height(view_camera[0])-global.hud.hud_height,0)
@@ -47,7 +47,7 @@ function scr_draw_hud_button_and_hover_mage(var_selected_unit) {
 					}
 					draw_set_alpha(1)
 				}
-				if(spell_e_lvl > 0) {
+				if(spell_e.lvl > 0) {
 					draw_sprite_ext(spr_e_button, 0, other.hud_e_button_x, other.hud_e_button_y, other.spell_button_width / sprite_get_width(spr_e_button), other.spell_button_height / sprite_get_height(spr_e_button), 0, -1, 1)
 					draw_set_color(c_black)
 					draw_set_alpha(0.5)
@@ -56,7 +56,7 @@ function scr_draw_hud_button_and_hover_mage(var_selected_unit) {
 					}
 					draw_set_alpha(1)
 				}		
-				if(spell_r_lvl > 0) {
+				if(spell_r.lvl > 0) {
 					draw_sprite_ext(spr_r_button, 0, other.hud_r_button_x, other.hud_r_button_y, other.spell_button_width / sprite_get_width(spr_r_button), other.spell_button_height / sprite_get_height(spr_r_button), 0, -1, 1)
 					draw_set_color(c_black)
 					draw_set_alpha(0.5)

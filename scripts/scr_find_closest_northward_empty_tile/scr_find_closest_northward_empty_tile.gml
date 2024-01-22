@@ -26,7 +26,7 @@ function scr_find_closest_northward_empty_tile(var_altitude, var_tile_to_clear) 
 	}
 	
 	for(var i = 1; i <= ds_list_size(var_optimum_path) - 1; i += 1) {
-		var var_tile_on_optimum_path = ds_list_find_value(var_optimum_path, i)
+		var var_tile_on_optimum_path = var_optimum_path[|i]
 		var_angle = point_direction(var_tile_to_clear.x, var_tile_to_clear.y, var_tile_on_optimum_path.x, var_tile_on_optimum_path.y)
 		if(180 < var_angle and var_angle < 360) {
 			return noone

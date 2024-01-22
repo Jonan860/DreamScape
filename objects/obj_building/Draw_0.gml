@@ -3,7 +3,7 @@ if(unfinished) {
 	draw_healthbar(building_progress_bar_x1, building_progress_bar_y1, building_progress_bar_x2, building_progress_bar_y2, build_progress, c_black, c_green,c_green, 0, 0, 0)
 } else {
 	draw_self()
-	draw_healthbar(x-sprite_width/4, y+sprite_height*3/8, x+sprite_width/4, y+sprite_height*3/8- sprite_height*1/4*1/8,100*HP/max_HP,c_black,c_red,c_green,0,1,0)
+	draw_healthbar(x - sprite_width/4, y + sprite_height * 3/8, x + sprite_width/4, y + sprite_height * 3/8 - sprite_height * 1/4 * 1/8, 100 * HP / max_HP, c_black, c_red, c_green, 0, 1, 0)
 }
 
 if(global.tile_selected != noone) {

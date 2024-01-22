@@ -7,7 +7,7 @@ if(room == map) {
 		var var_i = 0	
 	//	for(var_i=0;var_i<ds_list_size(global.tile_selected.selected_units);var_i+=1)
 	//	{	
-			var var_selected_unit = ds_list_find_value(global.tile_selected.selected_units, var_i)
+			var var_selected_unit = global.tile_selected.selected_units[|var_i]
 		if(clicked_tile != noone) {
 			scr_right_pressed_building(clicked_tile, var_selected_unit)
 			//{

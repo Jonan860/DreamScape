@@ -19,7 +19,7 @@ if(room == map) {
 		}
 
 		with(obj_unit_producing_building) {
-			var var_object_first_in_queue = ds_list_find_value(queue_list, 0)
+			var var_object_first_in_queue = queue_list[|0]
 			var var_build_time = ds_map_find_value(global.map_objects_to_build_time, object_index)
 			if(unfinished and global.lille_skutt.is_building == id) {
 				build_progress += var_build_time/room_speed //game_get_speed(gamespeed_fps)   ////could be something weird here
@@ -32,7 +32,7 @@ if(room == map) {
 				build_progress += 1/room_speed  //game_get_speed(gamespeed_fps)
 				var var_time = ds_map_find_value(global.map_objects_to_build_time, var_object_first_in_queue)
 				if(build_progress >= var_time) {
-					scr_build_object(var_object_first_in_queue)
+					var_object_first_in_queue.build()
 				}
 			}
 		}

@@ -46,7 +46,7 @@ function scr_find_path(start_tile, end_tile, altitude) {
 		
 			if(!ds_list_empty(global.game.optimal_path)) {
 				for(var i = 0; i < ds_list_size(global.game.optimal_path) - 1; i += 1) {    ////////delete old path visuals
-					var tile_colored = ds_list_find_value(global.game.optimal_path, i)
+					var tile_colored = global.game.optimal_path[|i]
 					tile_colored.image_blend = c_white
 				}
 			}

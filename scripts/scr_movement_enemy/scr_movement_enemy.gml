@@ -1,18 +1,12 @@
 function scr_movement_enemy() {
 	if(owner == global.enemy and phase == "movement" and action_bar >= movement_cost) {
 		var tileToMoveTo = noone
-		if(scr_occupiable(tile.south_tile, altitude)) {
-			tileToMoveTo = tile.south_tile
-		} else if(scr_occupiable(tile.south_west_tile, altitude)) {
-			tileToMoveTo = tile.south_west_tile
-		} else if(scr_occupiable(tile.south_east_tile, altitude)) {
-			tileToMoveTo = tile.south_east_tile
-		} else if(scr_occupiable(tile.north_west_tile,altitude)) {
-			tileToMoveTo = tile.north_west_tile
-		} else if(scr_occupiable(tile.north_east_tile,altitude)) {
-			tileToMoveTo = tile.north_east_tile
-		} else if(scr_occupiable(tile.north_tile,altitude)) {
-			tileToMoveTo = tile.north_tile
+		for(var i = ds_list_size(list_of_neighbours) - 1; i > 0 ; i--) {
+			var _tile = list_of_neighbours[|i]
+			if(scr_occupiable(_tile, altitude)){
+				tileToMoveTo = _tile
+				break;
+			}
 		}
 		if(tileToMoveTo != noone) {
 			action_bar = 0

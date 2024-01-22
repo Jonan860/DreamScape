@@ -16,3 +16,5 @@ base_accuracy = accuracy
 evasiveness = 0.25
 target = noone
 
+attack_target = method(scr_attack_target_skeleton, undefined)
+

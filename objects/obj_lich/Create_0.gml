@@ -31,7 +31,7 @@ list_spell_q_cost = ds_list_create()
 ds_list_add(list_spell_q_cost, spell_q_mana_cost, 1.2 * spell_q_mana_cost, 1.2 * 1.2 * spell_q_mana_cost, 1.2 * 1.2 * spell_q_mana_cost,1 .2 * 1.2 * spell_q_mana_cost)
 spell_w_mana_cost = 30
 list_spell_w_cost = ds_list_create()
-ds_list_add(list_spell_w_cost, list_spell_w_cost, 1.2*spell_w_mana_cost, 1.2 * 1.2 * spell_w_mana_cost, 1.2 * 1.2 * spell_w_mana_cost, 1.2 * 1.2 * spell_w_mana_cost)
+ds_list_add(list_spell_w_cost, list_spell_w_cost, 1.2 * spell_w_mana_cost, 1.2 * 1.2 * spell_w_mana_cost, 1.2 * 1.2 * spell_w_mana_cost, 1.2 * 1.2 * spell_w_mana_cost)
 spell_e_mana_cost = 0
 list_spell_e_cost = ds_list_create()
 ds_list_add(list_spell_e_cost, spell_e_mana_cost, spell_e_mana_cost, spell_e_mana_cost, spell_e_mana_cost, spell_e_mana_cost)
@@ -48,12 +48,9 @@ spr_q_button = spr_frost_nova_icon
 spr_w_button = spr_frost_armor_icon
 spr_e_button = spr_dark_ritual_icon
 spr_r_button = spr_death_and_decay_icon
-q_info = "Causes ice damage in on enemy units within an area" + string(spell_q_cooldown_max/room_speed)
- + "\n Mana cost: " + string(spell_q_mana_cost)
-w_info = "Improves and applies frost element to armor of unit" + string(spell_w_cooldown_max/room_speed)
- + "\n Mana cost: " + string(spell_w_mana_cost)
-e_info = "Sacrifices an allied unit for mana" + string(spell_e_cooldown_max/room_speed)
- + "\n Mana cost: " + string(spell_e_mana_cost)
+
+
+
 ds_list_level_sprites = ds_list_create()
 ds_list_add(ds_list_level_sprites, 0, spr_lich_big_head, spr_lich_big_head, spr_lich_big_head, spr_lich_big_head)
 spr_height = sprite_height
@@ -77,3 +74,7 @@ dark_ritual_conversion_lv3=1
 list_dark_ritual_conversion_per_lvl = ds_list_create()
 ds_list_add(list_dark_ritual_conversion_per_lvl, dark_ritual_conversion_lvl1, dark_ritual_conversion_lvl2, dark_ritual_conversion_lv3)
 dark_ritual_duration_sec = 1
+
+ai = method(scr_ai_spell_lich, undefined)
+
+attack_target = method(scr_attack_target_lich, undefined)

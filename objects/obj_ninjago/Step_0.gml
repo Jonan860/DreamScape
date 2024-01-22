@@ -10,8 +10,8 @@ if(counter_to_attack >= creator.attack_cost) {
 		scr_ds_list_append(var_list_of_tiles, var_list_of_additional_tiles) //need to for loop if range
 	}
 	for(var i = 0; i <= ds_list_size(var_list_of_tiles) - 1; i += 1) {
-		var var_tile=ds_list_find_value(var_list_of_tiles,i)
-		var var_occupant_ground=ds_list_find_value(var_tile.grounds_list,0)
+		var var_tile = var_list_of_tiles[|i]
+		var var_occupant_ground = var_tile.grounds_list[|0]
 		if(!is_undefined(var_occupant_ground)) {
 			if(scr_is_enemies(creator,var_occupant_ground)) {
 				if(scr_is_attack_hitting(creator.accuracy,var_occupant_ground.evasiveness)) {

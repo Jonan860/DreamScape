@@ -1,5 +1,5 @@
 function scr_unselect_tile(tile2) {
-	if(tile2!=noone) {
+	if(tile2 != noone) {
 		for(var i = 0; i < ds_list_size(tile2.selected_units); i += 1) {
 			var var_selected_unit = tile2.selected_units[|i]
 			with(var_selected_unit) {

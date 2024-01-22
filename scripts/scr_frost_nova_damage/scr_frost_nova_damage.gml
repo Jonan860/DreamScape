@@ -9,7 +9,7 @@ function scr_frost_nova_damage() {
 
 		if(!ds_list_empty(var_ground_list)) {
 			for(var i = 0; i < ds_list_size(var_ground_list); i += 1) {
-				var	var_ground = ds_list_find_value(var_ground_list,i)
+				var	var_ground = var_ground_list[|i]
 				if(var_ground.object_index != obj_crystal and !object_is_ancestor(var_ground.object_index, obj_building)) {
 					if(scr_is_enemies(var_ground,other)) {
 						with(other) {

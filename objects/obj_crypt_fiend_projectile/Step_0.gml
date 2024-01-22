@@ -1,4 +1,4 @@
-time_until_new_direction_sec-=1/room_speed
+time_until_new_direction_sec -= 1/room_speed
 
 if(distance_to_point(target.x, target.y) < speed * 2) {
 	if(target != owner) {

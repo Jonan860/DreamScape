@@ -13,8 +13,8 @@ function scr_update_path_to_destination() {
 		ds_list_clear(optimal_path)
 		var i = ds_list_size(var_invisibles_path) - 1
 		while(ds_list_empty(optimal_path) and i > 0) {
-			if(ds_list_find_value(var_invisibles_path, i) != noone) {
-				var candidate_path = scr_find_path(other.tile, ds_list_find_value(var_invisibles_path, i), other.altitude)
+			if(var_invisibles_path[|i] != noone) {
+				var candidate_path = scr_find_path(other.tile, var_invisibles_path[|i], other.altitude)
 				if(ds_list_empty(candidate_path) == false) {
 					ds_list_copy(optimal_path, candidate_path)
 					scr_disblend_list(other.path)

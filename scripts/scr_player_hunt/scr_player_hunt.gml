@@ -19,7 +19,7 @@ function scr_player_hunt() {
 					target = noone
 				} else  if(action_bar >= movement_cost) {
 					action_bar = 0//-=movement_cost
-					var tile_to_move_to = ds_list_find_value(path, ds_list_size(path) - 2)
+					var tile_to_move_to = path[|ds_list_size(path) - 2]
 					scr_move_to_tile(tile_to_move_to)
 					scr_update_path_to_destination()
 				}

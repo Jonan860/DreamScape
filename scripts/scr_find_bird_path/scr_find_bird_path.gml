@@ -5,7 +5,7 @@ function scr_find_bird_path(steptile, endtile) {
 	var var_best_candidate = steptile
 	while(steptile != endtile) {
 		for (var i = 0; i < 6; i += 1) {
-			var stepcandidate=ds_list_find_value(steptile.list_of_neighbours, i)
+			var stepcandidate = steptile.list_of_neighbours[|i]
 			if(stepcandidate != noone) {
 				if(scr_get_distance(stepcandidate, endtile) < var_best_candidate_distance) {
 					var_best_candidate_distance = scr_get_distance(stepcandidate, endtile)

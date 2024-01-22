@@ -1,5 +1,3 @@
-/// @description Insert description here
-// You can write your code in this editor
 event_inherited()
 x_translate=0
 y_translate=0
@@ -70,3 +68,5 @@ w_object=obj_elven_archer
 q_info="Barrack, Cost: "+string(ds_map_find_value(global.map_object_to_costs,obj_human_barrack))
 w_info="Arcane Sanctum, Cost: "+string(ds_map_find_value(global.map_object_to_costs,obj_arcane_sanctum))
 s_info="Resurrects a Hero soul on the same tile after 60 sec"
+
+draw_hud_buttons_with_hover_info = method(scr_dra_hud_button_with_hover_inf_lille_skutt, undefined)

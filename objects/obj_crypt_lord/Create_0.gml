@@ -35,9 +35,9 @@ spell_e_mana_cost = 25
 list_spell_e_cost = ds_list_create()
 ds_list_add(list_spell_e_cost, spell_e_mana_cost, spell_e_mana_cost, spell_e_mana_cost, spell_e_mana_cost, spell_e_mana_cost)
 spell_q_cooldown_max = room_speed * 20
-spell_w_cooldown_max = room_speed*20
+spell_w_cooldown_max = room_speed * 20
 spell_e_cooldown_max = 1
-spell_r_cooldown_max = room_speed*180
+spell_r_cooldown_max = room_speed * 180
 spell_r_cooldown_current = 0
 spell_e_cooldown_current = 0
 list_spell_e_cooldown_max = ds_list_create()
@@ -51,17 +51,14 @@ spr_w_button = spr_spiked_carapace_icon
 spr_e_button = spr_carrion_beetles_icon
 spr_r_button = spr_locust_swarm_icon
 spell_r_mana_cost = 60
-q_info = "Slams the ground with the Crypt Lord's massive claws, \n shooting spiked tendrils out in a straight line, dealing damage and hurling enemy ground units into the air in their wake..\n Cooldown: "+string(spell_q_cooldown_max/room_speed)
-+"\n Mana cost: " + string(spell_q_mana_cost)
-w_info = "The Crypt Lord forms barbed layers of chitinous armor \n that increases its defense and returns damage to enemy melee attackers., Cooldown: "+string(spell_w_cooldown_max/room_speed)
-+"\n Mana cost: " + string(spell_w_mana_cost)
-e_info = "The Crypt Lord progenerates 1 Carrion Beetle from a target soul to attack the Crypt Lord's enemies. \n Beetles are permanent but only 5 can be controlled at a time."+ " Cooldown: "+string(spell_e_cooldown_max/room_speed)+"\n Mana cost: "+string(spell_e_mana_cost)
+
+w_info = "The Crypt Lord forms barbed layers of chitinous armor \n that increases its defense and returns damage to enemy melee attackers., Cooldown: " + string(spell_w_cooldown_max/room_speed)
+ + "\n Mana cost: " + string(spell_w_mana_cost)
 
 r_info = "Creates a swarm of angry locusts that bite and tear at nearby enemy units. \n As they chew the enemy flesh, they convert it into a substance that restores hit points to the Crypt Lord when they return. "+"Cooldown: "+string(spell_r_cooldown_max/room_speed)+"\n Mana cost: "+string(spell_r_mana_cost)
 ds_list_level_sprites = ds_list_create()
 ds_list_add(ds_list_level_sprites, 0, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord)
-spr_height = sprite_height
-spr_width = sprite_width
+spr_height = sprite_height; spr_width = sprite_width
 raise_range = 4
 list_of_damage_reduction_from_spiked_carapacelvl = ds_list_create()
 var carapace_reduction_lvl1 = 18/100
@@ -81,3 +78,5 @@ time_until_next_locust = locust_spawn_interval_sec
 max_active_locusts = 7
 locust_total_time_sec = 30
 locust_time_left = locust_total_time_sec
+
+ai = method(scr_ai_crypt_lord, undefined)

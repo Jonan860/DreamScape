@@ -5,7 +5,7 @@ function scr_win_condition_check_and_perform() {
 			var_enemies_left += 1
 		}
 	}
-	if(var_enemies_left == 0 and wave_number > ds_list_size(enemies_wave_length_list) - 1) {
+	if(var_enemies_left == 0 and wave_number >= ds_list_size(enemies_wave_length_list)) {
 		room_goto(room_win)
 	}
 }

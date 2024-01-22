@@ -9,7 +9,10 @@
     "name": "upgrades from building",
     "path": "folders/Objects/upgrades from building.yy",
   },
-  "parentObjectId": null,
+  "parentObjectId": {
+    "name": "obj_upgrade",
+    "path": "objects/obj_upgrade/obj_upgrade.yy",
+  },
   "persistent": false,
   "physicsAngularDamping": 0.1,
   "physicsDensity": 0.5,

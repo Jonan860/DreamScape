@@ -13,10 +13,14 @@ damage_reduction = 0
 accuracy = 1
 evasiveness = 0.5
 altitude = "ground"
-experience_to_give=100
+experience_to_give = 100
 mana = 100
 max_mana = 100
 mana_regen_rate_per_sec = 0.3
 
-q_info=""
-q_info_abilities=q_info
+q_info = ""
+q_info_abilities = q_info
+
+draw_hud_buttons_with_info = method(scr_dra_hud_buttons_with_hover_inf_necro, undefined)
+ai = method(scr_ai_spell_necromancer, undefined)
+attack_target = method(scr_attack_target_necromancer, undefined)

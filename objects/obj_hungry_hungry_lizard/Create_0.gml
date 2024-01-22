@@ -21,3 +21,5 @@ start_tile=noone
 object_in_stomach=noone
 digestion_rate=1/2 //per second
 experience_to_give=300
+
+attack_target = method(scr_attack_target_hungry_hungry_lizard, undefined)

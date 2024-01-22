@@ -20,3 +20,5 @@ a_info = ""
 s_info = ""
 d_info = ""
 f_info = ""
+
+draw_hud_buttons_with_info = method(scr_dra_hud_button_with_hover_inf_building , undefined)

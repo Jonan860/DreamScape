@@ -31,3 +31,7 @@ q_info = "Heals a target friendly non-mechanical wounded unit for " + string(glo
  + "\n" + "Mana cost " + string(global.heal_struct.mana_cost)
  + "\n" + "Range: " + string(global.heal_struct.range)
 q_info_abilities = q_info
+
+draw_hud_buttons_with_info = method(scr_dra_hud_buttons_with_hover_inf_priest, undefined)
+
+attack_target = method(scr_attack_target_priest, undefined)

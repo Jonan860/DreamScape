@@ -24,3 +24,7 @@ slow_icon_animation_index = 0
 slow_icon_animation_speed = 8 //frames per sec
 
 spell_w_cooldown_current = spell_w_struct.cooldown
+
+draw_hud_buttons_with_info = method(scr_dra_hud_buttons_with_hover_inf_sorc, undefined)
+
+attack_target = method(scr_attack_target_sorceress, undefined)

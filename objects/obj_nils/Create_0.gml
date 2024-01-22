@@ -55,9 +55,9 @@ spell_r_range = 1
 spell_r_duration = 180
 
 spell_q_cooldown_max = room_speed * 20
-spell_w_cooldown_max = room_speed*10
-spell_e_cooldown_max = room_speed*20
-spell_r_cooldown_max = room_speed*20
+spell_w_cooldown_max = room_speed * 10
+spell_e_cooldown_max = room_speed * 20
+spell_r_cooldown_max = room_speed * 20
 spell_q_string = "holy light"
 spell_w_string = "spell_shield"
 spell_e_string = "ninjago"
@@ -66,46 +66,45 @@ spr_q_button = spr_holy_light_button
 spr_w_button = spr_spell_shield_button
 spr_e_button = spr_ninjago_button
 spr_r_button = spr_golden_dragon_icon
-q_info = "A holy light that can heal a friendly living unit."
- + "\n Cooldown: " + string(spell_q_cooldown_max/60)
- + "\n Mana Cost: " + string(spell_q_mana_cost)
- + "\n Heal Amount: " + string(spell_q_heal_amount)
+
 
 q_info_abilities = "A holy light that can heal a friendly living unit."
- + "\n level: 1, 2, 3 Mana Cost: " + string(ds_list_find_value(list_spell_q_cost, 0)) + ", " + string(ds_list_find_value(list_spell_q_cost, 1)) + ", " + string(ds_list_find_value(list_spell_q_cost, 2))
- + "\n Heal Amount: " + string(ds_list_find_value(list_spell_q_heal_amount, 0)) + ", " + string(ds_list_find_value(list_spell_q_heal_amount, 1)) + ", " + string(ds_list_find_value(list_spell_q_heal_amount, 2))
+ + "\n level: 1, 2, 3 Mana Cost: " + string(list_spell_q_cost[|0]) + ", " + string(list_spell_q_cost[|1]) + ", " + string(list_spell_q_cost[|2])
+ + "\n Heal Amount: " + string(list_spell_q_heal_amount[|0]) + ", " + string(list_spell_q_heal_amount[|1]) + ", " + string(list_spell_q_heal_amount[|2])
 
-w_info = "Projects a magical barrier, reducing incoming damage on the hero and surrounding units for a short period."
- + "\n Cooldown: " + string(spell_w_cooldown_max/60)
- + "\n Damage reduction: " + string(floor(100 * spell_w_damage_reduction)) + " %"
- + "\n Mana Cost: " + string(spell_w_mana_cost)
- + "\n Duration: " + string(spell_w_duration)
+
 
 w_info_abilities = "Projects a magical barrier, reducing incoming damage on the hero and surrounding units for a short period."
  + "\n level: 1, 2, 3"
  + "\n Cooldown: " + string(spell_w_cooldown_max/60)
- + "\n Damage reduction: " + string(floor(100 * ds_list_find_value(list_spell_w_damage_reduction, 0 ))) + string(floor(100 * ds_list_find_value(list_spell_w_damage_reduction, 1))) + string(floor(100 * ds_list_find_value(list_spell_w_damage_reduction, 2)))
- + "\n Mana Cost: " + string(ds_list_find_value(list_spell_w_cost, 0)) + ", " + string(ds_list_find_value(list_spell_w_cost, 1)) + ", " + string(ds_list_find_value(list_spell_w_cost, 2))
- + "\n Duration: " + string(spell_w_duration)
+ + "\n Damage reduction: " + string(floor(100 * list_spell_w_damage_reduction[|0])) + string(floor(100 * list_spell_w_damage_reduction[|1])) + string(floor(100 * list_spell_w_damage_reduction[|2]))
+ + "\n Mana Cost: " + string(spell_w.manaCostFromLvl(1) + ", " + string(spell_w.manaCostFromLvl(2)) + ", " + string(spell_w.manaCostFromLvl(3)
+ + "\n Duration: " + string(spell_w.duration)
 
 e_info = "The hero creats a tornado-like vortex of energy around himself hurting surrounding enemies" //Spinjitzu is a close-combat martial arts technique in the world of Ninjago. It involves the user tapping into their inner balance while spinning rapidly,
- + "\n Cooldown: " + string(spell_e_cooldown_max/60)
- + "\n Mana Cost: " + string(spell_e_mana_cost)
- + "\n Duration: " + string(spell_e_duration)
- + "\n Damage: " + "Damage x " + string(spell_e_damage_multiplier)
+ + "\n Cooldown: " + string(spell_e.cooldown_max/60)
+ + "\n Mana Cost: " + string(spell_e.mana_cost)
+ + "\n Duration: " + string(spell_e.duration)
+ + "\n Damage: " + "Damage x " + string(spell_e.damage_multiplier)
 
 e_info_abilities = "The hero creats a tornado-like vortex of energy around himself hurting surrounding enemies"
- + "\n Cooldown: " + string(spell_e_cooldown_max/60)
- + "\n Mana Cost: " + string(ds_list_find_value(list_spell_e_cost, 0)) + ", " + string(ds_list_find_value(list_spell_e_cost, 1)) + ", " + string(ds_list_find_value(list_spell_e_cost, 2))
- + "\n Duration: " + string(spell_e_duration)
- + "\n Damage: " + "Damage x " + string(ds_list_find_value(list_spell_e_damage_multiplier, 0)) + ", " + string(ds_list_find_value(list_spell_e_damage_multiplier, 1)) + ", " + string(ds_list_find_value(list_spell_e_damage_multiplier, 2))
+ + "\n Cooldown: " + string(spell_e.cooldown_max/60)
+ + "\n Mana Cost: " + string(spell_e.manaCostFromLvl(1) + ", " + string(spell_e.manaCostFromLvl(2) + ", " + string(spell_e.manaCostFromLvl(3))
+ + "\n Duration: " + string(spell_e.duration)
+ + "\n Damage: " + "Damage x " + string(list_spell_e_damage_multiplier[|0]) + ", " + string(list_spell_e_damage_multiplier[|1]) + ", " + string(list_spell_e_damage_multiplier[|2])
 
 r_info = "Summons a powerful golden dragon"
- + "\n Cooldown: " + string(spell_r_cooldown_max/60)
- + "\n Mana Cost: " + string(ds_list_find_value(list_spell_r_cost, 0)) + ", " + string(ds_list_find_value(list_spell_r_cost, 1)) + ", " + string(ds_list_find_value(list_spell_r_cost, 2))
- + "\n Duration: " + string(spell_r_duration)
+ + "\n Cooldown: " + string(spell_r.cooldown_max / 60)
+ + "\n Mana Cost: " + string(spell_r.manaCostFromLvl(1) + ", " + string(spell_r.manaCostFromLvl(2)) + ", " + string(spell_r.manaCostFromLvl(2))
+ + "\n Duration: " + string(spell_r.duration)
 r_info_abilities = r_info
 ds_list_level_sprites = ds_list_create()
 ds_list_add(ds_list_level_sprites, 0, spr_nils_level_1, spr_nils_level_2, spr_nils_level_3, spr_nils_level_4, spr_nils_level_5, spr_nils_level_6, spr_nils_level_7, spr_nils_level_8)
 spr_height = sprite_height
 spr_width = sprite_width
+
+attack_target = function() { 
+			if(instance_find(obj_ninjago, 0) = noone) {
+				scr_attack_target_nils()
+			}
+}

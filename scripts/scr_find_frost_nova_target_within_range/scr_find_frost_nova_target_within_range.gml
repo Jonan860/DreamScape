@@ -19,7 +19,7 @@ function scr_find_frost_nova_target_within_range() {
 	
 			if(!ds_list_empty(var_air_unit_list)) {
 				for(var i = 0; i < ds_list_size(var_air_unit_list); i += 1) {
-					var var_air_unit = ds_list_find_value(var_air_unit_list, i)
+					var var_air_unit = var_air_unit_list[|i]
 					if(var_air_unit.object_index != obj_crystal) {
 						if(scr_is_enemies(other, var_air_unit)) {
 							var_goodness_of_frost_nova += 2

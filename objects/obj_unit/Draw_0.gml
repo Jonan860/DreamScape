@@ -7,8 +7,8 @@ if(global.game.unit_to_kawarimi1 = id or global.game.unit_to_kawarimi2 = id) {
 }
 if(owner = global.player) {
 	for(var i = 1; i <= ds_list_size(path) - 1; i += 1) {
-		var var_tile = ds_list_find_value(path, i)
-		var var_arrow_direction = ds_list_find_value(list_path_arrow_directions, i)
+		var var_tile = path[|i]
+		var var_arrow_direction = list_path_arrow_directions[|i]
 		var varXscale = sprite_get_width(spr_hexagon_pink) / 3 / sprite_get_width(spr_red_arrow)
 		var varYscale =  sprite_get_height(spr_hexagon_pink) / sprite_get_height(spr_red_arrow)
 		draw_sprite_ext(spr_red_arrow, 0, var_tile.x, var_tile.y, varXscale,varYscale, var_arrow_direction, c_white, 0.5)
@@ -84,3 +84,8 @@ if(scr_is_debuffed(global.curse_struct)) {
 if(holy_lighted) {
 	draw_sprite(spr_holy_light, -1, x, y)
 }
+
+
+build = method(scr_build_unit(), undefined)
+
+hud_draw_gui = method(scr_hud_draw_gui_unit, undefined)

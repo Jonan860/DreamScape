@@ -9,6 +9,6 @@ function scr_choose_target_from_list(var_list) {
 		return noone
 	}
 	var var_pos = irandom(var_list_lenght - 1)
-	var chosen_target = ds_list_find_value(var_list, var_pos)
+	var chosen_target = var_list[|var_pos]
 	return chosen_target
 }

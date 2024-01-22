@@ -2,7 +2,7 @@ function scr_find_best_procentage_debuff_target_from_list(list_of_targets, debuf
 	var target_list_length = ds_list_size(list_of_targets)
 	var list_of_non_slowed_units = ds_list_create()
 	for(var i = 0; i < target_list_length; i += 1) {
-		var unit = ds_list_find_value(list_of_targets, i)
+		var unit = list_of_targets[|i]
 		with(unit) {
 			var has_debuff = scr_is_debuffed(debuff_struct)
 		}
