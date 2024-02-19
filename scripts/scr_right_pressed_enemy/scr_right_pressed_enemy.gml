@@ -24,24 +24,7 @@ function scr_right_pressed_enemy(var_ground_unit,clicked_tile,var_selected_unit)
 					}
 				}
 			}
-		} else if(var_selected_unit.object_index == obj_sorceress) {
-			if(cursor_sprite == spr_slow_cursor) {
-				if(var_selected_unit.spell_q_cooldown_current == 0 and scr_get_distance(var_selected_unit, clicked_tile) <= var_selected_unit.spell_q_range and var_selected_unit.mana >= var_selected_unit.spell_q_mana_cost) {
-					with(var_selected_unit)	{
-						scr_slow_unit(var_ground_unit)
-						mana -= spell_q_mana_cost
-						spell_q_cooldown_current = spell_q_cooldown_max
-					}
-				}
-			} else {
-				with(var_selected_unit) {
-					phase = "hunt"
-					target = var_ground_unit
-					destination = var_ground_unit.tile
-					scr_update_path_to_destination()
-				}
-			}
-		} else {
+		}  else {
 			with(var_selected_unit) {
 				phase = "hunt"
 				target = var_ground_unit

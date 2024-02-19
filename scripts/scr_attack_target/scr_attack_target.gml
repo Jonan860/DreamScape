@@ -1,6 +1,6 @@
 function scr_attack_target() {
 	if(object_index == obj_footman) {
-		if(footman_is_defending) {
+		if(is_defending) {
 			exit;
 		}
 	}

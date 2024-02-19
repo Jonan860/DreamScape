@@ -1,6 +1,6 @@
 
 if(scr_is_enemies(owner,other.id)) {
-	if(ds_list_find_index(nisses_lista,other.id) < 0 and other != global.ida) {
+	if(ds_list_find_index(nisses_lista, other.id) < 0 and other != global.ida) {
 	var var_stored_damage = owner.damage  ///element också!
 	var var_stored_element = owner.element
 	owner.element = "fire"

@@ -8,8 +8,8 @@
   "managed": true,
   "overriddenProperties": [],
   "parent": {
-    "name": "dreamscape_påsk_2021",
-    "path": "dreamscape_påsk_2021.yyp",
+    "name": "Objects",
+    "path": "folders/Objects.yy",
   },
   "parentObjectId": {
     "name": "obj_unit",

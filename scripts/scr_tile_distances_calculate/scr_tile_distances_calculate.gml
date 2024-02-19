@@ -8,15 +8,11 @@ function scr_tile_distances_calculate() {
 			}
 			distance = 0
 			while(shortest_yet != noone) {
-				shortest_yet = scr_find_shortest_yet()
-				if(noone != shortest_yet) { ///slutar innan targettile
+					shortest_yet = scr_find_shortest_yet() ///slutar innan targettile
 					with(shortest_yet) {
 						scr_update_distance_neighbours("invisible")
 						path_find_checked = 1
 					}
-				} else {
-					show_debug_message("red alert!!!!1!")
-				}
 			}
 	
 		

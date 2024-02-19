@@ -14,67 +14,42 @@ accuracy = 1
 base_accuracy = 1
 evasiveness = 0.5
 target = noone
-spell_q_lvl = 0
-spell_w_lvl = 0
-spell_e_lvl = 0
-spell_r_lvl = 0
+
 number_of_ability_points = 1
 altitude = "ground"
 
-list_vampiric_aura_bonus_in_procentage = ds_list_create()
-ds_list_add(list_vampiric_aura_bonus_in_procentage, 15, 30, 45)
 max_mana = 100
 mana = 100
 mana_regen_rate_per_sec = 0.45  //per second
-spell_q_mana_cost = 40
-list_spell_q_cost = ds_list_create()
-ds_list_add(list_spell_q_cost, spell_q_mana_cost, 1.2 * spell_q_mana_cost, 1.2 * 1.2 * spell_q_mana_cost, 1.2 * 1.2 * spell_q_mana_cost,1 .2 * 1.2 * spell_q_mana_cost)
-spell_w_mana_cost = 30
-list_spell_w_cost = ds_list_create()
-ds_list_add(list_spell_w_cost, list_spell_w_cost, 1.2 * spell_w_mana_cost, 1.2 * 1.2 * spell_w_mana_cost, 1.2 * 1.2 * spell_w_mana_cost, 1.2 * 1.2 * spell_w_mana_cost)
-spell_e_mana_cost = 0
-list_spell_e_cost = ds_list_create()
-ds_list_add(list_spell_e_cost, spell_e_mana_cost, spell_e_mana_cost, spell_e_mana_cost, spell_e_mana_cost, spell_e_mana_cost)
-spell_q_cooldown_max = room_speed * 20
-spell_w_cooldown_max = room_speed * 20
-spell_e_cooldown_max = 1
-list_spell_e_cooldown_max = ds_list_create()
-ds_list_add(list_spell_e_cooldown_max, spell_e_cooldown_max, spell_e_cooldown_max/2, spell_e_cooldown_max/4)
-spell_r_cooldown_max = room_speed * 60
-spell_q_string = "frost nova"
-spell_w_string = "frost armor"
-spell_e_string = "dark ritual"
-spr_q_button = spr_frost_nova_icon
-spr_w_button = spr_frost_armor_icon
-spr_e_button = spr_dark_ritual_icon
-spr_r_button = spr_death_and_decay_icon
 
-
+spell_q = createSpell(SPELLS.frost_nova)
+spell_w = createSpell(SPELLS.frost_armor)
+spell_e = createSpell(SPELLS.dark_ritual)
+skills = [spell_q, spell_w, spell_e]
 
 ds_list_level_sprites = ds_list_create()
 ds_list_add(ds_list_level_sprites, 0, spr_lich_big_head, spr_lich_big_head, spr_lich_big_head, spr_lich_big_head)
 spr_height = sprite_height
 spr_width = sprite_width
 
-frost_nova_range = 5
-time_until_frost_nova_sec = 0
-frost_nova_total_time_sec = 4.5
+ai = function () {
+	if(mana >= spell_q.mana_cost and spell_q.cooldown == 0 and phase != "frost nova") {
+		var frost_nova_target_tile_within_range = scr_find_frost_nova_target_within_range()
+		if(frost_nova_target_tile_within_range != noone) {
+			scr_frost_nova(frost_nova_target_tile_within_range)
+			mana -= spell_q.mana_cost
+			spell_q.cooldown_current = spell_q.cooldown
+		}
+		exit;
+	}
 
-total_time_frost_nova_after_effect_end_sec = 1.5
-frost_nova_damage_lvl1 = 30
-frost_nova_damage_lvl2 = 45
-frost_nova_damage_lvl3 = 60
-list_of_frost_nova_damage_per_lvl = ds_list_create()
-ds_list_add(list_of_frost_nova_damage_per_lvl, frost_nova_damage_lvl1, frost_nova_damage_lvl2, frost_nova_damage_lvl3)
 
-dark_ritual_range = 5
-dark_ritual_conversion_lvl1 = 0.33
-dark_ritual_conversion_lvl2 = 0.66
-dark_ritual_conversion_lv3=1
-list_dark_ritual_conversion_per_lvl = ds_list_create()
-ds_list_add(list_dark_ritual_conversion_per_lvl, dark_ritual_conversion_lvl1, dark_ritual_conversion_lvl2, dark_ritual_conversion_lv3)
-dark_ritual_duration_sec = 1
-
-ai = method(scr_ai_spell_lich, undefined)
+	if(spell_q.mana_cost + spell_e.mana_cost > mana and mana >= spell_e.mana_cost and spell_e.cooldown_current == 0 and spell_e.lvl > 0 and phase != "frost nova") {
+		var var_dark_sacrifice = scr_find_dark_ritual_sacrifice()
+		if(var_dark_sacrifice != noone) {
+			spell_e.perform()
+		}
+	}
+}
 
 attack_target = method(scr_attack_target_lich, undefined)

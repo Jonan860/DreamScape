@@ -3,12 +3,13 @@ audio_group_load(jukebox)
 draw_set_font(font0)
 randomize()
 scr_create_tile_on_map()
-global.tile_selected=noone
-global.hud=instance_create_layer(0,0,"hud",obj_battle_hud)
-instance_create_depth(0,0,-100,obj_game)
-global.player=instance_create_depth(0,0,0,obj_player)
-global.enemy=instance_create_depth(0,0,0,obj_enemy)
-global.creep_lord=instance_create_depth(0,0,0,obj_enemy)
+global.tile_selected = noone
+global.hud = instance_create_layer(0, 0, "hud", obj_battle_hud)
+instance_create_depth(0, 0, -100, obj_game)
+global.player = instance_create_depth(0, 0, 0, obj_player)
+global.enemy = instance_create_depth(0, 0, 0, obj_player)
+global.creep_lord = instance_create_depth(0, 0, 0, obj_player)
+
 
 scr_tile_neighborhood_create()
 scr_declare_non_habitable_tiles()
@@ -23,9 +24,9 @@ scr_tile_distances_calculate()
 //scr_move_to_tile(100101)
 //}
 
-global.ida=scr_instance_create_at_tile_with_owner(obj_ida,100223,global.player)
-global.nils=scr_instance_create_at_tile_with_owner(obj_nils,100102,global.player)
-global.lille_skutt=scr_instance_create_at_tile_with_owner(obj_lille_skutt,100225,global.player)
+global.ida = scr_instance_create_at_tile_with_owner(obj_ida, 100223, global.player)
+global.nils = scr_instance_create_at_tile_with_owner(obj_nils, 100102, global.player)
+global.lille_skutt = scr_instance_create_at_tile_with_owner(obj_lille_skutt, 100225, global.player)
 //scr_instance_create_at_tile_with_owner(obj_sorceress,100222,global.player)
 //scr_instance_create_at_tile_with_owner(obj_priest,100224,global.player)
 //scr_instance_create_at_tile_with_owner(obj_abomination,100008,global.enemy)
@@ -38,27 +39,23 @@ global.lille_skutt=scr_instance_create_at_tile_with_owner(obj_lille_skutt,100225
 //{
 //scr_update_damage_reduction()
 //}
-scr_instance_create_at_tile_with_owner(obj_banshee,100006,global.enemy)
-with(obj_tile)
-{
-	if(tile_x=18 and tile_y=2)
-	{
-other.hungry_hungry_lizard=scr_instance_create_at_tile_with_owner(obj_hungry_hungry_lizard,id,global.creep_lord)
-	break;
+scr_instance_create_at_tile_with_owner(obj_banshee, 100006, global.enemy)
+with(obj_tile) {
+	if(tile_x = 18 and tile_y = 2) {
+		other.hungry_hungry_lizard = scr_instance_create_at_tile_with_owner(obj_hungry_hungry_lizard, id, global.creep_lord)
+		break;
 	}
 }
-with(hungry_hungry_lizard)
-{
-	start_tile=tile
-	with(obj_tile)
-	{
+with(hungry_hungry_lizard) {
+	start_tile = tile
+	with(obj_tile) {
 		if(
 		(tile_x=18 and tile_y>=2 and tile_y<=8)
 		or (tile_x=17 and (tile_y>=3 and tile_y<=5))
 		or (tile_x=19 and (tile_y>=3 and tile_y<=5))
 		)
 		{
-		ds_list_add(other.list_of_territory_tiles,id)
+			ds_list_add(other.list_of_territory_tiles, id)
 		}
     }
 }
@@ -136,19 +133,18 @@ scr_move_to_tile(100005)
 //tile.occupant_ground=self
 //scr_move_to_tile(100105)
 //}
-scr_instance_create_at_tile_with_owner(obj_human_barrack,100104,global.player)
-scr_instance_create_at_tile_with_owner(obj_money_tree,100103,global.player)
-with(hungry_hungry_lizard)
-{
-scr_eat_enemy(global.nils)
+scr_instance_create_at_tile_with_owner(obj_human_barrack, 100104, global.player)
+scr_instance_create_at_tile_with_owner(obj_money_tree, 100103, global.player)
+with(hungry_hungry_lizard) {
+	scr_eat_enemy(global.nils)
 }
 
-global.ida_dialogue=instance_create_depth(camera_get_view_width(view_camera[0])/2,7/8*camera_get_view_height(view_camera[0]),0,obj_ida_dialogue)
-global.lille_skutt_dialogue=instance_create_depth(camera_get_view_width(view_camera[0])/2,7/8*camera_get_view_height(view_camera[0]),0,obj_lille_skutt_dialogue)
-var vra=camera_get_view_height(view_camera[0])
-var cam=camera_get_view_y(view_camera[0])
-global.dialogue=instance_create_layer(camera_get_view_width(view_camera[0])/2,7/8*camera_get_view_height(view_camera[0]),"hud",obj_dialogue)
-global.cursor=instance_create_depth(0,0,0,obj_cursor)
+global.ida_dialogue = instance_create_depth(camera_get_view_width(view_camera[0])/2, 7/8 * camera_get_view_height(view_camera[0]), 0, obj_ida_dialogue)
+global.lille_skutt_dialogue = instance_create_depth(camera_get_view_width(view_camera[0])/2, 7/8 * camera_get_view_height(view_camera[0]), 0, obj_lille_skutt_dialogue)
+var vra = camera_get_view_height(view_camera[0])
+var cam = camera_get_view_y(view_camera[0])
+global.dialogue = instance_create_layer(camera_get_view_width(view_camera[0])/2, 7/8 * camera_get_view_height(view_camera[0]), "hud", obj_dialogue)
+global.cursor = instance_create_depth(0, 0, 0, obj_cursor)
 
 //Ditt beställningsnummer är:970405
 //Ditt kundnummer (ID) är:10261102

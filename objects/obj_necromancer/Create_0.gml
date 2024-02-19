@@ -18,8 +18,8 @@ mana = 100
 max_mana = 100
 mana_regen_rate_per_sec = 0.3
 
-q_info = ""
-q_info_abilities = q_info
+spell_q = createSpell(SPELLS.raise)
+skills = [spell_q]
 
 draw_hud_buttons_with_info = method(scr_dra_hud_buttons_with_hover_inf_necro, undefined)
 ai = method(scr_ai_spell_necromancer, undefined)

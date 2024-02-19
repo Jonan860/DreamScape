@@ -15,8 +15,8 @@ function scr_find_path(start_tile, end_tile, altitude) {
 		path_find_checked = 0
 	}
 	start_tile.distance = 0//need to be reset each time to infty
-	if(start_tile==end_tile) {
-		exit  show_debug_message("start_tile=end_tile")
+	if(start_tile == end_tile) {
+		exit  show_debug_message("start_tile = end_tile")
 	} else {
 		while(shortest_yet != end_tile and shortest_yet != noone and shortest_yet.distance < 50) {
 			if(noone != scr_find_shortest_yet()) {
@@ -25,23 +25,21 @@ function scr_find_path(start_tile, end_tile, altitude) {
 					scr_update_distance_neighbours(altitude)
 					path_find_checked = 1
 				}
-			}
-			else
-			shortest_yet = end_tile
+			} else shortest_yet = end_tile
 		}
 	
 	
 		if(shortest_yet == noone or shortest_yet.distance >= 50) {
 			with(obj_tile) {
-				path_find_checked=0
+				path_find_checked = 0
 			}
 			ds_list_clear(global.game.optimal_path)
 			return global.game.optimal_path
 			exit;
 		} else {
-				with(obj_tile) {
-					path_find_checked=0
-				}
+			with(obj_tile) {
+				path_find_checked = 0
+			}
 			var i = 0	
 		
 			if(!ds_list_empty(global.game.optimal_path)) {
@@ -57,15 +55,10 @@ function scr_find_path(start_tile, end_tile, altitude) {
 			ds_list_add(global.game.optimal_path, end_tile)
 			for(var i = 1; i <= shortest_yet.distance; i += 1) {
 				var this_tile = global.game.optimal_path[|i-1]
-				if(this_tile == noone) {
-					n = random(5)		
-				}
-				var earlier_tile=scr_get_earlier_tile(this_tile)
+				var earlier_tile = scr_get_earlier_tile(this_tile)
 				ds_list_add(global.game.optimal_path, earlier_tile)
 			}
 		}
 		return global.game.optimal_path
 	}
-
-
 }

@@ -1,5 +1,4 @@
 function scr_movement_creep_return() {
-	if(owner == global.creep_lord and phase == "return" and action_bar >= movement_cost/3) {
 		scr_update_path_to_destination()
 		if(ds_list_empty(path)) {
 			action_bar = 0
@@ -11,5 +10,4 @@ function scr_movement_creep_return() {
 		scr_blend_tile_unit_stood_on()
 		scr_check_if_destination_as_close_can_be()
 		scr_move_to_tile(tile_to_move_to)
-	}
 }

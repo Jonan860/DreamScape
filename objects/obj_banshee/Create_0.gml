@@ -17,16 +17,15 @@ experience_to_give = 100
 mana = 100
 max_mana = 100
 mana_regen_rate_per_sec = 0.3
-q_info = ""
-q_info_abilities = q_info
+
 curse_icon_animation_index = 0
 curse_icon_animation_speed = 8 //frames per sec
-curse_autocast_is_on = 1
+
+curse = createSpell(SPELLS.curse)
+skills = [curse]
 
 spr_q_button = spr_curse_icon_autocast
 
-draw_hud_buttons_with_info = method(scr_dra_hud_buttons_with_hover_inf_banshee, undefined)
+ai = method(undefined, scr_ai_spell_banshee)
 
-ai = method(scr_ai_spell_banshee, undefined)
-
-attack_target = method(scr_attack_target_banshee, undefined)
+attack_target = method(undefined, scr_attack_target_banshee)

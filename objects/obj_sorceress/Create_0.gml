@@ -17,14 +17,33 @@ mana = 50
 max_mana = 100
 mana_regen_rate_per_sec = 0.6
 experience_to_give = 100
-spell_q_struct = global.slow_struct
-spell_w_struct = global.invisible_struct
-slow_autocast_is_on = 1
+spell_q = createSpell(SPELLS.slow)
+spell_w = createSpell(SPELLS.invisibility)
+skills = [spell_q, spell_w]
 slow_icon_animation_index = 0
 slow_icon_animation_speed = 8 //frames per sec
 
-spell_w_cooldown_current = spell_w_struct.cooldown
 
 draw_hud_buttons_with_info = method(scr_dra_hud_buttons_with_hover_inf_sorc, undefined)
 
 attack_target = method(scr_attack_target_sorceress, undefined)
+
+
+right_pressed_enemy = function() {
+	if(cursor_sprite == spr_slow_cursor) {
+		if(var_selected_unit.spell_q.cooldown_current == 0 and scr_get_distance(var_selected_unit, clicked_tile) <= var_selected_unit.spell_q.range and var_selected_unit.mana >= var_selected_unit.spell_q.mana_cost) {
+			with(var_selected_unit)	{
+				scr_slow_unit(var_ground_unit)
+				mana -= spell_q_mana_cost
+				spell_q.cooldown_current = spell_q.cooldown
+			}
+		}
+	} else {
+		with(var_selected_unit) {
+			phase = "hunt"
+			target = var_ground_unit
+			destination = var_ground_unit.tile
+			scr_update_path_to_destination()
+		}
+	}
+}

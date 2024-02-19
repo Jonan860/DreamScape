@@ -1,6 +1,6 @@
 owner = noone
 target = noone
-damage_per_feed = 1
+damage_per_feed = owner.damage
 feed_per_sec = 1
 max_time_until_next_feed_sec = 1
 time_until_next_feed_sec = max_time_until_next_feed_sec

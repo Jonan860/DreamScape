@@ -1,5 +1,5 @@
 function scr_hover_a_info(){
-	if(abs((mouse_x - camera_get_view_x(view_camera[0])) - other.hud_a_button_x) < other.spell_button_width/2 and abs((mouse_y - camera_get_view_y(view_camera[0])) - other.hud_a_button_y) < other.spell_button_height/2) {
+	if(mouse_on_button()) {
 		draw_set_color(c_green)
 		draw_set_color(c_black)
 		var old_align = draw_get_halign()

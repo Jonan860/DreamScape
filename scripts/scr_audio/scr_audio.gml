@@ -3,7 +3,7 @@ function scr_audio() {
 	for(var i = 0; i <= ds_list_size(list_jukebox) - 1; i += 1) {
 		var var_music = list_jukebox[|i]
 		if(audio_is_playing(var_music)) {
-			var_any_music_is_playing=1
+			var_any_music_is_playing = 1
 		}
 	}
 

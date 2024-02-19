@@ -5,7 +5,7 @@
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "dreamscape_påsk_2021",
-    "path": "dreamscape_påsk_2021.yyp",
+    "name": "Scripts",
+    "path": "folders/Scripts.yy",
   },
 }

@@ -10,11 +10,8 @@ function scr_get_closest_enemy_in_territory() {
 		var_occupant_ground = var_tile.grounds_list[|0]
 		if(!is_undefined(var_occupant_ground)) {
 			if(scr_is_enemies(id, var_occupant_ground)) {
-				if(var_candidate == noone) {
-					var_candidate = var_occupant_ground
-					var_candidate_distance = scr_get_distance(tile, var_tile)
-				} else if(scr_get_distance(tile,var_tile) < var_candidate_distance) {
-					var_candidate = var_occupant_ground
+				var_candidate = var_occupant_ground
+				if(var_candidate == noone or scr_get_distance(tile, var_tile) < var_candidate_distance) {
 					var_candidate_distance = scr_get_distance(tile, var_tile)
 				}
 			}

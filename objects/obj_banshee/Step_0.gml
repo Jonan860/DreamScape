@@ -1,1 +1,0 @@
-curse_icon_animation_index = curse_autocast_is_on ? (curse_icon_animation_index+curse_icon_animation_speed/room_speed) % 7 : 0

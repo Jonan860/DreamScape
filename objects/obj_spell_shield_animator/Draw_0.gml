@@ -1,0 +1,1 @@
+draw_sprite(spr_spell_shield, 0, owner.owner.x, owner.owner.y)

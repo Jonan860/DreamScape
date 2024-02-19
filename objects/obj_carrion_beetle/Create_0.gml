@@ -21,4 +21,3 @@ target = noone
 altitude = "ground"
 
 attack_target = method(scr_attack_target_carrion_beetle, undefined)
-

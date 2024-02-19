@@ -1,6 +1,5 @@
 
-tile_x = noone
-tile_y = noone
+tile_x = noone; tile_y = noone
 layer = layer_get_id("tiles")
 south_east_tile = noone
 south_west_tile = noone

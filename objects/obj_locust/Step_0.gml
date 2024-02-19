@@ -3,12 +3,9 @@ switch(phase) {
 	case "searching" : 
 		if(time_until_next_direction_change <= 0) {
 			var theta = point_direction(owner.x,owner.y, x, y)
-			var new_angle = (theta - 90 + random(180)) % 360
-			direction=new_angle
-			time_until_next_direction_change = time_between_direction_change
-		} else {
-			time_until_next_direction_change -= 1 / room_speed
+			direction = (theta - 90 + random(180)) % 360
 		}
+		time_until_next_direction_change = time_until_next_direction_change <= 0 ? time_between_direction_change : time_until_next_direction_change - 1 / room_speed
 		var var_potential_victim = instance_nearest(x, y, obj_unit)
 		if(scr_is_enemies(owner, var_potential_victim)) {
 			target = var_potential_victim
@@ -18,12 +15,9 @@ switch(phase) {
 	case "feeding" :
 			if(time_until_next_direction_change <= 0) {
 				var theta = point_direction(target.x, target.y, x, y)
-				var new_angle = (theta + 90 + random(180)) % 360
-				direction = new_angle
-				time_until_next_direction_change = time_between_direction_change
-			} else {
-				time_until_next_direction_change -= 1/room_speed
+				direction = (theta + 90 + random(180)) % 360
 			}
+			time_until_next_direction_change = time_until_next_direction_change <= 0 ? time_between_direction_change : time_until_next_direction_change - 1 / room_speed
 			if(point_distance(x, y, target.x, target.y)) {
 				time_until_next_feed_sec -= 1/room_speed
 			}

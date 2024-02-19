@@ -3,10 +3,10 @@ function scr_find_shortest_yet() {
 	with(obj_tile) {
 		if(!path_find_checked) {
 			if(shortest_yet2 == noone) {
-				if(!path_find_checked and distance < 100) {
+				if(distance < 100) {
 					shortest_yet2 = id
 				}
-			} else if(distance < shortest_yet2.distance and !path_find_checked) {
+			} else if(distance < shortest_yet2.distance) {
 				shortest_yet2 = id
 			}
 		}

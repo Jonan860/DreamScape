@@ -14,6 +14,4 @@ function scr_perform_a() {
 			}
 		}
 	}
-
-
 }

@@ -31,3 +31,9 @@ tile = noone
 HP = 400
 max_HP = 400
 damage_reduction = 0 
+
+perform_a = function() {
+	if(ds_list_find_index(queue_list, a_object) < 0 and !global.player.footman_has_defend_upgrade) {
+		scr_recruit_unit(a_object)
+	}
+}

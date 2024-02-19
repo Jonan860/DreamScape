@@ -4,6 +4,7 @@ function scr_death() {
 	} else {
 		var time_has_runned_out = 0
 	}
+	
 	if(HP <= 0 and phase != "dead" or time_has_runned_out or (phase == "sacrificed" and time_until_dark_ritual_sacrifice_sec <= 0)) {
 		scr_give_experience()
 		with(obj_attack_projectile) {
@@ -20,7 +21,7 @@ function scr_death() {
 			if(other.id == owner.id) {
 				instance_destroy()
 			} else if(target == other.id) {
-				target=owner
+				target = owner
 			}
 		}
 		with(obj_locust) {
@@ -42,14 +43,13 @@ function scr_death() {
 			scr_ds_list_remove_value(altitude_list,id)
 		}
 		if(object_index == obj_hungry_hungry_lizard) {
-			if(object_in_stomach != noone) {
-				object_in_stomach.eaten = 0
-				object_in_stomach.tile = tile
-				object_in_stomach.x = x
-				object_in_stomach.y = y
-				scr_ds_list_remove_value(altitude_list, id)
-				var altitude_list2 = ds_map_find_value(tile.occupants, object_in_stomach.altitude)
-				ds_list_add(altitude_list2, object_in_stomach)
+			with(object_in_stomach) {
+				eaten = 0
+				tile = other.tile
+				x = other.x; y = other.y
+				scr_ds_list_remove_value(altitude_list, other.id)
+				var altitude_list2 = ds_map_find_value(other.tile.occupants, altitude)
+				ds_list_add(altitude_list2, id)
 			}
 		}	
 		if(global.tile_selected != noone) {
@@ -66,7 +66,7 @@ function scr_death() {
 				soul.object = object_index
 				soul.tile = tile
 				soul.image_xscale = soul.tile.sprite_width / soul.sprite_width
-				soul.image_yscale=soul.tile.sprite_height / soul.sprite_height
+				soul.image_yscale = soul.tile.sprite_height / soul.sprite_height
 			} else {
 				phase = "dead"
 				HP = 1
@@ -76,8 +76,7 @@ function scr_death() {
 				soul.tile = tile
 				target = noone
 				tile = noone
-				x = -1000
-				y = -1000
+				x = -1000; y = -1000
 				soul.image_xscale = soul.tile.sprite_width / soul.sprite_width
 				soul.image_yscale = soul.tile.sprite_height / soul.sprite_height
 			}

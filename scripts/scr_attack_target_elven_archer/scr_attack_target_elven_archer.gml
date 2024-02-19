@@ -1,6 +1,6 @@
 function scr_attack_target_elven_archer() {
 	if(object_index == obj_elven_archer) {
-		magic_ball = instance_create_depth(x, y, -4, obj_arrow_attack)
+		magic_ball = instance_create_depth(x, y, -4, obj_arrow_animator)
 		magic_ball.owner = id
 		magic_ball.target_tile = target.tile
 		magic_ball.altitude = target.altitude

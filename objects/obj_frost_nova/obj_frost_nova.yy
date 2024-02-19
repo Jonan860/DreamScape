@@ -10,8 +10,8 @@
   "managed": true,
   "overriddenProperties": [],
   "parent": {
-    "name": "attack animator",
-    "path": "folders/Objects/attack animator.yy",
+    "name": "AOE animator",
+    "path": "folders/Objects/attack animator/AOE animator.yy",
   },
   "parentObjectId": null,
   "persistent": false,

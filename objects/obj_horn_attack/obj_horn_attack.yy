@@ -8,8 +8,8 @@
   "managed": true,
   "overriddenProperties": [],
   "parent": {
-    "name": "attack animator",
-    "path": "folders/Objects/attack animator.yy",
+    "name": "meelee animators",
+    "path": "folders/Objects/attack animator/meelee animators.yy",
   },
   "parentObjectId": null,
   "persistent": false,

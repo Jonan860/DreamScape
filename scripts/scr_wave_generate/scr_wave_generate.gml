@@ -15,8 +15,8 @@ function scr_wave_generate() {
 									repeat(3) {
 										scr_level_up()
 									}
-									spell_q_lvl = 2
-									spell_e_lvl = 1
+									spell_q.lvl = 2
+									spell_e.lvl = 1
 								}
 								break;
 							case obj_dreadlord : 
@@ -24,8 +24,8 @@ function scr_wave_generate() {
 									repeat(5) {
 										scr_level_up()
 									}
-									spell_w_lvl =2
-									spell_e_lvl = 3
+									spell_w.lvl = 2
+									spell_e.lvl = 3
 								}
 								break;
 							case obj_crypt_lord :
@@ -33,9 +33,9 @@ function scr_wave_generate() {
 									repeat(7) {
 										scr_level_up()
 									}
-									spell_w_lvl = 3
-									spell_e_lvl = 3
-									spell_r_lvl = 1
+									spell_w.lvl = 3
+									spell_e.lvl = 3
+									spell_r.lvl = 1
 								}
 								break;
 						}

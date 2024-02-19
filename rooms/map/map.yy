@@ -2,7 +2,7 @@
   "resourceType": "GMRoom",
   "resourceVersion": "1.0",
   "name": "map",
-  "creationCodeFile": "${project_dir}/rooms/map/RoomCreationCode.gml",
+  "creationCodeFile": "rooms/map/RoomCreationCode.gml",
   "inheritCode": false,
   "inheritCreationOrder": false,
   "inheritLayers": false,

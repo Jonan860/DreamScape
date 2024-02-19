@@ -22,7 +22,7 @@ function scr_tile_neighborhood_create() {
 			}
 
 			if(tile_x == other.tile_x - 1 and tile_y == other.tile_y - 1) {
-				other.north_west_tile == id
+				other.north_west_tile = id
 			}
 		}
 	}

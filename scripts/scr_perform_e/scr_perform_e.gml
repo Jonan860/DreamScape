@@ -5,13 +5,8 @@ function scr_perform_e() {
 			if(global.tile_selected != noone) {
 				if(global.tile_selected != noone) {
 					if(var_selected_unit == global.ida and global.ida.spell_e.lvl > 0) {
-						if(cursor_sprite != spr_kawarimi_cursor) {
-							window_set_cursor(cr_none)
-							cursor_sprite = spr_kawarimi_cursor
-						} else {
-							window_set_cursor(cr_default)
-							cursor_sprite = -1
-						}
+						var set_cursor = cursor_sprite != spr_kawarimi_cursor ? cr_none : cr_default
+						cursor_sprite = cursor_sprite != spr_kawarimi_cursor ? spr_kawarimi_cursor : -1
 					}
 
 					if(spell_e.canPerform()) {

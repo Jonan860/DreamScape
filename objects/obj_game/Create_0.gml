@@ -119,5 +119,3 @@ ds_list_add(wave_list, wave1, wave2, wave3, wave4, wave5, wave6, wave7, wave8, w
 
 phase = "dialogue"
 lose_text = ""
-
-scr_create_all_buff_structs()

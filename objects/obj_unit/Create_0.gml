@@ -36,7 +36,6 @@ stunned = 0
 time_until_stunned_clear = 0
 invisible = 0
 
-
 HP_bar_height = sprite_get_height(spr_hexagon_pink)/16
 HP_bar_width = sprite_get_width(spr_hexagon_pink) * 2/3
 hp_bar_translate_y = sprite_get_height(spr_hexagon_pink)/2 * 3/4
@@ -44,8 +43,6 @@ hp_bar_translate_y = sprite_get_height(spr_hexagon_pink)/2 * 3/4
 has_waited_for_blocker_to_move = 0
 
 vampiric_aura_percentage = 0
-
-time_until_dark_ritual_sacrifice_sec = 0
 
 sleep_timer = 0
 

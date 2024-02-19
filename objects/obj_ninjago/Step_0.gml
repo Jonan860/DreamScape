@@ -1,5 +1,4 @@
-x = creator.x
-y = creator.y
+x = creator.x; y = creator.y
 
 counter_to_attack += 1
 if(counter_to_attack >= creator.attack_cost) {
