@@ -1,6 +1,4 @@
 
-skills = []
-
 if(owner == global.player) {
 	for(var i = 1; i <= ds_list_size(path) - 1; i += 1) {
 		var var_tile = path[|i]
@@ -11,35 +9,7 @@ if(owner == global.player) {
 	}
 }
 
-slowed = {
-	applied : 0,
-	duration : 60,
-	durationLeft : 0,
-	apply : function() {
-		applied = 1
-		durationLeft = duration
-	}
-}
 
-freezed = {
-	applied : 0,
-	duration : 60,
-	durationLeft : 0,
-	apply : function() {
-		applied = 1
-		durationLeft = duration
-	}
-}
-
-cursed = {
-	applied : 0,
-	duration : 60,
-	durationLeft : 0,
-	apply : function() {
-		applied = 1
-		durationLeft = duration
-	}
-}
 
 if(!eaten) {
 	if(slowed.applied) {
@@ -68,30 +38,6 @@ if(cursed.applied) {
 	draw_sprite_ext(spr_curse_animation, 0, x, y, sprite_width / (3 * sprite_get_width(spr_curse_animation)), sprite_height / (3 * sprite_get_height(spr_curse_animation)), 0, c_white, 1)
 }
 
-build = function() {
-	var most_north_tile = scr_get_most_north_occupiable_neighbour()
-	if(most_north_tile != noone) {
-		with(obj_tile) {
-			if(scr_tile_empty(id) and habitable) {
-				var var_unit = scr_instance_create_at_tile_with_owner(object_index, id, global.player)
-				scr_apply_upgrades_on_new_unit(var_unit)
-				scr_make_room_for_instance_on_tile(most_north_tile, var_unit.altitude)
-				with(var_unit) {
-					scr_move_to_tile(most_north_tile)
-				}
-				break;
-			}
-		}
-		if(rally_tile != noone) {
-			with(var_unit) {
-				phase = "movement"
-				destination = other.rally_tile
-				scr_update_path_to_destination()
-			}
-		}
-		ds_list_delete(queue_list, 0)
-		build_progress = 0
-	}
-}
+
 
 hud_draw_gui = method(undefined, scr_hud_draw_gui_unit)

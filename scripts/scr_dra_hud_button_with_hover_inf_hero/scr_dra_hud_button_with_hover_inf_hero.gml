@@ -1,12 +1,10 @@
 function scr_dra_hud_button_with_hover_inf_hero(var_selected_unit) {
 	with(var_selected_unit) {
-		
 		if(!global.hud.gui_display_abilities) {
 			if(spell_q.learned() ) {
 				if(mouse_is_on_q()) {
 					draw_hover_info()	
-				} 
-				
+				}
 				draw_sprite_ext(spr_q_button, 0, other.hud_q_button_x, other.hud_q_button_y, other.spell_button_width / sprite_get_width(spr_q_button), other.spell_button_height / sprite_get_height(spr_q_button), 0, -1, 1)
 				draw_set_color(c_black)
 				draw_set_alpha(0.5)
@@ -15,10 +13,9 @@ function scr_dra_hud_button_with_hover_inf_hero(var_selected_unit) {
 				}
 				draw_set_alpha(1)
 			}
-			var spells = [spell_q, spell_w, spell_e, spell_r]
 
-			for(var i = 0; i < 3; i++) {
-				with(spells[i]) {
+			for(var i = 0; i < array_length(skills); i++) {
+				with(skills[i]) {
 					if(lvl > 0) {
 						if(mouse_is_on()) {
 							draw_hover_info()
@@ -48,9 +45,7 @@ function scr_dra_hud_button_with_hover_inf_hero(var_selected_unit) {
 					draw_hover_info_abilities()
 				}
 				draw_sprite_ext(icon, 0, button_x, button_y, button_width / sprite_get_width(icon), button_height / sprite_get_height(icon), 0, -1, 1)
-				
 			}
-			
 			draw_sprite_ext(spr_abilities_button, 0, other.hud_abilities_x, other.hud_abilities_y, other.spell_button_width / sprite_get_width(spr_abilities_button), other.spell_button_height / sprite_get_height(spr_abilities_button), 0, -1, 1)
 			draw_text_ext_transformed_color(other.hud_abilities_x, other.hud_abilities_y, string(number_of_ability_points), -1, -1, 4, 4, 0, c_black, c_black, c_black, c_white, 1)
 		}

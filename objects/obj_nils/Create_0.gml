@@ -21,13 +21,13 @@ max_mana = 100
 mana = 100
 mana_regen_rate_per_sec = 0.6 //per second
 
-spell_q = createSpell(SPELLS.holy_light)
-spell_w = createSpell(SPELLS.spell_shield)
-spell_e = createSpell(SPELLS.ninjago)
-spell_r = createSpell(SPELLS.golden_dragon)
-spell_s = createSpell(SPELLS.revive)
+holy_light = createSpell(SPELLS.holy_light, "q")
+spell_shield = createSpell(SPELLS.spell_shield, "w")
+ninjago = createSpell(SPELLS.ninjago, "e")
+golden_dragon = createSpell(SPELLS.golden_dragon, "r")
+revive = createSpell(SPELLS.revive, "s")
 
-skills = [spell_q, spell_w, spell_e, spell_r, spell_s]
+skills = [holy_light, spell_shield, ninjago, golden_dragon, revive]
 
 ds_list_level_sprites = ds_list_create()
 ds_list_add(ds_list_level_sprites, 0, spr_nils_level_1, spr_nils_level_2, spr_nils_level_3, spr_nils_level_4, spr_nils_level_5, spr_nils_level_6, spr_nils_level_7, spr_nils_level_8)

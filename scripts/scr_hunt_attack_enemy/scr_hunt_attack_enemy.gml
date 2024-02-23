@@ -1,5 +1,5 @@
 function scr_hunt_attack_enemy() {
-	scr_check_target_existence_perform_action()  ///förstår ej vad den gör
+	//scr_check_target_existence_perform_action()  ///förstår ej vad den gör
 	if(target.object_index == obj_crystal) {
 		var var_crystal_target = target
 		var var_random = irandom(30)

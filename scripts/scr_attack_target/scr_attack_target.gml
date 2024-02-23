@@ -5,12 +5,8 @@ function scr_attack_target() {
 		}
 	}
 	action_bar = 0
-	if(scr_is_attack_hitting(accuracy, target.evasiveness)) { // bör va inuti attack_target()
-		attack_target()
-	} else {
-		missing_time = 0.5 * room_speed
-	}
+	 // bör va inuti attack_target()
+	attack_target()
 	scr_attack_target_elven_archer()
-	scr_attack_target_ida()
 	scr_provoke_creep()
 }

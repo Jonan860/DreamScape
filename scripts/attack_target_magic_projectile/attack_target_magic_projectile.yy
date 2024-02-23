@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "scr_attack_target_necromancer",
+  "name": "attack_target_magic_projectile",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {

@@ -6,8 +6,8 @@ function scr_idle_player_ai() {
 		}	
 		if(var_target != noone) {
 			target = var_target
+			destination = target.tile
+			phase = "hunt"
 		}
-		destination = target.tile
-		phase = "hunt"
 	}
 }

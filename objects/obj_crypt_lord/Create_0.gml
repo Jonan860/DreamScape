@@ -23,12 +23,12 @@ mana = 100
 mana_regen_rate_per_sec = 0.45  //per second
 
 
-spell_q = createSpell(SPELLS.impale)
-spell_w = createSpell(SPELLS.spiked_carapace)
-spell_e = createSpell(SPELLS.carrion_beetles)
-spell_r = createSpell(SPELLS.locust_swarm)
+impale = createSpell(SPELLS.impale, "q")
+carapace = createSpell(SPELLS.spiked_carapace, "w")
+carrion_beetles = createSpell(SPELLS.carrion_beetles, "e")
+locust_swarm = createSpell(SPELLS.locust_swarm, "r")
 
-skills = [spell_q, spell_w, spell_e, spell_r]
+skills = [impale, carapace, carrion_beetles, locust_swarm]
 
 ds_list_level_sprites = ds_list_create()
 ds_list_add(ds_list_level_sprites, 0, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord)
@@ -40,28 +40,28 @@ locust_spawn_interval_sec = 0.4
 time_until_next_locust = locust_spawn_interval_sec
 max_active_locusts = 7
  updateDamageReduction = function() {
-		if(spell_w.lvl > 0) {
+		if(carapace.lvl > 0) {
 			var reduction_from_spiked_carapace = list_of_damage_reduction_from_spiked_carapacelvl[|spell_w.lvl - 1]
 			damage_reduction = 1 - (1 - base_damage_reduction) * (1 - reduction_from_spiked_carapace)
 		}
 	}
 
 ai = function() {
-	if(mana >= spell_e.mana_cost and spell_e.cooldown_current == 0) {
+	if(mana >= carrion_beetles.mana_cost and carrion_beetles.cooldown_current == 0) {
 		var soul_within_range = scr_find_soul_within_range()
 		if(soul_within_range != noone) {
 			scr_raise_carrion_beetle(soul_within_range)
-			spell_e.cooldown_current = spell_e.cooldown_max
-			mana -= spell_e.mana_cost
+			carrion_beetles.cooldown_current = carrion_beetles.cooldown_max
+			mana -= carrion_beetles.mana_cost
 		}
 	}
 	
-	if(mana >= spell_r.mana_cost and spell_r.cooldown_current == 0) {
+	if(mana >= locust_swarm.mana_cost and locust_swarm.cooldown_current == 0) {
 		var list_of_enemies = scr_find_enemies_within_range(range)
 		if(!ds_list_empty(list_of_enemies)) {
-			spell_r.activated.activated = 1
-			mana -= spell_r.mana_cost
-			spell_r.cooldown_current = spell_r.cooldown_max
+			locust_swarm.activated.activated = 1
+			mana -= locust_swarm.mana_cost
+			locust_swarm.cooldown_current = locust_swarm.cooldown_max
 		}
 		ds_list_destroy(list_of_enemies)
 	}

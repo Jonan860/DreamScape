@@ -22,10 +22,10 @@ max_mana = 100
 mana = 100
 mana_regen_rate_per_sec = 0.45  //per second
 
-spell_q = createSpell(SPELLS.frost_nova)
-spell_w = createSpell(SPELLS.frost_armor)
-spell_e = createSpell(SPELLS.dark_ritual)
-skills = [spell_q, spell_w, spell_e]
+frost_nova = createSpell(SPELLS.frost_nova, "q")
+frost_armor = createSpell(SPELLS.frost_armor, "w")
+dark_ritual = createSpell(SPELLS.dark_ritual, "e")
+skills = [frost_nova, frost_armor, dark_ritual]
 
 ds_list_level_sprites = ds_list_create()
 ds_list_add(ds_list_level_sprites, 0, spr_lich_big_head, spr_lich_big_head, spr_lich_big_head, spr_lich_big_head)
@@ -52,4 +52,4 @@ ai = function () {
 	}
 }
 
-attack_target = method(scr_attack_target_lich, undefined)
+attack_target = function() {attack_target_magic_projectile(c_aqua)}

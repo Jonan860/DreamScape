@@ -27,7 +27,5 @@ function scr_ai_player() {
 				}
 			}
 		}
-		
-		scr_priest_heal_auto_cast_ai()
 	}
 }

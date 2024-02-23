@@ -1,6 +1,6 @@
 function scr_move_to_tile(tile2) {
 	if(tile != noone) {
-		var homeland = tile.occupants[|altitude]
+		var homeland = tile.occupants[?altitude]
 	}
 	if(scr_occupiable(tile2, altitude)) {
 		if(tile != noone) {

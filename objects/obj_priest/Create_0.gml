@@ -17,10 +17,10 @@ experience_to_give = 100
 mana = 50
 max_mana = 100
 mana_regen_rate_per_sec = 0.6
-spell_q = createSpell(SPELLS.heal)
-spell_w = createSpell(SPELLS.invisibility)
-skills = [spell_q, spell_w]
+heal = createSpell(SPELLS.heal, "q")
+invisibility = createSpell(SPELLS.invisibility, "w")
+skills = [heal, invisibility]
 
 draw_hud_buttons_with_info = method(scr_dra_hud_buttons_with_hover_inf_priest, undefined)
 
-attack_target = method(scr_attack_target_priest, undefined)
+attack_target = function() {attack_target_magic_projectile(c_yellow)}

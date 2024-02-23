@@ -18,9 +18,9 @@ mana = 100
 max_mana = 100
 mana_regen_rate_per_sec = 0.3
 
-spell_q = createSpell(SPELLS.raise)
-skills = [spell_q]
+raise = createSpell(SPELLS.raise, "q")
+skills = [raise]
 
 draw_hud_buttons_with_info = method(scr_dra_hud_buttons_with_hover_inf_necro, undefined)
 ai = method(scr_ai_spell_necromancer, undefined)
-attack_target = method(scr_attack_target_necromancer, undefined)
+attack_target = function() {attack_target_magic_projectile(c_lime)}

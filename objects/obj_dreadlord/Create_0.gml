@@ -22,11 +22,11 @@ mana = 100
 mana_regen_rate_per_sec = 0.45   //per second
 
 
-spell_q = createSpell(SPELLS.carrion_swarm)
-spell_w = createSpell(SPELLS.sleep)
-spell_e = createSpell(SPELLS.vampiric_aura)
+carrion_swarm = createSpell(SPELLS.carrion_swarm, "q")
+sleep = createSpell(SPELLS.sleep, "w")
+vampiric_aura = createSpell(SPELLS.vampiric_aura, "e")
 
-skills = [spell_q, spell_w, spell_e]
+skills = [carrion_swarm, sleep, vampiric_aura]
 
 ds_list_level_sprites = ds_list_create()
 ds_list_add(ds_list_level_sprites, 0, spr_dreadlord2, spr_dreadlord2, spr_dreadlord2, spr_dreadlord2)

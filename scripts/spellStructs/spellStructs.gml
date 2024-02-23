@@ -14,6 +14,8 @@ function scr_mouse_on_freeze_button() {
 	return (learn_button_width < mouse_x - camera_get_view_x(view_camera[0]) and mouse_x - camera_get_view_x(view_camera[0]) < learn_button_width + learn_spell_q_button_width and 0 < mouse_y - camera_get_view_y(view_camera[0]) and mouse_y - camera_get_view_y(view_camera[0]) < learn_spell_q_button_height)
 }
 
+
+
 katon_gokakyu_no_jutsu = {
 	scrPerform : function() {
 		if(owner.cooldown_current == 0 and owner.mana >= owner.mana_cost and lvl > 0) {
@@ -28,6 +30,30 @@ katon_gokakyu_no_jutsu = {
 		}
 	}
  }
+ 
+ 
+ function heal_target(_target) {
+	 with(_target) {
+		target.HP = min(target.max_HP, target.HP + other.amount)
+	 }
+ }
+ 
+ function heal_ai() {
+	if(owner.mana >= mana_cost and cooldown_current <= 0 and autocst and owner.altitude != "invisible") {
+		with(owner) {
+			var list_heal_target_within_range = scr_find_friendlies_within_range(other.range)
+		}
+		if(ds_list_size(list_heal_target_within_range) > 0) {
+			var _target = scr_find_best_heal_target_from_list(list_heal_target_within_range)
+			if(_target != noone) {
+				heal_target(_target)
+				owner.mana -= mana_cost
+				cooldown_current = cooldown
+				owner.action_bar = 0
+			}
+		}
+	}
+}
 
 function spellToAnimator(spell) {
 	switch(spell) {
@@ -59,9 +85,6 @@ function spellToCooldown(spell) {
 		default : return noone
 	}
 }
-
-
-
 
 
 function spellToAmount(spell) {
@@ -233,7 +256,8 @@ function spellToIcon(spell) {
 		case SPELLS.heal : return spr_heal_icon
 		case SPELLS.slow : return spr_slow_icon
 		case SPELLS.invisibility : return spr_invisibility_icon
-		case SPELLS.curse : return 	spr_curse_icon
+		case SPELLS.curse : return spr_curse_icon
+		case SPELLS.revive : return spr_resurrection_icon
 	}
 }
 
@@ -336,6 +360,7 @@ function spellToInfo(spell) {
 			+ "Mana cost: " + string(25)
 		case SPELLS.katon_gokakyu_no_jutsu : return "Hurls an fireball towards the north,\n damaging everything in its path\n Cooldown: " + string(cooldown)
 			+ "\n Mana cost: " + string(mana_cost) + "\n Damage: " + string(amount[max(lvl - 1, 0)])
+		case SPELLS.revive : return "Resurrects a Hero Soul on the same tile after 60 sec"
 	}
 }
 
@@ -348,13 +373,15 @@ function spellToSummon(spell) {
 
 function spellToAi(spell) {
 	switch(spell) {
-		case SPELLS.slow : return 
+		case SPELLS.slow : return method(undefined, slow_ai)
+		case SPELLS.heal : return method(undefined, heal_ai)
 	}
-	scr_sorceress_slow_auto_cast_ai()
 }
 
-function scr_sorceress_slow_auto_cast_ai() {
-	var list_slow_target_within_range = scr_find_enemies_within_range(slow.range)
+function slow_ai() {
+	with(owner) {
+		var list_slow_target_within_range = scr_find_enemies_within_range(other.range)
+	}
 	if(ds_list_size(list_slow_target_within_range) > 0) { 
 		with(scr_find_best_procentage_debuff_target_from_list(list_slow_target_within_range, slow)) {			
 			other.scr_slow_unit(id)
@@ -529,6 +556,12 @@ function performHolyLight(var_selected) {
 		window_set_cursor(cursorSet)
 	}
 }
+
+function performHolyLightTargetClicked() {
+	global.nils.mana -= global.nils.holy_light.mana_cost
+	global.nils.holy_light.cooldown_current = global.nils.holy_light.cooldown
+	scr_holy_light_unit(global.nils, clicked_tile.grounds_list[|0])
+}
 	
 function performDefend() {
 	if(global.player.footman_has_defend_upgrade) {
@@ -593,10 +626,10 @@ function perform_w_unit_producing_building() {
 }
 
 rightPressedSlow = function() {
-	autocast_is_on = !autocast_is_on
+	autocast = !autocast
 }
 rightPressedHeal = function() {
-	autocast_is_on = !autocast_is_on
+	autocast = !autocast
 }
 
 function rightPressedearthquakeSelected(var_selected_unit, clicked_tile) {
@@ -605,7 +638,7 @@ function rightPressedearthquakeSelected(var_selected_unit, clicked_tile) {
 			with(owner) {
 				mana -= mana_cost
 				cooldown_current = cooldown
-				scr_start_earthshatter_tile(clicked_tile)
+				instance_create_depth(x, y, 0, animator, {target : clicked_tile})
 				exit;
 			}
 		}
@@ -649,14 +682,18 @@ function createSpellSub(spellEnum) constructor {
 	cooldown_current = 0
 	lvl = 0
 	autocast = 0
+	shouldPerform = function() {
+		return autocast and owner.mana > mana_cost[lvl - 1] and cooldown_current <= 0
+	}
 }
 
-function createSpell(spellEnum) {
+function createSpell(spellEnum, _letter) {
 	var spell = new createSpellSub(spellEnum)
 	with(spell) {
 		info = spellToInfo(spellEnum)
 		abilitiesInfo = spellToAbilitiesInfo(spellEnum)
 	}
+	ds_map_add(buttonToSkill, _letter, spell)
 	return spell
 }
 

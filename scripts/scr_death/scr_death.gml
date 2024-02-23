@@ -7,7 +7,7 @@ function scr_death() {
 	
 	if(HP <= 0 and phase != "dead" or time_has_runned_out or (phase == "sacrificed" and time_until_dark_ritual_sacrifice_sec <= 0)) {
 		scr_give_experience()
-		with(obj_attack_projectile) {
+		with(obj_projectile_animator) {
 			if(owner == other.id) {
 				owner=noone
 			}

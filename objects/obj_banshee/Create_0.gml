@@ -21,11 +21,13 @@ mana_regen_rate_per_sec = 0.3
 curse_icon_animation_index = 0
 curse_icon_animation_speed = 8 //frames per sec
 
-curse = createSpell(SPELLS.curse)
+curse = createSpell(SPELLS.curse, "q")
 skills = [curse]
 
 spr_q_button = spr_curse_icon_autocast
 
 ai = method(undefined, scr_ai_spell_banshee)
 
-attack_target = method(undefined, scr_attack_target_banshee)
+attack_target = function() {
+	attack_target_magic_projectile()
+}
