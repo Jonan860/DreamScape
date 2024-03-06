@@ -2,6 +2,8 @@ event_inherited();
 
 hud_draw_gui = method(undefined, scr_hud_draw_gui_unit_prod_building)
 
+draw_hud_button = method(undefined, scr_dra_hud_button_with_hover_inf_building)
+
 perform_q = function() {
 	if(canRecruit(q_object)) {
 		recruit(q_object)	
@@ -25,9 +27,10 @@ function updateQueue() {
 
 function updateRecruitQueue() {
 		build_progress += 1 / room_speed  //game_get_speed(gamespeed_fps)
-		var var_time = ds_map_find_value(global.map_objects_to_build_time, queue_list[|0])
+		var varObj = buttonToSkill[? queue_list[|0]]
+		var var_time = ds_map_find_value(global.map_objects_to_build_time, buttonToSkill[? queue_list[|0]])
 		if(build_progress >= var_time) {
-			queue_list[|0].build()
+			varObj.build()
 		}
 }
 
@@ -40,12 +43,4 @@ function updateSelfConstruction() {
 	}
 }
 
-canRecruit = function(_object) {
-	var var_cost = ds_map_find_value(global.map_object_to_costs, _object)
-	return global.player.money >= var_cost
-}
 
-recruit = function(_object) {
-	global.player.money -= var_cost
-	ds_list_add(queue_list, _object)
-}

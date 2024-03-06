@@ -14,7 +14,7 @@ if(counter_to_attack >= creator.attack_cost) {
 		if(!is_undefined(var_occupant_ground)) {
 			if(scr_is_enemies(creator,var_occupant_ground)) {
 				if(scr_is_attack_hitting(creator.accuracy,var_occupant_ground.evasiveness)) {
-					creator.damage *= creator.spell_e_damage_multiplier
+					owner.owner.damage *= owner.owner.spell_e_damage_multiplier
 					var store_target = creator.target
 					creator.target = var_occupant_ground
 					with(creator) {

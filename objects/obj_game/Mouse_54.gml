@@ -10,6 +10,5 @@ if(room == map) {
 			scr_right_pressed_building(clicked_tile, var_selected_unit)
 			scr_right_pressed_unit(clicked_tile, var_selected_unit)
 		}
-		scr_right_pressed_autocast(var_selected_unit)
 	}
 }

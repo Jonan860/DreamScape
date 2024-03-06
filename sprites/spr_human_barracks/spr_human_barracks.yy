@@ -57,7 +57,7 @@
             {"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"1.0","Channels":{"0":{"resourceType":"SpriteFrameKeyframe","resourceVersion":"1.0","Id":{"name":"dad6fc03-0f18-46f9-b30a-24ea9531dc7d","path":"sprites/spr_human_barracks/spr_human_barracks.yy",},},},"Disabled":false,"id":"7b4652bc-efb6-4790-88fd-4cae5d912d90","IsCreationKey":false,"Key":0.0,"Length":1.0,"Stretch":false,},
           ],},"modifiers":[],"spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
-    "visibleRange": {"x":0.0,"y":0.0,},
+    "visibleRange": null,
     "volume": 1.0,
     "xorigin": 33,
     "yorigin": 35,

@@ -1,5 +1,3 @@
-/// @description Insert description here
-// You can write your code in this editor
 event_inherited()
 owner = noone
 movement_cost = 3 * room_speed + 1
@@ -23,3 +21,5 @@ digestion_rate = 1/2 //per second
 experience_to_give = 300
 
 attack_target = method(undefined, scr_attack_target_hungry_hungry_lizard)
+
+draw_hud_buttons_with_info = function() {}

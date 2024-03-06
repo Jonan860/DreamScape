@@ -9,14 +9,14 @@ if(room == map) {
 			scr_movement()
 			for(var i = 0; i < array_length(skills); i++) {
 				with(skills[i]) {
-					if(shouldPerform) {
+					if(shouldPerform()) {
 						perform()
 					}
 				}
 			}
 			for(var i = 0; i < array_length(skills); i++) {
 				with(skills[i]) {
-					icon_animation_index = autocast_is_on ? (icon_animation_index + icon_animation_speed/room_speed) % 7 : 0
+					icon_animation_index = autocast? (icon_animation_index + icon_animation_speed/room_speed) % 7 : 0
 				}
 			}
 			////scr_death()  maybe solves bug see above

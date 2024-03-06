@@ -9,21 +9,16 @@ if(owner == global.player) {
 	}
 }
 
-
-
 if(!eaten) {
 	if(slowed.applied) {
 		var varXscale2 = sprite_get_width(spr_hexagon_pink)/sprite_get_width(spr_slow)
 		var varYscale2 = sprite_get_height(spr_hexagon_pink)/sprite_get_height(spr_slow)
 		draw_sprite_ext(spr_slow, 0, x, y, varXscale2, varYscale2, 0, -1, 1)
 	}
-
 	image_alpha = 1
-		
 	draw_self()
 	draw_healthbar(x - HP_bar_width/2, y + hp_bar_translate_y, x + HP_bar_width/2, y + hp_bar_translate_y + HP_bar_height, 100 * HP/max_HP, c_black, c_red, c_green, 0, 1, 0)
 	draw_healthbar(x - sprite_width/4, y + sprite_height * 3/8 - sprite_height * 1/4 * 1/8, x + sprite_width/4, y + sprite_height * 3/8 - 2 * sprite_height * 1/4 * 1/8, 100 * action_bar/max_action_bar, c_black, c_red, c_green, 0, 1, 0)
-
 	if(missing_time > 0) {
 		draw_text_transformed_color(x, y + sprite_height/4, "Miss", 2, 2, 0, c_red, c_red, c_red, c_red, 1)
 	}
@@ -37,7 +32,5 @@ if(freezed.applied) {
 if(cursed.applied) {
 	draw_sprite_ext(spr_curse_animation, 0, x, y, sprite_width / (3 * sprite_get_width(spr_curse_animation)), sprite_height / (3 * sprite_get_height(spr_curse_animation)), 0, c_white, 1)
 }
-
-
 
 hud_draw_gui = method(undefined, scr_hud_draw_gui_unit)

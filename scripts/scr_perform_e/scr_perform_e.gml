@@ -8,18 +8,18 @@ function scr_perform_e() {
 						var set_cursor = cursor_sprite != spr_kawarimi_cursor ? cr_none : cr_default
 						cursor_sprite = cursor_sprite != spr_kawarimi_cursor ? spr_kawarimi_cursor : -1
 					}
-
-					if(spell_e.canPerform()) {
-						spell_e.perform()
+					var e = ds_map_find_first("e")
+					if(e.canPerform()) {
+						e.perform()
 					}
-					
 				}
 			}
 		} else if(object_is_ancestor(var_selected_unit.object_index, obj_hero)) {
 			with(var_selected_unit) {
+				var e = ds_map_find_first("e")
 				if(number_of_ability_points > 0) {
-					if(2 * (spell_e_lvl) + 1 <= lvl) {
-						scr_level_up_e_spell()
+					if(2 * (e.lvl) + 1 <= lvl) {
+						scr_level_up_spell(e)
 					}
 				}
 			}

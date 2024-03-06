@@ -7,21 +7,44 @@ spell_button_width = spell_button_height
 
 hud_spell_part_width = hud_width/3
 hud_spell_part_height = hud_height
-hud_q_button_x = hud_width - hud_spell_part_width + spell_button_width
-hud_q_button_y = var_camera_height - spell_button_height
-hud_w_button_x = hud_q_button_x + spell_button_width
-hud_w_button_y = hud_q_button_y
-hud_e_button_x = hud_w_button_x + spell_button_width
-hud_e_button_y = hud_w_button_y
-hud_r_button_x = hud_e_button_x + spell_button_width
-hud_r_button_y = hud_q_button_y
+q_button = {
+	_x : hud_width - hud_spell_part_width + spell_button_width,
+	_y : var_camera_height - spell_button_height	
+}
+w_button = {
+	_x : q_button._x + spell_button_width,
+	_y : q_button._y
+}
+e_button = {
+	_x : w_button._x + spell_button_width,
+	_y : w_button._y
+}
+r_button = {
+	_x : e_button._x + spell_button_width,
+	_y : q_button._y
+}
+a_button = {
+	_x : q_button._x,
+	_y : q_button._y - spell_button_height
+}
 ///hud_r_spell_y=hud_w_button_y
-hud_a_button_x = hud_q_button_x
-hud_a_button_y = hud_q_button_y - spell_button_height
-hud_s_button_x = hud_w_button_x
-hud_s_button_y = hud_q_button_y - spell_button_height
-hud_abilities_x = hud_r_button_x
-hud_abilities_y = hud_r_button_y - spell_button_height
+s_button = {
+	_x : w_button._x,
+	_y : q_button._y - spell_button_height
+}
+
+abilities_button = {
+	_x : r_button._x,
+	_y : r_button._y - spell_button_height
+}
+charToButton = ds_map_create()
+ds_map_add(charToButton, "q", q_button)
+ds_map_add(charToButton, "w", w_button)
+ds_map_add(charToButton, "e", e_button)
+ds_map_add(charToButton, "r", r_button)
+ds_map_add(charToButton, "a", a_button)
+ds_map_add(charToButton, "s", s_button)
+
 gui_display_abilities = 0
 
 lvl_text_x = var_camera_width/2
@@ -35,7 +58,7 @@ evasion_text_y = HP_text_y + stats_text_y_space
 damage_reduction_text_x = HP_text_x
 damage_reduction_text_y = evasion_text_y + stats_text_y_space
 range_text_x = HP_text_x
-range_text_y = damage_reduction_text_y+stats_text_y_space
+range_text_y = damage_reduction_text_y + stats_text_y_space
 
 
 mana_text_x = lvl_text_x

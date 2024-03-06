@@ -33,7 +33,7 @@ function scr_death() {
 				phase = "returning"
 			}
 		}
-		with(obj_ninjago) {
+		with(obj_ninjago_animator) {
 			if(creator == other.id) {
 				instance_destroy()
 			}

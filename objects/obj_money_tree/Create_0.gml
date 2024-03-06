@@ -6,3 +6,4 @@ time_since_last_withdrawal = 0
 HP = 200
 max_HP = 200
 damage_reduction = 0
+hud_draw_gui = function(){}

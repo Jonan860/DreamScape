@@ -67,7 +67,7 @@ draw_text((x1+x2)/2,(y1+y2)/2,"Kawarimi no Jutsu level "+string(global.ida.kawar
 if(room = map) {
 	if(wave_number <= ds_list_size(enemies_wave_length_list) - 1) {
 		var var_color = draw_get_color()
-		draw_set_color(c_blue)
+		draw_set_color(c_white)
 		draw_text_ext_transformed(camera_get_view_width(view_camera[0]) / 10, camera_get_view_height(view_camera[0]) / 30, "Next wave: " + string(floor(enemies_wave_length_list[|wave_number] - enemies_wave_timer)), 128, 128, 2, 2, 0)
 		draw_set_color(var_color)
 	}

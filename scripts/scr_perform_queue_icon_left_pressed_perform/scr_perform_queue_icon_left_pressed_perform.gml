@@ -10,7 +10,9 @@ function scr_perform_queue_icon_left_pressed_perform() {
 			}
 			var var_new_queue = ds_list_create()
 			for(var i = 0; i < ds_list_size(var_selected_building.queue_list); i += 1) {
-				var var_object = var_selected_building.queue_list[|i]
+				with(var_selected_building) {
+					var var_object = buttonToSkill[? queue_list[|i]]
+				}
 				if(i != var_icon_queue_position_pressed - 1) {
 					ds_list_add(var_new_queue,var_object)
 				} else {

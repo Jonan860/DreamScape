@@ -212,6 +212,7 @@ function spellToAbilitiesInfo(spell) {
 	}
 }
 
+//var decloak_info = "Reveals the unit, allowing for additional action"
 
 function spellToSpellHealth(spell) {
 	switch(spell) {
@@ -386,7 +387,7 @@ function slow_ai() {
 		with(scr_find_best_procentage_debuff_target_from_list(list_slow_target_within_range, slow)) {			
 			other.scr_slow_unit(id)
 			other.mana -= other.slow.mana_cost
-			other.spell_q.cooldown_current = other.spell_q.cooldown
+			other.slow.cooldown_current = other.slow.cooldown
 			other.action_bar = 0
 		}
 	}
@@ -415,12 +416,12 @@ function spellToPerform(spell) {
 		case SPELLS.spell_shield : return 
 		case SPELLS.spiked_carapace : return
 		case SPELLS.vampiric_aura : return 
-		}
+	}
 }
 function performNinjago() {
 	cooldown_current = cooldown
 	owner.mana -= mana_cost
-	var var_ninjago = instance_create_layer(owner.x, owner.y, "air", obj_ninjago)
+	var var_ninjago = instance_create_layer(owner.x, owner.y, "air", obj_ninjago_animator)
 	var_ninjago.creator = owner
 	var_ninjago.alarm[0] = duration * room_speed
 }
@@ -442,7 +443,7 @@ function canPerformSpellShield() {
 	
 function freezePerform(perputrator, victim) {
 	with(victim) {
-		scr_apply_debuff(global.freeze_struct, perputrator.spell_q.lvl)
+		scr_apply_debuff(global.freeze_struct, perputrator.freeze.lvl)
 		action_bar = 0 //kanske inte?
 	}
 }
@@ -480,7 +481,7 @@ function sleepPerform(var_target) {
 		}
 		target = noone
 		destination = noone
-		sleep_timer = other.list_sleep_time_per_lvl[|other.spell_w_lvl - 1]
+		sleep_timer = other.list_sleep_time_per_lvl[|other.sleep.lvl - 1]
 	}
 }
 
@@ -525,7 +526,7 @@ function raisePerform(soul_to_raise) {
 
 function holyLightPerform(perputrator, target) {
 	with(target) {
-		HP = min(HP + perputrator.spell_q.heal_amount, max_HP)
+		HP = min(HP + perputrator.holy_light.heal_amount, max_HP)
 		holy_lighted = 1
 		alarm[2] = global.spell_q_duration * room_speed
 	}
@@ -550,7 +551,7 @@ function perfromFreeze(argument0) {
 }
 
 function performHolyLight(var_selected) {
-	if(spell_q.lvl > 0) {
+	if(holy_light.lvl > 0) {
 		var cursorSet = cursor_sprite != spr_holy_light_cursor ? cr_none : cr_default
 		cursor_sprite = cursor_sprite != spr_holy_light_cursor ? spr_holy_light_cursor : -1
 		window_set_cursor(cursorSet)
@@ -619,12 +620,6 @@ function scr_frost_nova_perform() {
 	}
 }
 
-function perform_w_unit_producing_building() {
-		if(!unfinished) {
-			scr_recruit_unit(w_object)
-		}
-}
-
 rightPressedSlow = function() {
 	autocast = !autocast
 }
@@ -682,17 +677,33 @@ function createSpellSub(spellEnum) constructor {
 	cooldown_current = 0
 	lvl = 0
 	autocast = 0
+	
 	shouldPerform = function() {
-		return autocast and owner.mana > mana_cost[lvl - 1] and cooldown_current <= 0
+		return autocast and owner.mana > mana_cost[lvl - 1] and cooldown_current <= 0 and shouldPerformLocal()
 	}
+	
 }
+
+function spellToShouldPerform(_spell) {
+	switch(_spell) {
+		case SPELLS.curse : 
+			return function() {
+				with(owner) {
+					return !ds_list_empty(scr_find_enemies_within_range(other.range))
+				}
+			}
+		default : return true
+	}
+} 
 
 function createSpell(spellEnum, _letter) {
 	var spell = new createSpellSub(spellEnum)
 	with(spell) {
 		info = spellToInfo(spellEnum)
 		abilitiesInfo = spellToAbilitiesInfo(spellEnum)
+		shouldPerformLocal = spellToShouldPerform(spellEnum)
 	}
+	owner = id
 	ds_map_add(buttonToSkill, _letter, spell)
 	return spell
 }

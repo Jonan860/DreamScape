@@ -24,11 +24,11 @@ mana_regen_rate_per_sec = 0.45  //per second
 
 
 impale = createSpell(SPELLS.impale, "q")
-carapace = createSpell(SPELLS.spiked_carapace, "w")
+spiked_carapace = createSpell(SPELLS.spiked_carapace, "w")
 carrion_beetles = createSpell(SPELLS.carrion_beetles, "e")
 locust_swarm = createSpell(SPELLS.locust_swarm, "r")
 
-skills = [impale, carapace, carrion_beetles, locust_swarm]
+skills = [impale, spiked_carapace, carrion_beetles, locust_swarm]
 
 ds_list_level_sprites = ds_list_create()
 ds_list_add(ds_list_level_sprites, 0, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord)
@@ -41,7 +41,7 @@ time_until_next_locust = locust_spawn_interval_sec
 max_active_locusts = 7
  updateDamageReduction = function() {
 		if(carapace.lvl > 0) {
-			var reduction_from_spiked_carapace = list_of_damage_reduction_from_spiked_carapacelvl[|spell_w.lvl - 1]
+			var reduction_from_spiked_carapace = list_of_damage_reduction_from_spiked_carapacelvl[|spiked_carapace.lvl - 1]
 			damage_reduction = 1 - (1 - base_damage_reduction) * (1 - reduction_from_spiked_carapace)
 		}
 	}

@@ -21,6 +21,6 @@ mana_regen_rate_per_sec = 0.3
 raise = createSpell(SPELLS.raise, "q")
 skills = [raise]
 
-draw_hud_buttons_with_info = method(scr_dra_hud_buttons_with_hover_inf_necro, undefined)
-ai = method(scr_ai_spell_necromancer, undefined)
+draw_hud_buttons_with_info = method(undefined, scr_dra_hud_buttons_with_hover_inf_mage)
+ai = method(undefined, scr_ai_spell_necromancer)
 attack_target = function() {attack_target_magic_projectile(c_lime)}

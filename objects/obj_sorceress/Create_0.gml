@@ -24,18 +24,18 @@ slow_icon_animation_index = 0
 slow_icon_animation_speed = 8 //frames per sec
 
 
-draw_hud_buttons_with_info = method(scr_dra_hud_buttons_with_hover_inf_sorc, undefined)
+draw_hud_buttons_with_info = method( undefined, scr_dra_hud_buttons_with_hover_inf_sorc)
 
 attack_target = function() {attack_target_magic_projectile()}
 
 
 right_pressed_enemy = function() {
 	if(cursor_sprite == spr_slow_cursor) {
-		if(var_selected_unit.spell_q.cooldown_current == 0 and scr_get_distance(var_selected_unit, clicked_tile) <= var_selected_unit.spell_q.range and var_selected_unit.mana >= var_selected_unit.spell_q.mana_cost) {
+		if(var_selected_unit.slow.cooldown_current == 0 and scr_get_distance(var_selected_unit, clicked_tile) <= var_selected_unit.slow.range and var_selected_unit.mana >= var_selected_unit.slow.mana_cost) {
 			with(var_selected_unit)	{
 				scr_slow_unit(var_ground_unit)
-				mana -= spell_q_mana_cost
-				spell_q.cooldown_current = spell_q.cooldown
+				mana -= slow.mana_cost
+				slow.cooldown_current = slow.cooldown
 			}
 		}
 	} else {

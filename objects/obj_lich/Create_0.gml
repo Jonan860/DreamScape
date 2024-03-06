@@ -33,21 +33,21 @@ spr_height = sprite_height
 spr_width = sprite_width
 
 ai = function () {
-	if(mana >= spell_q.mana_cost and spell_q.cooldown == 0 and phase != "frost nova") {
+	if(mana >= frost_nova.mana_cost and frost_nova.cooldown == 0 and phase != "frost nova") {
 		var frost_nova_target_tile_within_range = scr_find_frost_nova_target_within_range()
 		if(frost_nova_target_tile_within_range != noone) {
 			scr_frost_nova(frost_nova_target_tile_within_range)
-			mana -= spell_q.mana_cost
-			spell_q.cooldown_current = spell_q.cooldown
+			mana -= frost_nova.mana_cost
+			frost_nova.cooldown_current = frost_nova.cooldown
 		}
 		exit;
 	}
 
 
-	if(spell_q.mana_cost + spell_e.mana_cost > mana and mana >= spell_e.mana_cost and spell_e.cooldown_current == 0 and spell_e.lvl > 0 and phase != "frost nova") {
+	if(frost_nova.mana_cost + dark_ritual.mana_cost > mana and mana >= dark_ritual.mana_cost and dark_ritual.cooldown_current == 0 and dark_ritual.lvl > 0 and phase != "frost nova") {
 		var var_dark_sacrifice = scr_find_dark_ritual_sacrifice()
 		if(var_dark_sacrifice != noone) {
-			spell_e.perform()
+			dark_ritual.perform()
 		}
 	}
 }

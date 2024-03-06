@@ -1,8 +1,8 @@
 event_inherited()
 owner = noone
-movement_cost = 3 * room_speed
-attack_cost = 1.5 * room_speed
-max_action_bar = 3 * room_speed
+movement_cost = 3 * game_get_speed(gamespeed_fps) 
+attack_cost = 1.5 * game_get_speed(gamespeed_fps)
+max_action_bar = 3 * game_get_speed(gamespeed_fps)
 action_bar = 0
 range = 1
 HP = 200

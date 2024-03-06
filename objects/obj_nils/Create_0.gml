@@ -35,7 +35,7 @@ spr_height = sprite_height
 spr_width = sprite_width
 
 attack_target = function() { 
-			if(instance_find(obj_ninjago, 0) = noone) {
+			if(instance_find(obj_ninjago_animator, 0) = noone) {
 				scr_attack_target_nils()
 			}
 }

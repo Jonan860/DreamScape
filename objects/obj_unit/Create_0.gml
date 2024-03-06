@@ -16,6 +16,7 @@ element = "normal"
 HP_regeneration_rate = 0
 max_mana = noone
 mana = noone
+lvl = noone
 holy_lighted = 0
 altitude = "ground"
 base_altitude = "ground"
@@ -49,6 +50,19 @@ sleep_timer = 0
 
 time_until_frost_nova_after_effect_end_sec = 0
 
+scr_draw_decloak_button_with_hover = function()  {
+	if(owner == global.player) {
+		scr_hover_decloak_info()
+		draw_sprite_ext(spr_decloak_button, 0, other.hud_s_button_x, other.hud_s_button_y, other.spell_button_width / sprite_get_width(spr_decloak_button), other.spell_button_height / sprite_get_height(spr_decloak_button), 0, -1, 1)
+		draw_sprite_ext(spr_abilities_button, 0, other.hud_abilities_x, other.hud_abilities_y, other.spell_button_width / sprite_get_width(spr_abilities_button), other.spell_button_height / sprite_get_height(spr_abilities_button), 0, -1, 1)
+		if(object_is_ancestor(object_index, obj_hero)) {
+			if(number_of_ability_points > 0) {
+				draw_text_ext_transformed_color(other.hud_abilities_x, other.hud_abilities_y, string(number_of_ability_points), -1, -1, 4, 4, 0, c_green, c_green, c_green, c_green, 1)
+			}
+		}	
+	}
+}
+
 slowed = {
 	applied : 0,
 	duration : 60,
@@ -58,6 +72,17 @@ slowed = {
 		applied = 1
 		durationLeft = duration
 	}
+}
+
+scr_hover_info_abilities = function(char) {
+	var butt = buttonToSkill[? char]
+	draw_set_color(c_green)
+	draw_rectangle(camera_get_view_width(view_camera[0]) - 32 - 2 * string_width(butt.info_abilities), camera_get_view_height(view_camera[0]) - global.hud.hud_height - 32 - 2 * string_height(butt.info_abilities), camera_get_view_width(view_camera[0]), camera_get_view_height(view_camera[0]) - global.hud.hud_height, 0)
+	draw_set_color(c_black)
+	var old_align = draw_get_halign()
+	draw_set_halign(fa_center)
+	draw_text_transformed(global.hud.hud_width - string_width(butt.info_abilities), global.camera_height - global.hud.hud_height - 2 * string_height(butt.info_abilities), butt.info_abilities, 2, 2, 0)
+	draw_set_halign(old_align)
 }
 
 build = function() {

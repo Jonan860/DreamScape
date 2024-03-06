@@ -12,13 +12,14 @@ building_progress_bar_x2 = x + sprite_width * 3/8
 building_progress_bar_y1 = y - sprite_height * 3/8
 building_progress_bar_y2 = y - sprite_height * 2/8
 evasiveness = 0
-q_info = ""
-w_info = ""
-e_info = ""
-r_info = ""
-a_info = ""
-s_info = ""
-d_info = ""
-f_info = ""
+buttonToSkill = ds_map_create()
+canRecruit = function(char) {
+	return global.player.money >= ds_map_find_value(global.map_object_to_costs, buttonToSkill[? char].object)
+}
+
+recruit = function(char) { 
+	global.player.money -= ds_map_find_value(global.map_object_to_costs,  buttonToSkill[? char].object)
+	ds_list_add(queue_list, char)
+}
 
 draw_hud_buttons_with_info = method(undefined, scr_dra_hud_button_with_hover_inf_building)

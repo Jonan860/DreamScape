@@ -10,10 +10,10 @@ function scr_ai_player() {
 		if(phase == "healing") {
 			if(target.HP = target.max_HP or scr_get_distance(tile, target.tile) > heal_range or altitude = "invisible") {
 				phase = "idle"
-			} else if(spell_q.mana_cost < mana and spell_q.cooldown_current <= 0) {
+			} else if(heal.mana_cost < mana and heal.cooldown_current <= 0) {
 				scr_heal_target()
-				spell_q.cooldown_current = spell_q.cooldown_max
-				mana -= spell_q.mana_cost
+				heal.cooldown_current = heal.cooldown_max
+				mana -= heal.mana_cost
 			}
 			action_bar = 0
 		}

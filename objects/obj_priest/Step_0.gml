@@ -1,1 +1,0 @@
-heal_icon_animation_index = heal_autocast_is_on ? (heal_icon_animation_index+heal_icon_animation_speed/room_speed) % 7 : 0
