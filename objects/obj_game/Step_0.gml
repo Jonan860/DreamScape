@@ -45,9 +45,6 @@ if(room == map) {
 
 		scr_light_beam_damage()
 
-		scr_frost_nova_perform()
-
-
 		with(obj_unit) { //////maybe solves bug instance_destroy is not immidiate
 			scr_death()   
 		}

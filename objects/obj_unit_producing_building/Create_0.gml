@@ -1,21 +1,5 @@
 event_inherited();
 
-hud_draw_gui = method(undefined, scr_hud_draw_gui_unit_prod_building)
-
-draw_hud_button = method(undefined, scr_dra_hud_button_with_hover_inf_building)
-
-perform_q = function() {
-	if(canRecruit(q_object)) {
-		recruit(q_object)	
-	}
-}
-
-perform_w = function() {
-	if(canRecruit(w_object)) {
-		recruit(w_object)	
-	}
-}
-
 function updateQueue() {
 	if(unfinished and global.lille_skutt.is_building == id) {
 		updateSelfConstruction()

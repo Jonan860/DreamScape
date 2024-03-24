@@ -33,12 +33,12 @@ spr_height = sprite_height
 spr_width = sprite_width
 
 ai = function () {
-	if(mana >= frost_nova.mana_cost and frost_nova.cooldown == 0 and phase != "frost nova") {
+	if(mana >= frost_nova.mana_cost and frost_nova.getCooldown() == 0 and phase != "frost nova") {
 		var frost_nova_target_tile_within_range = scr_find_frost_nova_target_within_range()
 		if(frost_nova_target_tile_within_range != noone) {
 			scr_frost_nova(frost_nova_target_tile_within_range)
 			mana -= frost_nova.mana_cost
-			frost_nova.cooldown_current = frost_nova.cooldown
+			frost_nova.cooldown_current = frost_nova.getCooldown()
 		}
 		exit;
 	}

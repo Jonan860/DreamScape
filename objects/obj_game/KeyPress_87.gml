@@ -1,3 +1,7 @@
 if(room == map) {
-	scr_perform_w()
+	with(global.tile_selected) {
+		with(selected_units[|0]) {
+			buttonToSkill[? "w"].iconPerform()
+		}
+	}
 }

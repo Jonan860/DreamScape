@@ -37,6 +37,7 @@ abilities_button = {
 	_x : r_button._x,
 	_y : r_button._y - spell_button_height
 }
+
 charToButton = ds_map_create()
 ds_map_add(charToButton, "q", q_button)
 ds_map_add(charToButton, "w", w_button)
@@ -44,6 +45,7 @@ ds_map_add(charToButton, "e", e_button)
 ds_map_add(charToButton, "r", r_button)
 ds_map_add(charToButton, "a", a_button)
 ds_map_add(charToButton, "s", s_button)
+ds_map_add(charToButton, "d", abilities_button)
 
 gui_display_abilities = 0
 

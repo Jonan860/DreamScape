@@ -4,6 +4,8 @@ draw_set_font(font0)
 randomize()
 scr_create_tile_on_map()
 global.tile_selected = noone
+global.selectedSpell = noone
+global.clicked_tile = noone
 global.hud = instance_create_layer(0, 0, "hud", obj_battle_hud)
 instance_create_depth(0, 0, -100, obj_game)
 global.player = instance_create_depth(0, 0, 0, obj_player)

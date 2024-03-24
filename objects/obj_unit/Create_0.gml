@@ -1,8 +1,7 @@
 skills = []
 buttonToSkill = ds_map_create()
 var var_tile_scale = sprite_get_height(spr_hexagon_pink) / max(sprite_height, sprite_width)
-image_yscale = var_tile_scale
-image_xscale = var_tile_scale
+image_yscale = var_tile_scale; image_xscale = var_tile_scale
 path = ds_list_create()
 list_path_arrow_directions = ds_list_create()
 tile = instance_position(x, y, obj_tile)
@@ -72,17 +71,6 @@ slowed = {
 		applied = 1
 		durationLeft = duration
 	}
-}
-
-scr_hover_info_abilities = function(char) {
-	var butt = buttonToSkill[? char]
-	draw_set_color(c_green)
-	draw_rectangle(camera_get_view_width(view_camera[0]) - 32 - 2 * string_width(butt.info_abilities), camera_get_view_height(view_camera[0]) - global.hud.hud_height - 32 - 2 * string_height(butt.info_abilities), camera_get_view_width(view_camera[0]), camera_get_view_height(view_camera[0]) - global.hud.hud_height, 0)
-	draw_set_color(c_black)
-	var old_align = draw_get_halign()
-	draw_set_halign(fa_center)
-	draw_text_transformed(global.hud.hud_width - string_width(butt.info_abilities), global.camera_height - global.hud.hud_height - 2 * string_height(butt.info_abilities), butt.info_abilities, 2, 2, 0)
-	draw_set_halign(old_align)
 }
 
 build = function() {

@@ -1,5 +1,4 @@
 function scr_movement_player() {
-
 		scr_update_path_to_destination()
 		if(ds_list_empty(path)) {	
 			action_bar = 0

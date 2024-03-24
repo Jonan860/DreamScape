@@ -1,11 +1,11 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "scr_perform_earthshatter_jump",
+  "name": "scr_hud_draw_gui_unit",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "earthshatter",
-    "path": "folders/Scripts/spells/earthshatter.yy",
+    "name": "Scripts",
+    "path": "folders/Scripts.yy",
   },
 }

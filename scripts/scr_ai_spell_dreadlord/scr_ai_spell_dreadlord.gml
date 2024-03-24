@@ -3,7 +3,7 @@ function scr_ai_spell_dreadlord() {
 		with(scr_find_sleep_target_within_range()) {
 			other.scr_sleep(sleep_target_within_range)
 			other.mana -= other.sleep.mana_cost
-			other.sleep.cooldown_current = other.sleep.cooldown
+			other.sleep.cooldown_current = other.sleep.getCooldown()
 		}
 	}
 }

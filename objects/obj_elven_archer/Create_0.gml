@@ -19,6 +19,3 @@ evasiveness = 0.3
 target = noone
 altitude = "ground"
 experience_to_give = 100
-spr_q_button = spr_slow_icon
-
-draw_hud_button_with_info = method(scr_draw_hud_button_and_hover_elven_archer, undefined)

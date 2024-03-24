@@ -6,7 +6,7 @@ function scr_banshee_auto_cast_ai_sub(){
 		if(curse_target != noone) {
 			scr_curse_unit(curse_target)
 			mana -= curse.mana_cost
-			curse.cooldown_current = curse.cooldown
+			curse.cooldown_current = curse.getCooldown()
 			action_bar = 0
 		}
 	}

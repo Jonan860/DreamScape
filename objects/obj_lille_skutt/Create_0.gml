@@ -54,4 +54,4 @@ s_button = {
 ds_map_add(buttonToSkill, "q", q_button)
 ds_map_add(buttonToSkill, "w", w_button)
 ds_map_add(buttonToSkill, "s", s_button)
-draw_hud_buttons_with_info = method(undefined, scr_dra_hud_button_with_hover_inf_lille_skutt)
+buttons = ["q", "w", "s"]

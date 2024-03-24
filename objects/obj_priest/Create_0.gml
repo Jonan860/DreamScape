@@ -21,6 +21,6 @@ heal = createSpell(SPELLS.heal, "q")
 invisibility = createSpell(SPELLS.invisibility, "w")
 skills = [heal, invisibility]
 
-draw_hud_buttons_with_info = method(undefined, scr_dra_hud_buttons_with_hover_inf_mage)
+
 
 attack_target = function() {attack_target_magic_projectile(c_yellow)}

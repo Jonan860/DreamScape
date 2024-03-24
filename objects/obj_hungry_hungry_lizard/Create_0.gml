@@ -21,5 +21,3 @@ digestion_rate = 1/2 //per second
 experience_to_give = 300
 
 attack_target = method(undefined, scr_attack_target_hungry_hungry_lizard)
-
-draw_hud_buttons_with_info = function() {}

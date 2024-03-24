@@ -14,6 +14,4 @@ mana_regen_level_up_multiplier = power(accumulated_level_up_stat_increase, 1/4)
 HP_regen_level_up_multplier = power(accumulated_level_up_stat_increase, 1/4)
 accuracy_level_up_multiplier = power(accumulated_level_up_stat_increase, 1/4)
 
-draw_hud_buttons_with_info = method(undefined, scr_dra_hud_button_with_hover_inf_hero)
-
-hud_draw_gui = method(undefined, scr_hud_draw_gui_unit)
+abilities = createSpell(SPELLS.abilities, "d")

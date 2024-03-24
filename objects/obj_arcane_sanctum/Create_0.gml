@@ -21,30 +21,3 @@ HP = max_HP
 damage_reduction = 0
 element = noone //fortified later maybe
 
-q_button = {
-	info : "Sorceress, Cost: " + string(ds_map_find_value(global.map_object_to_costs, obj_sorceress)),
-	object : obj_sorceress,
-	icon : spr_sorceress_icon
-}
-
-w_button = {
-	info : "Priest, Cost: " + string(ds_map_find_value(global.map_object_to_costs, obj_priest)),
-	object : obj_priest,
-	icon : spr_priest_icon
-}
-
-a_button = {
-	object : obj_sorceress_invisibility_upgrade,
-	icon : spr_invisibility_icon
-}
-with(a_button) {
-	info = "Sorceress invisibility upgrade: Allows sorceresses to cast invisibility on a ally unit, " + "\n and increases mana of sorceresses by " + string(global.invisibility_upgrade_mana_bonus) + " and mana regen. " + "Cost " + string(ds_map_find_value(global.map_object_to_costs, object))
-}
-
-s_button = {
-	object : obj_priest_dispel_upgrade,
-	icon : spr_dispel_icon
-}
-with(s_button) {
-	info = "Priest dispel upgrade: Allows priests to cast dispel, decreaseing the duration of buff an debuff in an area " + ". Cost: " + string(ds_map_find_value(global.map_object_to_costs, object))
-}	

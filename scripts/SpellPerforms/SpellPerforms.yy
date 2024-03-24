@@ -1,11 +1,11 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "scr_level_up_e_spell",
+  "name": "SpellPerforms",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "Scripts",
-    "path": "folders/Scripts.yy",
+    "name": "structs",
+    "path": "folders/Scripts/spells/structs.yy",
   },
 }

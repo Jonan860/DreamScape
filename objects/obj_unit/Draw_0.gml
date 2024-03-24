@@ -32,5 +32,3 @@ if(freezed.applied) {
 if(cursed.applied) {
 	draw_sprite_ext(spr_curse_animation, 0, x, y, sprite_width / (3 * sprite_get_width(spr_curse_animation)), sprite_height / (3 * sprite_get_height(spr_curse_animation)), 0, c_white, 1)
 }
-
-hud_draw_gui = method(undefined, scr_hud_draw_gui_unit)
