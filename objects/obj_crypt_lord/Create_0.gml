@@ -1,5 +1,4 @@
 event_inherited()
-owner = noone
 movement_cost = 3 * room_speed
 attack_cost = 1.5 * room_speed
 max_action_bar = 3 * room_speed
@@ -48,7 +47,7 @@ max_active_locusts = 7
 
 ai = function() {
 	if(mana >= carrion_beetles.mana_cost and carrion_beetles.cooldown_current == 0) {
-		var soul_within_range = scr_find_soul_within_range()
+		var soul_within_range = scr_find_soul_within_range(carrion_beetles.range)
 		if(soul_within_range != noone) {
 			scr_raise_carrion_beetle(soul_within_range)
 			carrion_beetles.cooldown_current = carrion_beetles.cooldown_max

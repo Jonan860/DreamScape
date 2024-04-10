@@ -1,12 +1,13 @@
 
 if(room == map) {
-	scr_perform_s()
-}
-
-if(room == map) {
-	with(global.tile_selected) {
-		with(selected_units[|0]) {
-			buttonToSkill[? "s"].iconPerform()
+	var var_selected = global.tile_selected.selected_units[|0]
+	if(!is_undefined(var_selected)) {
+		if(var_selected.altitude == "invisible") {
+			with(var_selected) {
+				scr_perform_s_decloaking()
+				exit;
+			}
 		}
 	}
+	buttonPressedIconPerform("s")
 }

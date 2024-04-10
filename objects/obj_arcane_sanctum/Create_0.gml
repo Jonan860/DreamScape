@@ -2,7 +2,6 @@ event_inherited()
 
 rally_tile = noone
 unfinished = 0
-owner = noone
 
 queue_list = ds_list_create()
 

@@ -18,6 +18,7 @@ function heal_ai() {
 function spellToAnimator(spell) {
 	switch(spell) {
 		case SPELLS.katon_gokakyu_no_jutsu : return obj_katon_gokakyu_no_jutsu
+		case SPELLS.kawarimi_no_jutsu : return obj_kawarimi_animator
 	}
 }
 
@@ -97,10 +98,10 @@ function spellToManaCosts(spell) {
 		case SPELLS.impale : return [30, 45, 60];
 		case SPELLS.frost_nova : return [40, 80, 120]
 		case SPELLS.holy_light : return [40, 45, 60]
-		case SPELLS.kawarimi_no_jutsu : return []
+		case SPELLS.kawarimi_no_jutsu : return 20
 		case SPELLS.spell_shield : return [15, 30, 40]
 		case SPELLS.spiked_carapace : return [30, 45, 60]
-		case SPELLS.earthshatter : return [80]
+		case SPELLS.earthshatter : return 80
 		case SPELLS.carrion_beetles : return [25, 25, 25]
 		case SPELLS.katon_gokakyu_no_jutsu : return [30, 45, 60]
 		case SPELLS.freeze : return [30, 45, 60]
@@ -130,6 +131,7 @@ function spellToCursor(spellenum) {
 		case SPELLS.buildArcaneSanctum : return spr_spade_cursor
 		case SPELLS.buildBarracks : return spr_spade_cursor
 		case SPELLS.slow : return spr_slow_cursor
+		case SPELLS.katon_gokakyu_no_jutsu : return spr_fire_ball_cursor
 		default : return noone
 	}
 }
@@ -248,6 +250,7 @@ function spellToIcon(spell) {
 		case SPELLS.buildImprovedBows : return spr_improved_bows
 		case SPELLS.buildBarracks : return spr_human_barracks_icon
 		case SPELLS.buildArcaneSanctum : return spr_arcane_sanctum_icon
+		case SPELLS.raise : return  spr_raise_icon
 		default : return noone
 	}
 }
@@ -296,6 +299,8 @@ function spellToName(spell) {
 		case SPELLS.buildArcher : return "Build Archer"
 		case SPELLS.buildPriest : return "Build Priest"
 		case SPELLS.buildSorceress : return "Build Sorceress"
+		case SPELLS.curse : return "Curse"
+		case SPELLS.raise : return "Raise"
 	}
 }
 
@@ -303,7 +308,7 @@ function spellToName(spell) {
 function spellToInfo(spell) {
 	switch(spell) {
 		case SPELLS.impale : return "impale"
-		case SPELLS.frost_nova : return "Causes ice damage on enemy units within an area\n getCooldown() : " + string(spell_q.getCooldown())
+		case SPELLS.frost_nova : return "Causes ice damage on enemy units within an area\n getCooldown() : " + string(getCooldown())
 		 + "\n Mana cost: " + string(mana_cost)
 		case SPELLS.carrion_beetles : return "The Crypt Lord progenerates 1 Carrion Beetle from a target soul to attack the Crypt Lord's enemies. \n Beetles are permanent but only 5 can be controlled at a time." + " getCooldown(): " + string(getCooldown()) + "\n Mana cost: " + string(mana_cost)
 		case SPELLS.dark_ritual : return "Sacrifices an allied unit for mana\n Coolworn : " + string(getCooldown())
@@ -364,6 +369,7 @@ function spellToInfo(spell) {
 		case SPELLS.buildInvisibility : return "Sorceress invisibility upgrade: Allows sorceresses to cast invisibility on a ally unit, " + "\n and increases mana of sorceresses by " + string(global.invisibility_upgrade_mana_bonus) + " and mana regen. " + "Cost " + string(ds_map_find_value(global.map_object_to_costs, object))
 		case SPELLS.buildArcaneSanctum : return "Arcane Sanctum: Recruits Mages";
 		case SPELLS.buildBarracks : return "Barracks: Recruits Warriors"
+		case SPELLS.raise : return "Summons a skeleton from a soul"
 	}
 }
 
@@ -399,6 +405,7 @@ heal_icon_animation_index = 0
 heal_icon_animation_speed = 8
 
 function createSpellSub(spellEnum) constructor {
+	Enum = spellEnum;
 	amount = spellToAmount(spellEnum)
 	spellHealth = spellToSpellHealth(spellEnum)
 	range = spellToRange(spellEnum)
@@ -412,8 +419,10 @@ function createSpellSub(spellEnum) constructor {
 	cooldown_current = 0
 	lvl = 0
 	autocast = 0
+	icon_animation_speed = 8;
+	icon_animation_index = 0;
 	shouldPerform = function() {
-		return autocast and owner.mana > mana_cost[lvl - 1] and cooldown_current <= 0 and shouldPerformLocal()
+		return autocast and owner.mana > getManaCost() and cooldown_current <= 0 and shouldPerformLocal()
 	}
 	shouldRightPerform = function() {
 		return owner.mana >= getManaCost() and cooldown_current <= 0 and shouldRightPerformLocal()
@@ -432,6 +441,9 @@ function createSpell(spellEnum, _letter) {
 		}
 		getDuration = function() {
 			return is_array(duration) ? duration[max(lvl - 1, 0)] : duration
+		}
+		getAmount = function() {
+			return is_array(amount) ? amount[max(lvl - 1, 0)] : amount
 		}
 		info = spellToInfo(spellEnum)
 		abilitiesInfo = spellToAbilitiesInfo(spellEnum)
@@ -464,6 +476,7 @@ function createSpell(spellEnum, _letter) {
 			icon = other.icon
 			name = other.name
 			owner = other
+			Enum = other.Enum;
 		}
 		scr_apply_debuff = function(victim) {
 			var debuff_struct = new createDebuff()

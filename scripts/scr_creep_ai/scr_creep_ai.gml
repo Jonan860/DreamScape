@@ -9,7 +9,7 @@ function scr_creep_ai() {
 					phase = "return"
 				}
 				target = var_closest_enemy == noone ? noone : var_closest_enemy
-			}
+			}; break
 
 		case "idle" : 
 			var_closest_enemy = scr_get_closest_enemy_in_territory()
@@ -18,12 +18,13 @@ function scr_creep_ai() {
 					target = var_closest_enemy
 					phase = "hunt"
 				}
-			}
+			}; break;
 
 		case "return" :
 			if(tile == start_tile) {
 				phase = "idle"
 				action_bar = 0
 			}
+			break;
 	}
 }

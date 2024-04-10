@@ -1,5 +1,4 @@
 event_inherited()
-owner = noone
 movement_cost = 3 * room_speed
 attack_cost = 1.5 * room_speed
 max_action_bar = 3 * room_speed
@@ -35,7 +34,7 @@ spr_height = sprite_height
 spr_width = sprite_width
 
 attack_target = function() { 
-			if(instance_find(obj_ninjago_animator, 0) = noone) {
-				scr_attack_target_nils()
-			}
+	if(instance_find(obj_ninjago_animator, 0) = noone) {
+		scr_attack_target_nils()
+	}
 }

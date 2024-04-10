@@ -3,21 +3,10 @@ global.camera_width = camera_get_view_width(view_camera[0])
 global.camera_height = camera_get_view_height(view_camera[0])
 optimal_path = ds_list_create()
 max_window_width = window_get_width()
-max_window_height=window_get_height()
+max_window_height = window_get_height()
 min_window_width = 2048/2
 min_window_height = 1179/2
-learn_button_width = 128
-learn_button_height = 42
-//learn_button_pressed=0
-learn_spell_q_width = 128
-learn_spell_q_height = 42
-learn_spell_q_pressed = 0
-learn_spell_w_width = 256 + 128
-learn_spell_w_height = 42
-learn_spell_w_pressed = 0
-learn_spell_e_width = 256
-learn_spell_e_height = 42
-learn_spell_e_pressed = 0
+
 global.enemy_ai_think_time_in_sec = 5
 global.player_ai_think_time_in_sec = 0.1
 global.player_idle_ai_think_time_in_sec = 0.3
@@ -119,3 +108,26 @@ ds_list_add(wave_list, wave1, wave2, wave3, wave4, wave5, wave6, wave7, wave8, w
 
 phase = "dialogue"
 lose_text = ""
+
+
+function buttonPressedIconPerform(buttonStr) {
+	with(global.tile_selected) {
+		with(selected_units[|0]) {
+			with(buttonToSkill[? buttonStr]) {
+				if(global.hud.gui_display_abilities) {
+					if(icon == spr_abilities_button) {
+						iconPerform()
+					} else if(lvl < 3 
+								and (buttonStr != "r" or owner.lvl >= 6 and lvl < 2) 
+								and owner.number_of_ability_points > 0) {
+						level_up()
+					} 
+				} else {
+					if(lvl > 0) {
+						iconPerform()
+					}
+				}
+			}	
+		}
+	}
+}

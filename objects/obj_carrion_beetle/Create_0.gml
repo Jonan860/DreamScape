@@ -2,7 +2,6 @@
 event_inherited()
 summon_time_left = noone
 max_summon_time = noone
-owner = noone
 movement_cost = 3 * room_speed
 attack_cost = 1.5 * room_speed
 max_action_bar = 3 * room_speed

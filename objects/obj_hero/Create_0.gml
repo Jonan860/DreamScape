@@ -14,4 +14,7 @@ mana_regen_level_up_multiplier = power(accumulated_level_up_stat_increase, 1/4)
 HP_regen_level_up_multplier = power(accumulated_level_up_stat_increase, 1/4)
 accuracy_level_up_multiplier = power(accumulated_level_up_stat_increase, 1/4)
 
-abilities = createSpell(SPELLS.abilities, "d")
+if(owner = global.player) {
+	abilities = createSpell(SPELLS.abilities, "d")
+	abilities.lvl = 1;
+}

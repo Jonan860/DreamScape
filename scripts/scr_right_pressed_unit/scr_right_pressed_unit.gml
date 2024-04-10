@@ -1,11 +1,11 @@
 function scr_right_pressed_unit(var_selected_unit) {
 	if(var_selected_unit.phase != "sleep") {
-		with(var_selected_unit) {
-			with(global.selectedSpell) {
-				if(shouldRightPerform()) {
-					rightPerform()
-					exit
-				}
+		with(global.selectedSpell) {
+			if(lvl > 0 and owner.mana > getManaCost() and cooldown_current == 0 and (range == noone or scr_get_distance(var_selected_unit.tile, global.clicked_tile) <= range) and shouldRightPerform()) {
+				owner.mana -= getManaCost();
+				cooldown_current = getCooldown();
+				rightPerform()
+				exit
 			}
 		}
 		if(var_selected_unit.phase != "reviving" and var_selected_unit.phase != "dead") {

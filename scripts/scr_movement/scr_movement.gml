@@ -6,21 +6,21 @@ function scr_movement() {
 		case global.player : 
 			if (phase == "movement" and action_bar >= movement_cost) {
 				scr_movement_player()
-			}
+			};  break;
 		case global.enemy : 
 			if( phase == "movement" and action_bar >= movement_cost) {
 				scr_movement_enemy()
-			}
+			} 
 			if(phase == "hunt" and action_bar >= attack_cost) {
 				scr_hunt_attack_enemy()
-			}
+			}; break;
 		case global.creep_lord :
 			if( phase == "return" and action_bar >= movement_cost/3) {
 				scr_movement_creep_return()
 			}
 			if(phase == "hunt" and action_bar >= min(attack_cost, movement_cost)) {
 				scr_creep_lord_hunt()
-			}		
+			}; break;	
 	}
 	
 	if(phase != "dead" and phase != "reviving" and phase != "earthshatter jump") {

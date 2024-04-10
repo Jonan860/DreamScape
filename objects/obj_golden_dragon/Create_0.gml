@@ -1,7 +1,6 @@
 event_inherited()
 base_altitude = "ground"  //behövs extra knapp för att avgöra om attackera eller gå till tile om man ska ha air
 altitude = "ground"
-owner = noone
 creator = noone
 movement_cost = 3 * room_speed
 attack_cost = 1.5 * room_speed

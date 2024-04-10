@@ -1,5 +1,4 @@
 event_inherited()
-owner = noone
 movement_cost = 3 * game_get_speed(gamespeed_fps)
 attack_cost = 1.5 * game_get_speed(gamespeed_fps)
 max_action_bar = 3 * game_get_speed(gamespeed_fps)
@@ -23,7 +22,7 @@ curse_icon_animation_speed = 8 //frames per sec
 
 curse = createSpell(SPELLS.curse, "q")
 skills = [curse]
-
+curse.autocast = 1;
 spr_q_button = spr_curse_icon_autocast
 
 ai = method(undefined, scr_ai_spell_banshee)

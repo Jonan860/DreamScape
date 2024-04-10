@@ -101,7 +101,7 @@ function scr_hud_draw_gui_unit() {
 			draw_healthbar(mana_bar_x1, mana_bar_y1, mana_bar_x2, mana_bar_y2, other.mana / other.max_mana * 100, c_black, c_blue, c_blue, 0, 1, 0)	
 		}
 		draw_set_halign(var_old_align)
-		if(object_is_ancestor(other.object_index, obj_summon) and summon_time_left != noone) {	
+		if(object_is_ancestor(other.object_index, obj_summon) and other.summon_time_left != noone) {	
 			draw_healthbar(summon_time_bar_x1, summon_timer_bar_y1, summon_time_bar_x2, summon_time_bar_y2, other.summon_time_left/other.max_summon_time * 100, c_black, c_purple, c_purple, 0, 1, 0)
 		}
 		if(object_is_ancestor(other.object_index, obj_hero)) {

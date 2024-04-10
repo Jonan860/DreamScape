@@ -1,4 +1,4 @@
-owner = noone
+
 target = noone
 damage_per_feed = owner.damage
 feed_per_sec = 1

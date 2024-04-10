@@ -41,7 +41,19 @@ global.lille_skutt = scr_instance_create_at_tile_with_owner(obj_lille_skutt, 100
 //{
 //scr_update_damage_reduction()
 //}
-scr_instance_create_at_tile_with_owner(obj_banshee, 100006, global.enemy)
+var ban = scr_instance_create_at_tile_with_owner(obj_banshee, 100006, global.enemy)
+ban.HP = 1
+var lich = scr_instance_create_at_tile_with_owner(obj_lich, 100007, global.enemy)
+with(lich) {
+	repeat(3) {
+		scr_level_up()	
+	}
+	frost_nova.lvl = 2
+	dark_ritual.lvl = 1
+}
+
+
+scr_instance_create_at_tile_with_owner(obj_necromancer, 100008, global.enemy)
 with(obj_tile) {
 	if(tile_x = 18 and tile_y = 2) {
 		other.hungry_hungry_lizard = scr_instance_create_at_tile_with_owner(obj_hungry_hungry_lizard, id, global.creep_lord)
@@ -52,9 +64,9 @@ with(hungry_hungry_lizard) {
 	start_tile = tile
 	with(obj_tile) {
 		if(
-		(tile_x=18 and tile_y>=2 and tile_y<=8)
-		or (tile_x=17 and (tile_y>=3 and tile_y<=5))
-		or (tile_x=19 and (tile_y>=3 and tile_y<=5))
+		(tile_x == 18 and tile_y >= 2 and tile_y <= 8)
+		or (tile_x == 17 and (tile_y >= 3 and tile_y <= 5))
+		or (tile_x == 19 and (tile_y >= 3 and tile_y <= 5))
 		)
 		{
 			ds_list_add(other.list_of_territory_tiles, id)

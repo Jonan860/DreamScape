@@ -62,6 +62,14 @@ scr_draw_decloak_button_with_hover = function()  {
 	}
 }
 
+scr_update_accuracy = function() {
+	var cursed = scr_is_debuffed(SPELLS.curse)
+	if(cursed) {
+		var curse = createSpell(SPELLS.curse)
+		accuracy = base_accuracy * curse.amount
+	}
+}
+
 slowed = {
 	applied : 0,
 	duration : 60,

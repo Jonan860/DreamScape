@@ -9,14 +9,15 @@ if(room == map) {
 			scr_movement()
 			for(var i = 0; i < array_length(skills); i++) {
 				with(skills[i]) {
-					if(shouldPerform()) {
-						perform()
-					}
+					cooldown_current = max(0, cooldown_current - 1 / game_get_speed(gamespeed_fps));
+					//if(shouldPerform()) {
+					//	perform()
+					//}
 				}
 			}
 			for(var i = 0; i < array_length(skills); i++) {
 				with(skills[i]) {
-					icon_animation_index = autocast? (icon_animation_index + icon_animation_speed/room_speed) % 7 : 0
+					icon_animation_index = autocast ? (icon_animation_index + icon_animation_speed/room_speed) % 7 : 0
 				}
 			}
 			////scr_death()  maybe solves bug see above
@@ -34,7 +35,6 @@ if(room == map) {
 		scr_summons_time_reduction()
 		scr_hp_digestion()
 		scr_missing_time_countdown()
-		scr_frost_nova_countown()
 		scr_sleep_timer_countdown()
 		scr_stun_countdown()
 		scr_earthquake_crack_countdown()

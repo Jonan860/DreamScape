@@ -3,15 +3,16 @@ function spellToRightPerform(spell) {
 		case SPELLS.build : return;
 		case SPELLS.carrion_beetles : return method(undefined, carrionBeetleRightPerform)
 		case SPELLS.carrion_swarm : return;
+		case SPELLS.curse : return method(undefined, curseRightPerform)
 		case SPELLS.dark_ritual : return method(undefined, darkSacrificeRightPerform)
 		case SPELLS.earthshatter : return method(undefined, earthshatterRightPerform)
 		case SPELLS.freeze : return method(undefined, freezeRightPerform)
-		case SPELLS.frost_nova : return method(undefined, nova)
+		case SPELLS.frost_nova : return method(undefined, frostNovaRightPerform)
 		case SPELLS.golden_dragon : return;
 		case SPELLS.heal : return method(undefined, healRightPerform)
 		case SPELLS.holy_light : return method(undefined, holyLightRightPerform)
 		case SPELLS.impale : return;
-		case SPELLS.katon_gokakyu_no_jutsu : return method(undefined, katonGokakyuNoJutsuPerform)
+		case SPELLS.katon_gokakyu_no_jutsu : return method(undefined, katonGokakyuNoJutsuRightPerform)
 		case SPELLS.kawarimi_no_jutsu : return method(undefined, kawarimiRightPerform)
 		case SPELLS.sleep : return method(undefined, sleepRightPerform)
 		case SPELLS.slow : return method(undefined, slowRightPerform)
@@ -26,6 +27,7 @@ function spellToRightPerform(spell) {
 		case SPELLS.buildImprovedBows : return method(undefined, performRecruit);
 		case SPELLS.buildDefend : return method(undefined, performRecruit);
 		case SPELLS.buildInvisibility : return method(undefined, performRecruit);
+		case SPELLS.raise : return method(undefined, raiseSkeletonRightPerform);
 	}
 }
 
@@ -45,6 +47,7 @@ function spellToIconPerform(spellenum) {
 		case SPELLS.kawarimi_no_jutsu : return method(undefined, selectSwitchCursor)
 		case SPELLS.ninjago : return method(undefined, ninjagoIconPerform)
 		case SPELLS.earthshatter : return method(undefined, selectSwitchCursor)
+		case SPELLS.katon_gokakyu_no_jutsu : return method(undefined, selectSwitchCursor)
 	}
 }
 
@@ -57,9 +60,17 @@ function spellToShouldRightPerformLocal(spellEnum) {
 }
 
 function carrionBeetleRightPerform(soul_to_raise) {
-	scr_make_room_for_instance_on_tile(soul_to_raise.tile, "ground")
-	scr_instance_create_at_tile_with_owner(obj_carrion_beetle, soul_to_raise.tile,owner)
-	instance_destroy(soul_to_raise)
+	raiseRightPerform(obj_carrion_beetle)
+}
+
+function raiseSkeletonRightPerform() {
+	raiseRightPerform(obj_skeleton)
+}
+
+function raiseRightPerform(obj) {
+	scr_make_room_for_instance_on_tile(global.clicked_tile, "ground")
+	scr_instance_create_at_tile_with_owner(obj, global.clicked_tile, owner.owner)
+	instance_destroy(instance_nearest(global.clicked_tile.x, global.clicked_tile.y, obj_soul))
 }
 
 function darkSacrificeRightPerform(var_sacrifice) {
@@ -97,6 +108,18 @@ var var_barrack_cost = ds_map_find_value(global.map_object_to_costs, animator)
 		barrack.unfinished = 1
 		barrack.build_progress = 0
 		global.lille_skutt.is_building = self
+	}
+}
+function revivePerform() {
+	with(var_selected) {
+		if(phase == "reviving") {
+			action_bar = 0
+		} else {
+			scr_disblend_list(path)
+			ds_list_clear(path)
+			target = noone
+		}
+		phase = phase == "reviving" ? "idle" : "reviving"
 	}
 }
 
@@ -185,12 +208,13 @@ function sleepRightPerform(var_target) {
 }
 
 function freezeRightPerform(perputrator, victim) {
+	//global.clicked_tile.grounds_list[|0].freezed.applied = 1
 	scr_apply_debuff(global.clicked_tile.grounds_list[|0])
 }
 
 
 function freezeRightPerform2() {
-	if(cursor_sprite == spr_freeze_cursor and !already_freezed) {
+	if(cursor_sprite == spr_freeze_cursor and !scr_is_debuffed(SPELLS.freeze)) {
 		if(global.ida.freeze.lvl > 0) {
 			var cooldown = getCooldown()
 			var mana_cost = getManaCost()
@@ -229,56 +253,56 @@ function invisibleRightPerform(var_unit){
 	}
 }
 
+function frostNovaRightPerform(var_target_tile) {
+	phase = "frost nova"
+	var var_frost_nova = instance_create_layer(var_target_tile.x, var_target_tile.y, "tiles", obj_frost_nova_animator, {owner : other, target : var_target_tile})
+	with(var_frost_nova) {
+		depth -= 1
+	}
+}
+
 function invisibilityShouldRightPerform() {
 	return cursor_sprite == spr_invisibility_cursor
 		and var_selected_unit.invisibility.cooldown_current == 0
 		and scr_get_distance(var_selected_unit, global.clicked_tile) <= var_selected_unit.invisibility.range
 		and var_selected_unit.mana >= var_selected_unit.invisibility.mana_cost
 }
-
-function raiseRightPerform(soul_to_raise) {
-	scr_make_room_for_instance_on_tile(soul_to_raise.tile, "ground")
-	scr_instance_create_at_tile_with_owner(obj_skeleton, soul_to_raise.tile,owner)
-	instance_destroy(soul_to_raise)
-}
 	
-function curseRightPerform(curse_target) {
-	with(curse_target) {
-		scr_apply_debuff(global.curse_struct, 0)
-		scr_update_accuracy()
-	}
+function curseRightPerform() {
+	scr_apply_debuff(global.clicked_tile.grounds_list[|0])
+	global.clicked_tile.grounds_list[|0].scr_update_accuracy()
 }
 
 function earthshatterRightPerform() {
-		if(cooldown_current == 0 and scr_get_distance(global.tile_selected, global.clicked_tile) <= range and owner.mana >= owner.getManaCost() and lvl > 0) {
-			with(owner) {
-				mana -= mana_cost
-				cooldown_current = getCooldown()
-				instance_create_depth(x, y, 0, animator, {target : global.clicked_tile})
-				exit;
-			}
+	if(cooldown_current == 0 and scr_get_distance(global.tile_selected, global.clicked_tile) <= range and owner.mana >= owner.getManaCost() and lvl > 0) {
+		with(owner) {
+			mana -= mana_cost
+			cooldown_current = getCooldown()
+			instance_create_depth(x, y, 0, animator, {target : global.clicked_tile})
+			exit;
 		}
+	}
 }
 
-function kawarimiRightPerform() {
-	if(owner.mana >= mana_cost and lvl > 0) {
-		if(unit_to_kawarimi1 == noone and owner.mana >= mana_cost) {
-			var var_unit_to_kawarimi1 = global.clicked_tile.grounds_list[|0]
-			if(object_is_ancestor(var_unit_to_kawarimi1.object_index, obj_unit)) {
-				unit_to_kawarimi1 = var_unit_to_kawarimi1
-			}
-		} else if(owner.mana >= mana_cost and cooldown_current == 0) {	
-		var var_unit_to_kawarimi2 = global.clicked_tile.grounds_list[|0]
-		if(object_is_ancestor(var_unit_to_kawarimi2.object_index, obj_unit)) {
-			unit_to_kawarimi2 = var_unit_to_kawarimi2
-			if(unit_to_kawarimi1 != unit_to_kawarimi2) {
-				cooldown_current = getCooldown()
-				owner.mana -= mana_cost
-				action_bar = 0
-				scr_swap_tile(unit_to_kawarimi1, unit_to_kawarimi2)
-			}
-			unit_to_kawarimi1 = noone; unit_to_kawarimi2 = noone
-			}
+function kawarimiRightPerform()	{
+		owner.mana += getManaCost()
+		cooldown_current = 0
+	if(global.game.unit_to_kawarimi1 == noone) {
+		var var_unit_to_kawarimi1 = global.clicked_tile.grounds_list[|0]
+		if(object_is_ancestor(var_unit_to_kawarimi1.object_index, obj_unit) and var_unit_to_kawarimi1.owner == global.player) {
+			global.game.unit_to_kawarimi1 = var_unit_to_kawarimi1
+			instance_create_depth(0, 0, var_unit_to_kawarimi1.depth + 1, animator)
+		}
+	} else {	
+	var var_unit_to_kawarimi2 = global.clicked_tile.grounds_list[|0]
+	if(object_is_ancestor(var_unit_to_kawarimi2.object_index, obj_unit) and var_unit_to_kawarimi2.owner == global.player) {
+		owner.mana -= getManaCost()
+		cooldown_current = getCooldown()
+		global.game.unit_to_kawarimi2 = var_unit_to_kawarimi2
+		if(global.game.unit_to_kawarimi1 != global.game.unit_to_kawarimi2) {
+			scr_swap_tile(global.game.unit_to_kawarimi1, global.game.unit_to_kawarimi2)
+		}
+		global.game.unit_to_kawarimi1 = noone; global.game.unit_to_kawarimi2 = noone
 		}
 	}
 }
@@ -342,15 +366,26 @@ function heal_target(_target) {
 	 }
  }
  
- function katonGokakyuNoJutsuPerform() {
-	if(owner.cooldown_current == 0 and owner.mana >= owner.mana_cost and lvl > 0) {
-		cooldown_current = cooldown_max
-		owner.mana -= mana_cost
-		with(instance_create_depth(owner.x, owner.y, id.depth, object)) {
-			owner = other.owner
-			y -= sprite_width
-			image_angle = 90
-			vspeed = -4
+ 
+ function katonGokakyuNoJutsuRightPerform() {
+	var angle = point_direction(owner.x, owner.y, global.clicked_tile.x, global.clicked_tile.y) 
+	var angles = [90, 270, NWA, SWA, NEA, NWA - 180]
+	var closest_angle_dist = 1000;
+	var i;
+	for(i = 0; i < array_length(angles); i++) {
+		if(abs(angles[i] - angle) < closest_angle_dist) {
+			closest_angle_dist = abs(angles[i] - angle);
+			var closest_index = i;
 		}
+	}
+	angle = angles[closest_index];
+	
+	with(instance_create_depth(owner.tile.x, owner.tile.y, owner.depth, animator)) {
+		owner = other
+		image_angle = angle
+		x += sprite_get_width(spr_hexagon_pink) / 3 * cos(angle * pi/180)
+		y -= sprite_get_height(spr_hexagon_pink) / 3 * sin(angle * pi/180)
+		speed = 4
+		direction = angle;
 	}
 }

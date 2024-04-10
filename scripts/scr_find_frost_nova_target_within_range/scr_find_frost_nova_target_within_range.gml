@@ -2,7 +2,7 @@ function scr_find_frost_nova_target_within_range() {
 	var var_optimal_tile_target = noone
 	var optimal_goodness = 0
 	with(obj_tile) {
-		if(scr_get_distance(id, other.tile) <= other.frost_nova_range) {
+		if(scr_get_distance(id, other.tile) <= other.frost_nova.range) {
 			var var_ground_unit_list = ds_map_find_value(occupants, "ground")
 			var var_air_unit_list = ds_map_find_value(occupants, "air")
 			var var_goodness_of_frost_nova = 0
@@ -41,7 +41,6 @@ function scr_find_frost_nova_target_within_range() {
 						}
 					}
 				}
-	
 				if(!ds_list_empty(var_air_unit_list)) {
 					for(var k = 0; k < ds_list_size(var_air_unit_list); k += 1) {
 						var var_air_unit = var_air_unit_list[|k]
@@ -52,7 +51,6 @@ function scr_find_frost_nova_target_within_range() {
 						}
 					}
 				}
-	
 				if(var_goodness_of_frost_nova > optimal_goodness) {
 					var_optimal_tile_target = id
 					optimal_goodness = var_goodness_of_frost_nova
@@ -60,12 +58,5 @@ function scr_find_frost_nova_target_within_range() {
 			}
 		}
 	}
-
-
 	return var_optimal_tile_target
-
-
-
-
-
 }
