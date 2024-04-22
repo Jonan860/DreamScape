@@ -9,7 +9,10 @@ function scr_left_hud_pressed() {
 						if(owner == global.player) {
 							with(ds_map_find_value(buttonToSkill, buttons[i])) {
 								if(!global.hud.gui_display_abilities) {
-									iconPerform()
+									if(lvl > 0) {
+										iconPerform()
+										exit
+									}
 								} else {
 									if(other.number_of_ability_points > 0) {
 										level_up()

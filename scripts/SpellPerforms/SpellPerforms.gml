@@ -39,7 +39,7 @@ function spellToIconPerform(spellenum) {
 		case SPELLS.buildBarracks : return method(undefined, selectSwitchCursor)
 		case SPELLS.buildArcaneSanctum : return method(undefined, selectSwitchCursor)
 		case SPELLS.invisibility : return method(undefined, selectSwitchCursor)
-		case SPELLS.holy_light : return method(undefined, holyLightIconPerform)
+		case SPELLS.holy_light : return method(undefined, selectSwitchCursor)
 		case SPELLS.abilities : return method(undefined, abilitiesIconPerform)
 		case SPELLS.spell_shield : return method(undefined, spellShieldIconPerform)
 		case SPELLS.freeze : return method(undefined, selectSwitchCursor)
@@ -48,13 +48,20 @@ function spellToIconPerform(spellenum) {
 		case SPELLS.ninjago : return method(undefined, ninjagoIconPerform)
 		case SPELLS.earthshatter : return method(undefined, selectSwitchCursor)
 		case SPELLS.katon_gokakyu_no_jutsu : return method(undefined, selectSwitchCursor)
+		case SPELLS.vampiric_aura : return method(undefined, vampiricAuraIconPerform)
+		case SPELLS.locust_swarm : return method(undefined, locustIconPerform)
 	}
 }
 
+function locustIconPerform() {
+	instance_create_depth(owner.owner.x, owner.owner.y, 0, obj_locust_animator, {owner : other})
+}
 function spellToShouldRightPerformLocal(spellEnum) {
 	switch(spellEnum) {
 		case SPELLS.invisibility : return method(undefined, invisibilityShouldRightPerform)
 		case SPELLS.holy_light : return method(undefined, holyLightShouldRightShouldPerform)
+		case SPELLS.ninjago : return method(undefined, ninjagoIconShouldPerform)
+		case SPELLS.spell_shield : return method(undefined, spellShieldShouldPerform)
 		default : return function() {return true}
 	}
 }
@@ -74,12 +81,11 @@ function raiseRightPerform(obj) {
 }
 
 function darkSacrificeRightPerform(var_sacrifice) {
-	var mana_conversion = amount[|lvl - 1]
-	mana = min(max_mana, mana + var_sacrifice.HP * mana_conversion)
-	with(var_sacrifice) {
-		phase = "sacrificed"
-		time_until_dark_ritual_sacrifice_sec = other.id.dark_ritual_duration_sec
+	var mana_conversion = amount[lvl - 1]
+	with(owner) {
+		mana = min(max_mana, mana + var_sacrifice.HP * mana_conversion)
 	}
+	instance_create_depth(var_sacrifice.x, var_sacrifice.y, var_sacrifice.depth, obj_dark_ritual_animator, {owner : other, target : var_sacrifice})
 }
 
 total_time_to_earthshatter_impact = 0
@@ -149,7 +155,6 @@ function invisibilityShouldIconPerform() {return global.player.sorceress_has_inv
 function healAnimationEnd() {
 	with(target) {
 		HP = min(max_HP, HP + other.amount)
-		heal_animation_time_left_in_sec = animation_time
 	}
 }
 
@@ -164,16 +169,23 @@ function abilitiesIconPerform() {
 }
 
 function spellShieldIconPerform() {
-	cooldown_current = getCooldown()
-	owner.mana -= getManaCost()
-	activated = 1
-	owner.alarm[1] = duration * room_speed
+	owner.mana -= getManaCost();
+	cooldown_current = getCooldown();
+	instance_create_depth(owner.x, owner.y, owner.depth + 0.5, obj_spell_shield_animator, {owner : other})
+}
+
+function spellShieldShouldPerform() {
+	return lvl > 0 and owner.mana > getManaCost() and cooldown_current == 0
+}
+
+function vampiricAuraIconPerform() {
+	instance_create_depth(owner.x, owner.y, owner.depth + 1, obj_vampiric_aura_animator, {owner : other})
 }
 
 function reviveIconPerform() {
 	if(owner.phase == "reviving") {
 		with(instance_position(x, y, obj_soul_hero)) {
-			if(revival_time_left_sec>0) {
+			if(revival_time_left_sec > 0) {
 				revival_time_left_sec -= 1/room_speed
 			} else {
 				var var_hero = var_soul_hero.instance
@@ -190,11 +202,13 @@ function reviveIconPerform() {
 	}
 }
 
-function sleepRightPerform(var_target) {
-	with(var_target) {
+function sleepRightPerform(varTarget = global.clicked_tile.ground_unit[0]) {
+	scr_apply_debuff(varTarget)
+	instance_create_depth(varTarget.x, varTarget.y, varTarget.depth - 1, obj_sleep_animator, {owner : other, target : varTarget})
+	with(varTarget) {
 		phase = "sleep"
 		with(obj_unit) {
-			if(target = var_target) {
+			if(target = varTarget) {
 				target = noone
 				phase = owner == global.enemy ? "movement" : "idle"
 				action_bar = owner == global.enemy ? action_bar : 0
@@ -203,7 +217,6 @@ function sleepRightPerform(var_target) {
 		}
 		target = noone
 		destination = noone
-		sleep_timer = other.list_sleep_time_per_lvl[|other.sleep.lvl - 1]
 	}
 }
 
@@ -307,24 +320,19 @@ function kawarimiRightPerform()	{
 	}
 }
 
-function holyLightIconPerform(var_selected) {
-	if(holy_light.lvl > 0) {
-		switchCursor()
-		selected = 1
-	}
-}
-
 function holyLightRightPerform() {
-	global.nils.mana -= global.nils.holy_light.mana_cost
-	global.nils.holy_light.cooldown_current = global.nils.holy_light.getCooldown()
-	scr_holy_light_unit(global.nils, global.clicked_tile.grounds_list[|0])
+	var _target = global.clicked_tile.grounds_list[|0]
+	with(_target) {
+		HP = min(max_HP, HP + other.getAmount())
+	}
+	instance_create_depth(_target.x, _target.y, _target.depth - 1, obj_holy_light_animator, {target : _target, owner : other})
 }
 
 function holyLightShouldRightShouldPerform() {
-	return cursor_sprite == spr_holy_light_cursor 
-		and global.nils.mana >= global.nils.holy_light.mana_cost 
-		and global.nils.holy_light.cooldown_current == 0
-		and scr_get_distance(global.tile_selected, global.clicked_tile) <= global.nils.holy_light.range
+	return global.selectedSpell = self 
+		and owner.mana >= getManaCost()
+		and cooldown_current == 0
+		and scr_get_distance(global.tile_selected, global.clicked_tile) <= range
 }
 	
 function defendIconPerform() {
@@ -351,13 +359,13 @@ function recruit(obj) {
 }
 
 function ninjagoIconPerform() {
-	cooldown_current = getCooldown()
-	owner.mana -= mana_cost
-	activated = 0
-	var var_ninjago = instance_create_layer(owner.x, owner.y, "air", obj_ninjago_animator)
-	var_ninjago.creator = owner
-	var_ninjago.alarm[0] = duration * room_speed
-	
+	owner.mana -= getManaCost();
+	cooldown_current = getCooldown();
+	var var_ninjago = instance_create_layer(owner.x, owner.y, "air", obj_ninjago_animator, {owner : other})
+}
+
+function ninjagoIconShouldPerform() {
+	return lvl > 0 and owner.mana > getManaCost() and cooldown_current == 0
 }
 
 function heal_target(_target) {

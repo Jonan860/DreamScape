@@ -10,12 +10,12 @@ function updateQueue() {
 }
 
 function updateRecruitQueue() {
-		build_progress += 1 / room_speed  //game_get_speed(gamespeed_fps)
-		var varObj = buttonToSkill[? queue_list[|0]]
-		var var_time = ds_map_find_value(global.map_objects_to_build_time, buttonToSkill[? queue_list[|0]])
-		if(build_progress >= var_time) {
-			varObj.build()
-		}
+	build_progress += 1 / room_speed  //game_get_speed(gamespeed_fps)
+	var varObj = buttonToSkill[? queue_list[|0]]
+	var var_time = ds_map_find_value(global.map_objects_to_build_time, buttonToSkill[? queue_list[|0]])
+	if(build_progress >= var_time) {
+		varObj.build()
+	}
 }
 
 function updateSelfConstruction() {

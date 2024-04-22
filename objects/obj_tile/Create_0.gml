@@ -26,5 +26,3 @@ is_back_tile = noone
 ds_map_distances = ds_map_create()
 draw_earthshatter = 0
 time_until_earthshatter_gone = 0
-
-time_until_frost_nova_after_effect_end_sec = 0

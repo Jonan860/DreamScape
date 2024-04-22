@@ -15,7 +15,6 @@ evasiveness = 0.8
 target = noone
 altitude = "ground"
  //sekunder
-to_build_with_spade = noone
 is_building = noone
 spr_hammer_sub = 0
 human_barracks_build_progress = 0 // of 100
@@ -54,3 +53,5 @@ ds_map_add(buttonToSkill, "q", q_button)
 ds_map_add(buttonToSkill, "w", w_button)
 ds_map_add(buttonToSkill, "s", s_button)
 buttons = ["q", "w", "s"]
+
+

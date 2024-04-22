@@ -14,5 +14,5 @@ base_accuracy = accuracy
 evasiveness = 0.25
 altitude = "ground"
 experience_to_give = 300
-
-attack_target = method(scr_attack_target_abomination, undefined)
+ai = function() {}
+attack_target = method(undefined, scr_attack_target_abomination)

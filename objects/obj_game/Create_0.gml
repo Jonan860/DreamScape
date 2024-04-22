@@ -10,7 +10,6 @@ min_window_height = 1179/2
 global.enemy_ai_think_time_in_sec = 5
 global.player_ai_think_time_in_sec = 0.1
 global.player_idle_ai_think_time_in_sec = 0.3
-global.selected_altitude = noone  /// can be all, "air", "ground", "invisible"
 global.invisibility_upgrade_mana_bonus = 25
 
 global.invisibility_upgrade_mana_regen_bonus = 0.6/4
@@ -22,13 +21,8 @@ scr_map_object_to_cost_build()
 global.map_objects_to_build_time = ds_map_create()
 scr_map_object_to_build_time_content()
 
-global.dark_ritual_animation_total_time = 0.5
-
-tile_to_use = noone
 unit_to_kawarimi1 = noone
 unit_to_kawarimi2 = noone
-first_tile = noone /// for swap
-second_tile = noone /// for swap
 enemies_wave_length_list = ds_list_create()
 ds_list_add(enemies_wave_length_list, 80, 55, 55, 55, 40, 160, 5, 240, 5, 240, 5, 180, 30, 30, 30, 30, 30) //in seconds
 enemies_wave_timer = 0
@@ -109,6 +103,22 @@ ds_list_add(wave_list, wave1, wave2, wave3, wave4, wave5, wave6, wave7, wave8, w
 phase = "dialogue"
 lose_text = ""
 
+save = function() {
+	var s = {}
+	s.phase = phase
+	s.unit_to_kawarimi1 = unit_to_kawarimi1
+	s.unit_to_kawarimi2 = unit_to_kawarimi2
+	s.enemies_wave_timer = enemies_wave_timer
+	s.wave_number = wave_number
+}
+
+load = function(s) {
+	phase = s.phase
+	unit_to_kawarimi1 = s.unit_to_kawarimi1
+	unit_to_kawarimi2 = s.unit_to_kawarimi2
+	enemies_wave_timer = s.enemies_wave_timer
+	wave_number = s.wave_number	
+}
 
 function buttonPressedIconPerform(buttonStr) {
 	with(global.tile_selected) {
@@ -125,6 +135,7 @@ function buttonPressedIconPerform(buttonStr) {
 				} else {
 					if(lvl > 0) {
 						iconPerform()
+						exit
 					}
 				}
 			}	

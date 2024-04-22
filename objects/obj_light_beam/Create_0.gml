@@ -7,3 +7,14 @@ target_altitude = noone
 accuracy = noone
 owner = noone
 alarm[0] = 2 * room_speed
+
+save = function() {
+	var s = {}
+	s.owner = owner
+	s.alarm = alarm[0]
+}
+
+load = function(s) {
+	owner = s.owner
+	alarm = s.alarm[0]
+}

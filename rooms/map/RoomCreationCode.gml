@@ -12,7 +12,7 @@ global.player = instance_create_depth(0, 0, 0, obj_player)
 global.enemy = instance_create_depth(0, 0, 0, obj_player)
 global.creep_lord = instance_create_depth(0, 0, 0, obj_player)
 
-
+global.saveData = {}
 scr_tile_neighborhood_create()
 scr_declare_non_habitable_tiles()
 scr_declare_backline_tiles()
@@ -27,6 +27,7 @@ scr_tile_distances_calculate()
 //}
 
 global.ida = scr_instance_create_at_tile_with_owner(obj_ida, 100223, global.player)
+scr_instance_create_at_tile_with_owner(obj_footman, 100222, global.player)
 global.nils = scr_instance_create_at_tile_with_owner(obj_nils, 100102, global.player)
 global.lille_skutt = scr_instance_create_at_tile_with_owner(obj_lille_skutt, 100225, global.player)
 //scr_instance_create_at_tile_with_owner(obj_sorceress,100222,global.player)
@@ -43,17 +44,26 @@ global.lille_skutt = scr_instance_create_at_tile_with_owner(obj_lille_skutt, 100
 //}
 var ban = scr_instance_create_at_tile_with_owner(obj_banshee, 100006, global.enemy)
 ban.HP = 1
-var lich = scr_instance_create_at_tile_with_owner(obj_lich, 100007, global.enemy)
-with(lich) {
-	repeat(3) {
-		scr_level_up()	
+scr_instance_create_at_tile_with_owner(obj_crypt_fiend, 100019, global.enemy)
+//var lich = scr_instance_create_at_tile_with_owner(obj_lich, 100007, global.enemy)
+//with(lich) {
+//	repeat(3) {
+//		scr_level_up()	
+//	}
+//	frost_nova.lvl = 2
+//	dark_ritual.lvl = 1
+//}
+
+
+
+with(scr_instance_create_at_tile_with_owner(obj_crypt_lord, 100008, global.enemy)) {
+	repeat(7) {
+		scr_level_up()
 	}
-	frost_nova.lvl = 2
-	dark_ritual.lvl = 1
+	spiked_carapace.lvl = 3
+	carrion_beetles.lvl = 3
+	locust_swarm.lvl = 1
 }
-
-
-scr_instance_create_at_tile_with_owner(obj_necromancer, 100008, global.enemy)
 with(obj_tile) {
 	if(tile_x = 18 and tile_y = 2) {
 		other.hungry_hungry_lizard = scr_instance_create_at_tile_with_owner(obj_hungry_hungry_lizard, id, global.creep_lord)
@@ -61,6 +71,7 @@ with(obj_tile) {
 	}
 }
 with(hungry_hungry_lizard) {
+	HP = -10
 	start_tile = tile
 	with(obj_tile) {
 		if(

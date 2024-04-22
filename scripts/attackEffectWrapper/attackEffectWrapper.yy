@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "scr_update_vampiric_aura_status",
+  "name": "attackEffectWrapper",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {

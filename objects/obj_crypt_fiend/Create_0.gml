@@ -18,5 +18,5 @@ evasiveness = 0.3
 target = noone
 altitude = "ground"
 experience_to_give = 150
-
-attack_target = method(scr_attack_target_crypt_fiend, undefined)
+ai = function() {}
+attack_target = method(undefined, scr_attack_target_crypt_fiend)

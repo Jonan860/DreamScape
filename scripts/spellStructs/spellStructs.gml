@@ -1,5 +1,5 @@
 function heal_ai() {
-	if(owner.mana >= mana_cost and cooldown_current <= 0 and autocst and owner.altitude != "invisible") {
+	if(owner.mana >= mana_cost and cooldown_current <= 0 and autocast and owner.altitude != "invisible") {
 		with(owner) {
 			var list_heal_target_within_range = scr_find_friendlies_within_range(other.range)
 		}
@@ -60,7 +60,7 @@ function spellToAmount(spell) {
 			return mapp  // per distance
 		case SPELLS.locust_swarm : return 1
 		case SPELLS.ninjago : return [100, 200, 300]
-		case SPELLS.vampiric_aura : return [15/100, 30/100, 45/100]
+		case SPELLS.vampiric_aura : return [15, 30, 45]
 		case SPELLS.frost_armor : return
 		case SPELLS.dark_ritual : return [0.33, 0.66, 1]
 		case SPELLS.defend : return 0.5
@@ -89,6 +89,8 @@ function spellToRange(spell) {
 		case SPELLS.golden_dragon : return 1
 		case SPELLS.holy_light : return 4
 		case SPELLS.spell_shield : return 1
+		case SPELLS.ninjago : return 1
+		case SPELLS.vampiric_aura : return 4
 		default : return noone
 	}
 }
@@ -131,6 +133,7 @@ function spellToCursor(spellenum) {
 		case SPELLS.buildArcaneSanctum : return spr_spade_cursor
 		case SPELLS.buildBarracks : return spr_spade_cursor
 		case SPELLS.slow : return spr_slow_cursor
+		case SPELLS.holy_light : return spr_holy_light_cursor
 		case SPELLS.katon_gokakyu_no_jutsu : return spr_fire_ball_cursor
 		default : return noone
 	}
@@ -259,9 +262,9 @@ function spellToDuration(spell) {
 	switch(spell) {
 		case SPELLS.impale : return;
 		case SPELLS.frost_nova : return [4.5, 1.5] //[total, aftereffect]
-		case SPELLS.holy_light : return; 
+		case SPELLS.holy_light : return 1; 
 		case SPELLS.kawarimi_no_jutsu : return;
-		case SPELLS.spell_shield : return [5]
+		case SPELLS.spell_shield : return 5
 		case SPELLS.spiked_carapace : return;
 		case SPELLS.earthshatter : return;
 		case SPELLS.carrion_beetles : return;
@@ -277,6 +280,7 @@ function spellToDuration(spell) {
 		case SPELLS.invisibility : return 60
 		case SPELLS.curse : return 60
 		case SPELLS.heal : return 0.5
+		case SPELLS.dark_ritual : return 2
 		default : return noone
 	}
 }
@@ -373,6 +377,23 @@ function spellToInfo(spell) {
 	}
 }
 
+function spellToUnapply(spellEnum) {
+	switch(spellEnum) {
+		case SPELLS.sleep : return method(undefined, sleepUnapply)
+		default : return function() {}
+	}
+}
+
+function sleepUnapply() {
+	with(obj_sleep_animator) {
+		if(owner == other.owner) {
+			instance_destroy()
+			with(target) {
+				phase = "idle"
+			}
+		}
+	}
+}
 function spellToSummon(spell) {
 	switch(spell) {
 		case SPELLS.raise : return obj_skeleton
@@ -477,6 +498,7 @@ function createSpell(spellEnum, _letter) {
 			name = other.name
 			owner = other
 			Enum = other.Enum;
+			unapply = spellToUnapply(other.Enum)
 		}
 		scr_apply_debuff = function(victim) {
 			var debuff_struct = new createDebuff()
@@ -492,7 +514,6 @@ function createSpell(spellEnum, _letter) {
 			owner.number_of_ability_points -= 1
 		}
 	}
-	
 	ds_map_add(buttonToSkill, _letter, spell)
 	return spell
 }

@@ -19,7 +19,7 @@ spr_q_button = spr_defend_icon
 experience_to_give = 100
 is_defending = 0
 
-attack_target = method(scr_attack_target_footman, undefined)
+attack_target = method(undefined, scr_attack_target_footman)
 
 draw_hud_button_and_hover = function() {
 	var _alpha = global.player.footman_has_defend_upgrade ? 1 : 0.5

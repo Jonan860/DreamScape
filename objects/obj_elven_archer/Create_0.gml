@@ -18,3 +18,15 @@ evasiveness = 0.3
 target = noone
 altitude = "ground"
 experience_to_give = 100
+
+function scr_attack_target_elven_archer() {
+	magic_ball = instance_create_depth(x, y, -4, obj_arrow_animator)
+	magic_ball.owner = id
+	magic_ball.target_tile = target.tile
+	magic_ball.altitude = target.altitude
+	magic_ball.image_angle = point_direction(x, y, target.x, target.y)
+	magic_ball.direction = point_direction(x, y, target.x, target.y)
+	magic_ball.speed = 4
+}
+
+attack_target = method(undefined, scr_attack_target_elven_archer)

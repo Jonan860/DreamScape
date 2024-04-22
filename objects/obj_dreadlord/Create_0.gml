@@ -32,6 +32,6 @@ ds_list_add(ds_list_level_sprites, 0, spr_dreadlord2, spr_dreadlord2, spr_dreadl
 spr_height = sprite_height
 spr_width = sprite_width
 
-ai = method(scr_ai_spell_dreadlord, undefined)
+ai = method(undefined, scr_ai_spell_dreadlord)
 
-attack_target = method(scr_attack_target_dreadlord, undefined)
+attack_target = method(undefined, scr_attack_target_dreadlord)

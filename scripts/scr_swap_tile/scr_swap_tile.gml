@@ -1,16 +1,16 @@
 
 function scr_swap_tile(unit1, unit2) {
-	first_tile = unit1.tile
-	second_tile = unit2.tile
+	var first_tile = unit1.tile
+	var second_tile = unit2.tile
 	with(obj_tile) {
 		if(scr_occupiable(id, "ground") and scr_occupiable(id, "air") and scr_occupiable(id, "invisible")) {
-			other.tile_to_use = id
+			var tile_to_use = id
 			break;
 		}
 	}
 
 	with(unit1) {
-		scr_move_to_tile(other.tile_to_use)
+		scr_move_to_tile(tile_to_use)
 	}
 
 	with(unit2) {

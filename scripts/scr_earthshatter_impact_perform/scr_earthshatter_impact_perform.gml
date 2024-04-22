@@ -18,7 +18,7 @@ function scr_earthshatter_impact_perform(){
 			var store_damage = damage
 			var distance_from_impact = scr_get_distance(target, tile_to_impact)
 			damage = earthshatter_damage_per_distance[|distance_from_impact]   //bugg Här sätts damage till undefined 
-			scr_attack_hp_reduction(id, ground_unit)
+			attackEffectWrapper(id, ground_unit)
 			damage = store_damage
 			var stun_time = earthshatter_stun_per_distance[|distance_from_impact]
 			scr_stun(ground_unit, stun_time)

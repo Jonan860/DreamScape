@@ -1,7 +1,20 @@
 
 owner = noone
-attack = noone
-element = noone
 target_tile = noone
-target_altitude = noone
-accuracy = noone
+
+save = function() {
+	var s = {}
+	s.owner = owner
+	s.target_tile = target_tile
+	s.x = x
+	s.y = y
+	s.image_angle = image_angle
+}
+
+load = function(s) {
+	owner = s.owner
+	target_tile = s.target_tile
+	x = s.x
+	y = s.y
+	image_angle = s.image_angle
+}

@@ -5,12 +5,7 @@ unfinished = 0
 
 queue_list = ds_list_create()
 
-build_progress = 0 // of 100
-q_build_icon_x = x - sprite_get_width(spr_hexagon_pink)/2
-q_build_icon_y = y - sprite_get_height(spr_hexagon_pink)/2
-
-w_build_icon_x = q_build_icon_x + sprite_get_width(spr_footman_icon)/2 + sprite_get_width(spr_elven_archer_icon)/2
-w_build_icon_y = y - sprite_get_height(spr_hexagon_pink)/2
+build_progress = 0 // of 1002
 
 tile = noone
 HP = 400

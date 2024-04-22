@@ -26,6 +26,7 @@ function scr_wave_generate() {
 									}
 									sleep.lvl = 2
 									vampiric_aura.lvl = 3
+									vampiric_aura.iconPerform()
 								}
 								break;
 							case obj_crypt_lord :

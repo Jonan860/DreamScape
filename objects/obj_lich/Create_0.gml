@@ -46,7 +46,7 @@ ai = function () {
 	if(frost_nova.getManaCost() + dark_ritual.getManaCost() > mana and mana >= dark_ritual.getManaCost() and dark_ritual.cooldown_current == 0 and dark_ritual.lvl > 0 and phase != "frost nova") {
 		var var_dark_sacrifice = scr_find_dark_ritual_sacrifice()
 		if(var_dark_sacrifice != noone) {
-			dark_ritual.perform()
+			dark_ritual.rightPerform(var_dark_sacrifice)
 		}
 	}
 }

@@ -18,3 +18,4 @@ if(owner = global.player) {
 	abilities = createSpell(SPELLS.abilities, "d")
 	abilities.lvl = 1;
 }
+

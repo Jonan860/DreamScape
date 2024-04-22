@@ -11,7 +11,10 @@
     "name": "meelee animators",
     "path": "folders/Objects/attack animator/meelee animators.yy",
   },
-  "parentObjectId": null,
+  "parentObjectId": {
+    "name": "obj_meelee_animator",
+    "path": "objects/obj_meelee_animator/obj_meelee_animator.yy",
+  },
   "persistent": false,
   "physicsAngularDamping": 0.1,
   "physicsDensity": 0.5,

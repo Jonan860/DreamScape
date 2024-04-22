@@ -19,4 +19,6 @@ evasiveness = 0.3
 target = noone
 altitude = "ground"
 
-attack_target = method(scr_attack_target_carrion_beetle, undefined)
+ai = function() {}
+attack_target = method(undefined, scr_attack_target_carrion_beetle)
+

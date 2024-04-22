@@ -4,7 +4,7 @@ if(distance_to_point(target.x, target.y) < speed * 2) {
 	if(target != owner) {
 		var stored_element = owner.element
 		owner.element = "nature"
-		scr_attack_hp_reduction(owner, target)
+		attackEffectWrapper(owner, target)
 		owner.element = stored_element
 		target = owner
 	} else {
