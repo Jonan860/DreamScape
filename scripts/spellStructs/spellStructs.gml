@@ -1,24 +1,13 @@
-function heal_ai() {
-	if(owner.mana >= mana_cost and cooldown_current <= 0 and autocast and owner.altitude != "invisible") {
-		with(owner) {
-			var list_heal_target_within_range = scr_find_friendlies_within_range(other.range)
-		}
-		if(ds_list_size(list_heal_target_within_range) > 0) {
-			var _target = scr_find_best_heal_target_from_list(list_heal_target_within_range)
-			if(_target != noone) {
-				heal_target(_target)
-				owner.mana -= mana_cost
-				cooldown_current = getCooldown()
-				owner.action_bar = 0
-			}
-		}
-	}
-}
+
 
 function spellToAnimator(spell) {
 	switch(spell) {
 		case SPELLS.katon_gokakyu_no_jutsu : return obj_katon_gokakyu_no_jutsu
-		case SPELLS.kawarimi_no_jutsu : return obj_kawarimi_animator
+		case SPELLS.kawarimi_no_jutsu : return obj_kawarimi_animator 
+		case SPELLS.buildFootman : return obj_footman
+		case SPELLS.buildArcher : return obj_elven_archer
+		case SPELLS.buildPriest : return obj_priest
+		case SPELLS.buildSorceress : return obj_sorceress
 	}
 }
 
@@ -69,6 +58,17 @@ function spellToAmount(spell) {
 		case SPELLS.curse : return ln(2/3) / ln(1/2)
 		case SPELLS.holy_light : return [30, 60, 90]
 		case SPELLS.spell_shield : return [200, 400, 600] //max health
+		case SPELLS.buildFootman : return 100
+		case SPELLS.buildSorceress : return 100
+		case SPELLS.buildPriest : return 100
+		case SPELLS.buildArcher : return 100
+		case SPELLS.buildDefend : return 150
+		case SPELLS.buildDispel : return 150
+		case SPELLS.buildImprovedBows : return 150
+		case SPELLS.buildMoneyTree : return 600
+		case SPELLS.buildBarracks : return 100
+		case SPELLS.buildArcaneSanctum : return 100
+		case SPELLS.buildInvisibility : return 150
 		default : return noone
 	}
 }
@@ -254,6 +254,7 @@ function spellToIcon(spell) {
 		case SPELLS.buildBarracks : return spr_human_barracks_icon
 		case SPELLS.buildArcaneSanctum : return spr_arcane_sanctum_icon
 		case SPELLS.raise : return  spr_raise_icon
+		case SPELLS.defend : return spr_defend_icon
 		default : return noone
 	}
 }
@@ -281,6 +282,16 @@ function spellToDuration(spell) {
 		case SPELLS.curse : return 60
 		case SPELLS.heal : return 0.5
 		case SPELLS.dark_ritual : return 2
+		case SPELLS.buildBarracks : return 30
+		case SPELLS.buildArcaneSanctum : return 30
+		case SPELLS.buildSorceress : return 40
+		case SPELLS.buildPriest : return 40
+		case SPELLS.buildFootman : return 40
+		case SPELLS.buildArcher : return 40
+		case SPELLS.buildDefend : return 30
+		case SPELLS.buildInvisibility : return 30
+		case SPELLS.buildDispel : return 30
+		case SPELLS.buildImprovedBows : return 30
 		default : return noone
 	}
 }
@@ -308,6 +319,20 @@ function spellToName(spell) {
 	}
 }
 
+function spellToPerform(spellEnum) {
+	switch(spellEnum) {
+		case SPELLS.buildDefend : return method(undefined, buildDefendPerform)
+	}
+}
+
+function buildDefendPerform() {
+	with(global.player) {
+		footman_has_defend_upgrade = 1
+	}
+	with(obj_footman) {
+		defend.lvl = 1
+	}
+}
 
 function spellToInfo(spell) {
 	switch(spell) {
@@ -405,6 +430,20 @@ function spellToAi(spell) {
 	switch(spell) {
 		case SPELLS.slow : return method(undefined, slow_ai)
 		case SPELLS.heal : return method(undefined, heal_ai)
+		default : return noone
+	}
+}
+
+function heal_ai() {
+	with(owner) {
+		var list_heal_target_within_range = scr_find_friendlies_within_range(other.range)
+	}
+	if(ds_list_size(list_heal_target_within_range) > 0) {
+		var _target = scr_find_best_heal_target_from_list(list_heal_target_within_range)
+		if(_target != noone) {
+			owner.target = _target
+			owner.phase = "healing"
+		}
 	}
 }
 
@@ -413,11 +452,12 @@ function slow_ai() {
 		var list_slow_target_within_range = scr_find_enemies_within_range(other.range)
 	}
 	if(ds_list_size(list_slow_target_within_range) > 0) { 
-		with(scr_find_best_procentage_debuff_target_from_list(list_slow_target_within_range, slow)) {			
-			other.scr_slow_unit(id)
-			other.mana -= other.slow.mana_cost
-			other.slow.cooldown_current = other.slow.getCooldown()
-			other.action_bar = 0
+		with(scr_find_best_procentage_debuff_target_from_list(list_slow_target_within_range, Enum)) {			
+			global.clicked_tile = tile
+			other.rightPerform()
+			other.owner.mana -= other.getManaCost()
+			other.cooldown_current = other.getCooldown()
+			other.owner.action_bar = 0
 		}
 	}
 }
@@ -435,6 +475,7 @@ function createSpellSub(spellEnum) constructor {
 	selected = 0
 	mana_cost = spellToManaCosts(spellEnum)
 	icon = spellToIcon(spellEnum)
+	ai = spellToAi(spellEnum)
 	animator = spellToAnimator(spellEnum)
 	cooldown = spellToCooldown(spellEnum)
 	cooldown_current = 0
@@ -471,6 +512,7 @@ function createSpell(spellEnum, _letter) {
 		shouldPerformLocal = spellToShouldPerform(spellEnum)
 		shouldRightPerformLocal = spellToShouldRightPerformLocal(spellEnum)
 		rightPerform = spellToRightPerform(spellEnum)
+		perform = spellToPerform(spellEnum)
 		iconPerform = spellToIconPerform(spellEnum)
 		cursor = spellToCursor(spellEnum)
 		name = spellToName(spellEnum)
@@ -555,7 +597,8 @@ enum SPELLS {
 	buildDefend,
 	buildImprovedBows,
 	buildBarracks,
-	buildArcaneSanctum
+	buildArcaneSanctum,
+	buildMoneyTree
 }
 
 

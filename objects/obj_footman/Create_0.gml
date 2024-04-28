@@ -15,17 +15,15 @@ base_accuracy = accuracy
 evasiveness = 0.5
 target = noone
 altitude = "ground"
-spr_q_button = spr_defend_icon
 experience_to_give = 100
 is_defending = 0
-
+defend = createSpell(SPELLS.defend, "q")
+if(owner.footman_has_defend_upgrade) {
+	defend.lvl = 1
+}
+skills = [defend]
 attack_target = method(undefined, scr_attack_target_footman)
 
-draw_hud_button_and_hover = function() {
-	var _alpha = global.player.footman_has_defend_upgrade ? 1 : 0.5
-	draw_sprite_ext(spr_defend_icon, 0, other.hud_q_button_x, other.hud_q_button_y, other.spell_button_width / sprite_get_width(spr_q_button), other.spell_button_height / sprite_get_height(spr_q_button), 0, -1, _alpha)
-}
-
 update_damage_reduction = function() {
-		damage_reduction = (base_damage_reduction + is_defending) / (1 + is_defending)
+	damage_reduction = (base_damage_reduction + is_defending) / (1 + is_defending)
 }

@@ -10,9 +10,7 @@ function scr_hud_draw_gui_unit_prod_building() {
 	}
 	scr_dra_hud_button_with_hover_inf_building()
 	if(!ds_list_empty(queue_list)) {
-		var var_object = buttonToSkill[?queue_list[|0]].object	
-		var var_build_time = ds_map_find_value(global.map_objects_to_build_time, var_object)
-		draw_healthbar(other.progress_bar_x1, other.progress_bar_y1, other.progress_bar_x2, other.progress_bar_y2,build_progress / var_build_time * 100, c_black, c_lime, c_green, 0, 1, 0)
+		draw_healthbar(other.progress_bar_x1, other.progress_bar_y1, other.progress_bar_x2, other.progress_bar_y2,build_progress / buttonToSkill[?queue_list[|0]].getDuration() * 100, c_black, c_lime, c_green, 0, 1, 0)
 		draw_queue()
 	}
 }
@@ -28,7 +26,7 @@ function scr_dra_hud_button_with_hover_inf_lille_skutt() {
 
 function draw_queue() {
 	for(var i = 0; i <= ds_list_size(queue_list) - 1; i += 1) {
-		var var_object = buttonToSkill[? queue_list[|i]].object
+		var var_object = buttonToSkill[? queue_list[|i]].animator
 		var var_sprite = buttonToSkill[? queue_list[|i]].icon
 		var var_lenght = other.length_of_training_queue_icon
 		var var_xxx = other.training_queue_x + i * other.length_of_training_queue_icon
@@ -49,7 +47,7 @@ function draw_skills_buttons() {
 				}
 				var subimg = floor(icon_animation_index)
 				with(global.hud.charToButton[? letter]) {
-					draw_sprite_ext(other.icon, subimg, _x, _y, global.hud.spell_button_width / sprite_get_width(other.icon), global.hud.spell_button_height / sprite_get_height(other.icon), 0, -1, 1)
+					draw_sprite_ext(other.icon, subimg, _x, _y, global.hud.spell_button_width / sprite_get_width(other.icon), global.hud.spell_button_height / sprite_get_height(other.icon), 0, -1, other.lvl > 0 ? 1 : 0.5)
 				}
 				draw_cooldown()
 			}

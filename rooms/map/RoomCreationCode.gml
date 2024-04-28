@@ -27,7 +27,7 @@ scr_tile_distances_calculate()
 //}
 
 global.ida = scr_instance_create_at_tile_with_owner(obj_ida, 100223, global.player)
-scr_instance_create_at_tile_with_owner(obj_footman, 100222, global.player)
+scr_instance_create_at_tile_with_owner(obj_sorceress, 100222, global.player)
 global.nils = scr_instance_create_at_tile_with_owner(obj_nils, 100102, global.player)
 global.lille_skutt = scr_instance_create_at_tile_with_owner(obj_lille_skutt, 100225, global.player)
 //scr_instance_create_at_tile_with_owner(obj_sorceress,100222,global.player)
@@ -65,7 +65,7 @@ with(scr_instance_create_at_tile_with_owner(obj_crypt_lord, 100008, global.enemy
 	locust_swarm.lvl = 1
 }
 with(obj_tile) {
-	if(tile_x = 18 and tile_y = 2) {
+	if(tile_x == 18 and tile_y == 2) {
 		other.hungry_hungry_lizard = scr_instance_create_at_tile_with_owner(obj_hungry_hungry_lizard, id, global.creep_lord)
 		break;
 	}

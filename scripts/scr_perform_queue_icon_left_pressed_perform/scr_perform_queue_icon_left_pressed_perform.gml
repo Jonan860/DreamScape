@@ -11,12 +11,12 @@ function scr_perform_queue_icon_left_pressed_perform() {
 			var var_new_queue = ds_list_create()
 			for(var i = 0; i < ds_list_size(var_selected_building.queue_list); i += 1) {
 				with(var_selected_building) {
-					var var_object = buttonToSkill[? queue_list[|i]]
+					var skill = buttonToSkill[? queue_list[|i]]
 				}
 				if(i != var_icon_queue_position_pressed - 1) {
-					ds_list_add(var_new_queue,var_object)
+					ds_list_add(var_new_queue, var_object)
 				} else {
-					global.player.money += ds_map_find_value(global.map_object_to_costs, var_object)
+					global.player.money += skill.getAmount()
 				}
 			}
 			ds_list_copy(var_selected_building.queue_list, var_new_queue)

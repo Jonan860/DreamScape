@@ -9,6 +9,7 @@ max_HP = 70
 HP_regeneration_rate = 0.1
 damage = 3
 damage_reduction = 0
+base_accuracy = 1
 accuracy = 1
 evasiveness = 0.5
 altitude = "ground"
@@ -17,6 +18,8 @@ mana = 50
 max_mana = 100
 mana_regen_rate_per_sec = 0.6
 heal = createSpell(SPELLS.heal, "q")
+heal.lvl = 1
+heal.autocast = 1
 invisibility = createSpell(SPELLS.invisibility, "w")
 skills = [heal, invisibility]
 

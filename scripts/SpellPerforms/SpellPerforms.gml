@@ -19,14 +19,6 @@ function spellToRightPerform(spell) {
 		case SPELLS.spell_shield : return;
 		case SPELLS.spiked_carapace : return;
 		case SPELLS.vampiric_aura : return;
-		case SPELLS.buildFootman : return method(undefined, performRecruit);
-		case SPELLS.buildArcher : return method(undefined, performRecruit);
-		case SPELLS.buildPriest : return method(undefined, performRecruit);
-		case SPELLS.buildSorceress : return method(undefined, performRecruit);
-		case SPELLS.buildDispel : return method(undefined, performRecruit);
-		case SPELLS.buildImprovedBows : return method(undefined, performRecruit);
-		case SPELLS.buildDefend : return method(undefined, performRecruit);
-		case SPELLS.buildInvisibility : return method(undefined, performRecruit);
 		case SPELLS.raise : return method(undefined, raiseSkeletonRightPerform);
 	}
 }
@@ -50,6 +42,14 @@ function spellToIconPerform(spellenum) {
 		case SPELLS.katon_gokakyu_no_jutsu : return method(undefined, selectSwitchCursor)
 		case SPELLS.vampiric_aura : return method(undefined, vampiricAuraIconPerform)
 		case SPELLS.locust_swarm : return method(undefined, locustIconPerform)
+		case SPELLS.buildFootman : return method(undefined, performRecruit);
+		case SPELLS.buildArcher : return method(undefined, performRecruit);
+		case SPELLS.buildPriest : return method(undefined, performRecruit);
+		case SPELLS.buildSorceress : return method(undefined, performRecruit);
+		case SPELLS.buildDispel : return method(undefined, performRecruit);
+		case SPELLS.buildImprovedBows : return method(undefined, performRecruit);
+		case SPELLS.buildDefend : return method(undefined, performRecruit);
+		case SPELLS.buildInvisibility : return method(undefined, performRecruit);
 	}
 }
 
@@ -62,8 +62,18 @@ function spellToShouldRightPerformLocal(spellEnum) {
 		case SPELLS.holy_light : return method(undefined, holyLightShouldRightShouldPerform)
 		case SPELLS.ninjago : return method(undefined, ninjagoIconShouldPerform)
 		case SPELLS.spell_shield : return method(undefined, spellShieldShouldPerform)
+		case SPELLS.heal : return method(undefined, healShouldRightPerformLocal)
+		case SPELLS.slow : return method(undefined, slowShouldRightPerformLocal)
 		default : return function() {return true}
 	}
+}
+
+function slowShouldRightPerformLocal() {
+	return global.clicked_tile.grounds_list[|0] != undefined and scr_is_enemies(owner, global.clicked_tile.grounds_list[|0])
+}
+
+function healShouldRightPerformLocal() {
+	return global.clicked_tile.grounds_list[|0] != undefined and !scr_is_enemies(owner, global.clicked_tile.grounds_list[|0])
 }
 
 function carrionBeetleRightPerform(soul_to_raise) {
@@ -159,8 +169,8 @@ function healAnimationEnd() {
 }
 
 function healRightPerform() {
-		phase = "healing"
-		target = var_ground_unit
+		var varTarget = global.clicked_tile.grounds_list[|0]
+		instance_create_depth(varTarget.x, varTarget.y, varTarget.depth - 1, obj_heal_animator, {target : varTarget, owner : other})
 }
 
 
@@ -240,8 +250,8 @@ function freezeRightPerform2() {
 	}
 }
 
-function slowRightPerform(slow_target) {
-	slow_target.slowed.apply()
+function slowRightPerform() {
+	scr_apply_debuff(global.clicked_tile.grounds_list[|0])
 }
 
 function cloakRightPerform(targeto) {
@@ -339,13 +349,14 @@ function defendIconPerform() {
 	if(global.player.footman_has_defend_upgrade) {
 		with(owner) {
 			is_defending = !is_defending
+			update_damage_reduction()
 		}
 	}
 }
 
-function performRecruit(char) {
-	if(!unfinished and canRecruit(char)) {
-		recruit(char)
+function performRecruit() {
+	if(!owner.unfinished and (animator == undefined or canRecruit(animator))) {
+		recruit()
 	}
 }
 
@@ -353,8 +364,8 @@ function canRecruit(obj) {
 	return global.player.money >= ds_map_find_value(global.map_object_to_costs, obj)
 }
 
-function recruit(obj) { 
-	global.player.money -= ds_map_find_value(global.map_object_to_costs,  obj)
+function recruit() { 
+	global.player.money -= getAmount()
 	ds_list_add(owner.queue_list, letter)
 }
 
@@ -369,9 +380,9 @@ function ninjagoIconShouldPerform() {
 }
 
 function heal_target(_target) {
-	 with(_target) {
-		target.HP = min(target.max_HP, target.HP + other.amount)
-	 }
+	with(_target) {
+		HP = min(max_HP, HP + other.getAmount())
+	}
  }
  
  

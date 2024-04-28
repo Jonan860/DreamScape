@@ -12,7 +12,7 @@ if(owner == global.player) {
 //ai = function() {}
 
 if(!eaten) {
-	if(slowed.applied) {
+	if(scr_is_debuffed(SPELLS.slow)) {
 		var varXscale2 = sprite_get_width(spr_hexagon_pink)/sprite_get_width(spr_slow)
 		var varYscale2 = sprite_get_height(spr_hexagon_pink)/sprite_get_height(spr_slow)
 		draw_sprite_ext(spr_slow, 0, x, y, varXscale2, varYscale2, 0, -1, 1)
@@ -24,13 +24,12 @@ if(!eaten) {
 	if(missing_time > 0) {
 		draw_text_transformed_color(x, y + sprite_height/4, "Miss", 2, 2, 0, c_red, c_red, c_red, c_red, 1)
 	}
-}
-
-if(scr_is_debuffed(SPELLS.freeze)) {
-	draw_sprite(spr_ice_block, -1, x, y)
-} else if(stunned) {
-	draw_sprite_ext(spr_stun_vortex, 8 * time_until_stunned_clear % 8, x, y - 2/3 * sprite_height/2, 1/2, 1/2, 0, c_white, 0.5)
-}
-if(scr_is_debuffed(SPELLS.curse)) {
-	draw_sprite_ext(spr_curse_animation, 0, x, y, sprite_width / (3 * sprite_get_width(spr_curse_animation)), sprite_height / (3 * sprite_get_height(spr_curse_animation)), 0, c_white, 1)
+	if(scr_is_debuffed(SPELLS.freeze)) {
+		draw_sprite(spr_ice_block, -1, x, y)
+	} else if(stunned) {
+		draw_sprite_ext(spr_stun_vortex, 8 * time_until_stunned_clear % 8, x, y - 2/3 * sprite_height/2, 1/2, 1/2, 0, c_white, 0.5)
+	}
+	if(scr_is_debuffed(SPELLS.curse)) {
+		draw_sprite_ext(spr_curse_animation, 0, x, y, sprite_width / (3 * sprite_get_width(spr_curse_animation)), sprite_height / (3 * sprite_get_height(spr_curse_animation)), 0, c_white, 1)
+	}
 }

@@ -4,6 +4,7 @@ function scr_right_pressed_unit(var_selected_unit) {
 			if(lvl > 0 and owner.mana > getManaCost() and cooldown_current == 0 and (range == noone or scr_get_distance(var_selected_unit.tile, global.clicked_tile) <= range) and shouldRightPerform()) {
 				owner.mana -= getManaCost();
 				cooldown_current = getCooldown();
+				action_bar = 0
 				rightPerform()
 				exit
 			}

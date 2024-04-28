@@ -8,12 +8,17 @@ function scr_ai_player() {
 	}
 	
 	if(phase == "healing") {
-		if(target.HP = target.max_HP or scr_get_distance(tile, target.tile) > heal_range or altitude = "invisible") {
+		if(target.HP = target.max_HP or scr_get_distance(tile, target.tile) > heal.range or altitude = "invisible") {
 			phase = "idle"
-		} else if(heal.mana_cost < mana and heal.cooldown_current <= 0) {
-			scr_heal_target()
-			heal.cooldown_current = heal.cooldown_max
-			mana -= heal.mana_cost
+		} else if(heal.getManaCost() < mana and heal.cooldown_current <= 0) {
+			with(heal) {
+				var temp = global.clicked_tile
+				global.clicked_tile = other.target.tile
+				rightPerform()
+				global.clicked_tile = temp
+				cooldown_current = getCooldown()
+				owner.mana -= getManaCost()
+			}
 		}
 		action_bar = 0
 	}
@@ -22,7 +27,7 @@ function scr_ai_player() {
 		player_ai_spell_counter = room_speed * global.player_ai_think_time_in_sec
 		for(var i = 0; i < array_length(skills); i++) {
 			with(skills[i]) {
-				if(autocast) {
+				if(autocast and owner.mana >= getManaCost() and cooldown_current <= 0 and owner.phase != "movement" and owner.altitude != "invisible") {
 					ai()
 				}
 			}

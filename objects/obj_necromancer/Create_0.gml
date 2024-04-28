@@ -10,6 +10,7 @@ HP_regeneration_rate = 0.1
 damage = 4
 damage_reduction = 0
 accuracy = 1
+base_accuracy = accuracy
 evasiveness = 0.5
 altitude = "ground"
 experience_to_give = 100

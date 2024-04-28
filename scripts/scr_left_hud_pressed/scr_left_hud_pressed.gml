@@ -9,7 +9,7 @@ function scr_left_hud_pressed() {
 						if(owner == global.player) {
 							with(ds_map_find_value(buttonToSkill, buttons[i])) {
 								if(!global.hud.gui_display_abilities) {
-									if(lvl > 0) {
+									if(lvl > 0 or object_is_ancestor(other.object_index, obj_building)) {
 										iconPerform()
 										exit
 									}

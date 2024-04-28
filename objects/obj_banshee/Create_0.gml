@@ -10,6 +10,7 @@ HP_regeneration_rate = 0.1
 damage = 4
 damage_reduction = 0
 accuracy = 1
+base_accuracy = accuracy
 evasiveness = 0.5
 altitude = "ground"
 experience_to_give = 100
@@ -23,7 +24,6 @@ curse_icon_animation_speed = 8 //frames per sec
 curse = createSpell(SPELLS.curse, "q")
 skills = [curse]
 curse.autocast = 1;
-spr_q_button = spr_curse_icon_autocast
 
 ai = method(undefined, scr_ai_spell_banshee)
 
