@@ -1,3 +1,14 @@
-if(time_until_impact >= 0) {
-	time_until_impact -= 1/room_speed
+if(phase == "jump") {
+	var distance = point_distance(owner.owner.x, owner.owner.y, target.x, target.y)
+	if(distance < 10) {
+		phase = "impact"
+		scr_earthshatter_impact_perform()
+	} else {
+		var time_until_earthshatter_impact = distance / sprite_get_height(spr_hexagon_pink)/2
+		var scaling = 1 + 4 / total_time_to_earthshatter_impact * time_until_earthshatter_impact * (total_time_to_earthshatter_impact - time_until_earthshatter_impact)
+		with(owner.owner) {
+			image_xscale = spr_width / sprite_get_width(sprite_index) * scaling
+			image_yscale = spr_height / sprite_get_height(sprite_index) * scaling
+		}
+	}
 }

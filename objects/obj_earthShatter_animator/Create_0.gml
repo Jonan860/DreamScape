@@ -1,13 +1,14 @@
-
-
+with(owner.owner) {
+	phase = "earthshatter jump"
+	move_towards_point(other.target.x, other.target.y, 2 * sprite_get_height(spr_hexagon_pink) / room_speed)	
+}
+phase = "jump"
 total_time_to_earthshatter_impact = point_distance(x, y, target.x, target.y) / sprite_get_height(spr_hexagon_pink)/2
-time_until_impact = total_time_to_earthshatter_impact
 
-function scr_perform_earthshatter_jump() {
-	if(point_distance(x, y, target.x, target.y) < 10) {
-		scr_earthshatter_impact_perform()
-	} else {
-		image_xscale = spr_width / sprite_get_width(sprite_index) * (1 + 4/total_time_to_earthshatter_impact * time_until_earthshatter_impact * (total_time_to_earthshatter_impact - time_until_earthshatter_impact))
-		image_yscale = spr_height / sprite_get_height(sprite_index) * (1 + 4/total_time_to_earthshatter_impact * time_until_earthshatter_impact * (total_time_to_earthshatter_impact - time_until_earthshatter_impact))
+impacted_tiles_list = ds_list_create()
+with(obj_tile) {
+	if(scr_get_distance(id, other.target) <= array_length(other.owner.amount[?"damage"])) {
+		ds_list_add(other.impacted_tiles_list, id)
 	}
-}		
+}
+time_until_earthshatter_gone = 8

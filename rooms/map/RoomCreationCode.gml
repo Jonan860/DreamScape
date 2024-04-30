@@ -27,6 +27,11 @@ scr_tile_distances_calculate()
 //}
 
 global.ida = scr_instance_create_at_tile_with_owner(obj_ida, 100223, global.player)
+with(global.ida) {
+	repeat(5) {
+		scr_level_up()
+	}
+}
 scr_instance_create_at_tile_with_owner(obj_sorceress, 100222, global.player)
 global.nils = scr_instance_create_at_tile_with_owner(obj_nils, 100102, global.player)
 global.lille_skutt = scr_instance_create_at_tile_with_owner(obj_lille_skutt, 100225, global.player)

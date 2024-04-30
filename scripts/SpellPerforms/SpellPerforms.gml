@@ -297,14 +297,10 @@ function curseRightPerform() {
 }
 
 function earthshatterRightPerform() {
-	if(cooldown_current == 0 and scr_get_distance(global.tile_selected, global.clicked_tile) <= range and owner.mana >= owner.getManaCost() and lvl > 0) {
-		with(owner) {
-			mana -= mana_cost
-			cooldown_current = getCooldown()
-			instance_create_depth(x, y, 0, animator, {target : global.clicked_tile})
-			exit;
-		}
-	}
+	owner.mana -= getManaCost()
+	cooldown_current = getCooldown()
+	owner.phase = "earthShatter"
+	instance_create_depth(owner.x, owner.y, global.clicked_tile.depth - 1, animator, {target : global.clicked_tile, owner : other})
 }
 
 function kawarimiRightPerform()	{

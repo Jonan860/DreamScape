@@ -1,34 +1,26 @@
-function scr_earthshatter_impact_perform(){
-	var list_of_impacted_tiles = ds_list_create()
-	with(target) {
-		draw_earthshatter = 1
-		time_until_earthshatter_gone = 8
-		depth -= 1
-	}
-	with(obj_tile) {
-		if(scr_get_distance(id, other.target) <= other.earthshatter_aoe) {
-			ds_list_add(list_of_impacted_tiles, id)
-		}
-	}
-	var list_length = ds_list_size(list_of_impacted_tiles)
-	for(var i = 0; i < list_length; i += 1) {
-		var  tile_to_impact = list_of_impacted_tiles[|i]
+function scr_earthshatter_impact_perform() { 
+	for(var i = 0; i < ds_list_size(impacted_tiles_list); i += 1) {
+		var  tile_to_impact = impacted_tiles_list[|i]
 		var ground_unit = tile_to_impact.grounds_list[|0]
-		if(!is_undefined(ground_unit) and ground_unit.object_index!=obj_crystal and ground_unit!=id) {
-			var store_damage = damage
+		if(!is_undefined(ground_unit) and ground_unit.object_index != obj_crystal and ground_unit != owner.owner) {
 			var distance_from_impact = scr_get_distance(target, tile_to_impact)
-			damage = earthshatter_damage_per_distance[|distance_from_impact]   //bugg Här sätts damage till undefined 
-			attackEffectWrapper(id, ground_unit)
-			damage = store_damage
-			var stun_time = earthshatter_stun_per_distance[|distance_from_impact]
-			scr_stun(ground_unit, stun_time)
+			with(owner) {
+				var store_damage = owner.damage
+				owner.damage = amount[?"damage"][distance_from_impact - 1]   //bugg Här sätts damage till undefined 
+				attackEffectWrapper(owner.id, ground_unit)
+				owner.damage = store_damage
+				scr_stun(ground_unit, amount[?"stun"][distance_from_impact - 1])
+			}
 		}
 	}
 	scr_make_room_for_instance_on_tile(target, "ground")
-	speed = 0
-	image_xscale = spr_width / sprite_get_width(sprite_index)
-	image_yscale = spr_height / sprite_get_height(sprite_index)
-	phase = "idle"
-	action_bar = 0
-	scr_move_to_tile(target)
+	var _target = target
+	with(owner.owner) {
+		speed = 0
+		image_xscale = spr_width / sprite_get_width(sprite_index)
+		image_yscale = spr_height / sprite_get_height(sprite_index)
+		phase = "idle"
+		action_bar = 0
+		scr_move_to_tile(_target)
+	}
 }

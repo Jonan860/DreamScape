@@ -8,6 +8,7 @@ function spellToAnimator(spell) {
 		case SPELLS.buildArcher : return obj_elven_archer
 		case SPELLS.buildPriest : return obj_priest
 		case SPELLS.buildSorceress : return obj_sorceress
+		case SPELLS.earthshatter : return obj_earthShatter_animator
 	}
 }
 
