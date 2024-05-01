@@ -20,4 +20,4 @@ target = noone
 max_summon_time = 180
 summon_time_left = 180
 
-attack_target = method(scr_attack_target_golden_dragon, undefined)
+attack_target = method(undefined, scr_attack_target_golden_dragon)

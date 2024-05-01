@@ -8,7 +8,7 @@ function spellToRightPerform(spell) {
 		case SPELLS.earthshatter : return method(undefined, earthshatterRightPerform)
 		case SPELLS.freeze : return method(undefined, freezeRightPerform)
 		case SPELLS.frost_nova : return method(undefined, frostNovaRightPerform)
-		case SPELLS.golden_dragon : return;
+		case SPELLS.golden_dragon : return method(undefined, goldenDragonRightPerform);
 		case SPELLS.heal : return method(undefined, healRightPerform)
 		case SPELLS.holy_light : return method(undefined, holyLightRightPerform)
 		case SPELLS.impale : return;
@@ -40,6 +40,7 @@ function spellToIconPerform(spellenum) {
 		case SPELLS.ninjago : return method(undefined, ninjagoIconPerform)
 		case SPELLS.earthshatter : return method(undefined, selectSwitchCursor)
 		case SPELLS.katon_gokakyu_no_jutsu : return method(undefined, selectSwitchCursor)
+		case SPELLS.golden_dragon : return method(undefined, selectSwitchCursor)
 		case SPELLS.vampiric_aura : return method(undefined, vampiricAuraIconPerform)
 		case SPELLS.locust_swarm : return method(undefined, locustIconPerform)
 		case SPELLS.buildFootman : return method(undefined, performRecruit);
@@ -82,6 +83,11 @@ function carrionBeetleRightPerform(soul_to_raise) {
 
 function raiseSkeletonRightPerform() {
 	raiseRightPerform(obj_skeleton)
+}
+
+function goldenDragonRightPerform() {
+	scr_make_room_for_instance_on_tile(global.clicked_tile, "ground")
+	scr_instance_create_at_tile_with_owner(obj_golden_dragon, global.clicked_tile, owner.owner)
 }
 
 function raiseRightPerform(obj) {
@@ -155,10 +161,7 @@ function goldenDragonShouldRightPerform() {
 
 }
 
-function goldenDragonRightPerform() {
-	scr_make_room_for_instance_on_tile(global.clicked_tile, "ground") ///ska ändras tilll air
-	scr_instance_create_at_tile_with_owner(obj_golden_dragon, global.clicked_tile, global.player)
-}
+
 
 function invisibilityShouldIconPerform() {return global.player.sorceress_has_invisibility}
 

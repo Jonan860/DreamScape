@@ -14,14 +14,14 @@ function scr_swap_tile(unit1, unit2) {
 	}
 
 	with(unit2) {
-		scr_move_to_tile(other.first_tile)
+		scr_move_to_tile(first_tile)
 		phase = "idle"
 		action_bar = 0 
 		target = noone
 		destination = noone
 	}
 	with(unit1) {
-		scr_move_to_tile(other.second_tile)
+		scr_move_to_tile(second_tile)
 		phase = "idle"
 		action_bar = 0
 		target = noone

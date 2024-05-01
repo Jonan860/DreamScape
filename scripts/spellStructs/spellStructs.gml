@@ -136,6 +136,7 @@ function spellToCursor(spellenum) {
 		case SPELLS.slow : return spr_slow_cursor
 		case SPELLS.holy_light : return spr_holy_light_cursor
 		case SPELLS.katon_gokakyu_no_jutsu : return spr_fire_ball_cursor
+		case SPELLS.golden_dragon : return spr_golden_dragon_cursor
 		default : return noone
 	}
 }

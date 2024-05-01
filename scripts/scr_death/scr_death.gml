@@ -85,7 +85,7 @@ function scr_death() {
 		if(object_get_parent(object_index) != obj_hero and object_index != obj_lille_skutt or owner == global.enemy or owner == global.creep_lord) {
 			if(object_index == obj_golden_dragon) {
 				with(obj_light_beam) {
-					if(creator == other.id) {
+					if(owner == other.id) {
 						instance_destroy()
 					}
 				}

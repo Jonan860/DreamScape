@@ -34,6 +34,11 @@ with(global.ida) {
 }
 scr_instance_create_at_tile_with_owner(obj_sorceress, 100222, global.player)
 global.nils = scr_instance_create_at_tile_with_owner(obj_nils, 100102, global.player)
+with(global.nils) {
+	repeat(5) {
+		scr_level_up()
+	}
+}
 global.lille_skutt = scr_instance_create_at_tile_with_owner(obj_lille_skutt, 100225, global.player)
 //scr_instance_create_at_tile_with_owner(obj_sorceress,100222,global.player)
 //scr_instance_create_at_tile_with_owner(obj_priest,100224,global.player)
