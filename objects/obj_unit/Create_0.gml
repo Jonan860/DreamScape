@@ -1,5 +1,15 @@
 skills = []
 buttonToSkill = ds_map_create()
+decloak = createSpell(SPELLS.decloak, "s")
+decloak.lvl = 1
+
+setAltitude = function(_altitude) {
+	scr_make_room_for_instance_on_tile(tile, _altitude)
+	scr_ds_list_remove_value(tile.occupants[? altitude], id)
+	altitude = _altitude
+	ds_list_add(tile.occupants[? altitude], id)
+}
+
 var var_tile_scale = sprite_get_height(spr_hexagon_pink) / max(sprite_height, sprite_width)
 image_yscale = var_tile_scale; image_xscale = var_tile_scale
 path = ds_list_create()
@@ -39,18 +49,7 @@ hp_bar_translate_y = sprite_get_height(spr_hexagon_pink)/2 * 3/4
 
 has_waited_for_blocker_to_move = 0
 
-scr_draw_decloak_button_with_hover = function()  {
-	if(owner == global.player) {
-		scr_hover_decloak_info()
-		draw_sprite_ext(spr_decloak_button, 0, other.hud_s_button_x, other.hud_s_button_y, other.spell_button_width / sprite_get_width(spr_decloak_button), other.spell_button_height / sprite_get_height(spr_decloak_button), 0, -1, 1)
-		draw_sprite_ext(spr_abilities_button, 0, other.hud_abilities_x, other.hud_abilities_y, other.spell_button_width / sprite_get_width(spr_abilities_button), other.spell_button_height / sprite_get_height(spr_abilities_button), 0, -1, 1)
-		if(object_is_ancestor(object_index, obj_hero)) {
-			if(number_of_ability_points > 0) {
-				draw_text_ext_transformed_color(other.hud_abilities_x, other.hud_abilities_y, string(number_of_ability_points), -1, -1, 4, 4, 0, c_green, c_green, c_green, c_green, 1)
-			}
-		}	
-	}
-}
+
 
 scr_update_accuracy = function() {
 	var cursed = scr_is_debuffed(SPELLS.curse)

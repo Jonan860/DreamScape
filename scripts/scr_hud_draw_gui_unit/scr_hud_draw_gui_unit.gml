@@ -16,7 +16,7 @@ function scr_hud_draw_gui_unit_prod_building() {
 }
 
 function scr_dra_hud_button_with_hover_inf_lille_skutt() {
-	var buttons = ["q", "w", "s"]
+	var buttons = ["q", "w"]
 	for (var i = 0; i < array_length(buttons); i++) {
 		var button = buttonToSkill[?buttons[i]]
 		var hudButton = global.hud.charToButton[? buttons[i]]
@@ -104,6 +104,18 @@ function scr_hud_draw_gui_unit() {
 		}
 		if(object_is_ancestor(other.object_index, obj_hero)) {
 			draw_healthbar(XP_bar_x1, XP_bar_y1, XP_bar_x2, XP_bar_y2, other.experience/other.experience_to_level_up * 100, c_black, c_yellow, c_yellow, 0, 1, 0)
+		}
+	}
+	if(altitude == "invisible") {
+		if(owner == global.player) {
+			with(decloak) {
+				with(global.hud.charToButton[? "s"]) {
+					draw_sprite_ext(other.icon, 0, _x, _y, global.hud.spell_button_width / sprite_get_width(other.icon), global.hud.spell_button_height / sprite_get_height(other.icon), 0, -1, other.lvl > 0 ? 1 : 0.5)
+				}
+				if(mouse_is_on()) {
+					draw_hover_info()
+				}
+			}
 		}
 	}
 	if(object_index == obj_lille_skutt) {

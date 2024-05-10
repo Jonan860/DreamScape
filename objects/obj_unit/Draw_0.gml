@@ -17,7 +17,7 @@ if(!eaten) {
 		var varYscale2 = sprite_get_height(spr_hexagon_pink)/sprite_get_height(spr_slow)
 		draw_sprite_ext(spr_slow, 0, x, y, varXscale2, varYscale2, 0, -1, 1)
 	}
-	image_alpha = 1
+	image_alpha = altitude == "invisible" ? 0.5 : 1
 	draw_self()
 	draw_healthbar(x - HP_bar_width/2, y + hp_bar_translate_y, x + HP_bar_width/2, y + hp_bar_translate_y + HP_bar_height, 100 * HP/max_HP, c_black, c_red, c_green, 0, 1, 0)
 	draw_healthbar(x - sprite_width/4, y + sprite_height * 3/8 - sprite_height * 1/4 * 1/8, x + sprite_width/4, y + sprite_height * 3/8 - 2 * sprite_height * 1/4 * 1/8, 100 * action_bar/max_action_bar, c_black, c_red, c_green, 0, 1, 0)

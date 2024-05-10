@@ -28,29 +28,16 @@ progress_bar_y1 = global.camera_height - global.hud.hud_height / 2
 progress_bar_y2 = global.camera_height - global.hud.hud_height * (1/2 - 1/20)
 build_progress = 0 // of 100
 
-q_button = {
-	object : obj_footman,
-	info : "Barrack, Cost: " + string(ds_map_find_value(global.map_object_to_costs, obj_human_barrack)),
-	icon : spr_human_barracks_icon,
-	icon_x : x - sprite_get_width(spr_hexagon_pink) / 2,
-	icon_y : y - sprite_get_height(spr_hexagon_pink) / 2
-}
-
-w_button = {
-	object : obj_elven_archer,
-	icon_x : q_button.icon_x + sprite_get_width(spr_footman_icon) / 2 + sprite_get_width(spr_elven_archer_icon) / 2,
-	icon_y : y - sprite_get_height(spr_hexagon_pink) / 2,
-	info : "Arcane Sanctum, Cost: "+string(ds_map_find_value(global.map_object_to_costs, obj_arcane_sanctum)),
-	icon : spr_arcane_sanctum_icon
-}
-
+buildBarracks = createSpell(SPELLS.buildBarracks, "q")
+buildBarracks.lvl = 1
+buildArcaneSanctum = createSpell(SPELLS.buildArcaneSanctum, "w")
+buildArcaneSanctum.lvl = 1
+skills = [buildBarracks, buildArcaneSanctum]
 s_button = {
 	info : "Resurrects a Hero soul on the same tile after 60 sec",
-	icon : spr_resurrection_icon
+	icon : spr_resurrection_icon,
+	lvl : 1
 }
-
-ds_map_add(buttonToSkill, "q", q_button)
-ds_map_add(buttonToSkill, "w", w_button)
 ds_map_add(buttonToSkill, "s", s_button)
 buttons = ["q", "w", "s"]
 

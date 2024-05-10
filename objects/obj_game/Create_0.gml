@@ -10,9 +10,7 @@ min_window_height = 1179/2
 global.enemy_ai_think_time_in_sec = 5
 global.player_ai_think_time_in_sec = 0.1
 global.player_idle_ai_think_time_in_sec = 0.3
-global.invisibility_upgrade_mana_bonus = 25
 
-global.invisibility_upgrade_mana_regen_bonus = 0.6/4
 list_jukebox = ds_list_create()
 ds_list_add(list_jukebox, sound_canon, sound_darth_nader, sound_head_of_nasa, sound_guitarmass, sound_infected_mushroom_kazabubu, sound_infected_mushroom_slowly, sound_overwerk, sound_sharxpowa, sound_soulji_murder, sound_spitfire)
 

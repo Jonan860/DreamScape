@@ -32,7 +32,10 @@ with(global.ida) {
 		scr_level_up()
 	}
 }
-scr_instance_create_at_tile_with_owner(obj_sorceress, 100222, global.player)
+with(scr_instance_create_at_tile_with_owner(obj_sorceress, 100222, global.player)) {
+	invisibility.lvl = 1
+}
+
 global.nils = scr_instance_create_at_tile_with_owner(obj_nils, 100102, global.player)
 with(global.nils) {
 	repeat(5) {
@@ -66,14 +69,14 @@ scr_instance_create_at_tile_with_owner(obj_crypt_fiend, 100019, global.enemy)
 
 
 
-with(scr_instance_create_at_tile_with_owner(obj_crypt_lord, 100008, global.enemy)) {
-	repeat(7) {
-		scr_level_up()
-	}
-	spiked_carapace.lvl = 3
-	carrion_beetles.lvl = 3
-	locust_swarm.lvl = 1
-}
+//with(scr_instance_create_at_tile_with_owner(obj_crypt_lord, 100008, global.enemy)) {
+//	repeat(7) {
+//		scr_level_up()
+//	}
+//	spiked_carapace.lvl = 3
+//	carrion_beetles.lvl = 3
+//	locust_swarm.lvl = 1
+//}
 with(obj_tile) {
 	if(tile_x == 18 and tile_y == 2) {
 		other.hungry_hungry_lizard = scr_instance_create_at_tile_with_owner(obj_hungry_hungry_lizard, id, global.creep_lord)

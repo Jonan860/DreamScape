@@ -21,9 +21,13 @@ if(room == map) {
 			}
 			////scr_death()  maybe solves bug see above
 		}
-
 		with(obj_unit_producing_building) {
-			updateQueue()
+			if(unfinished and global.lille_skutt.is_building == id) {
+				updateSelfConstruction()
+			}
+			if(!ds_list_empty(queue_list)) {
+				updateRecruitQueue()
+			}
 		}
 
 		scr_money_tree_withdrawal()
@@ -34,7 +38,6 @@ if(room == map) {
 		scr_missing_time_countdown()
 		scr_stun_countdown()
 		scr_earthquake_crack_countdown()
-		scr_invisible_count_down()
 		scr_buff_duration_countdown()
 		scr_enemies_wave_generation()
 		scr_light_beam_damage()

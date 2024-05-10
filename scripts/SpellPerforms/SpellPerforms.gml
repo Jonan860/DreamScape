@@ -1,6 +1,5 @@
 function spellToRightPerform(spell) {
 	switch(spell) {
-		case SPELLS.build : return;
 		case SPELLS.carrion_beetles : return method(undefined, carrionBeetleRightPerform)
 		case SPELLS.carrion_swarm : return;
 		case SPELLS.curse : return method(undefined, curseRightPerform)
@@ -20,8 +19,12 @@ function spellToRightPerform(spell) {
 		case SPELLS.spiked_carapace : return;
 		case SPELLS.vampiric_aura : return;
 		case SPELLS.raise : return method(undefined, raiseSkeletonRightPerform);
+		case SPELLS.buildArcaneSanctum : return method(undefined, buildBuildingRightPressed)
+		case SPELLS.buildBarracks : return method(undefined, buildBuildingRightPressed)
+		case SPELLS.invisibility  : return method(undefined, invisibilityRightPerform)
 	}
 }
+
 
 function spellToIconPerform(spellenum) {
 	switch(spellenum) {
@@ -51,6 +54,22 @@ function spellToIconPerform(spellenum) {
 		case SPELLS.buildImprovedBows : return method(undefined, performRecruit);
 		case SPELLS.buildDefend : return method(undefined, performRecruit);
 		case SPELLS.buildInvisibility : return method(undefined, performRecruit);
+		case SPELLS.decloak : return method(undefined, decloakIconPerform)
+	}
+}
+
+function decloakIconPerform() {
+	with(owner) {
+		for(var i = 0; i < ds_list_size(list_of_active_debuff_structs); i++) {
+			with(list_of_active_debuff_structs[|i]) {
+				if(Enum = SPELLS.invisibility) {
+					unapply()
+					scr_ds_list_remove_value(other.list_of_active_debuff_structs, self)
+					exit;
+				}
+			
+			}
+		}
 	}
 }
 
@@ -122,14 +141,15 @@ function spellToShouldPerform(_spell) {
 	}
 } 
 
-function scr_right_pressed_spade_selected(var_selected_unit) {
-var var_barrack_cost = ds_map_find_value(global.map_object_to_costs, animator)
-	if(global.player.money >= var_barrack_cost and scr_occupiable(global.clicked_tile, "ground") and scr_get_distance(global.tile_selected, global.clicked_tile) <= var_selected_unit.range) {
-		global.player.money -= var_barrack_cost
-		var barrack = scr_instance_create_at_tile_with_owner(animator, global.clicked_tile, global.player)
-		barrack.unfinished = 1
-		barrack.build_progress = 0
-		global.lille_skutt.is_building = self
+function buildBuildingRightPressed() {
+	if(owner.owner.money >= getAmount() and scr_occupiable(global.clicked_tile, "ground") and scr_get_distance(global.tile_selected, global.clicked_tile) <= range) {
+		owner.owner.money -= getAmount()
+		with(scr_instance_create_at_tile_with_owner(animator, global.clicked_tile, global.player)) {
+			unfinished = 1
+			build_progress = 0
+			global.lille_skutt.is_building = id
+		}
+		
 	}
 }
 function revivePerform() {
@@ -253,29 +273,67 @@ function freezeRightPerform2() {
 	}
 }
 
+function spellToPerform(spellEnum) {
+	switch(spellEnum) {
+		case SPELLS.buildDefend : return method(undefined, buildDefendPerform)
+		case SPELLS.buildImprovedBows : return method(undefined, buildImprovedBowsPerform)
+		case SPELLS.buildInvisibility : return method(undefined, buildInvisibilityPerform)
+		case SPELLS.buildDispel : return method(undefined, buildDispelPerform)
+	}
+}
+
+function buildDispelPerform() {
+	global.player.priest_has_dispel = 1
+	with(obj_priest) {
+		dispel.lvl = 1
+		mana *= learnSpellManaMultiplicator
+		max_mana *= learnSpellManaMultiplicator
+		mana_regen_rate_per_sec *= learnSpellManaMultiplicator
+	}
+}
+
+
+function buildInvisibilityPerform() {
+	global.player.sorceress_has_invisibility = 1
+	with(obj_sorceress) {
+		invisibility.lvl = 1
+		mana *= learnSpellManaMultiplicator
+		max_mana *= learnSpellManaMultiplicator
+		mana_regen_rate_per_sec *= learnSpellManaMultiplicator
+	}
+}
+
+function buildDefendPerform() {
+	global.player.footman_has_defend_upgrade = 1
+	with(obj_footman) {
+		defend.lvl = 1
+	}
+}
+
+function buildImprovedBowsPerform() {	
+	global.player.elven_archers_has_improved_bows = 1
+	with(obj_elven_archer) {
+		scr_update_range()
+	}
+}
+
 function slowRightPerform() {
 	scr_apply_debuff(global.clicked_tile.grounds_list[|0])
 }
 
 function cloakRightPerform(targeto) {
 	with(targeto) {
-		var homeland = tile.occupants[|altitude]
-		with(tile) {
-			scr_ds_list_remove_value(homeland, targeto)
-			ds_list_add(invisibles_list, targeto)
-		}
-		scr_make_all_unit_detarget(targeto)
-		altitude = "invisible"
-		phase = "idle"
-		action_bar = 0
+		
 	}
 }
 
-function invisibleRightPerform(var_unit){
-	cloakPerform(var_unit)
-	with(var_unit) {
-		invisible_time_left = global.invisibility_struct.duration
-		invisible = 1
+function invisibilityRightPerform(){
+	scr_apply_debuff(global.clicked_tile.grounds_list[|0])
+	scr_make_all_unit_detarget(global.clicked_tile.grounds_list[|0])
+	with(global.clicked_tile.grounds_list[|0]) {
+		setAltitude("invisible")
+		phase = "idle"
+		action_bar = 0
 	}
 }
 
@@ -288,10 +346,10 @@ function frostNovaRightPerform(var_target_tile) {
 }
 
 function invisibilityShouldRightPerform() {
-	return cursor_sprite == spr_invisibility_cursor
-		and var_selected_unit.invisibility.cooldown_current == 0
-		and scr_get_distance(var_selected_unit, global.clicked_tile) <= var_selected_unit.invisibility.range
-		and var_selected_unit.mana >= var_selected_unit.invisibility.mana_cost
+	with(global.clicked_tile.grounds_list[|0]) {
+		return !scr_is_enemies(id, other.owner.id)
+	}
+	return false
 }
 	
 function curseRightPerform() {

@@ -9,6 +9,8 @@ function spellToAnimator(spell) {
 		case SPELLS.buildPriest : return obj_priest
 		case SPELLS.buildSorceress : return obj_sorceress
 		case SPELLS.earthshatter : return obj_earthShatter_animator
+		case SPELLS.buildArcaneSanctum : return obj_arcane_sanctum
+		case SPELLS.buildBarracks : return obj_human_barrack
 	}
 }
 
@@ -33,6 +35,8 @@ function spellToCooldown(spell) {
 		case SPELLS.invisibility : return 1
 		case SPELLS.curse : return 3
 		case SPELLS.heal : return 1.5
+		case SPELLS.buildArcaneSanctum : return 0
+		case SPELLS.buildBarracks : return 0
 		default : return noone
 	}
 }
@@ -92,6 +96,8 @@ function spellToRange(spell) {
 		case SPELLS.spell_shield : return 1
 		case SPELLS.ninjago : return 1
 		case SPELLS.vampiric_aura : return 4
+		case SPELLS.buildArcaneSanctum : return 1
+		case SPELLS.buildBarracks : return 1
 		default : return noone
 	}
 }
@@ -137,6 +143,7 @@ function spellToCursor(spellenum) {
 		case SPELLS.holy_light : return spr_holy_light_cursor
 		case SPELLS.katon_gokakyu_no_jutsu : return spr_fire_ball_cursor
 		case SPELLS.golden_dragon : return spr_golden_dragon_cursor
+		case SPELLS.invisibility : return spr_invisibility_cursor
 		default : return noone
 	}
 }
@@ -185,7 +192,6 @@ function spellToAbilitiesInfo(spell) {
 	case SPELLS.frost_armor : return ""
 	case SPELLS.dark_ritual : return ""
 	case SPELLS.defend : return ""
-	case SPELLS.build : return ""
 	case SPELLS.slow : return ""
 	case SPELLS.heal : return "Heals a target friendly non-mechanical wounded unit for " + string(amount) + " hit points"
 		 + "\n" + "getCooldown(): " + string(getCooldown())
@@ -257,6 +263,7 @@ function spellToIcon(spell) {
 		case SPELLS.buildArcaneSanctum : return spr_arcane_sanctum_icon
 		case SPELLS.raise : return  spr_raise_icon
 		case SPELLS.defend : return spr_defend_icon
+		case SPELLS.decloak : return spr_decloak_button
 		default : return noone
 	}
 }
@@ -321,20 +328,7 @@ function spellToName(spell) {
 	}
 }
 
-function spellToPerform(spellEnum) {
-	switch(spellEnum) {
-		case SPELLS.buildDefend : return method(undefined, buildDefendPerform)
-	}
-}
 
-function buildDefendPerform() {
-	with(global.player) {
-		footman_has_defend_upgrade = 1
-	}
-	with(obj_footman) {
-		defend.lvl = 1
-	}
-}
 
 function spellToInfo(spell) {
 	switch(spell) {
@@ -396,18 +390,29 @@ function spellToInfo(spell) {
 		case SPELLS.buildArcher : return "Archer" + " Cost: " + string(ds_map_find_value(global.map_object_to_costs, obj_elven_archer))
 		case SPELLS.buildSorceress : return "Sorceress, Cost: " + string(ds_map_find_value(global.map_object_to_costs, obj_sorceress))
 		case SPELLS.buildPriest : return "Priest, Cost: " + string(ds_map_find_value(global.map_object_to_costs, obj_priest))
-		case SPELLS.buildDispel : return "Priest dispel upgrade: Allows priests to cast dispel, decreaseing the duration of buff an debuff in an area " + ". Cost: " + string(ds_map_find_value(global.map_object_to_costs, object))
-		case SPELLS.buildInvisibility : return "Sorceress invisibility upgrade: Allows sorceresses to cast invisibility on a ally unit, " + "\n and increases mana of sorceresses by " + string(global.invisibility_upgrade_mana_bonus) + " and mana regen. " + "Cost " + string(ds_map_find_value(global.map_object_to_costs, object))
-		case SPELLS.buildArcaneSanctum : return "Arcane Sanctum: Recruits Mages";
-		case SPELLS.buildBarracks : return "Barracks: Recruits Warriors"
+		case SPELLS.buildDispel : return "Priest dispel upgrade: Allows priests to cast dispel, decreaseing the duration of buff an debuff in an area " + ". Cost: " + string(getAmount())
+		case SPELLS.buildInvisibility : return "Sorceress invisibility upgrade: Allows sorceresses to cast invisibility on a ally unit, " + "\n and multiplies mana of sorceresses by " + string(learnSpellManaMultiplicator) + " and mana regen. " + "Cost " + string(getAmount())
+		case SPELLS.buildArcaneSanctum : return "Arcane Sanctum: Recruits Mages, Cost: " + string(getAmount());
+		case SPELLS.buildBarracks : return "Barracks: Recruits Warriors, Cost: " + string(getAmount())
 		case SPELLS.raise : return "Summons a skeleton from a soul"
+		case SPELLS.decloak : return "Stop being invisible to be able to perform additional actions."
 	}
 }
 
 function spellToUnapply(spellEnum) {
 	switch(spellEnum) {
 		case SPELLS.sleep : return method(undefined, sleepUnapply)
+		case SPELLS.invisibility : return method(undefined, invisibilityUnapply)
 		default : return function() {}
+	}
+}
+
+function invisibilityUnapply() {
+	with(victim) {
+		setAltitude(base_altitude)
+		invisible = 0
+		phase = "idle"
+		action_bar = 0
 	}
 }
 
@@ -534,7 +539,7 @@ function createSpell(spellEnum, _letter) {
 			draw_set_halign(old_align)
 		}
 		
-		 createDebuff = function() constructor {
+		 createDebuff = function(_victim) constructor {
 			total_duration = other.getDuration()
 			spellHealth = other.spellHealth
 			duration = other.getDuration()
@@ -543,9 +548,10 @@ function createSpell(spellEnum, _letter) {
 			owner = other
 			Enum = other.Enum;
 			unapply = spellToUnapply(other.Enum)
+			victim = _victim
 		}
 		scr_apply_debuff = function(victim) {
-			var debuff_struct = new createDebuff()
+			var debuff_struct = new createDebuff(victim)
 			with(victim) {
 				ds_list_add(list_of_active_debuff_structs, debuff_struct) 
 				scr_sort_debuff_list_after_dispellity()
@@ -582,7 +588,6 @@ enum SPELLS {
 	frost_armor,
 	dark_ritual,
 	defend,
-	build,
 	slow,
 	heal,
 	revive,
@@ -600,12 +605,9 @@ enum SPELLS {
 	buildImprovedBows,
 	buildBarracks,
 	buildArcaneSanctum,
-	buildMoneyTree
+	buildMoneyTree,
+	decloak
 }
 
+#macro learnSpellManaMultiplicator 1.25
 
-global.invisibililty_upgrade_struct = {
-	max_mana_multiplicator : 1.25,
-	mana_regen_multiplicator : 1.25,
-	icon : spr_invisibility_icon,
-}

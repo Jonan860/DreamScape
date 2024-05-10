@@ -14,7 +14,7 @@ function scr_left_hud_pressed() {
 										exit
 									}
 								} else {
-									if(other.number_of_ability_points > 0) {
+									if(other.number_of_ability_points > 0 and lvl <= 3) {
 										level_up()
 									}
 								}

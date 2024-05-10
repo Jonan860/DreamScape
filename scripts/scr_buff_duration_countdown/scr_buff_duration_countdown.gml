@@ -6,7 +6,7 @@ function scr_buff_duration_countdown() {
 			var structu = list_of_active_debuff_structs[|i]
 			structu.duration -= 1/room_speed
 			if(structu.duration <= 0) {
-				structu.unapply()
+				structu.unapply() //need to be called from unit
 				scr_ds_list_remove_value(list_of_active_debuff_structs, structu)
 				i -= 1
 				list_size -= 1
