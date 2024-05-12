@@ -12,7 +12,7 @@ max_food_amount = 10
 element = "nature"
 speed = 2 
 distance_needed_to_enemy = sprite_get_width(spr_hexagon_pink) / 16
-phase = "searching" //eating/returning
+phase = UNIT_PHASES.searching //eating/returning
 image_xscale = sprite_get_width(spr_hexagon_pink)/ 8 / sprite_width
 image_yscale = sprite_get_height(spr_hexagon_pink) / 8 / sprite_height
 

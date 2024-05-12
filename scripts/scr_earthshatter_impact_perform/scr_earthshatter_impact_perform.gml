@@ -13,13 +13,13 @@ function scr_earthshatter_impact_perform() {
 			}
 		}
 	}
-	scr_make_room_for_instance_on_tile(target, "ground")
+	scr_make_room_for_instance_on_tile(target, ALTITUDES.ground)
 	var _target = target
 	with(owner.owner) {
 		speed = 0
 		image_xscale = spr_width / sprite_get_width(sprite_index)
 		image_yscale = spr_height / sprite_get_height(sprite_index)
-		phase = "idle"
+		phase = UNIT_PHASES.idle
 		action_bar = 0
 		scr_move_to_tile(_target)
 	}

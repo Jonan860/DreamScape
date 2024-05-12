@@ -98,7 +98,7 @@ ds_list_add(wave_x_list_of_lists, wave1_x, wave2_x, wave3_x, wave4_x, wave5_x, w
 wave_list = ds_list_create()
 ds_list_add(wave_list, wave1, wave2, wave3, wave4, wave5, wave6, wave7, wave8, wave9, wave10, wave11, wave12, wave13, wave14, wave15, wave16, wave17)
 
-phase = "dialogue"
+phase = GAME_PHASES.dialogue
 lose_text = ""
 
 save = function() {

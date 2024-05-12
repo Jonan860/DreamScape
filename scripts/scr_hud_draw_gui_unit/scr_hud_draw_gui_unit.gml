@@ -106,7 +106,7 @@ function scr_hud_draw_gui_unit() {
 			draw_healthbar(XP_bar_x1, XP_bar_y1, XP_bar_x2, XP_bar_y2, other.experience/other.experience_to_level_up * 100, c_black, c_yellow, c_yellow, 0, 1, 0)
 		}
 	}
-	if(altitude == "invisible") {
+	if(altitude == ALTITUDES.invisible) {
 		if(owner == global.player) {
 			with(decloak) {
 				with(global.hud.charToButton[? "s"]) {
@@ -138,7 +138,7 @@ function draw_cooldown() {
 }
 
 function draw_portrait() {
-	var _alpha = other.altitude == "invisible" ? 0.5 : 1
+	var _alpha = other.altitude == ALTITUDES.invisible ? 0.5 : 1
 	draw_sprite_ext(other.sprite_index, 0, global.hud.hud_width/6, camera_get_view_height(view_camera[0]) - global.hud.hud_height/2, global.hud.hud_width/4 / sprite_get_width(other.sprite_index),
 	global.hud.hud_height / sprite_get_height(other.sprite_index), 0, -1, _alpha)
 }

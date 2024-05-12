@@ -32,8 +32,8 @@ with(global.ida) {
 		scr_level_up()
 	}
 }
-with(scr_instance_create_at_tile_with_owner(obj_sorceress, 100222, global.player)) {
-	invisibility.lvl = 1
+with(scr_instance_create_at_tile_with_owner(obj_priest, 100222, global.player)) {
+	dispel.lvl = 1
 }
 
 global.nils = scr_instance_create_at_tile_with_owner(obj_nils, 100102, global.player)

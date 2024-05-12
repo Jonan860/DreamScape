@@ -11,7 +11,7 @@ function scr_hunt_attack_enemy() {
 					var var_c = random(3)
 					var_c = 0
 				}
-				if(scr_is_enemies(id, other) and phase != "dead") {
+				if(scr_is_enemies(id, other) and phase != UNIT_PHASES.dead) {
 					enemy_exists = 1
 					if(var_n = var_random) {
 						other.target = id

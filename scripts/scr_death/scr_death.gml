@@ -5,7 +5,7 @@ function scr_death() {
 		var time_has_runned_out = 0
 	}
 	
-	if(HP <= 0 and phase != "dead" or time_has_runned_out or (phase == "sacrificed" and time_until_dark_ritual_sacrifice_sec <= 0)) {
+	if(HP <= 0 and phase != UNIT_PHASES.dead or time_has_runned_out or (phase == UNIT_PHASES.sacrificed and time_until_dark_ritual_sacrifice_sec <= 0)) {
 		scr_give_experience()
 		with(obj_projectile_animator) {
 			if(owner == other.id) {
@@ -30,7 +30,7 @@ function scr_death() {
 			}
 			if(target == other.id) {
 				target = noone
-				phase = "returning"
+				phase = UNIT_PHASES.returning
 			}
 		}
 		with(obj_ninjago_animator) {
@@ -60,7 +60,7 @@ function scr_death() {
 				}
 			}
 		}
-		if(object_get_parent(object_index) != obj_summon and phase != "sacrificed") {
+		if(object_get_parent(object_index) != obj_summon and phase != UNIT_PHASES.sacrificed) {
 			if(object_get_parent(object_index) != obj_hero and object_index != obj_lille_skutt or object_is_ancestor(object_index, obj_hero) and owner = global.enemy) {
 				var soul = instance_create_depth(x, y, depth, obj_soul)
 				soul.object = object_index
@@ -68,7 +68,7 @@ function scr_death() {
 				soul.image_xscale = soul.tile.sprite_width / soul.sprite_width
 				soul.image_yscale = soul.tile.sprite_height / soul.sprite_height
 			} else {
-				phase = "dead"
+				phase = UNIT_PHASES.dead
 				HP = 1
 				scr_ds_list_remove_value(altitude_list, id)
 				var soul = instance_create_depth(x, y, depth, obj_soul_hero)

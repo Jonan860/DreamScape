@@ -25,8 +25,8 @@
   "nineSlice": null,
   "origin": 4,
   "parent": {
-    "name": "Holy light",
-    "path": "folders/Sprites/Holy light.yy",
+    "name": "cursors",
+    "path": "folders/Sprites/cursors.yy",
   },
   "preMultiplyAlpha": false,
   "sequence": {

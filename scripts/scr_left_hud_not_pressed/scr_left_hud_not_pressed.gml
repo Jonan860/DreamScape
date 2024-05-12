@@ -12,7 +12,7 @@ function scr_left_hud_not_pressed() {
 		cursor_sprite = -1
 	}
 	with( instance_position(mouse_x, mouse_y, obj_tile)) {
-		var var_ground_unit_list = ds_map_find_value(occupants, "ground")
+		var var_ground_unit_list = ds_map_find_value(occupants, ALTITUDES.ground)
 		var var_ground_unit = var_ground_unit_list[|0]
 		if(var_ground_unit != global.ida) {
 			global.hud.gui_display_abilities = 0

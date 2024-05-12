@@ -15,7 +15,7 @@ evasiveness = 0.5
 target = noone
 
 number_of_ability_points = 1
-altitude = "ground"
+altitude = ALTITUDES.ground
 
 max_mana = 100
 mana = 100
@@ -32,7 +32,7 @@ spr_height = sprite_height
 spr_width = sprite_width
 
 ai = function () {
-	if(mana >= frost_nova.getManaCost() and frost_nova.cooldown_current == 0 and phase != "frost nova") {
+	if(mana >= frost_nova.getManaCost() and frost_nova.cooldown_current == 0 and phase != UNIT_PHASES.frostNova) {
 		var frost_nova_target_tile_within_range = scr_find_frost_nova_target_within_range()
 		if(frost_nova_target_tile_within_range != noone) {
 			frost_nova.rightPerform(frost_nova_target_tile_within_range)

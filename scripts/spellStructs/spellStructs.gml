@@ -11,6 +11,7 @@ function spellToAnimator(spell) {
 		case SPELLS.earthshatter : return obj_earthShatter_animator
 		case SPELLS.buildArcaneSanctum : return obj_arcane_sanctum
 		case SPELLS.buildBarracks : return obj_human_barrack
+		case SPELLS.dispel : return obj_dispel_animator
 	}
 }
 
@@ -37,6 +38,7 @@ function spellToCooldown(spell) {
 		case SPELLS.heal : return 1.5
 		case SPELLS.buildArcaneSanctum : return 0
 		case SPELLS.buildBarracks : return 0
+		case SPELLS.dispel : return 20
 		default : return noone
 	}
 }
@@ -74,6 +76,7 @@ function spellToAmount(spell) {
 		case SPELLS.buildBarracks : return 100
 		case SPELLS.buildArcaneSanctum : return 100
 		case SPELLS.buildInvisibility : return 150
+		case SPELLS.dispel : return 50
 		default : return noone
 	}
 }
@@ -98,6 +101,7 @@ function spellToRange(spell) {
 		case SPELLS.vampiric_aura : return 4
 		case SPELLS.buildArcaneSanctum : return 1
 		case SPELLS.buildBarracks : return 1
+		case SPELLS.dispel : return 4
 		default : return noone
 	}
 }
@@ -127,6 +131,7 @@ function spellToManaCosts(spell) {
 		case SPELLS.invisibility : return 15
 		case SPELLS.golden_dragon : return 80
 		case SPELLS.ninjago : return [30, 60, 90]
+		case SPELLS.dispel : return 50
 		default : return noone
 	}
 }
@@ -144,6 +149,7 @@ function spellToCursor(spellenum) {
 		case SPELLS.katon_gokakyu_no_jutsu : return spr_fire_ball_cursor
 		case SPELLS.golden_dragon : return spr_golden_dragon_cursor
 		case SPELLS.invisibility : return spr_invisibility_cursor
+		case SPELLS.dispel : return spr_dispel_cursor
 		default : return noone
 	}
 }
@@ -264,6 +270,7 @@ function spellToIcon(spell) {
 		case SPELLS.raise : return  spr_raise_icon
 		case SPELLS.defend : return spr_defend_icon
 		case SPELLS.decloak : return spr_decloak_button
+		case SPELLS.dispel : return spr_dispel_icon
 		default : return noone
 	}
 }
@@ -325,6 +332,7 @@ function spellToName(spell) {
 		case SPELLS.buildSorceress : return "Build Sorceress"
 		case SPELLS.curse : return "Curse"
 		case SPELLS.raise : return "Raise"
+		case SPELLS.dispel : return "Dispel"
 	}
 }
 
@@ -396,6 +404,7 @@ function spellToInfo(spell) {
 		case SPELLS.buildBarracks : return "Barracks: Recruits Warriors, Cost: " + string(getAmount())
 		case SPELLS.raise : return "Summons a skeleton from a soul"
 		case SPELLS.decloak : return "Stop being invisible to be able to perform additional actions."
+		case SPELLS.dispel : return "Reduces duration of hostile buffs in an area"
 	}
 }
 
@@ -411,7 +420,7 @@ function invisibilityUnapply() {
 	with(victim) {
 		setAltitude(base_altitude)
 		invisible = 0
-		phase = "idle"
+		phase = UNIT_PHASES.idle
 		action_bar = 0
 	}
 }
@@ -421,7 +430,7 @@ function sleepUnapply() {
 		if(owner == other.owner) {
 			instance_destroy()
 			with(target) {
-				phase = "idle"
+				phase = UNIT_PHASES.idle
 			}
 		}
 	}
@@ -449,7 +458,7 @@ function heal_ai() {
 		var _target = scr_find_best_heal_target_from_list(list_heal_target_within_range)
 		if(_target != noone) {
 			owner.target = _target
-			owner.phase = "healing"
+			owner.phase = UNIT_PHASES.healing
 		}
 	}
 }
@@ -606,7 +615,8 @@ enum SPELLS {
 	buildBarracks,
 	buildArcaneSanctum,
 	buildMoneyTree,
-	decloak
+	decloak,
+	dispel
 }
 
 #macro learnSpellManaMultiplicator 1.25

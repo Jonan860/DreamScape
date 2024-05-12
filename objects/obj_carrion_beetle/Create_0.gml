@@ -17,7 +17,7 @@ accuracy = 0.5
 base_accuracy = accuracy
 evasiveness = 0.3
 target = noone
-altitude = "ground"
+altitude = ALTITUDES.ground
 
 ai = function() {}
 attack_target = method(undefined, scr_attack_target_carrion_beetle)

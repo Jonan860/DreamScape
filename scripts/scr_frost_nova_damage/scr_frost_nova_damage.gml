@@ -7,16 +7,16 @@ function scr_frost_nova_damage() {
 		frostnovaDamageTile(target.list_of_neighbours[|i])
 	}
 	damage = store_damage
-	owner.phase = owner.owner == global.player ? "idle" : "movement"
+	owner.phase = owner.owner == global.player ? UNIT_PHASES.idle : UNIT_PHASES.movement
 	owner.action_bar *= owner.owner != global.player
 }
 
 
 function frostnovaDamageTile(tile) {
 	with(tile) {
-		var var_ground_list = ds_map_find_value(occupants, "ground")
-		var var_air_list = ds_map_find_value(occupants, "air")
-		var var_invisible_list = ds_map_find_value(occupants, "invisible")
+		var var_ground_list = ds_map_find_value(occupants, ALTITUDES.ground)
+		var var_air_list = ds_map_find_value(occupants, ALTITUDES.air)
+		var var_invisible_list = ds_map_find_value(occupants, ALTITUDES.invisible)
 		var lists = [var_ground_list, var_air_list, var_invisible_list]
 	}
 	for(var i = 0; i < array_length(lists); i++) {

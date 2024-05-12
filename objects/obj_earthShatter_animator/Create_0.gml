@@ -1,8 +1,8 @@
 with(owner.owner) {
-	phase = "earthshatter jump"
+	phase = UNIT_PHASES.earthshatterJump
 	move_towards_point(other.target.x, other.target.y, 2 * sprite_get_height(spr_hexagon_pink) / room_speed)	
 }
-phase = "jump"
+jumping = 1
 total_time_to_earthshatter_impact = point_distance(x, y, target.x, target.y) / sprite_get_height(spr_hexagon_pink)/2
 
 impacted_tiles_list = ds_list_create()

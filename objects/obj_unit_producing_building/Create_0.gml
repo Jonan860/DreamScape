@@ -21,7 +21,7 @@ build = function(skill) {
 			}
 			if(rally_tile != noone) {
 				with(var_unit) {
-					phase = "movement"
+					phase = UNIT_PHASES.movement
 					destination = other.rally_tile
 					scr_update_path_to_destination()
 				}

@@ -7,7 +7,7 @@ function scr_make_all_unit_detarget(targeto){
 			scr_update_arrow_path()
 			destination = noone
 			target = noone
-			phase = "idle"
+			phase = UNIT_PHASES.idle
 			action_bar = 0
 		}
 	}

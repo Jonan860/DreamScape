@@ -16,7 +16,7 @@ path = ds_list_create()
 list_path_arrow_directions = ds_list_create()
 tile = instance_position(x, y, obj_tile)
 destination = noone
-phase = "idle"
+phase = UNIT_PHASES.idle
 target = noone
 optimal_path = ds_list_create()
 tiles_within_range = ds_list_create()
@@ -26,8 +26,8 @@ HP_regeneration_rate = 0
 max_mana = noone
 mana = noone
 lvl = noone
-altitude = "ground"
-base_altitude = "ground"
+altitude = ALTITUDES.ground
+base_altitude = ALTITUDES.ground
 
 experience_to_give = noone
 enemy_ai_spell_counter = 1
@@ -37,7 +37,6 @@ missing_time = 0
 heal_animation_time_left_in_sec = 0
 
 list_of_active_debuff_structs = ds_list_create()
-ds_list_priority_debuff = ds_list_create()
 eaten = 0
 stunned = 0
 time_until_stunned_clear = 0
@@ -49,6 +48,18 @@ hp_bar_translate_y = sprite_get_height(spr_hexagon_pink)/2 * 3/4
 
 has_waited_for_blocker_to_move = 0
 
+reduceDebuffDuration = function(dispelAmount) {
+	scr_sort_debuff_list_after_dispellity()
+	for(var i = 0; i < list_of_active_debuff_structs; i++) {
+		if(dispelAmount == 0) {
+			break;
+		}
+		with(list_of_active_debuff_structs[| i]) {
+			duration -= min(total_duration * dispelAmount / spellHealth, duration)
+			dispelAmount -= min(dispelAmount, duration / total_duration * spellHealth)
+		}
+	}
+}
 
 
 scr_update_accuracy = function() {

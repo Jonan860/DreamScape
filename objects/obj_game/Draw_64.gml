@@ -14,7 +14,7 @@ if(room = map) {
 		draw_healthbar(x1, y1, x2, y2, amount, c_black, c_red, c_green, 0, 0, 0)
 	}
 
-	if(phase == "dialogue") {
+	if(phase == GAME_PHASES.dialogue) {
 		with(global.dialogue) {
 			var var_upper_left_corner_x = camera_get_view_x(view_camera[0])
 			var var_upper_left_corner_y = camera_get_view_y(view_camera[0])

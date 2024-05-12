@@ -1,7 +1,7 @@
 if(room == map) {
 	scr_win_condition_check_and_perform()
 	scr_lose_condition_check_and_perform()
-	if(phase == "battle") {
+	if(phase == GAME_PHASES.battle) {
 		scr_audio()	
 		with(obj_unit) {
 			scr_ai()

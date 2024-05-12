@@ -22,6 +22,14 @@ function spellToRightPerform(spell) {
 		case SPELLS.buildArcaneSanctum : return method(undefined, buildBuildingRightPressed)
 		case SPELLS.buildBarracks : return method(undefined, buildBuildingRightPressed)
 		case SPELLS.invisibility  : return method(undefined, invisibilityRightPerform)
+		case SPELLS.dispel : return method(undefined, dispelRightPerform)
+	}
+}
+
+function dispelRightPerform() {
+	global.clicked_tile.reduceDebuffDuration(getAmount())
+	for(var i = 0; i < ds_list_size(global.clicked_tile.list_of_neighbours); i++) {
+		global.clicked_tile.list_of_neighbours[| i].reduceDebuffDuration(getAmount())
 	}
 }
 
@@ -55,6 +63,7 @@ function spellToIconPerform(spellenum) {
 		case SPELLS.buildDefend : return method(undefined, performRecruit);
 		case SPELLS.buildInvisibility : return method(undefined, performRecruit);
 		case SPELLS.decloak : return method(undefined, decloakIconPerform)
+		case SPELLS.dispel : return method(undefined, selectSwitchCursor)
 	}
 }
 
@@ -105,12 +114,12 @@ function raiseSkeletonRightPerform() {
 }
 
 function goldenDragonRightPerform() {
-	scr_make_room_for_instance_on_tile(global.clicked_tile, "ground")
+	scr_make_room_for_instance_on_tile(global.clicked_tile, ALTITUDES.ground)
 	scr_instance_create_at_tile_with_owner(obj_golden_dragon, global.clicked_tile, owner.owner)
 }
 
 function raiseRightPerform(obj) {
-	scr_make_room_for_instance_on_tile(global.clicked_tile, "ground")
+	scr_make_room_for_instance_on_tile(global.clicked_tile, ALTITUDES.ground)
 	scr_instance_create_at_tile_with_owner(obj, global.clicked_tile, owner.owner)
 	instance_destroy(instance_nearest(global.clicked_tile.x, global.clicked_tile.y, obj_soul))
 }
@@ -142,26 +151,25 @@ function spellToShouldPerform(_spell) {
 } 
 
 function buildBuildingRightPressed() {
-	if(owner.owner.money >= getAmount() and scr_occupiable(global.clicked_tile, "ground") and scr_get_distance(global.tile_selected, global.clicked_tile) <= range) {
+	if(owner.owner.money >= getAmount() and scr_occupiable(global.clicked_tile, ALTITUDES.ground) and scr_get_distance(global.tile_selected, global.clicked_tile) <= range) {
 		owner.owner.money -= getAmount()
 		with(scr_instance_create_at_tile_with_owner(animator, global.clicked_tile, global.player)) {
 			unfinished = 1
 			build_progress = 0
 			global.lille_skutt.is_building = id
-		}
-		
+		}	
 	}
 }
 function revivePerform() {
 	with(var_selected) {
-		if(phase == "reviving") {
+		if(phase == UNIT_PHASES.reviving) {
 			action_bar = 0
 		} else {
 			scr_disblend_list(path)
 			ds_list_clear(path)
 			target = noone
 		}
-		phase = phase == "reviving" ? "idle" : "reviving"
+		phase = phase == UNIT_PHASES.reviving ? UNIT_PHASES.idle : UNIT_PHASES.reviving
 	}
 }
 
@@ -180,9 +188,6 @@ function selectSwitchCursor() {
 function goldenDragonShouldRightPerform() {
 
 }
-
-
-
 function invisibilityShouldIconPerform() {return global.player.sorceress_has_invisibility}
 
 function healAnimationEnd() {
@@ -216,7 +221,7 @@ function vampiricAuraIconPerform() {
 }
 
 function reviveIconPerform() {
-	if(owner.phase == "reviving") {
+	if(owner.phase == UNIT_PHASES.reviving) {
 		with(instance_position(x, y, obj_soul_hero)) {
 			if(revival_time_left_sec > 0) {
 				revival_time_left_sec -= 1/room_speed
@@ -225,10 +230,10 @@ function reviveIconPerform() {
 				with(var_hero) {
 					scr_make_room_for_instance_on_tile(other.tile, altitude)
 					scr_move_to_tile(other.tile)
-					phase = "idle"
+					phase = UNIT_PHASES.idle
 					action_bar = 0 //2021
 				}
-				other.owner.phase = "idle"
+				other.owner.phase = UNIT_PHASES.idle
 				instance_destroy(id)
 			}
 		}
@@ -239,11 +244,11 @@ function sleepRightPerform(varTarget = global.clicked_tile.ground_unit[0]) {
 	scr_apply_debuff(varTarget)
 	instance_create_depth(varTarget.x, varTarget.y, varTarget.depth - 1, obj_sleep_animator, {owner : other, target : varTarget})
 	with(varTarget) {
-		phase = "sleep"
+		phase = UNIT_PHASES.sleep
 		with(obj_unit) {
 			if(target = varTarget) {
 				target = noone
-				phase = owner == global.enemy ? "movement" : "idle"
+				phase = owner == global.enemy ? UNIT_PHASES.movement : UNIT_PHASES.idle
 				action_bar = owner == global.enemy ? action_bar : 0
 				destination = noone
 			}
@@ -331,8 +336,8 @@ function invisibilityRightPerform(){
 	scr_apply_debuff(global.clicked_tile.grounds_list[|0])
 	scr_make_all_unit_detarget(global.clicked_tile.grounds_list[|0])
 	with(global.clicked_tile.grounds_list[|0]) {
-		setAltitude("invisible")
-		phase = "idle"
+		setAltitude(ALTITUDES.invisible)
+		phase = UNIT_PHASES.idle
 		action_bar = 0
 	}
 }
@@ -360,7 +365,7 @@ function curseRightPerform() {
 function earthshatterRightPerform() {
 	owner.mana -= getManaCost()
 	cooldown_current = getCooldown()
-	owner.phase = "earthShatter"
+	owner.phase = UNIT_PHASES.earthshatter
 	instance_create_depth(owner.x, owner.y, global.clicked_tile.depth - 1, animator, {target : global.clicked_tile, owner : other})
 }
 

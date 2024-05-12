@@ -25,8 +25,8 @@
   "nineSlice": null,
   "origin": 9,
   "parent": {
-    "name": "slow",
-    "path": "folders/Sprites/slow.yy",
+    "name": "cursors",
+    "path": "folders/Sprites/cursors.yy",
   },
   "preMultiplyAlpha": false,
   "sequence": {

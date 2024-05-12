@@ -8,7 +8,7 @@ function scr_creep_lord_hunt() {
 	} else if(action_bar >= movement_cost and distance > range) {
 		ds_list_copy(path, scr_find_closest_path_within_range(tile,target.tile, range))
 		if(ds_list_empty(path)) {
-			phase = "idle" 
+			phase = UNIT_PHASES.idle 
 			action_bar = 0
 			target = noone
 		} else if(action_bar >= movement_cost) {

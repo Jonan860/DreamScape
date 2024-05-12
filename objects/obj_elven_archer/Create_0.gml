@@ -16,7 +16,7 @@ accuracy = 1.7
 base_accuracy = accuracy
 evasiveness = 0.3
 target = noone
-altitude = "ground"
+altitude = ALTITUDES.ground
 experience_to_give = 100
 
 function scr_attack_target_elven_archer() {

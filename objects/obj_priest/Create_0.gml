@@ -12,7 +12,7 @@ damage_reduction = 0
 base_accuracy = 1
 accuracy = 1
 evasiveness = 0.5
-altitude = "ground"
+altitude = ALTITUDES.ground
 experience_to_give = 100
 mana = 50
 max_mana = 100
@@ -20,8 +20,8 @@ mana_regen_rate_per_sec = 0.6
 heal = createSpell(SPELLS.heal, "q")
 heal.lvl = 1
 heal.autocast = 1
-invisibility = createSpell(SPELLS.invisibility, "w")
-skills = [heal, invisibility]
+dispel = createSpell(SPELLS.dispel, "w")
+skills = [heal, dispel]
 
 
 

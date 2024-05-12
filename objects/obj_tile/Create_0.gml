@@ -15,9 +15,9 @@ occupants = ds_map_create()
 invisibles_list = ds_list_create()
 grounds_list = ds_list_create()
 airs_list = ds_list_create()
-ds_map_add(occupants, "ground", grounds_list)
-ds_map_add(occupants, "invisible", invisibles_list)
-ds_map_add(occupants, "air" ,airs_list)
+ds_map_add(occupants, ALTITUDES.ground, grounds_list)
+ds_map_add(occupants, ALTITUDES.invisible, invisibles_list)
+ds_map_add(occupants, ALTITUDES.air, airs_list)
 path_find_checked = 0
 distance = 100
 selected_units = ds_list_create()
@@ -26,3 +26,18 @@ is_back_tile = noone
 ds_map_distances = ds_map_create()
 draw_earthshatter = 0
 time_until_earthshatter_gone = 0
+
+
+reduceDebuffDuration = function(dispelAmount) {
+	var altitudes = [ALTITUDES.ground, ALTITUDES.air, ALTITUDES.invisible]
+	for(var i = 0; i < array_length(altitudes); i++) {
+		var _list = occupants[? altitudes[i]]
+		for(var j = 0; j < ds_list_size(_list); j++) {
+			with(_list[| j]) {
+				if(object_is_ancestor(object_index, obj_unit)) {
+					reduceDebuffDuration(dispelAmount)
+				}
+			}
+		}
+	}
+}

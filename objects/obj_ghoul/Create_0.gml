@@ -13,7 +13,7 @@ damage_reduction = 0.2
 accuracy = 1
 base_accuracy = 1
 evasiveness = 0.5
-altitude = "ground"
+altitude = ALTITUDES.ground
 experience_to_give = 100
 
 attack_target = method(undefined, scr_attack_target_ghoul)

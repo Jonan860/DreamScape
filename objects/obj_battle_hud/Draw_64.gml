@@ -1,5 +1,5 @@
 
-if(global.game.phase == "battle") {
+if(global.game.phase == GAME_PHASES.battle) {
 	draw_set_color(c_olive)
 	var var_camera_height = camera_get_view_height(view_camera[0])
 	var var_camera_width = camera_get_view_width(view_camera[0])

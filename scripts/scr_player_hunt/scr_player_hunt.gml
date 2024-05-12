@@ -12,7 +12,7 @@ function scr_player_hunt() {
 		destination = target.tile
 		scr_update_path_to_destination()
 		if(ds_list_empty(path)) {
-			phase = "idle"
+			phase = UNIT_PHASES.idle
 			action_bar = 0
 			target = noone
 		} else  if(action_bar >= movement_cost) {

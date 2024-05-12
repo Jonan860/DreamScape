@@ -13,7 +13,7 @@ accuracy = 1
 base_accuracy = 1
 evasiveness = 0.8
 target = noone
-altitude = "ground"
+altitude = ALTITUDES.ground
  //sekunder
 is_building = noone
 spr_hammer_sub = 0

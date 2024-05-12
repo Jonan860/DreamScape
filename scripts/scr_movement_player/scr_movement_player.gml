@@ -4,7 +4,7 @@ function scr_movement_player() {
 			action_bar = 0
 			has_waited_for_blocker_to_move = !has_waited_for_blocker_to_move
 			if(has_waited_for_blocker_to_move) {
-				phase = "idle"
+				phase = UNIT_PHASES.idle
 			}
 			exit;
 		}

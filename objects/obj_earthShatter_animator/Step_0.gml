@@ -1,7 +1,7 @@
-if(phase == "jump") {
+if(jumping) {
 	var distance = point_distance(owner.owner.x, owner.owner.y, target.x, target.y)
 	if(distance < 10) {
-		phase = "impact"
+		jumping = 0
 		scr_earthshatter_impact_perform()
 	} else {
 		var time_until_earthshatter_impact = distance / sprite_get_height(spr_hexagon_pink)/2

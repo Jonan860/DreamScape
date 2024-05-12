@@ -1,6 +1,6 @@
 
 switch(phase) {
-	case "searching" : 
+	case UNIT_PHASES.searching : 
 		if(time_until_next_direction_change <= 0) {
 			var theta = point_direction(owner.x,owner.y, x, y)
 			direction = (theta - 90 + random(180)) % 360
@@ -9,10 +9,10 @@ switch(phase) {
 		var var_potential_victim = instance_nearest(x, y, obj_unit)
 		if(scr_is_enemies(owner, var_potential_victim)) {
 			target = var_potential_victim
-			phase = "feeding"
+			phase = UNIT_PHASES.feeding
 		} 
 		break;
-	case "feeding" :
+	case UNIT_PHASES.feeding :
 			if(time_until_next_direction_change <= 0) {
 				var theta = point_direction(target.x, target.y, x, y)
 				direction = (theta + 90 + random(180)) % 360
@@ -33,7 +33,7 @@ switch(phase) {
 				food_amount += stored_target_hp - target.HP
 				if(food_amount >= max_food_amount or target.HP <= 0) {
 					food_amount = max_food_amount
-					phase = "returning"
+					phase = UNIT_PHASES.returning
 				}
 				time_until_next_feed_sec=max_time_until_next_feed_sec
 			}
@@ -41,7 +41,7 @@ switch(phase) {
 	
 	
 
-	case "returning" :
+	case UNIT_PHASES.returning :
 		time_until_next_direction_change -= 1/room_speed
 		if(time_until_next_direction_change <= 0) {
 			direction = point_direction(x, y, owner.x, owner.y)

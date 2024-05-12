@@ -3,8 +3,8 @@ function scr_find_frost_nova_target_within_range() {
 	var optimal_goodness = 0
 	with(obj_tile) {
 		if(scr_get_distance(id, other.tile) <= other.frost_nova.range) {
-			var var_ground_unit_list = ds_map_find_value(occupants, "ground")
-			var var_air_unit_list = ds_map_find_value(occupants, "air")
+			var var_ground_unit_list = ds_map_find_value(occupants, ALTITUDES.ground)
+			var var_air_unit_list = ds_map_find_value(occupants, ALTITUDES.air)
 			var var_goodness_of_frost_nova = 0
 			if(!ds_list_empty(var_ground_unit_list)) {
 				for(var i = 0; i < ds_list_size(var_ground_unit_list); i += 1) {
@@ -30,8 +30,8 @@ function scr_find_frost_nova_target_within_range() {
 			for(var i = 0; i <= ds_list_size(list_of_neighbours) - 1; i++) {
 				var var_tile = list_of_neighbours[|i]
 				with(var_tile) {
-					var var_ground_unit_list = ds_map_find_value(occupants, "ground")
-					var var_air_unit_list = ds_map_find_value(occupants, "air")
+					var var_ground_unit_list = ds_map_find_value(occupants, ALTITUDES.ground)
+					var var_air_unit_list = ds_map_find_value(occupants, ALTITUDES.air)
 				}
 				if(!ds_list_empty(var_ground_unit_list)) {
 					for(var j = 0; j < ds_list_size(var_ground_unit_list); j += 1) {

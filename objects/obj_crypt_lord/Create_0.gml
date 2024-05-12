@@ -15,7 +15,7 @@ base_accuracy = 1
 evasiveness = 0.5
 target = noone
 number_of_ability_points = 1
-altitude = "ground"
+altitude = ALTITUDES.ground
 
 max_mana = 100
 mana = 100
