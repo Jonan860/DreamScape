@@ -308,6 +308,7 @@ function spellToDuration(spell) {
 		case SPELLS.buildInvisibility : return 30
 		case SPELLS.buildDispel : return 30
 		case SPELLS.buildImprovedBows : return 30
+		case SPELLS.revive : return 20
 		default : return noone
 	}
 }
@@ -333,6 +334,7 @@ function spellToName(spell) {
 		case SPELLS.curse : return "Curse"
 		case SPELLS.raise : return "Raise"
 		case SPELLS.dispel : return "Dispel"
+		case SPELLS.revive : return "Revive"
 	}
 }
 
@@ -558,6 +560,7 @@ function createSpell(spellEnum, _letter) {
 			Enum = other.Enum;
 			unapply = spellToUnapply(other.Enum)
 			victim = _victim
+			amount = other.getAmount()
 		}
 		scr_apply_debuff = function(victim) {
 			var debuff_struct = new createDebuff(victim)

@@ -26,3 +26,10 @@ enum GAME_PHASES {
 	battle,
 	dialogue
 }
+
+enum ELEMENTS {
+	normal,
+	nature,
+	fire,
+	fortified
+}

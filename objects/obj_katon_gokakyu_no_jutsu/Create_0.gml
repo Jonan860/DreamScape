@@ -1,6 +1,6 @@
 
 nisses_lista = ds_list_create()
-element = "fire"
+element = ELEMENTS.fire
 owner = noone
 
 save = function() {

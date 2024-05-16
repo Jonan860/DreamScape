@@ -20,7 +20,7 @@ phase = UNIT_PHASES.idle
 target = noone
 optimal_path = ds_list_create()
 tiles_within_range = ds_list_create()
-element = "normal"
+element = ELEMENTS.normal
 
 HP_regeneration_rate = 0
 max_mana = noone
@@ -34,7 +34,7 @@ enemy_ai_spell_counter = 1
 player_ai_spell_counter = 1
 player_ai_idle_counter = 1
 missing_time = 0
-heal_animation_time_left_in_sec = 0
+
 
 list_of_active_debuff_structs = ds_list_create()
 eaten = 0
@@ -66,18 +66,7 @@ scr_update_accuracy = function() {
 	var cursed = scr_is_debuffed(SPELLS.curse)
 	if(cursed) {
 		var curse = createSpell(SPELLS.curse)
-		accuracy = base_accuracy * curse.amount
-	}
-}
-
-slowed = {
-	applied : 0,
-	duration : 60,
-	durationLeft : 0,
-	amount : 3/10,
-	apply : function() {
-		applied = 1
-		durationLeft = duration
+		accuracy = base_accuracy * find_active_debuff(SPELLS.curse).amount
 	}
 }
 

@@ -4,7 +4,7 @@ image_yscale = sprite_get_height(spr_hexagon_pink) / 5 / sprite_get_height(spr_l
 
 
 attack = noone
-element = noone
+element = ELEMENTS.normal
 target_tile = noone
 target_altitude = noone
 accuracy = noone

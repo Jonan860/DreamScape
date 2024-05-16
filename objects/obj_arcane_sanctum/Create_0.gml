@@ -16,7 +16,7 @@ tile = noone
 max_HP = 400
 HP = max_HP
 damage_reduction = 0
-element = noone //fortified later maybe
+element = ELEMENTS.fortified //fortified later maybe
 
 footman = createSpell(SPELLS.buildSorceress, "q")
 archer = createSpell(SPELLS.buildPriest, "w")

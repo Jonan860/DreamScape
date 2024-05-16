@@ -220,22 +220,10 @@ function vampiricAuraIconPerform() {
 	instance_create_depth(owner.x, owner.y, owner.depth + 1, obj_vampiric_aura_animator, {owner : other})
 }
 
-function reviveIconPerform() {
-	if(owner.phase == UNIT_PHASES.reviving) {
-		with(instance_position(x, y, obj_soul_hero)) {
-			if(revival_time_left_sec > 0) {
-				revival_time_left_sec -= 1/room_speed
-			} else {
-				var var_hero = var_soul_hero.instance
-				with(var_hero) {
-					scr_make_room_for_instance_on_tile(other.tile, altitude)
-					scr_move_to_tile(other.tile)
-					phase = UNIT_PHASES.idle
-					action_bar = 0 //2021
-				}
-				other.owner.phase = UNIT_PHASES.idle
-				instance_destroy(id)
-			}
+function revivePerform() {
+	with(instance_position(x, y, obj_soul_hero)) {
+		if(revival_time_left_sec > 0) {
+			revival_time_left_sec -= 1/game_get_speed(gamespeed_fps)
 		}
 	}
 }
