@@ -3,6 +3,13 @@ enum ALTITUDES {
 	air,
 	invisible
 }
+function altitudeToStr(_enum) {
+	switch(_enum) {
+		case ALTITUDES.ground : return "ground"
+		case ALTITUDES.air : return "air"
+		case ALTITUDES.invisible : return "invisible"
+	}
+}
 
 enum UNIT_PHASES {
 	idle,
