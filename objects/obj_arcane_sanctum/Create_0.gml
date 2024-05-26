@@ -18,8 +18,13 @@ HP = max_HP
 damage_reduction = 0
 element = noone //fortified later maybe
 
-footman = createSpell(SPELLS.buildSorceress, "q")
-archer = createSpell(SPELLS.buildPriest, "w")
-defend = createSpell(SPELLS.buildInvisibility, "a")
-improvedBows = createSpell(SPELLS.buildDispel, "s")
+sorc = createSpell(SPELLS.buildSorceress, "q")
+sorc.lvl = 1
+priest = createSpell(SPELLS.buildPriest, "w")
+priest.lvl = 1
+invis = createSpell(SPELLS.buildInvisibility, "a")
+invis.lvl = 1
+dispel = createSpell(SPELLS.buildDispel, "s")
+dispel.lvl = 1
+
 
