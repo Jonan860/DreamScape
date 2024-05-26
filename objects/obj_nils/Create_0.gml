@@ -24,7 +24,6 @@ holy_light = createSpell(SPELLS.holy_light, "q")
 spell_shield = createSpell(SPELLS.spell_shield, "w")
 ninjago = createSpell(SPELLS.ninjago, "e")
 golden_dragon = createSpell(SPELLS.golden_dragon, "r")
-revive = createSpell(SPELLS.revive, "s")
 
 skills = [holy_light, spell_shield, ninjago, golden_dragon, revive]
 

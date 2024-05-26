@@ -23,7 +23,7 @@ freeze = createSpell(SPELLS.freeze, "q")
 katon_gokakyu_no_jutsu = createSpell(SPELLS.katon_gokakyu_no_jutsu, "w")
 kawarimi_no_jutsu = createSpell(SPELLS.kawarimi_no_jutsu, "e")
 earthshatter = createSpell(SPELLS.earthshatter, "r")
-revive = createSpell(SPELLS.revive, "s")
+
 skills = [freeze, katon_gokakyu_no_jutsu, kawarimi_no_jutsu, earthshatter, revive]
 attack_target = function() {attack_target_magic_projectile()}
 ds_list_level_sprites = ds_list_create()

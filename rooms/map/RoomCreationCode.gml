@@ -28,9 +28,11 @@ scr_tile_distances_calculate()
 
 global.ida = scr_instance_create_at_tile_with_owner(obj_ida, 100223, global.player)
 with(global.ida) {
+	
 	repeat(5) {
 		scr_level_up()
 	}
+	HP = 1
 }
 with(scr_instance_create_at_tile_with_owner(obj_priest, 100222, global.player)) {
 	dispel.lvl = 1

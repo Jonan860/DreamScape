@@ -12,6 +12,7 @@ function spellToAnimator(spell) {
 		case SPELLS.buildArcaneSanctum : return obj_arcane_sanctum
 		case SPELLS.buildBarracks : return obj_human_barrack
 		case SPELLS.dispel : return obj_dispel_animator
+		case SPELLS.revive : return obj_revive_animator
 	}
 }
 
@@ -202,7 +203,7 @@ function spellToAbilitiesInfo(spell) {
 	case SPELLS.heal : return "Heals a target friendly non-mechanical wounded unit for " + string(amount) + " hit points"
 		 + "\n" + "getCooldown(): " + string(getCooldown())
 		 + "\n" + "Mana cost " + string(mana_cost)
-		 + "\n" + "Range: " + string(range)	
+		 + "\n" + "Range: " + string(range)
 	default : return ""
 	}
 	
@@ -308,6 +309,7 @@ function spellToDuration(spell) {
 		case SPELLS.buildInvisibility : return 30
 		case SPELLS.buildDispel : return 30
 		case SPELLS.buildImprovedBows : return 30
+		case SPELLS.revive : return 60
 		default : return noone
 	}
 }
@@ -333,6 +335,7 @@ function spellToName(spell) {
 		case SPELLS.curse : return "Curse"
 		case SPELLS.raise : return "Raise"
 		case SPELLS.dispel : return "Dispel"
+		case SPELLS.revive : return "Revive"
 	}
 }
 

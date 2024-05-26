@@ -6,7 +6,7 @@ function scr_earthshatter_impact_perform() {
 			var distance_from_impact = scr_get_distance(target, tile_to_impact)
 			with(owner) {
 				var store_damage = owner.damage
-				owner.damage = amount[?"damage"][distance_from_impact - 1]   //bugg Här sätts damage till undefined 
+				owner.damage = amount[?"damage"][distance_from_impact]   //bugg Här sätts damage till undefined 
 				attackEffectWrapper(owner.id, ground_unit)
 				owner.damage = store_damage
 				scr_stun(ground_unit, amount[?"stun"][distance_from_impact - 1])

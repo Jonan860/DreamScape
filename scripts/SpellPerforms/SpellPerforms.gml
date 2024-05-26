@@ -160,17 +160,18 @@ function buildBuildingRightPressed() {
 		}	
 	}
 }
-function revivePerform() {
-	with(var_selected) {
-		if(phase == UNIT_PHASES.reviving) {
-			action_bar = 0
-		} else {
+function reviveIconPerform() {
+	if(owner.phase == UNIT_PHASES.reviving) {
+		owner.action_bar = 0
+	} else {
+		with(owner) {
 			scr_disblend_list(path)
 			ds_list_clear(path)
 			target = noone
 		}
-		phase = phase == UNIT_PHASES.reviving ? UNIT_PHASES.idle : UNIT_PHASES.reviving
+		instance_create_depth(owner.x, owner.y, owner.depth + 1, animator, {owner : other})
 	}
+	owner.phase = owner.phase == UNIT_PHASES.reviving ? UNIT_PHASES.idle : UNIT_PHASES.reviving
 }
 
 function selectSwitchCursor() {
@@ -220,25 +221,7 @@ function vampiricAuraIconPerform() {
 	instance_create_depth(owner.x, owner.y, owner.depth + 1, obj_vampiric_aura_animator, {owner : other})
 }
 
-function reviveIconPerform() {
-	if(owner.phase == UNIT_PHASES.reviving) {
-		with(instance_position(x, y, obj_soul_hero)) {
-			if(revival_time_left_sec > 0) {
-				revival_time_left_sec -= 1/room_speed
-			} else {
-				var var_hero = var_soul_hero.instance
-				with(var_hero) {
-					scr_make_room_for_instance_on_tile(other.tile, altitude)
-					scr_move_to_tile(other.tile)
-					phase = UNIT_PHASES.idle
-					action_bar = 0 //2021
-				}
-				other.owner.phase = UNIT_PHASES.idle
-				instance_destroy(id)
-			}
-		}
-	}
-}
+
 
 function sleepRightPerform(varTarget = global.clicked_tile.ground_unit[0]) {
 	scr_apply_debuff(varTarget)
