@@ -1,7 +1,6 @@
 
 var var_tile_scale = sprite_get_height(spr_hexagon_pink)/max(sprite_height,sprite_width)
-image_yscale = var_tile_scale
-image_xscale = var_tile_scale
+image_yscale = var_tile_scale; image_xscale = var_tile_scale
 rally_tile = noone //is a tile
 tile = noone
 altitude = ALTITUDES.ground

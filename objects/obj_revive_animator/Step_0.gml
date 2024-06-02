@@ -7,6 +7,7 @@ if(owner.owner.phase == UNIT_PHASES.reviving) {
 			with(var_hero) {
 				scr_make_room_for_instance_on_tile(other.tile, altitude)
 				scr_move_to_tile(other.tile)
+				x = tile.x; y = tile.y;
 				phase = UNIT_PHASES.idle
 				action_bar = 0 //2021
 			}

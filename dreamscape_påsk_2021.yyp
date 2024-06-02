@@ -266,6 +266,7 @@
     {"id":{"name":"scr_create_tile_on_map","path":"scripts/scr_create_tile_on_map/scr_create_tile_on_map.yy",},},
     {"id":{"name":"scr_tile_neighborhood_create","path":"scripts/scr_tile_neighborhood_create/scr_tile_neighborhood_create.yy",},},
     {"id":{"name":"scr_declare_non_habitable_tiles","path":"scripts/scr_declare_non_habitable_tiles/scr_declare_non_habitable_tiles.yy",},},
+    {"id":{"name":"obj_game_board","path":"objects/obj_game_board/obj_game_board.yy",},},
     {"id":{"name":"scr_tile_empty","path":"scripts/scr_tile_empty/scr_tile_empty.yy",},},
     {"id":{"name":"scr_unselect_tile","path":"scripts/scr_unselect_tile/scr_unselect_tile.yy",},},
     {"id":{"name":"scr_select_tile","path":"scripts/scr_select_tile/scr_select_tile.yy",},},

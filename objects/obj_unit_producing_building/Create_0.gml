@@ -15,6 +15,7 @@ build = function(skill) {
 					scr_make_room_for_instance_on_tile(most_north_tile, var_unit.altitude)
 					with(var_unit) {
 						scr_move_to_tile(most_north_tile)
+						x = tile.x; y = tile.y
 					}
 					break;
 				}

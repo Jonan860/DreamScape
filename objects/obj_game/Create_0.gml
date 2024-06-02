@@ -102,20 +102,49 @@ phase = GAME_PHASES.dialogue
 lose_text = ""
 
 save = function() {
+	var _array = []
 	var s = {}
 	s.phase = phase
 	s.unit_to_kawarimi1 = unit_to_kawarimi1
 	s.unit_to_kawarimi2 = unit_to_kawarimi2
 	s.enemies_wave_timer = enemies_wave_timer
 	s.wave_number = wave_number
+	array_push(_array, s)
+	with(obj_unit) {
+		
+		var _save = save()
+		array_push(_array, _save)
+	}
+	var _json = json_stringify( global.saveData)
+	var _file = file_text_open_write("save.txt")
+	file_text_write_real(_file, _json)
+	file_text_close(_file)
+	
 }
 
-load = function(s) {
-	phase = s.phase
-	unit_to_kawarimi1 = s.unit_to_kawarimi1
-	unit_to_kawarimi2 = s.unit_to_kawarimi2
-	enemies_wave_timer = s.enemies_wave_timer
-	wave_number = s.wave_number	
+load = function() {
+	if(file_exists("save.txt")) {
+		var _file = file_text_open_read("save.txt")	
+		var _json = file_text_read_string(_file)
+		var _array = json_parse(_json) 
+		instance_destroy(obj_unit) 
+		var s = _array[0]
+		phase = s.phase
+		unit_to_kawarimi1 = s.unit_to_kawarimi1
+		unit_to_kawarimi2 = s.unit_to_kawarimi2
+		enemies_wave_timer = s.enemies_wave_timer
+		wave_number = s.wave_number	
+		
+		for(var i = 1; i < array_length(_array); i++) {
+			var s = _array[i]
+			instance_create_layer(s.x, s.y, s.altitude, asset_get_index(s.object_ind), s)
+		}
+		
+		for(var i = 0; i < array_length(_array); i++) {
+			var s = array[i]
+		}
+		file_text_close(_file)
+	}
 }
 
 function buttonPressedIconPerform(buttonStr) {

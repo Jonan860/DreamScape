@@ -95,8 +95,7 @@ save = function() {
 	s.lvl = lvl
 	s.mana = mana
 	s.altitude = altitude
-	s.x = x
-	s.y = y
+	s.x = x; s.y = y
 	if(variable_instance_exists(id, "skills")) {
 		s.skills = skills
 	}
@@ -136,8 +135,7 @@ load = function(s) {
 	lvl = s.lvl
 	mana = s.mana
 	altitude = s.altitude
-	x = s.x
-	y = s.y
+	x = s.x; y = s.y
 	if(variable_instance_exists(id, "skills")) {
 		skills = s.skills
 	}

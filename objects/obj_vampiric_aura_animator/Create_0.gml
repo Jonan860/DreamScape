@@ -1,7 +1,5 @@
 save = function() {
 	var s = {}
-	s.x = x
-	s.y = y
 	s.owner = owner
 }
 

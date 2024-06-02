@@ -12,3 +12,21 @@ with(obj_tile) {
 	}
 }
 time_until_earthshatter_gone = 8
+
+save = function() {
+	var s = {
+		jumping : jumping,
+		total_time_to_earthshatter_impact : total_time_to_earthshatter_impact,
+		target : target.id
+		owner : owner.id
+		time_until_earthshatter_gone : time_until_earthshatter_gone
+	}
+}
+
+load = function(s) {
+	jumping = s.jumping
+	total_time_to_earthshatter_impact = s.total_time_to_earthshatter_impact
+	target = s.target
+	owner = s.owner
+	time_until_earthshatter_gone = s.time_until_earthshatter_gone
+} 

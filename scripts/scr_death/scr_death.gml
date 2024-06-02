@@ -12,6 +12,11 @@ function scr_death() {
 				owner=noone
 			}
 		}
+		with(obj_heal_animator) {
+			if(target == other.id) {
+				instance_destroy()
+			}
+		}
 		if(global.game.unit_to_kawarimi1 == id or global.game.unit_to_kawarimi2 == id) {
 			global.game.unit_to_kawarimi1 = noone
 			global.game.unit_to_kawarimi2 = noone

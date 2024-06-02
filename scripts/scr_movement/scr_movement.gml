@@ -1,4 +1,11 @@
 function scr_movement() {
+	if(tile != noone) {
+		if(abs(x - tile.x) > 8 or abs(y - tile.y) > 8) {
+			x += sign(tile.x - x) * 8; y += sign(tile.y - y) * 8
+		} else {
+			x = tile.x; y = tile.y
+		}
+	}
 	if(!scr_is_action_bar_stopped() and phase != UNIT_PHASES.idle) {
 		scr_count_up_action_bar()
 	}

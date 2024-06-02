@@ -11,10 +11,12 @@ function scr_swap_tile(unit1, unit2) {
 
 	with(unit1) {
 		scr_move_to_tile(tile_to_use)
+		x = tile.x; y = tile.y
 	}
 
 	with(unit2) {
 		scr_move_to_tile(first_tile)
+		x = tile.x; y = tile.y
 		phase = UNIT_PHASES.idle
 		action_bar = 0 
 		target = noone
@@ -22,6 +24,7 @@ function scr_swap_tile(unit1, unit2) {
 	}
 	with(unit1) {
 		scr_move_to_tile(second_tile)
+		x = tile.x; y = tile.y
 		phase = UNIT_PHASES.idle
 		action_bar = 0
 		target = noone

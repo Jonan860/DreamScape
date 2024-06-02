@@ -6,8 +6,7 @@ image_blend = c_yellow
 
 save = function() {
 	var s= {}
-	s.x = x
-	s.y = y
+	s.x = x; s.y = y
 	s.instance = instance
 	s.revival_time_left_sec = revival_time_left_sec
 }
