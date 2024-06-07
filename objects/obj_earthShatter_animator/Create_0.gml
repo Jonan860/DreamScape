@@ -6,19 +6,19 @@ jumping = 1
 total_time_to_earthshatter_impact = point_distance(x, y, target.x, target.y) / sprite_get_height(spr_hexagon_pink)/2
 
 impacted_tiles_list = ds_list_create()
-with(obj_tile) {
+loopTilesStart
 	if(scr_get_distance(id, other.target) <= array_length(other.owner.amount[?"damage"])) {
 		ds_list_add(other.impacted_tiles_list, id)
 	}
-}
+loopTilesEnd
 time_until_earthshatter_gone = 8
 
 save = function() {
 	var s = {
 		jumping : jumping,
 		total_time_to_earthshatter_impact : total_time_to_earthshatter_impact,
-		target : target.id
-		owner : owner.id
+		target : target.id,
+		owner : owner.id,
 		time_until_earthshatter_gone : time_until_earthshatter_gone
 	}
 }

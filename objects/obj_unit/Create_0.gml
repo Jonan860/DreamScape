@@ -14,7 +14,7 @@ var var_tile_scale = sprite_get_height(spr_hexagon_pink) / max(sprite_height, sp
 image_yscale = var_tile_scale; image_xscale = var_tile_scale
 path = ds_list_create()
 list_path_arrow_directions = ds_list_create()
-tile = instance_position(x, y, obj_tile)
+tile = mouseToTile()
 destination = noone
 phase = UNIT_PHASES.idle
 target = noone

@@ -5,7 +5,7 @@ if(owner == global.player) {
 		var var_arrow_direction = list_path_arrow_directions[|i]
 		var varXscale = sprite_get_width(spr_hexagon_pink) / 3 / sprite_get_width(spr_red_arrow)
 		var varYscale =  sprite_get_height(spr_hexagon_pink) / sprite_get_height(spr_red_arrow)
-		draw_sprite_ext(spr_red_arrow, 0, var_tile.x, var_tile.y, varXscale,varYscale, var_arrow_direction, c_white, 0.5)
+		draw_sprite_ext(spr_red_arrow, 0, var_tile._x, var_tile._y, varXscale, varYscale, var_arrow_direction, c_white, 0.5)
 	}
 }
 

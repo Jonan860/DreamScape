@@ -70,8 +70,8 @@ function scr_death() {
 				var soul = instance_create_depth(x, y, depth, obj_soul)
 				soul.object = object_index
 				soul.tile = tile
-				soul.image_xscale = soul.tile.sprite_width / soul.sprite_width
-				soul.image_yscale = soul.tile.sprite_height / soul.sprite_height
+				soul.image_xscale = sprite_get_width(spr_hexagon_pink) / soul.sprite_width
+				soul.image_yscale = sprite_get_height(spr_hexagon_pink) / soul.sprite_height
 			} else {
 				phase = UNIT_PHASES.dead
 				HP = 1
@@ -82,8 +82,8 @@ function scr_death() {
 				target = noone
 				tile = noone
 				x = -1000; y = -1000
-				soul.image_xscale = soul.tile.sprite_width / soul.sprite_width
-				soul.image_yscale = soul.tile.sprite_height / soul.sprite_height
+				soul.image_xscale = sprite_get_width(spr_hexagon_pink) / soul.sprite_width
+				soul.image_yscale = sprite_get_height(spr_hexagon_pink) / soul.sprite_height
 			}
 		}
 		scr_disblend_list(path)

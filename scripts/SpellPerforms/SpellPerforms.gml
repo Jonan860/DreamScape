@@ -121,7 +121,7 @@ function goldenDragonRightPerform() {
 function raiseRightPerform(obj) {
 	scr_make_room_for_instance_on_tile(global.clicked_tile, ALTITUDES.ground)
 	scr_instance_create_at_tile_with_owner(obj, global.clicked_tile, owner.owner)
-	instance_destroy(instance_nearest(global.clicked_tile.x, global.clicked_tile.y, obj_soul))
+	instance_destroy(instance_nearest(global.clicked_tile._x, global.clicked_tile._y, obj_soul))
 }
 
 function darkSacrificeRightPerform(var_sacrifice) {
@@ -327,7 +327,7 @@ function invisibilityRightPerform(){
 
 function frostNovaRightPerform(var_target_tile) {
 	phase = "frost nova"
-	var var_frost_nova = instance_create_layer(var_target_tile.x, var_target_tile.y, "tiles", obj_frost_nova_animator, {owner : other, target : var_target_tile})
+	var var_frost_nova = instance_create_layer(var_target_tile._x, var_target_tile._y, "tiles", obj_frost_nova_animator, {owner : other, target : var_target_tile})
 	with(var_frost_nova) {
 		depth -= 1
 	}
@@ -432,7 +432,7 @@ function heal_target(_target) {
  
  
  function katonGokakyuNoJutsuRightPerform() {
-	var angle = point_direction(owner.x, owner.y, global.clicked_tile.x, global.clicked_tile.y) 
+	var angle = point_direction(owner.x, owner.y, global.clicked_tile._x, global.clicked_tile._y) 
 	var angles = [90, 270, NWA, SWA, NEA, NWA - 180]
 	var closest_angle_dist = 1000;
 	var i;
@@ -444,7 +444,7 @@ function heal_target(_target) {
 	}
 	angle = angles[closest_index];
 	
-	with(instance_create_depth(owner.tile.x, owner.tile.y, owner.depth, animator)) {
+	with(instance_create_depth(owner.tile._x, owner.tile._y, owner.depth, animator)) {
 		owner = other
 		image_angle = angle
 		x += sprite_get_width(spr_hexagon_pink) / 3 * cos(angle * pi/180)

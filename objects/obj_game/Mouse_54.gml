@@ -1,7 +1,7 @@
 
 if(room == map) {
 	if(!scr_is_cursor_on_hud()) {
-		global.clicked_tile = instance_position(mouse_x, mouse_y, obj_tile)
+		global.clicked_tile = mouseToTile()
 		if(global.tile_selected != noone) {
 			var var_i = 0	
 		//	for(var_i=0;var_i<ds_list_size(global.tile_selected.selected_units);var_i+=1)

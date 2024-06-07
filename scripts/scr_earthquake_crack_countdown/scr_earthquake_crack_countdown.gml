@@ -1,6 +1,6 @@
 
-function scr_earthquake_crack_countdown(){
-	with(obj_tile) {
+function scr_earthquake_crack_countdown() {
+	loopTilesStart
 		if(draw_earthshatter) {
 			time_until_earthshatter_gone -= 1/room_speed
 			if(time_until_earthshatter_gone <= 0) {
@@ -8,5 +8,5 @@ function scr_earthquake_crack_countdown(){
 				depth += 1
 			}
 		}
-	}
+	loopTilesEnd
 }

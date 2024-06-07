@@ -10,10 +10,10 @@ function scr_find_path(start_tile, end_tile, altitude) {
 		return global.game.optimal_path
 		exit;
 	}
-	with(obj_tile) {
+	loopTilesStart
 		distance = 100
 		path_find_checked = 0
-	}
+	loopTilesEnd
 	start_tile.distance = 0//need to be reset each time to infty
 	if(start_tile == end_tile) {
 		exit  show_debug_message("start_tile = end_tile")
@@ -30,22 +30,20 @@ function scr_find_path(start_tile, end_tile, altitude) {
 	
 	
 		if(shortest_yet == noone or shortest_yet.distance >= 50) {
-			with(obj_tile) {
+			loopTilesStart
 				path_find_checked = 0
-			}
+			loopTilesEnd
 			ds_list_clear(global.game.optimal_path)
 			return global.game.optimal_path
 			exit;
 		} else {
-			with(obj_tile) {
+			loopTilesStart
 				path_find_checked = 0
-			}
-			var i = 0	
-		
+			loopTilesEnd
 			if(!ds_list_empty(global.game.optimal_path)) {
 				for(var i = 0; i < ds_list_size(global.game.optimal_path) - 1; i += 1) {    ////////delete old path visuals
 					var tile_colored = global.game.optimal_path[|i]
-					tile_colored.image_blend = c_white
+					tile_colored.imageBlend = c_white
 				}
 			}
 		

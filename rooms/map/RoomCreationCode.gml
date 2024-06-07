@@ -1,7 +1,9 @@
 window_set_fullscreen(1)
+#macro debugg true
 audio_group_load(jukebox)
 draw_set_font(font0)
 randomize()
+global.gameBoard = instance_create_layer(0, 0, "tiles", obj_game_board)
 scr_create_tile_on_map()
 global.tile_selected = noone
 global.selectedSpell = noone
@@ -26,25 +28,24 @@ scr_tile_distances_calculate()
 //scr_move_to_tile(100101)
 //}
 
-global.ida = scr_instance_create_at_tile_with_owner(obj_ida, 100223, global.player)
+global.ida = scr_instance_create_at_tile_with_owner(obj_ida, getTile(10, 14), global.player)
 with(global.ida) {
-	
 	repeat(5) {
 		scr_level_up()
 	}
 	HP = 1
 }
-with(scr_instance_create_at_tile_with_owner(obj_priest, 100222, global.player)) {
+with(scr_instance_create_at_tile_with_owner(obj_priest, getTile(9, 15), global.player)) {
 	dispel.lvl = 1
 }
 
-global.nils = scr_instance_create_at_tile_with_owner(obj_nils, 100102, global.player)
+global.nils = scr_instance_create_at_tile_with_owner(obj_nils, getTile(18, 2), global.player)
 with(global.nils) {
 	repeat(5) {
 		scr_level_up()
 	}
 }
-global.lille_skutt = scr_instance_create_at_tile_with_owner(obj_lille_skutt, 100225, global.player)
+global.lille_skutt = scr_instance_create_at_tile_with_owner(obj_lille_skutt, getTile(13, 15), global.player)
 //scr_instance_create_at_tile_with_owner(obj_sorceress,100222,global.player)
 //scr_instance_create_at_tile_with_owner(obj_priest,100224,global.player)
 //scr_instance_create_at_tile_with_owner(obj_abomination,100008,global.enemy)
@@ -57,9 +58,9 @@ global.lille_skutt = scr_instance_create_at_tile_with_owner(obj_lille_skutt, 100
 //{
 //scr_update_damage_reduction()
 //}
-var ban = scr_instance_create_at_tile_with_owner(obj_banshee, 100006, global.enemy)
+var ban = scr_instance_create_at_tile_with_owner(obj_banshee, getTile(8, 2), global.enemy)
 ban.HP = 1
-scr_instance_create_at_tile_with_owner(obj_crypt_fiend, 100019, global.enemy)
+scr_instance_create_at_tile_with_owner(obj_crypt_fiend, getTile(9, 1), global.enemy)
 //var lich = scr_instance_create_at_tile_with_owner(obj_lich, 100007, global.enemy)
 //with(lich) {
 //	repeat(3) {
@@ -79,25 +80,20 @@ scr_instance_create_at_tile_with_owner(obj_crypt_fiend, 100019, global.enemy)
 //	carrion_beetles.lvl = 3
 //	locust_swarm.lvl = 1
 //}
-with(obj_tile) {
-	if(tile_x == 18 and tile_y == 2) {
-		other.hungry_hungry_lizard = scr_instance_create_at_tile_with_owner(obj_hungry_hungry_lizard, id, global.creep_lord)
-		break;
-	}
-}
+hungry_hungry_lizard = scr_instance_create_at_tile_with_owner(obj_hungry_hungry_lizard, getTile(18, 2), global.creep_lord)
 with(hungry_hungry_lizard) {
 	HP = -10
 	start_tile = tile
-	with(obj_tile) {
+	loopTilesStart
 		if(
 		(tile_x == 18 and tile_y >= 2 and tile_y <= 8)
 		or (tile_x == 17 and (tile_y >= 3 and tile_y <= 5))
 		or (tile_x == 19 and (tile_y >= 3 and tile_y <= 5))
 		)
 		{
-			ds_list_add(other.list_of_territory_tiles, id)
+			ds_list_add(other.list_of_territory_tiles, self)
 		}
-    }
+	loopTilesEnd
 }
 
 /*ghoul2=instance_create_depth(4*16+12*16*4,4*16+8*16*2,-1,obj_ghoul)
@@ -173,8 +169,8 @@ scr_move_to_tile(100005)
 //tile.occupant_ground=self
 //scr_move_to_tile(100105)
 //}
-scr_instance_create_at_tile_with_owner(obj_human_barrack, 100104, global.player)
-scr_instance_create_at_tile_with_owner(obj_money_tree, 100103, global.player)
+scr_instance_create_at_tile_with_owner(obj_human_barrack, getTile(12, 16), global.player)
+scr_instance_create_at_tile_with_owner(obj_money_tree, getTile(10, 16), global.player)
 with(hungry_hungry_lizard) {
 	scr_eat_enemy(global.nils)
 }

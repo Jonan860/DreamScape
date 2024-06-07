@@ -1,5 +1,5 @@
 function scr_select_tile(tile2) {
-	if(tile2 > 0) {
+	if(tile2) {
 		if(!scr_tile_empty(tile2)) {
 			scr_unselect_tile(global.tile_selected)
 			with(tile2) {

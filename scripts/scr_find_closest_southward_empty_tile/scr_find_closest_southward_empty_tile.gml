@@ -4,21 +4,21 @@ function scr_find_closest_southward_empty_tile(var_altitude, var_tile_to_clear) 
 	var closest_candidate = noone
 	var var_distance
 	var var_angle
-	with(obj_tile) {
+	loopTilesStart
 		if(habitable) {
-			var_angle = point_direction(var_tile_to_clear.x, var_tile_to_clear.y, x, y)
+			var_angle = point_direction(var_tile_to_clear._x, var_tile_to_clear._y, x, y)
 			if(180 <= var_angle and var_angle <= 360) {
-				var_distance = scr_get_invisibles_distance(var_tile_to_clear, id)
+				var_distance = scr_get_invisibles_distance(var_tile_to_clear, self)
 				if(var_distance < var_best_distance) {
 					var var_occupant_list = ds_map_find_value(occupants, var_altitude)
 					if(ds_list_empty(var_occupant_list)) {
-						closest_candidate = id
+						closest_candidate = self
 						var_best_distance = var_distance
 					}
 				}
 			}
 		}
-	}
+	loopTilesEnd
 	var var_optimum_path = ds_list_create()
 	if(closest_candidate != noone) {
 		var var_optimum_path = scr_find_invisibles_path(var_tile_to_clear, closest_candidate)

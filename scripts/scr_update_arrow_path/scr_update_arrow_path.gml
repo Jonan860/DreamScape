@@ -7,7 +7,7 @@ function scr_update_arrow_path() {
 	for(var i = 1; i <= ds_list_size(path) - 1; i += 1) {
 		var_tile = path[|i]
 		var_tile_next = path[|i - 1]
-		var_direction = point_direction(var_tile.x, var_tile.y, var_tile_next.x, var_tile_next.y)
+		var_direction = point_direction(var_tile._x, var_tile._y, var_tile_next._x, var_tile_next._y)
 		ds_list_add(list_path_arrow_directions, var_direction)
 	}
 }

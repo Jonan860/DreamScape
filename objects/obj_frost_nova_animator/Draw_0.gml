@@ -15,7 +15,7 @@ if(lifeTimeSec < total_time_sec - total_time_after_effect_end_sec) {
 				var subimg =  ceil((other.total_time_after_effect_end_sec - (other.total_time_sec - other.lifeTimeSec)) * 45)
 				var varXscale3 = sprite_get_width(spr_hexagon_pink) / 2 / sprite_get_width(spr_frost_nova_ice_spikes)
 				var varYscale3 = sprite_get_height(spr_hexagon_pink)/2/sprite_get_height(spr_frost_nova_ice_spikes)
-				draw_sprite_ext(spr_frost_nova_ice_spikes, subimg, var_tile.x, var_tile.y, varXscale3, varYscale3, 0, c_white, 0.8)
+				draw_sprite_ext(spr_frost_nova_ice_spikes, subimg, var_tile._x, var_tile._y, varXscale3, varYscale3, 0, c_white, 0.8)
 			}
 		}
 

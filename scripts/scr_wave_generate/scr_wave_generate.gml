@@ -5,10 +5,10 @@ function scr_wave_generate() {
 		for(var i = 0; i < ds_list_size(var_wave); i += 1) {
 			var var_object = var_wave[|i]
 			var var_x = var_wave_x[|i]
-			with(obj_tile) {
+			loopTilesStart
 				if(tile_y == 0 or tile_y == -1) {
 					if(tile_x == var_x) {
-						var instance = scr_instance_create_at_tile_with_owner(var_object, id, global.enemy)
+						var instance = scr_instance_create_at_tile_with_owner(var_object, self, global.enemy)
 						switch(instance.object_index) {
 							case obj_lich :
 								with(instance) {
@@ -43,7 +43,7 @@ function scr_wave_generate() {
 						break;
 					}
 				}
-			}
+			loopTilesEnd
 		}
 	}
 }

@@ -1,8 +1,8 @@
 function scr_find_frost_nova_target_within_range() {
 	var var_optimal_tile_target = noone
 	var optimal_goodness = 0
-	with(obj_tile) {
-		if(scr_get_distance(id, other.tile) <= other.frost_nova.range) {
+	loopTilesStart
+		if(scr_get_distance(self, other.tile) <= other.frost_nova.range) {
 			var var_ground_unit_list = ds_map_find_value(occupants, ALTITUDES.ground)
 			var var_air_unit_list = ds_map_find_value(occupants, ALTITUDES.air)
 			var var_goodness_of_frost_nova = 0
@@ -56,6 +56,6 @@ function scr_find_frost_nova_target_within_range() {
 				}
 			}
 		}
-	}
+	loopTilesEnd
 	return var_optimal_tile_target
 }

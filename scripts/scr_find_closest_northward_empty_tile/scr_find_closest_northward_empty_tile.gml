@@ -3,7 +3,7 @@ function scr_find_closest_northward_empty_tile(var_altitude, var_tile_to_clear) 
 	var closest_candidate = noone
 	var var_distance
 	var var_angle
-	with(obj_tile) {
+	loopTilesStart
 		if(habitable) {
 			var_angle = point_direction(var_tile_to_clear.x, var_tile_to_clear.y, x, y)
 			if(180 >= var_angle and var_angle >= 0) {
@@ -17,7 +17,7 @@ function scr_find_closest_northward_empty_tile(var_altitude, var_tile_to_clear) 
 				}
 			}
 		}
-	}
+	loopTilesEnd
 	var var_optimum_path = ds_list_create()
 	if(closest_candidate != noone) {
 			var var_optimum_path = scr_find_invisibles_path(var_tile_to_clear, closest_candidate)

@@ -325,6 +325,7 @@
     {"name":"scr_find_sleep_target_within_range","order":50,"path":"scripts/scr_find_sleep_target_within_range/scr_find_sleep_target_within_range.yy",},
     {"name":"spr_invisibility_cursor","order":9,"path":"sprites/spr_invisibility_cursor/spr_invisibility_cursor.yy",},
     {"name":"scr_find_unit_that_is_targeting_you","order":12,"path":"scripts/scr_find_unit_that_is_targeting_you/scr_find_unit_that_is_targeting_you.yy",},
+    {"name":"tile_scripts","order":88,"path":"scripts/tile_scripts/tile_scripts.yy",},
     {"name":"scr_pause","order":51,"path":"scripts/scr_pause/scr_pause.yy",},
     {"name":"scr_pause_draw","order":52,"path":"scripts/scr_pause_draw/scr_pause_draw.yy",},
     {"name":"search_target_just_outside_range","order":2,"path":"scripts/search_target_just_outside_range/search_target_just_outside_range.yy",},

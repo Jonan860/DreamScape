@@ -414,6 +414,7 @@
     {"id":{"name":"scr_find_sleep_target_within_range","path":"scripts/scr_find_sleep_target_within_range/scr_find_sleep_target_within_range.yy",},},
     {"id":{"name":"spr_invisibility_cursor","path":"sprites/spr_invisibility_cursor/spr_invisibility_cursor.yy",},},
     {"id":{"name":"scr_find_unit_that_is_targeting_you","path":"scripts/scr_find_unit_that_is_targeting_you/scr_find_unit_that_is_targeting_you.yy",},},
+    {"id":{"name":"tile_scripts","path":"scripts/tile_scripts/tile_scripts.yy",},},
     {"id":{"name":"scr_pause","path":"scripts/scr_pause/scr_pause.yy",},},
     {"id":{"name":"scr_pause_draw","path":"scripts/scr_pause_draw/scr_pause_draw.yy",},},
     {"id":{"name":"search_target_just_outside_range","path":"scripts/search_target_just_outside_range/search_target_just_outside_range.yy",},},

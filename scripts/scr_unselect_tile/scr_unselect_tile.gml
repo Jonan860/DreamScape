@@ -6,7 +6,7 @@ function scr_unselect_tile(tile2) {
 				if(object_is_ancestor(var_selected_unit.object_index, obj_unit)) {
 					for(var j = 0; j < ds_list_size(path); j += 1) {
 						var tile3 = path[|j]
-						tile3.image_blend = c_white
+						tile3.imageBlend = c_white
 					}
 				}
 			}
