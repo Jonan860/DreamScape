@@ -29,13 +29,13 @@ locust_swarm = createSpell(SPELLS.locust_swarm, "r")
 
 skills = [impale, spiked_carapace, carrion_beetles, locust_swarm]
 
-ds_list_level_sprites = ds_list_create()
-ds_list_add(ds_list_level_sprites, 0, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord)
+list_level_sprites = []
+array_push(list_level_sprites, 0, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord)
 spr_height = sprite_height; spr_width = sprite_width
 
 updateDamageReduction = function() {
 	if(carapace.lvl > 0) {
-		var reduction_from_spiked_carapace = list_of_damage_reduction_from_spiked_carapacelvl[|spiked_carapace.lvl - 1]
+		var reduction_from_spiked_carapace = list_of_damage_reduction_from_spiked_carapacelvl[spiked_carapace.lvl - 1]
 		damage_reduction = 1 - (1 - base_damage_reduction) * (1 - reduction_from_spiked_carapace)
 	}
 }
@@ -54,11 +54,10 @@ ai = function() {
 	
 	if(mana >= locust_swarm.getManaCost() and locust_swarm.cooldown_current == 0) {
 		var list_of_enemies = scr_find_enemies_within_range(range)
-		if(!ds_list_empty(list_of_enemies)) {
+		if(!(list_of_enemies == [])) {
 			locust_swarm.iconPerform()
 			mana -= locust_swarm.getManaCost()
 			locust_swarm.cooldown_current = locust_swarm.getCooldown()
 		}
-		ds_list_destroy(list_of_enemies)
 	}
 }

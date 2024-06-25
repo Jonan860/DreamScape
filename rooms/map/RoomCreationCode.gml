@@ -3,22 +3,20 @@ window_set_fullscreen(1)
 audio_group_load(jukebox)
 draw_set_font(font0)
 randomize()
+global.player = instance_create_depth(0, 0, 0, obj_player)
+global.enemy = instance_create_depth(0, 0, 0, obj_player)
+global.creep_lord = instance_create_depth(0, 0, 0, obj_player)
 global.gameBoard = instance_create_layer(0, 0, "tiles", obj_game_board)
-scr_create_tile_on_map()
+
 global.tile_selected = noone
 global.selectedSpell = noone
 global.clicked_tile = noone
 global.hud = instance_create_layer(0, 0, "hud", obj_battle_hud)
 instance_create_depth(0, 0, -100, obj_game)
-global.player = instance_create_depth(0, 0, 0, obj_player)
-global.enemy = instance_create_depth(0, 0, 0, obj_player)
-global.creep_lord = instance_create_depth(0, 0, 0, obj_player)
+
 
 global.saveData = {}
-scr_tile_neighborhood_create()
-scr_declare_non_habitable_tiles()
-scr_declare_backline_tiles()
-scr_tile_distances_calculate()
+
 //global.ida=instance_create_depth(4*16+12*16*4,4*16+8*16*1,-1,obj_ida)
 //global.ida.owner=global.player
 //with(global.ida)
@@ -28,7 +26,7 @@ scr_tile_distances_calculate()
 //scr_move_to_tile(100101)
 //}
 
-global.ida = scr_instance_create_at_tile_with_owner(obj_ida, getTile(10, 14), global.player)
+scr_instance_create_at_tile_with_owner(obj_ida, getTile(10, 14), global.player)
 with(global.ida) {
 	repeat(5) {
 		scr_level_up()
@@ -39,13 +37,13 @@ with(scr_instance_create_at_tile_with_owner(obj_priest, getTile(9, 15), global.p
 	dispel.lvl = 1
 }
 
-global.nils = scr_instance_create_at_tile_with_owner(obj_nils, getTile(18, 2), global.player)
+scr_instance_create_at_tile_with_owner(obj_nils, getTile(18, 2), global.player)
 with(global.nils) {
 	repeat(5) {
 		scr_level_up()
 	}
 }
-global.lille_skutt = scr_instance_create_at_tile_with_owner(obj_lille_skutt, getTile(13, 15), global.player)
+scr_instance_create_at_tile_with_owner(obj_lille_skutt, getTile(13, 15), global.player)
 //scr_instance_create_at_tile_with_owner(obj_sorceress,100222,global.player)
 //scr_instance_create_at_tile_with_owner(obj_priest,100224,global.player)
 //scr_instance_create_at_tile_with_owner(obj_abomination,100008,global.enemy)
@@ -91,7 +89,7 @@ with(hungry_hungry_lizard) {
 		or (tile_x == 19 and (tile_y >= 3 and tile_y <= 5))
 		)
 		{
-			ds_list_add(other.list_of_territory_tiles, self)
+			array_push(other.list_of_territory_tiles, self)
 		}
 	loopTilesEnd
 }

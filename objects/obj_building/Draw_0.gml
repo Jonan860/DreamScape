@@ -7,7 +7,7 @@ if(unfinished) {
 }
 
 if(global.tile_selected != noone) {
-	if(ds_list_find_index(global.tile_selected.selected_units, id) == 0) {
+	if(array_get_index(global.tile_selected.selected_units, id) == 0) {
 		if(rally_tile != noone) {
 			draw_sprite(spr_rally_point_flag, 0, rally_tile._x, rally_tile._y)
 		}

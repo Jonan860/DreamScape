@@ -9,8 +9,8 @@ if(lifeTimeSec < total_time_sec - total_time_after_effect_end_sec) {
 		var varXscale2 = sprite_get_width(spr_hexagon_pink) / sprite_get_width(spr_frost_nova_ice_spikes)
 		var varYscale2 = sprite_get_height(spr_hexagon_pink) / sprite_get_height(spr_frost_nova_ice_spikes)
 		draw_sprite_ext(spr_frost_nova_ice_spikes, varSubimg , x, y, varXscale2, varYscale2, 0, c_white, 0.8)
-		for(var i = 0; i <= ds_list_size(list_of_neighbours) - 1; i += 1)	{
-			var var_tile = list_of_neighbours[|i]
+		for(var i = 0; i <= array_length(list_of_neighbours) - 1; i += 1)	{
+			var var_tile = list_of_neighbours[i]
 			if(var_tile != noone) {
 				var subimg =  ceil((other.total_time_after_effect_end_sec - (other.total_time_sec - other.lifeTimeSec)) * 45)
 				var varXscale3 = sprite_get_width(spr_hexagon_pink) / 2 / sprite_get_width(spr_frost_nova_ice_spikes)

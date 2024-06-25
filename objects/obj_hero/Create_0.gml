@@ -3,7 +3,6 @@ experience = 0
 experience_to_level_up = 300
 experience_to_level_up_increase_rate = 1.5
 lvl = 1
-
 accumulated_level_up_stat_increase = 1.5
 HP_level_up_multiplier = power(accumulated_level_up_stat_increase, 1/4)
 damage_level_up_multiplier = power(accumulated_level_up_stat_increase, 3/8)

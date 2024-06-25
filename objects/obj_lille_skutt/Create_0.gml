@@ -1,4 +1,5 @@
 event_inherited()
+global.lille_skutt = id
 x_translate = 0; y_translate = 0
 movement_cost = 3 * room_speed
 attack_cost = 1.5 * room_speed
@@ -20,7 +21,7 @@ spr_hammer_sub = 0
 human_barracks_build_progress = 0 // of 100
 human_barracks_build_queue_lenght = 0
 
-queue_list = ds_list_create()
+queue_list = []
 
 progress_bar_x1 = global.hud.hud_width / 4
 progress_bar_x2 = global.hud.hud_width * 3/4

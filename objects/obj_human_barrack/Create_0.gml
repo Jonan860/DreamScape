@@ -3,7 +3,7 @@ event_inherited()
 rally_tile = noone
 unfinished = 0
 
-queue_list = ds_list_create()
+queue_list = []
 build_progress = 0 // of 1002
 
 tile = noone

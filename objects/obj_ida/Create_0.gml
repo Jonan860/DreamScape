@@ -1,4 +1,5 @@
 event_inherited()
+global.ida = id
 movement_cost = 3 * room_speed
 attack_cost = 1.5 * room_speed
 max_action_bar = 3 * room_speed
@@ -26,7 +27,6 @@ earthshatter = createSpell(SPELLS.earthshatter, "r")
 
 skills = [freeze, katon_gokakyu_no_jutsu, kawarimi_no_jutsu, earthshatter, revive]
 attack_target = function() {attack_target_magic_projectile()}
-ds_list_level_sprites = ds_list_create()
-ds_list_add(ds_list_level_sprites, 0, spr_ida_level1, spr_ida_level_2, sprite_ida_level_3, spr_ida_level_4, spr_ida_level_5, spr_ida_level_6, spr_ida_level_7, spr_ida_level_8)
+list_level_sprites = [0, spr_ida_level1, spr_ida_level_2, sprite_ida_level_3, spr_ida_level_4, spr_ida_level_5, spr_ida_level_6, spr_ida_level_7, spr_ida_level_8]
 spr_height = sprite_height
 spr_width = sprite_width

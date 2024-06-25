@@ -25,9 +25,8 @@ frost_nova = createSpell(SPELLS.frost_nova, "q")
 frost_armor = createSpell(SPELLS.frost_armor, "w")
 dark_ritual = createSpell(SPELLS.dark_ritual, "e")
 skills = [frost_nova, frost_armor, dark_ritual]
+list_level_sprites = [0, spr_lich_big_head, spr_lich_big_head, spr_lich_big_head, spr_lich_big_head]
 
-ds_list_level_sprites = ds_list_create()
-ds_list_add(ds_list_level_sprites, 0, spr_lich_big_head, spr_lich_big_head, spr_lich_big_head, spr_lich_big_head)
 spr_height = sprite_height
 spr_width = sprite_width
 

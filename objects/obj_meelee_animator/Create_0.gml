@@ -9,9 +9,10 @@ save = function() {
 }
 
 load = function(s) {
-	x = s.x
-	y = s.y
+	x = s.x; y = s.y
 	image_alpha = s.image_alpha
-	owner = s.owner
+	with(obj_unit) {
+		loadFromIdd(s, "owner")
+	}
 	alarm[0] = s.alarm
 }

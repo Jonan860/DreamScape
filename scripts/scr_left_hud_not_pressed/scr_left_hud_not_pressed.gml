@@ -1,6 +1,6 @@
 function scr_left_hud_not_pressed() {
 	unit_to_kawarimi1 = noone; unit_to_kawarimi2 = noone
-	var var_selected = global.tile_selected != noone ? global.tile_selected.selected_units[|0] : noone
+	var var_selected = global.tile_selected != noone ? array_first(global.tile_selected.selected_units) : noone
 	var var_clicked_tile = mouseToTile()
 	if(global.tile_selected = var_clicked_tile) {
 		scr_rotate_selected_units()
@@ -13,7 +13,7 @@ function scr_left_hud_not_pressed() {
 	}
 	with(mouseToTile()) {
 		var var_ground_unit_list = ds_map_find_value(occupants, ALTITUDES.ground)
-		var var_ground_unit = var_ground_unit_list[|0]
+		var var_ground_unit = array_first(var_ground_unit_list)
 		if(var_ground_unit != global.ida) {
 			global.hud.gui_display_abilities = 0
 		}

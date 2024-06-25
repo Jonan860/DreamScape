@@ -309,7 +309,7 @@ function spellToDuration(spell) {
 		case SPELLS.buildInvisibility : return 30
 		case SPELLS.buildDispel : return 30
 		case SPELLS.buildImprovedBows : return 30
-		case SPELLS.revive : return 60
+		case SPELLS.revive : return 20
 		default : return noone
 	}
 }
@@ -386,7 +386,7 @@ function spellToInfo(spell) {
 		case SPELLS.spiked_carapace : return "The Crypt Lord forms barbed layers of chitinous armor \n that increases its defense and returns damage to enemy melee attackers., getCooldown(): " + string(getCooldown())
 			 + "\n Mana cost: " + string(mana_cost[0])
 		case SPELLS.locust_swarm : return "Creates a swarm of angry locusts that bite and tear at nearby enemy units. \n As they chew the enemy flesh, they convert it into a substance that restores hit points to the Crypt Lord when they return. " + "getCooldown(): " + string(getCooldown()) + "\n Mana cost: " + string(mana_cost[0])
-		case SPELLS.vampiric_aura : return "All friendly melee units gain " + "45" + "percentage of damage caused, back as hit points when they hit a unit."   ///string(ds_list_find_value(list_vampiric_aura_bonus_in_procentage,spell_e_lvl-1)) 
+		case SPELLS.vampiric_aura : return "All friendly melee units gain " + "45" + "percentage of damage caused, back as hit points when they hit a unit."  
 		case SPELLS.heal : return "Heals a target friendly non-mechanical wounded unit for " + string(amount) + " hit points"
 			+ "\n" + "getCooldown(): " + string(getCooldown())
 			+ "\n" + "Mana cost " + string(mana_cost)
@@ -457,7 +457,7 @@ function heal_ai() {
 	with(owner) {
 		var list_heal_target_within_range = scr_find_friendlies_within_range(other.range)
 	}
-	if(ds_list_size(list_heal_target_within_range) > 0) {
+	if(array_length(list_heal_target_within_range) > 0) {
 		var _target = scr_find_best_heal_target_from_list(list_heal_target_within_range)
 		if(_target != noone) {
 			owner.target = _target
@@ -470,7 +470,7 @@ function slow_ai() {
 	with(owner) {
 		var list_slow_target_within_range = scr_find_enemies_within_range(other.range)
 	}
-	if(ds_list_size(list_slow_target_within_range) > 0) { 
+	if(array_length(list_slow_target_within_range) > 0) { 
 		with(scr_find_best_procentage_debuff_target_from_list(list_slow_target_within_range, Enum)) {			
 			global.clicked_tile = tile
 			other.rightPerform()
@@ -551,7 +551,7 @@ function createSpell(spellEnum, _letter) {
 			draw_set_halign(old_align)
 		}
 		
-		 createDebuff = function(_victim) constructor {
+		createDebuff = function(_victim) constructor {
 			total_duration = other.getDuration()
 			spellHealth = other.spellHealth
 			duration = other.getDuration()
@@ -561,11 +561,12 @@ function createSpell(spellEnum, _letter) {
 			Enum = other.Enum;
 			unapply = spellToUnapply(other.Enum)
 			victim = _victim
+			amount = other.getAmount()
 		}
 		scr_apply_debuff = function(victim) {
 			var debuff_struct = new createDebuff(victim)
 			with(victim) {
-				ds_list_add(list_of_active_debuff_structs, debuff_struct) 
+				array_push(list_of_active_debuff_structs, debuff_struct) 
 				scr_sort_debuff_list_after_dispellity()
 			}
 		}

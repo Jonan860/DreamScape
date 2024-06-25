@@ -1,12 +1,12 @@
 
-function scr_debugg_ds_list(list) {
-	if(ds_list_empty(list)) {
+function scr_debugg_array(list) {
+	if(list == []) {
 		show_debug_message("list empty")
 		exit;
 	}
 	var value
-	for(var i = 0 ; i < ds_list_size(list); i += 1) {
-		value = list[|i]
+	for(var i = 0 ; i < array_length(list); i += 1) {
+		value = list[i]
 		show_debug_message("position " + string(i) + " value" + string(value))
 	}
 }

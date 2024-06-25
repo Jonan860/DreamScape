@@ -6,14 +6,14 @@ function scr_creep_lord_hunt() {
 			scr_attack_target()
 		}
 	} else if(action_bar >= movement_cost and distance > range) {
-		ds_list_copy(path, scr_find_closest_path_within_range(tile,target.tile, range))
-		if(ds_list_empty(path)) {
+		path = scr_find_closest_path_within_range(tile,target.tile, range)
+		if(path == []) {
 			phase = UNIT_PHASES.idle 
 			action_bar = 0
 			target = noone
 		} else if(action_bar >= movement_cost) {
 			action_bar = 0//-=movement_cost
-			var tile_to_move_to = path[|ds_list_size(path) - 2]
+			var tile_to_move_to = path[array_length(path) - 2]
 			scr_move_to_tile(tile_to_move_to)
 		}
 	}

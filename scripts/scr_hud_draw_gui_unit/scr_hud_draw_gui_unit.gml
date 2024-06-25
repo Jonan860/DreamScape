@@ -9,7 +9,7 @@ function scr_hud_draw_gui_unit_prod_building() {
 		draw_set_halign(var_old_align)
 	}
 	scr_dra_hud_button_with_hover_inf_building()
-	if(!ds_list_empty(queue_list)) {
+	if(!(queue_list == [])) {
 		draw_healthbar(other.progress_bar_x1, other.progress_bar_y1, other.progress_bar_x2, other.progress_bar_y2,build_progress / buttonToSkill[?queue_list[|0]].getDuration() * 100, c_black, c_lime, c_green, 0, 1, 0)
 		draw_queue()
 	}
@@ -25,9 +25,9 @@ function scr_dra_hud_button_with_hover_inf_lille_skutt() {
 }
 
 function draw_queue() {
-	for(var i = 0; i <= ds_list_size(queue_list) - 1; i += 1) {
-		var var_object = buttonToSkill[? queue_list[|i]].animator
-		var var_sprite = buttonToSkill[? queue_list[|i]].icon
+	for(var i = 0; i <= array_length(queue_list) - 1; i += 1) {
+		var var_object = buttonToSkill[? queue_list[i]].animator
+		var var_sprite = buttonToSkill[? queue_list[i]].icon
 		var var_lenght = other.length_of_training_queue_icon
 		var var_xxx = other.training_queue_x + i * other.length_of_training_queue_icon
 		var var_yyy = other.training_queue_y
@@ -69,7 +69,7 @@ function draw_skills_buttons() {
 function scr_dra_hud_button_with_hover_inf_building() {
 	if(!global.hud.gui_display_abilities) {
 		with(global.tile_selected) {
-			with(selected_units[|0]) {
+			with(selected_units[0]) {
 				var button = ds_map_find_first(buttonToSkill)
 				for(var i = 0; i < ds_map_size(buttonToSkill); i++) {
 					with(buttonToSkill[? button]) {

@@ -5,22 +5,23 @@ decloak.lvl = 1
 
 setAltitude = function(_altitude) {
 	scr_make_room_for_instance_on_tile(tile, _altitude)
-	scr_ds_list_remove_value(tile.occupants[? altitude], id)
+	tile.occupants[? altitude] = array_filter(tile.occupants[? altitude], function(value, index) {return value != id})
+	//array_remove_value(tile.occupants[? altitude], id)
 	altitude = _altitude
-	ds_list_add(tile.occupants[? altitude], id)
+	array_push(tile.occupants[? altitude], id)
 }
 
 var var_tile_scale = sprite_get_height(spr_hexagon_pink) / max(sprite_height, sprite_width)
 image_yscale = var_tile_scale; image_xscale = var_tile_scale
-path = ds_list_create()
-list_path_arrow_directions = ds_list_create()
-tile = mouseToTile()
+path = []
+list_path_arrow_directions = []
+tile = coordToTile()
 destination = noone
 phase = UNIT_PHASES.idle
 target = noone
-optimal_path = ds_list_create()
-tiles_within_range = ds_list_create()
-element = "normal"
+optimal_path = []
+tiles_within_range = []
+element = ELEMENTS.normal
 
 HP_regeneration_rate = 0
 max_mana = noone
@@ -34,9 +35,9 @@ enemy_ai_spell_counter = 1
 player_ai_spell_counter = 1
 player_ai_idle_counter = 1
 missing_time = 0
-heal_animation_time_left_in_sec = 0
 
-list_of_active_debuff_structs = ds_list_create()
+
+list_of_active_debuff_structs = []
 eaten = 0
 stunned = 0
 time_until_stunned_clear = 0
@@ -54,50 +55,56 @@ reduceDebuffDuration = function(dispelAmount) {
 		if(dispelAmount == 0) {
 			break;
 		}
-		with(list_of_active_debuff_structs[| i]) {
+		with(list_of_active_debuff_structs[i]) {
 			duration -= min(total_duration * dispelAmount / spellHealth, duration)
 			dispelAmount -= min(dispelAmount, duration / total_duration * spellHealth)
 		}
 	}
 }
 
-
 scr_update_accuracy = function() {
 	var cursed = scr_is_debuffed(SPELLS.curse)
 	if(cursed) {
 		var curse = createSpell(SPELLS.curse)
-		accuracy = base_accuracy * curse.amount
+		accuracy = base_accuracy * find_active_debuff(SPELLS.curse).amount
 	}
 }
-
-slowed = {
-	applied : 0,
-	duration : 60,
-	durationLeft : 0,
-	amount : 3/10,
-	apply : function() {
-		applied = 1
-		durationLeft = duration
-	}
-}
-
-
 
 save = function() { 
 	var s = {}
 	s.phase = phase
+	s.owner = owner
 	s.HP = HP
+	s.idd = id
 	s.target = target
-	s.destination = destination
+	if(destination != noone) {
+		s.destinationX = destination.tile_x
+		s.destinationY = destination.tile_y
+	}
 	s.eaten = eaten
 	s.has_waited_for_blocker_to_move = has_waited_for_blocker_to_move
-	s.path = path
+	s.path = saveTileList(path)
+	s.optimal_path = saveTileList(optimal_path)
+	s.tiles_within_range = saveTileList(tiles_within_range)
+	s.list_path_arrow_directions = list_path_arrow_directions
+	s.list_of_active_debuff_structs = list_of_active_debuff_structs
 	s.lvl = lvl
 	s.mana = mana
+	s.selected = 0
+	with(global.tile_selected) {
+		for(var i = 0; i < array_length(selected_units); i++) {
+			if(selected_units[i].id == other.id)
+			s.selected = 1
+		}
+	}
 	s.altitude = altitude
+	s.tileX = tile.tile_x; s.tileY = tile.tile_y
 	s.x = x; s.y = y
 	if(variable_instance_exists(id, "skills")) {
-		s.skills = skills
+		s.skillLevels = []
+		for(var i = 0; i < array_length(skills); i++) {
+			array_push(s.skillLevels, skills[i].lvl)
+		}
 	}
 	if(variable_instance_exists(id, "summon_time_left")) {
 		s.summon_time_left = summon_time_left
@@ -122,22 +129,55 @@ save = function() {
 		s.is_building = is_building
 	}
 	s.action_bar = action_bar
+	return s
+}
+function saveTileList(list) {
+	var savedList = []
+	for(var i = 0; i < array_length(list); i++) {
+		array_push(savedList, [list[i].tile_x, list[i].tile_y]) 
+		return savedList
+	}
+}
+function loadTileList(list, savedList) {
+	list = []
+	for(var i = 0; i < array_length(savedList); i++) {
+		array_push(list, getTile(savedList[i][0], savedList[i][1]))
+	}
 }
 
 load = function(s) {
 	phase = s.phase
 	HP = s.HP
-	target = s.target
-	destination = s.destination
+	owner = s.owner
+	if(variable_struct_exists(s, "destinationX")) {
+		destination = getTile(s.destinationX, s.destinationY)
+	} else {
+		destination = noone
+	}
 	eaten = s.eaten
 	has_waited_for_blocker_to_move = s.has_waited_for_blocker_to_move
-	path = s.path
+	loadTileList(path, s.path)
+	loadTileList(optimal_path, s.optimal_path)
+	loadTileList(tiles_within_range, s.tiles_within_range)
+	list_path_arrow_directions = s.list_path_arrow_directions
+	list_of_active_debuff_structs = s.list_of_active_debuff_structs
+	
+	idd = s.idd
+	target = s.target
 	lvl = s.lvl
 	mana = s.mana
 	altitude = s.altitude
 	x = s.x; y = s.y
+	scr_move_to_tile(getTile(s.tileX, s.tileY))
+	if(s.selected) {
+		with(global.tile_selected) {
+			array_push(selected_units, other.id)
+		}
+	}
 	if(variable_instance_exists(id, "skills")) {
-		skills = s.skills
+		for(var i = 0; i < array_length(skills); i++) {
+			skills[i].lvl = s.skillLevels[i]
+		}
 	}
 	if(variable_instance_exists(id, "summon_time_left")) {
 		summon_time_left = s.summon_time_left

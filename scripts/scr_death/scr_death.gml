@@ -9,7 +9,7 @@ function scr_death() {
 		scr_give_experience()
 		with(obj_projectile_animator) {
 			if(owner == other.id) {
-				owner=noone
+				owner = noone
 			}
 		}
 		with(obj_heal_animator) {
@@ -43,28 +43,32 @@ function scr_death() {
 				instance_destroy()
 			}
 		}
-		var altitude_list = ds_map_find_value(tile.occupants, altitude)
+		var _altitude_list = tile.occupants[? altitude] 
 		if(!eaten) {
-			scr_ds_list_remove_value(altitude_list,id)
+			var _altitude_list = array_filter(_altitude_list, function(value, index) {return value != self.id})
+			//array_remove_value(altitude_list, id)
 		}
 		if(object_index == obj_hungry_hungry_lizard) {
 			with(object_in_stomach) {
 				eaten = 0
 				tile = other.tile
 				x = other.x; y = other.y
-				scr_ds_list_remove_value(altitude_list, other.id)
-				var altitude_list2 = ds_map_find_value(other.tile.occupants, altitude)
-				ds_list_add(altitude_list2, id)
+				//array_remove_value(altitude_list, other.id)
+				_altitude_list = array_filter(_altitude_list, function(value, index) {return value != self.id})
+				var altitude_list2 = other.tile.occupants[? altitude]
+				array_push(altitude_list2, id)
 			}
 		}	
 		if(global.tile_selected != noone) {
-			if(ds_list_find_index(global.tile_selected.selected_units,id) >= 0) {
-				scr_ds_list_remove_value(global.tile_selected.selected_units, id)
-				if(ds_list_empty(global.tile_selected.selected_units)) {
+			if(array_get_index(global.tile_selected.selected_units, id) >= 0) {
+				global.tile_selected.selected_units = array_filter(global.tile_selected.selected_units, function(value, index) {return value != self.id})
+				//array_remove_value(, id)
+				if(array_equals(global.tile_selected.selected_units, [])) {
 					global.tile_selected = noone
 				}
 			}
 		}
+		tile.occupants[? altitude] = _altitude_list
 		if(object_get_parent(object_index) != obj_summon and phase != UNIT_PHASES.sacrificed) {
 			if(object_get_parent(object_index) != obj_hero and object_index != obj_lille_skutt or object_is_ancestor(object_index, obj_hero) and owner = global.enemy) {
 				var soul = instance_create_depth(x, y, depth, obj_soul)
@@ -75,7 +79,8 @@ function scr_death() {
 			} else {
 				phase = UNIT_PHASES.dead
 				HP = 1
-				scr_ds_list_remove_value(altitude_list, id)
+				//array_remove_value(altitude_list, id)
+				_altitude_list = array_filter(_altitude_list, function(value, index) {return value != id})
 				var soul = instance_create_depth(x, y, depth, obj_soul_hero)
 				soul.instance = id
 				soul.tile = tile
@@ -87,6 +92,7 @@ function scr_death() {
 			}
 		}
 		scr_disblend_list(path)
+		
 		if(object_get_parent(object_index) != obj_hero and object_index != obj_lille_skutt or owner == global.enemy or owner == global.creep_lord) {
 			if(object_index == obj_golden_dragon) {
 				with(obj_light_beam) {

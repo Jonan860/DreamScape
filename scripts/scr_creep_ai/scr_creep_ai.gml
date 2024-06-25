@@ -2,7 +2,7 @@
 function scr_creep_ai() {
 	switch(phase) {
 		case UNIT_PHASES.hunt :
-			if(scr_get_distance(tile, target.tile) > range or ds_list_find_index(list_of_territory_tiles, target.tile) == noone and action_bar == 0) {
+			if(scr_get_distance(tile, target.tile) > range or array_get_index(list_of_territory_tiles, target.tile) == noone and action_bar == 0) {
 				var var_closest_enemy = scr_get_closest_enemy_in_territory()
 				if(var_closest_enemy == noone) {
 					destination = start_tile

@@ -3,7 +3,7 @@ event_inherited()
 rally_tile = noone
 unfinished = 0
 
-queue_list = ds_list_create()
+queue_list = []
 
 progress_bar_x1 = global.hud.hud_width / 4
 progress_bar_x2 = global.hud.hud_width * 3/4
@@ -16,7 +16,7 @@ tile = noone
 max_HP = 400
 HP = max_HP
 damage_reduction = 0
-element = noone //fortified later maybe
+element = ELEMENTS.fortified //fortified later maybe
 
 sorc = createSpell(SPELLS.buildSorceress, "q")
 sorc.lvl = 1

@@ -27,8 +27,8 @@ vampiric_aura = createSpell(SPELLS.vampiric_aura, "e")
 
 skills = [carrion_swarm, sleep, vampiric_aura]
 
-ds_list_level_sprites = ds_list_create()
-ds_list_add(ds_list_level_sprites, 0, spr_dreadlord2, spr_dreadlord2, spr_dreadlord2, spr_dreadlord2)
+list_level_sprites = [0, spr_dreadlord2, spr_dreadlord2, spr_dreadlord2, spr_dreadlord2]
+
 spr_height = sprite_height
 spr_width = sprite_width
 

@@ -4,8 +4,8 @@ function scr_draw_status_ailment_list() {
 	var var_draw_position = 0
 	var var_draw_x_translate = 0
 	var var_hud = global.hud
-	for(var i = 0; i < ds_list_size(list_of_active_debuff_structs); i += 1) {
-		var struct_debuff = list_of_active_debuff_structs[|i]
+	for(var i = 0; i < array_length(list_of_active_debuff_structs); i += 1) {
+		var struct_debuff = list_of_active_debuff_structs[i]
 		draw_sprite_ext(struct_debuff.icon, 0, var_hud.hud_buff_x + var_draw_x_translate * var_hud.hud_buff_width, var_hud.hud_buff_y, var_hud.hud_buff_width / sprite_get_width(struct_debuff.icon), var_hud.hud_buff_height / sprite_get_height(struct_debuff.icon), 0, c_white, 1)
 		var_draw_position += 1
 		var_draw_x_translate = (-1 + 2 * (var_draw_position % 2)) * (var_draw_position + var_draw_position % 2)/2    /// order: 6420135

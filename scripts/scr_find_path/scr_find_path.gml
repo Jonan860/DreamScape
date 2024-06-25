@@ -6,7 +6,7 @@ function scr_find_path(start_tile, end_tile, altitude) {
 	var shortest_yet = start_tile
 
 	if(!scr_occupiable(end_tile,altitude)) {
-		ds_list_clear(global.game.optimal_path)
+		global.game.optimal_path = []
 		return global.game.optimal_path
 		exit;
 	}
@@ -33,28 +33,26 @@ function scr_find_path(start_tile, end_tile, altitude) {
 			loopTilesStart
 				path_find_checked = 0
 			loopTilesEnd
-			ds_list_clear(global.game.optimal_path)
+			global.game.optimal_path = []
 			return global.game.optimal_path
 			exit;
 		} else {
 			loopTilesStart
 				path_find_checked = 0
 			loopTilesEnd
-			if(!ds_list_empty(global.game.optimal_path)) {
-				for(var i = 0; i < ds_list_size(global.game.optimal_path) - 1; i += 1) {    ////////delete old path visuals
-					var tile_colored = global.game.optimal_path[|i]
+			if(!(global.game.optimal_path == [])) {
+				for(var i = 0; i < array_length(global.game.optimal_path) - 1; i++) {    ////////delete old path visuals
+					var tile_colored = global.game.optimal_path[i]
 					tile_colored.imageBlend = c_white
 				}
 			}
-		
-			ds_list_destroy(global.game.optimal_path)
-			global.game.optimal_path = ds_list_create()  //maybe clear
+			global.game.optimal_path = []  //maybe clear
 	
-			ds_list_add(global.game.optimal_path, end_tile)
-			for(var i = 1; i <= shortest_yet.distance; i += 1) {
-				var this_tile = global.game.optimal_path[|i-1]
+			array_push(global.game.optimal_path, end_tile)
+			for(var i = 1; i <= shortest_yet.distance; i++) {
+				var this_tile = global.game.optimal_path[i - 1]
 				var earlier_tile = scr_get_earlier_tile(this_tile)
-				ds_list_add(global.game.optimal_path, earlier_tile)
+				array_push(global.game.optimal_path, earlier_tile)
 			}
 		}
 		return global.game.optimal_path

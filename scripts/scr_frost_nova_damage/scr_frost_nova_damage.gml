@@ -3,8 +3,8 @@ function scr_frost_nova_damage() {
 	owner.damage = getAmount()
 	frostnovaDamageTile(target) 
 	owner.damage *= 1/2   ////half damage on souranding area
-	for(var i = 0; i <= ds_list_size(target.list_of_neighbours) - 1; i++) {
-		frostnovaDamageTile(target.list_of_neighbours[|i])
+	for(var i = 0; i <= array_length(target.list_of_neighbours) - 1; i++) {
+		frostnovaDamageTile(target.list_of_neighbours[i])
 	}
 	damage = store_damage
 	owner.phase = owner.owner == global.player ? UNIT_PHASES.idle : UNIT_PHASES.movement
@@ -21,9 +21,9 @@ function frostnovaDamageTile(tile) {
 	}
 	for(var i = 0; i < array_length(lists); i++) {
 		var list = lists[i]
-		if(!ds_list_empty(list)) {
-			for(var i = 0; i < ds_list_size(list); i += 1) {
-				var	victim = list[|i]
+		if(!(list == [])) {
+			for(var i = 0; i < array_length(list); i += 1) {
+				var	victim = list[i]
 				if(victim.object_index != obj_crystal and !object_is_ancestor(victim.object_index, obj_building)) {
 					if(scr_is_enemies(victim, owner)) {
 						var damage_store = owner.damage

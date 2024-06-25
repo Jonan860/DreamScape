@@ -25,7 +25,7 @@ if(room == map) {
 			if(unfinished and global.lille_skutt.is_building == id) {
 				updateSelfConstruction()
 			}
-			if(!ds_list_empty(queue_list)) {
+			if(!array_equals(queue_list, [])) {
 				updateRecruitQueue()
 			}
 		}

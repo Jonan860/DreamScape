@@ -17,9 +17,9 @@ function scr_level_up(){
 	experience_to_level_up *= experience_to_level_up_increase_rate
 	accuracy *= -ln(2) / ln(1 - 1 / (2 * evasion_level_up_multiplier))
 	
-	if(ds_list_level_sprites[|lvl] > 0) {
+	if(list_level_sprites[lvl] > 0) {
 		image_xscale = 1; image_yscale = 1
-		sprite_index = ds_list_level_sprites[|lvl]
+		sprite_index = list_level_sprites[lvl]
 		image_xscale = spr_width/sprite_width; image_yscale = spr_height/sprite_height
 	}
 }

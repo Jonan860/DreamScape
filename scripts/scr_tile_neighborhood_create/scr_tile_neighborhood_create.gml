@@ -27,7 +27,7 @@ function scr_tile_neighborhood_create() {
 		loopTilesEnd
 	loopTilesEnd
 	loopTilesStart
-		ds_list_clear(list_of_neighbours)
-		ds_list_add(list_of_neighbours,  north_tile, north_west_tile, north_east_tile , south_west_tile , south_east_tile, south_tile)
+		list_of_neighbours = []
+		array_push(list_of_neighbours,  north_tile, north_west_tile, north_east_tile , south_west_tile , south_east_tile, south_tile)
 	loopTilesEnd
 }

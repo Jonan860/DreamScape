@@ -3,7 +3,7 @@ function scr_instance_create_at_tile_with_owner(objectofinstance, tileofcreation
 	instanceofcreation.layer = layer_get_id(altitudeToStr(instanceofcreation.altitude))
 	instanceofcreation.tile = tileofcreation
 	var alt_list = ds_map_find_value(tileofcreation.occupants, instanceofcreation.altitude)
-	ds_list_add(alt_list, instanceofcreation)
+	array_push(alt_list, instanceofcreation)
 	//instanceofcreation.owner = owna
 	return instanceofcreation
 }

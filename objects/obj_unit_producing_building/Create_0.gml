@@ -3,7 +3,7 @@ event_inherited();
 build = function(skill) {
 	if(skill.animator == undefined) {
 		skill.perform()
-		ds_list_delete(queue_list, 0)
+		array_delete(queue_list, 0, 1)
 		build_progress = 0
 	} else {
 		var most_north_tile = scr_get_most_north_occupiable_neighbour()
@@ -28,14 +28,14 @@ build = function(skill) {
 				scr_update_path_to_destination()
 			}
 		}
-		ds_list_delete(queue_list, 0)
+		array_delete(queue_list, 0, 1)
 		build_progress = 0
 	}
 }
 
 function updateRecruitQueue() {
 	build_progress += 1 / room_speed  //game_get_speed(gamespeed_fps)
-	var skill = buttonToSkill[? queue_list[|0]]
+	var skill = buttonToSkill[? queue_list[0]]
 	if(build_progress >= skill.getDuration()) {
 		build(skill)
 	}
