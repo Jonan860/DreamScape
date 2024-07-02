@@ -8,7 +8,7 @@ function scr_find_closest_path_within_range(start_tile, target_tile2, range) {
 		target_tile2 = tiles_within_range[i]
 		if(scr_occupiable(target_tile2, altitude)) {
 			candidate = scr_find_path(start_tile, target_tile2,altitude)
-			if(!(candidate == [])) {
+			if(!array_equals(candidate, [])) {
 				if(array_length(candidate) - 1 < closest_distance_yet) {
 					closest_path = candidate
 					closest_distance_yet = array_length(closest_path) - 1

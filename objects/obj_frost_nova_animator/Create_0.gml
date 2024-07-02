@@ -1,6 +1,6 @@
 event_inherited()
 total_time_after_effect_end_sec = owner.duration[1]
-total_time_sec = owner.duration[0]
+total_time_sec = array_first(owner.duration)
 lifeTimeSec = 0
 
 save = function() {

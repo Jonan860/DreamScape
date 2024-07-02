@@ -1,6 +1,6 @@
 function scr_make_room_for_instance_on_tile(var_tile_to_clear, var_altitude) {
-	var var_unit_to_clear_list = ds_map_find_value(var_tile_to_clear.occupants, var_altitude)
-	var var_unit_to_clear = var_unit_to_clear_list[0]
+	var var_unit_to_clear_list = var_tile_to_clear.occupants[? var_altitude]
+	var var_unit_to_clear = array_first(var_unit_to_clear_list)
 	var var_owner = noone
 	var closest_southward_empty_tile
 	var closest_northward_empty_tile

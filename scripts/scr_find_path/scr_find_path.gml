@@ -40,7 +40,7 @@ function scr_find_path(start_tile, end_tile, altitude) {
 			loopTilesStart
 				path_find_checked = 0
 			loopTilesEnd
-			if(!(global.game.optimal_path == [])) {
+			if(!array_equals(global.game.optimal_path, [])) {
 				for(var i = 0; i < array_length(global.game.optimal_path) - 1; i++) {    ////////delete old path visuals
 					var tile_colored = global.game.optimal_path[i]
 					tile_colored.imageBlend = c_white

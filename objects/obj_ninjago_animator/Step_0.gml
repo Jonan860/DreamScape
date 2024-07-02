@@ -1,6 +1,6 @@
 x = owner.owner.x; y = owner.owner.y
 
-counter_to_attack += 1
+counter_to_attack++
 if(total_damage_done >= max_damage or owner.owner.HP <= 0) {
 	instance_destroy()
 	exit;
@@ -14,7 +14,7 @@ if(counter_to_attack >= owner.owner.attack_cost) {
 	}
 	for(var i = 0; i <= array_length(var_list_of_tiles) - 1; i++) {
 		var var_tile = var_list_of_tiles[i]
-		var var_occupant_ground = var_tile.grounds_list[0]
+		var var_occupant_ground = array_first(var_tile.occupants[? ALTITUDES.ground])
 		if(!is_undefined(var_occupant_ground)) {
 			if(scr_is_enemies(owner.owner, var_occupant_ground)) {
 				if(scr_is_attack_hitting(owner.owner.accuracy, var_occupant_ground.evasiveness)) {

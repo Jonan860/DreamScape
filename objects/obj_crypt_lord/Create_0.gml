@@ -54,7 +54,7 @@ ai = function() {
 	
 	if(mana >= locust_swarm.getManaCost() and locust_swarm.cooldown_current == 0) {
 		var list_of_enemies = scr_find_enemies_within_range(range)
-		if(!(list_of_enemies == [])) {
+		if(!array_equals(list_of_enemies, [])) {
 			locust_swarm.iconPerform()
 			mana -= locust_swarm.getManaCost()
 			locust_swarm.cooldown_current = locust_swarm.getCooldown()

@@ -7,7 +7,7 @@ function scr_creep_lord_hunt() {
 		}
 	} else if(action_bar >= movement_cost and distance > range) {
 		path = scr_find_closest_path_within_range(tile,target.tile, range)
-		if(path == []) {
+		if(array_equals(path, [])) {
 			phase = UNIT_PHASES.idle 
 			action_bar = 0
 			target = noone

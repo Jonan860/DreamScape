@@ -10,6 +10,7 @@ save = function() {
 	s.image_angle = image_angle
 	s.target = target
 	s.owner = owner
+	s.speed = speed
 	return s
 }
 
@@ -17,6 +18,7 @@ load = function(s) {
 	x = s.x; y = s.y
 	image_angle = s.image_angle
 	target = s.target
+	speed = s.speed
 	with(obj_unit) {
 		loadFromIdd(s, "owner")
 	}

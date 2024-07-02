@@ -1,6 +1,6 @@
 function scr_movement_creep_return() {
 		scr_update_path_to_destination()
-		if(path == []) {
+		if(array_equals(path, [])) {
 			action_bar = 0
 			exit;
 		}

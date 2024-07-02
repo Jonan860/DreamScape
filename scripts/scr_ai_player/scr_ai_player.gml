@@ -22,7 +22,7 @@ function scr_ai_player() {
 		}
 		action_bar = 0
 	}
-	player_ai_spell_counter -= 1
+	player_ai_spell_counter--
 	if(player_ai_spell_counter <= 0) {
 		player_ai_spell_counter = room_speed * global.player_ai_think_time_in_sec
 		for(var i = 0; i < array_length(skills); i++) {

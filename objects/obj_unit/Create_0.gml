@@ -65,16 +65,32 @@ reduceDebuffDuration = function(dispelAmount) {
 scr_update_accuracy = function() {
 	var cursed = scr_is_debuffed(SPELLS.curse)
 	if(cursed) {
-		var curse = createSpell(SPELLS.curse)
 		accuracy = base_accuracy * find_active_debuff(SPELLS.curse).amount
 	}
 }
 
+
 save = function() { 
 	var s = {}
+	s.sprite_index = sprite_index
+	s.image_xscale = image_xscale
+	s.image_yscale = image_yscale
 	s.phase = phase
 	s.owner = owner
+	s.movement_cost = movement_cost
+	s.attack_cost = attack_cost
+	s.damage = damage
+	s.damage_reduction = damage_reduction
+	s.range = range
+	s.accuracy = accuracy
+	s.base_accuracy = base_accuracy
+	s.evasiveness = evasiveness
+	if(variable_instance_exists(id, "mana_regen_rate_per_sec")) {
+		s.mana_regen_rate_per_sec = mana_regen_rate_per_sec
+	}
+	s.max_action_bar = max_action_bar
 	s.HP = HP
+	s.max_HP = max_HP
 	s.idd = id
 	s.target = target
 	if(destination != noone) {
@@ -90,6 +106,7 @@ save = function() {
 	s.list_of_active_debuff_structs = list_of_active_debuff_structs
 	s.lvl = lvl
 	s.mana = mana
+	s.max_mana = max_mana
 	s.selected = 0
 	with(global.tile_selected) {
 		for(var i = 0; i < array_length(selected_units); i++) {
@@ -146,8 +163,24 @@ function loadTileList(list, savedList) {
 }
 
 load = function(s) {
+	sprite_index = s.sprite_index
+	image_xscale = s.image_xscale
+	image_yscale = s.image_yscale
 	phase = s.phase
+	movement_cost = s.movement_cost
+	attack_cost = s.attack_cost
+	damage = s.damage
+	damage_reduction = s.damage_reduction
+	range = s.range
+	accuracy = s.accuracy
+	base_accuracy = s.base_accuracy
+	evasiveness = s.evasiveness
+	if(variable_instance_exists(id, "mana_regen_rate_per_sec")) {
+		mana_regen_rate_per_sec = s.mana_regen_rate_per_sec
+	}
+	max_action_bar = s.max_action_bar
 	HP = s.HP
+	max_HP = s.max_HP
 	owner = s.owner
 	if(variable_struct_exists(s, "destinationX")) {
 		destination = getTile(s.destinationX, s.destinationY)
@@ -166,6 +199,7 @@ load = function(s) {
 	target = s.target
 	lvl = s.lvl
 	mana = s.mana
+	max_mana = s.max_mana
 	altitude = s.altitude
 	x = s.x; y = s.y
 	scr_move_to_tile(getTile(s.tileX, s.tileY))

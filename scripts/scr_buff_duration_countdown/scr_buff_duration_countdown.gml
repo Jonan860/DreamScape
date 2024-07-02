@@ -7,7 +7,7 @@ function scr_buff_duration_countdown() {
 			structu.duration -= 1/room_speed
 			if(structu.duration <= 0) {
 				structu.unapply() //need to be called from unit
-				list_of_active_debuff_structs = array_filter(list_of_active_debuff_structs, function(value, index) {return index != self.i})
+				array_delete(list_of_active_debuff_structs, i, 1)
 				//array_remove_value(list_of_active_debuff_structs, structu)
 				i--
 				list_size--

@@ -51,12 +51,9 @@ function createTile() constructor {
 	list_of_neighbours = []
 	array_push(list_of_neighbours, south_east_tile, south_west_tile, north_east_tile, north_west_tile, north_tile, south_tile)
 	occupants = ds_map_create()
-	invisibles_list = []
-	grounds_list = []
-	airs_list = []
-	ds_map_add(occupants, ALTITUDES.ground, grounds_list)
-	ds_map_add(occupants, ALTITUDES.invisible, invisibles_list)
-	ds_map_add(occupants, ALTITUDES.air, airs_list)
+	ds_map_add(occupants, ALTITUDES.ground, [])
+	ds_map_add(occupants, ALTITUDES.invisible, [])
+	ds_map_add(occupants, ALTITUDES.air, [])
 	path_find_checked = 0
 	distance = 100
 	selected_units = []

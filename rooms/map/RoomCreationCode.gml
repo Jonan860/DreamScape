@@ -17,14 +17,6 @@ instance_create_depth(0, 0, -100, obj_game)
 
 global.saveData = {}
 
-//global.ida=instance_create_depth(4*16+12*16*4,4*16+8*16*1,-1,obj_ida)
-//global.ida.owner=global.player
-//with(global.ida)
-//{
-//tile=instance_position(x,y,obj_tile)
-//ds_map_replace(tile.occupants,"ground",self)
-//scr_move_to_tile(100101)
-//}
 
 scr_instance_create_at_tile_with_owner(obj_ida, getTile(10, 14), global.player)
 with(global.ida) {
@@ -44,40 +36,11 @@ with(global.nils) {
 	}
 }
 scr_instance_create_at_tile_with_owner(obj_lille_skutt, getTile(13, 15), global.player)
-//scr_instance_create_at_tile_with_owner(obj_sorceress,100222,global.player)
-//scr_instance_create_at_tile_with_owner(obj_priest,100224,global.player)
-//scr_instance_create_at_tile_with_owner(obj_abomination,100008,global.enemy)
-//var dread=scr_instance_create_at_tile_with_owner(obj_crypt_lord,100007,global.enemy)
-//dread.lvl=6
-//dread.spell_w_lvl=3
-//dread.spell_e_lvl=2
-//dread.spell_r_lvl=1
-//with(dread)
-//{
-//scr_update_damage_reduction()
-//}
+
 var ban = scr_instance_create_at_tile_with_owner(obj_banshee, getTile(8, 2), global.enemy)
 ban.HP = 1
 scr_instance_create_at_tile_with_owner(obj_crypt_fiend, getTile(9, 1), global.enemy)
-//var lich = scr_instance_create_at_tile_with_owner(obj_lich, 100007, global.enemy)
-//with(lich) {
-//	repeat(3) {
-//		scr_level_up()	
-//	}
-//	frost_nova.lvl = 2
-//	dark_ritual.lvl = 1
-//}
 
-
-
-//with(scr_instance_create_at_tile_with_owner(obj_crypt_lord, 100008, global.enemy)) {
-//	repeat(7) {
-//		scr_level_up()
-//	}
-//	spiked_carapace.lvl = 3
-//	carrion_beetles.lvl = 3
-//	locust_swarm.lvl = 1
-//}
 hungry_hungry_lizard = scr_instance_create_at_tile_with_owner(obj_hungry_hungry_lizard, getTile(18, 2), global.creep_lord)
 with(hungry_hungry_lizard) {
 	HP = -10
@@ -94,79 +57,6 @@ with(hungry_hungry_lizard) {
 	loopTilesEnd
 }
 
-/*ghoul2=instance_create_depth(4*16+12*16*4,4*16+8*16*2,-1,obj_ghoul)
-ghoul2.owner=global.player
-with(ghoul2)
-{
- tile=instance_position(x,y,obj_tile)
-tile.occupant_ground=self
-scr_move_to_tile(100102)
-}*/
-//scr_instance_create_at_tile_with_owner(obj_ghoul,100102,global.enemy)
-/*
-ghoul3=instance_create_depth(4*16+12*16*4,4*16+8*16*3,-1,obj_ghoul)
-ghoul3.owner=global.enemy
-with(ghoul3)
-{
- tile=instance_position(x,y,obj_tile)
-tile.occupant_ground=self
-scr_move_to_tile(100007)
-}
-*/
-//scr_instance_create_at_tile_with_owner(obj_ghoul,100007,global.enemy)
-/*ghoul4=instance_create_depth(4*16+12*16*4,4*16+8*16*4,-1,obj_ghoul)
-ghoul4.owner=global.enemy
-with(ghoul4)
-{
- tile=instance_position(x,y,obj_tile)
-tile.occupant_ground=self
-scr_move_to_tile(100006)
-}
-*/
-//scr_instance_create_at_tile_with_owner(obj_ghoul,100006,global.enemy)
-/*
-ghoul5=instance_create_depth(4*16+12*16*4,4*16+8*16*5,-1,obj_ghoul)
-ghoul5.owner=global.enemy
-with(ghoul5)
-{
- tile=instance_position(x,y,obj_tile)
-tile.occupant_ground=self
-scr_move_to_tile(100005)
-}
-*/
-//scr_instance_create_at_tile_with_owner(obj_ghoul,100005,global.enemy)
-
-//sork6=instance_create_depth(4*16+12*16*4,4*16+8*16*6,-1,obj_sorceress)
-//sork6.owner=global.player
-//with(sork6)
-//{
-//tile=instance_position(x,y,obj_tile)
-//tile.occupant_ground=id
-//scr_move_to_tile(100230)
-//}
-
-//scr_instance_create_at_tile_with_owner(obj_ghoul,100103,global.player)
-
-//var footman1=instance_create_depth(4*16+12*16*5,4*16+8*16*5,-1,obj_golden_dragon)
-//footman1.owner=global.player
-//with(footman1)
-//{
-//tile=instance_position(x,y,obj_tile)
-//tile.occupant_ground=id
-//scr_move_to_tile(100092)
-//}
-
-//scr_instance_create_at_tile_with_owner(obj_footman,100104,global.player)
-//scr_instance_create_at_tile_with_owner(obj_ghoul,100222,global.enemy)
-//scr_instance_create_at_tile_with_owner(obj_elven_archer,100022,global.player)
-//barrack1=instance_create_depth(4*16+12*16*6,4*16+8*16*5,-1,obj_human_barrack)
-//barrack1.owner=global.player
-//with(barrack1)
-//{
-//tile=instance_position(x,y,obj_tile)
-//tile.occupant_ground=self
-//scr_move_to_tile(100105)
-//}
 scr_instance_create_at_tile_with_owner(obj_human_barrack, getTile(12, 16), global.player)
 scr_instance_create_at_tile_with_owner(obj_money_tree, getTile(10, 16), global.player)
 with(hungry_hungry_lizard) {

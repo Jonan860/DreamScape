@@ -21,7 +21,9 @@ function scr_death() {
 			global.game.unit_to_kawarimi1 = noone
 			global.game.unit_to_kawarimi2 = noone
 		}
-		scr_make_all_unit_detarget(self.id)
+		with(obj_unit) {
+			unit_detarget(other.id)
+		}
 		with(obj_crypt_fiend_projectile) {
 			if(other.id == owner.id) {
 				instance_destroy()

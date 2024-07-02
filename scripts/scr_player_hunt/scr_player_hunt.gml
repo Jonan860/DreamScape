@@ -11,7 +11,7 @@ function scr_player_hunt() {
 	} else if(action_bar >= movement_cost and distance > range) {
 		destination = target.tile
 		scr_update_path_to_destination()
-		if(path == []) {
+		if(array_equals(path, [])) {
 			phase = UNIT_PHASES.idle
 			action_bar = 0
 			target = noone

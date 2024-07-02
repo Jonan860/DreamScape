@@ -2,7 +2,7 @@ function scr_wave_generate() {
 	if(enemies_wave_timer = 0 and wave_number <= array_length(wave_list)) {
 		var var_wave = wave_list[wave_number - 1]
 		var var_wave_x = wave_x_list_of_lists[wave_number - 1]
-		for(var i = 0; i < array_length(var_wave); i += 1) {
+		for(var i = 0; i < array_length(var_wave); i++) {
 			var var_object = var_wave[i]
 			var var_x = var_wave_x[i]
 			loopTilesStart

@@ -1,6 +1,6 @@
 
 if(owner == global.player) {
-	for(var i = 1; i <= array_length(path) - 1; i += 1) {
+	for(var i = 1; i <= array_length(path) - 1; i++) {
 		var var_tile = path[i]
 		var var_arrow_direction = list_path_arrow_directions[i]
 		var varXscale = sprite_get_width(spr_hexagon_pink) / 3 / sprite_get_width(spr_red_arrow)

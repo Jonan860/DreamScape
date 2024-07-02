@@ -2,7 +2,7 @@
 function scr_find_best_heal_target_from_list(list_of_targets){
 	var target_list_length = array_length(list_of_targets)
 	var list_of_healable_units = []
-	for(var i = 0; i < target_list_length; i += 1) {
+	for(var i = 0; i < target_list_length; i++) {
 		var unit = list_of_targets[i]
 		if(unit.HP < unit.max_HP) {
 			array_push(list_of_healable_units, unit)
@@ -13,7 +13,7 @@ function scr_find_best_heal_target_from_list(list_of_targets){
 		return noone
 	}
 
-	var best_candidate_yet = list_of_healable_units[0]
+	var best_candidate_yet = array_first(list_of_healable_units)
 	with(best_candidate_yet) {
 		var best_goodness = 1 - HP/max_HP
 	}

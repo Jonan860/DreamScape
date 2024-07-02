@@ -2,8 +2,8 @@
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
 function scr_level_up(){
 
-	lvl += 1
-	number_of_ability_points += 1
+	lvl++
+	number_of_ability_points++
 	HP *= HP_level_up_multiplier
 	max_HP *= HP_level_up_multiplier
 	damage *= damage_level_up_multiplier

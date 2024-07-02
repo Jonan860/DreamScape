@@ -109,9 +109,9 @@ load = function() {
 	
 		var _targetArray = []
 		instance_create_layer(0, 0, "tiles", obj_game_board)
-		var s = _array[0]	
+		var s = array_first(_array)
 		loopTilesStart
-			if(s.tile_selected_tile_x == tile_x and s.tile_selected_tile_y == tile_y) {
+			if(variable_struct_exists(s, "tile_selected_tile_x") and s.tile_selected_tile_x == tile_x and s.tile_selected_tile_y == tile_y) {
 				global.tile_selected = self
 			}
 		loopTilesEnd
@@ -173,7 +173,7 @@ load = function() {
 			}
 		loopTilesEnd
 		
-		var s = _array[0]
+		var s = array_first(_array)
 		with(obj_unit) {
 			loadFromIdd(s, "unit_to_kawarimi1")
 			loadFromIdd(s, "unit_to_kawarimi2")
@@ -184,7 +184,7 @@ load = function() {
 
 function buttonPressedIconPerform(buttonStr) {
 	with(global.tile_selected) {
-		with(selected_units[0]) {
+		with(array_first(selected_units)) {
 			with(buttonToSkill[? buttonStr]) {
 				if(global.hud.gui_display_abilities) {
 					if(icon == spr_abilities_button) {

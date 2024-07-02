@@ -35,7 +35,7 @@ build = function(skill) {
 
 function updateRecruitQueue() {
 	build_progress += 1 / room_speed  //game_get_speed(gamespeed_fps)
-	var skill = buttonToSkill[? queue_list[0]]
+	var skill = buttonToSkill[? array_first(queue_list)]
 	if(build_progress >= skill.getDuration()) {
 		build(skill)
 	}

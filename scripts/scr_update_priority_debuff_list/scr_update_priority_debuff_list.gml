@@ -3,7 +3,7 @@ function scr_sort_debuff_list_after_dispellity() {
 	for(var i = 0; i < array_length(list_of_active_debuff_structs); i++) {
 		var debuff = list_of_active_debuff_structs[i]
 		var own_priority_number = debuff.duration / debuff.total_duration * debuff.spellHealth
-		for(var j = 0; j <= array_length(priority_list); j += 1) {
+		for(var j = 0; j <= array_length(priority_list); j++) {
 			if(j == array_length(priority_list)) {
 				array_push(priority_list, debuff)
 				break;

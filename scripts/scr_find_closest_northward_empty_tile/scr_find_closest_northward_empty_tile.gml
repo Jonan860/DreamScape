@@ -5,7 +5,7 @@ function scr_find_closest_northward_empty_tile(var_altitude, var_tile_to_clear) 
 	var var_angle
 	loopTilesStart
 		if(habitable) {
-			var_angle = point_direction(var_tile_to_clear.x, var_tile_to_clear.y, x, y)
+			var_angle = point_direction(var_tile_to_clear._x, var_tile_to_clear._y, _x, _y)
 			if(180 >= var_angle and var_angle >= 0) {
 				var_distance = scr_get_invisibles_distance(var_tile_to_clear, id)
 				if(var_distance < var_best_distance) {

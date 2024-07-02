@@ -573,8 +573,8 @@ function createSpell(spellEnum, _letter) {
 		
 		level_up = function () {
 			global.hud.gui_display_abilities = 0
-			lvl += 1
-			owner.number_of_ability_points -= 1
+			lvl++
+			owner.number_of_ability_points--
 		}
 	}
 	ds_map_add(buttonToSkill, _letter, spell)

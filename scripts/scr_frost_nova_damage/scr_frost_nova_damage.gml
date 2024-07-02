@@ -14,15 +14,15 @@ function scr_frost_nova_damage() {
 
 function frostnovaDamageTile(tile) {
 	with(tile) {
-		var var_ground_list = ds_map_find_value(occupants, ALTITUDES.ground)
-		var var_air_list = ds_map_find_value(occupants, ALTITUDES.air)
-		var var_invisible_list = ds_map_find_value(occupants, ALTITUDES.invisible)
+		var var_ground_list = occupants[? ALTITUDES.ground]
+		var var_air_list = occupants[? ALTITUDES.air]
+		var var_invisible_list = occupants[? ALTITUDES.invisible]
 		var lists = [var_ground_list, var_air_list, var_invisible_list]
 	}
 	for(var i = 0; i < array_length(lists); i++) {
 		var list = lists[i]
-		if(!(list == [])) {
-			for(var i = 0; i < array_length(list); i += 1) {
+		if(!array_equals(list, [])) {
+			for(var i = 0; i < array_length(list); i++) {
 				var	victim = list[i]
 				if(victim.object_index != obj_crystal and !object_is_ancestor(victim.object_index, obj_building)) {
 					if(scr_is_enemies(victim, owner)) {

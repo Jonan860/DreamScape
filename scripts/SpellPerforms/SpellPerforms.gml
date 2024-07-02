@@ -99,11 +99,11 @@ function spellToShouldRightPerformLocal(spellEnum) {
 }
 
 function slowShouldRightPerformLocal() {
-	return global.clicked_tile.grounds_list[0] != undefined and scr_is_enemies(owner, global.clicked_tile.grounds_list[0])
+	return array_first(global.clicked_tile.occupants[? ALTITUDES.ground]) != undefined and scr_is_enemies(owner, array_first(global.clicked_tile.occupants[? ALTITUDES.ground]))
 }
 
 function healShouldRightPerformLocal() {
-	return global.clicked_tile.grounds_list[0] != undefined and !scr_is_enemies(owner, global.clicked_tile.grounds_list[0])
+	return array_first(global.clicked_tile.occupants[? ALTITUDES.ground]) != undefined and !scr_is_enemies(owner, array_first(global.clicked_tile.occupants[? ALTITUDES.ground]))
 }
 
 function carrionBeetleRightPerform(soul_to_raise) {
@@ -199,7 +199,7 @@ function healAnimationEnd() {
 }
 
 function healRightPerform() {
-		var varTarget = global.clicked_tile.grounds_list[0]
+		var varTarget = array_first(global.clicked_tile.occupants[? ALTITUDES.ground])
 		instance_create_depth(varTarget.x, varTarget.y, varTarget.depth - 1, obj_heal_animator, {target : varTarget, owner : other})
 }
 
@@ -230,7 +230,7 @@ function revivePerform() {
 	}
 }
 
-function sleepRightPerform(varTarget = global.clicked_tile.ground_unit[0]) {
+function sleepRightPerform(varTarget = array_first(global.clicked_tile.ground_unit)) {
 	scr_apply_debuff(varTarget)
 	instance_create_depth(varTarget.x, varTarget.y, varTarget.depth - 1, obj_sleep_animator, {owner : other, target : varTarget})
 	with(varTarget) {
@@ -249,7 +249,7 @@ function sleepRightPerform(varTarget = global.clicked_tile.ground_unit[0]) {
 }
 
 function freezeRightPerform(perputrator, victim) {
-	scr_apply_debuff(global.clicked_tile.grounds_list[0])
+	scr_apply_debuff(array_first(global.clicked_tile.occupants[? ALTITUDES.ground]))
 }
 
 
@@ -261,7 +261,7 @@ function freezeRightPerform2() {
 			if(global.ida.freeze.cooldown_current == 0 and scr_get_distance(global.tile_selected, global.clicked_tile) == 1 and global.ida.mana >= mana_cost) {
 				global.ida.mana -= mana_cost
 				global.ida.freeze.cooldown_current = cooldown
-				scr_freeze_unit(global.ida, global.clicked_tile.grounds_list[0])
+				scr_freeze_unit(global.ida, array_first(global.clicked_tile.occupants[? ALTITUDES.ground]))
 			}
 		}
 	}
@@ -312,7 +312,7 @@ function buildImprovedBowsPerform() {
 }
 
 function slowRightPerform() {
-	scr_apply_debuff(global.clicked_tile.grounds_list[0])
+	scr_apply_debuff(array_first(global.clicked_tile.occupants[? ALTITUDES.ground]))
 }
 
 function cloakRightPerform(targeto) {
@@ -322,9 +322,11 @@ function cloakRightPerform(targeto) {
 }
 
 function invisibilityRightPerform(){
-	scr_apply_debuff(global.clicked_tile.grounds_list[0])
-	scr_make_all_unit_detarget(global.clicked_tile.grounds_list[0])
-	with(global.clicked_tile.grounds_list[0]) {
+	scr_apply_debuff(array_first(global.clicked_tile.occupants[? ALTITUDES.ground]))
+	with(obj_unit) {
+		unit_detarget(array_first(global.clicked_tile.occupants[? ALTITUDES.ground]))
+	}
+	with(array_first(global.clicked_tile.occupants[? ALTITUDES.ground])) {
 		setAltitude(ALTITUDES.invisible)
 		phase = UNIT_PHASES.idle
 		action_bar = 0
@@ -340,15 +342,15 @@ function frostNovaRightPerform(var_target_tile) {
 }
 
 function invisibilityShouldRightPerform() {
-	with(global.clicked_tile.grounds_list[0]) {
+	with(array_first(global.clicked_tile.occupants[? ALTITUDES.ground])) {
 		return !scr_is_enemies(id, other.owner.id)
 	}
 	return false
 }
 	
 function curseRightPerform() {
-	scr_apply_debuff(global.clicked_tile.grounds_list[0])
-	global.clicked_tile.grounds_list[0].scr_update_accuracy()
+	scr_apply_debuff(array_first(global.clicked_tile.occupants[? ALTITUDES.ground]))
+	array_first(global.clicked_tile.occupants[? ALTITUDES.ground]).scr_update_accuracy()
 }
 
 function earthshatterRightPerform() {
@@ -362,13 +364,13 @@ function kawarimiRightPerform()	{
 		owner.mana += getManaCost()
 		cooldown_current = 0
 	if(global.game.unit_to_kawarimi1 == noone) {
-		var var_unit_to_kawarimi1 = global.clicked_tile.grounds_list[0]
+		var var_unit_to_kawarimi1 = array_first(global.clicked_tile.occupants[? ALTITUDES.ground])
 		if(object_is_ancestor(var_unit_to_kawarimi1.object_index, obj_unit) and var_unit_to_kawarimi1.owner == global.player) {
 			global.game.unit_to_kawarimi1 = var_unit_to_kawarimi1
 			instance_create_depth(0, 0, var_unit_to_kawarimi1.depth + 1, animator)
 		}
 	} else {	
-	var var_unit_to_kawarimi2 = global.clicked_tile.grounds_list[0]
+	var var_unit_to_kawarimi2 = array_first(global.clicked_tile.occupants[? ALTITUDES.ground])
 	if(object_is_ancestor(var_unit_to_kawarimi2.object_index, obj_unit) and var_unit_to_kawarimi2.owner == global.player) {
 		owner.mana -= getManaCost()
 		cooldown_current = getCooldown()
@@ -382,7 +384,7 @@ function kawarimiRightPerform()	{
 }
 
 function holyLightRightPerform() {
-	var _target = global.clicked_tile.grounds_list[0]
+	var _target = array_first(global.clicked_tile.occupants[? ALTITUDES.ground])
 	with(_target) {
 		HP = min(max_HP, HP + other.getAmount())
 	}

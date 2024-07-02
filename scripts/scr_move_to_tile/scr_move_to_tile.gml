@@ -1,10 +1,7 @@
 function scr_move_to_tile(tile2) {
-	if(tile != noone) {
-		var homeland = tile.occupants[?altitude]
-	}
 	if(scr_occupiable(tile2, altitude)) {
 		if(tile != noone) {
-			homeland = array_filter(homeland, function(value, index) {return value != id})
+			tile.occupants[?altitude] = array_filter(tile.occupants[? altitude], function(value, index) {return value != self.id})
 			//array_remove_value(homeland, id)
 		}
 		if(global.tile_selected == tile) {
@@ -16,7 +13,7 @@ function scr_move_to_tile(tile2) {
 		}
 		tile = tile2
 		//x = tile.x; y = tile.y
-		var var_altitude_list = ds_map_find_value(tile.occupants, altitude)
+		var var_altitude_list = tile.occupants[? altitude]
 		array_push(var_altitude_list, id)
 		with(tile2) {
 			scr_update_selected_list()

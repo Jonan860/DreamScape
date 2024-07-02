@@ -1,6 +1,6 @@
 
 function scr_is_debuffed(debuffEnum) {
-	for(var i = 0; i < array_length(list_of_active_debuff_structs); i += 1) {
+	for(var i = 0; i < array_length(list_of_active_debuff_structs); i++) {
 		if(list_of_active_debuff_structs[i].Enum == debuffEnum) {
 			return true
 		}
