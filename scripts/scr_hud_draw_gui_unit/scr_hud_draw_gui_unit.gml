@@ -48,6 +48,9 @@ function draw_skills_buttons() {
 				var subimg = floor(icon_animation_index)
 				with(global.hud.charToButton[? letter]) {
 					draw_sprite_ext(other.icon, subimg, _x, _y, global.hud.spell_button_width / sprite_get_width(other.icon), global.hud.spell_button_height / sprite_get_height(other.icon), 0, -1, other.lvl > 0 ? 1 : 0.5)
+					if(global.hud.gui_display_abilities) {
+						draw_text_transformed_color(_x, _y, other.lvl, 3, 3, 0, c_black, c_black, c_black, c_black, 1)
+					}
 				}
 				draw_cooldown()
 			}

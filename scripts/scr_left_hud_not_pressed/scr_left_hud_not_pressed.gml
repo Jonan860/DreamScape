@@ -7,7 +7,7 @@ function scr_left_hud_not_pressed() {
 	} else if(!scr_tile_empty(var_clicked_tile)) {
 		scr_select_tile(var_clicked_tile)
 	}
-	if(cursor_sprite != -1 and var_selected != global.ida) {
+	if(cursor_sprite != -1 ) { //and var_selected != global.ida
 		window_set_cursor(cr_default)
 		cursor_sprite = -1
 	}

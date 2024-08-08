@@ -1,5 +1,5 @@
 function scr_movement() {
-	if(tile != noone) {
+	if(tile != noone and phase != UNIT_PHASES.earthshatterJump) {
 		if(abs(x - tile._x) > 8 or abs(y - tile._y) > 8) {
 			x += sign(tile._x - x) * 8; y += sign(tile._y - y) * 8
 		} else {

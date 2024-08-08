@@ -7,6 +7,7 @@ save = function() {
 	s.x = x
 	s.y = y
 	s.owner = owner
+	return s
 }
 
 load = function(s) {

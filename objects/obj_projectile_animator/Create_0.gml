@@ -1,9 +1,8 @@
-owner = noone
-target_tile = noone
-
 save = function() {
 	var s = {}
-	s.owner = owner.id
+	if(variable_instance_exists(id, "owner")) {
+		s.owner = owner.id
+	}
 	s.target_tileX = target_tile.tile_x
 	s.target_tileY = target_tile.tile_y
 	s.x = x; s.y = y

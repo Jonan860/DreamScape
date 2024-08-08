@@ -145,6 +145,10 @@ save = function() {
 	if(variable_instance_exists(id, "is_building")) {
 		s.is_building = is_building
 	}
+	if(variable_instance_exists(id, "number_of_ability_points")) {
+		s.number_of_ability_points = number_of_ability_points
+	}
+	
 	s.action_bar = action_bar
 	return s
 }
@@ -216,6 +220,9 @@ load = function(s) {
 	if(variable_instance_exists(id, "summon_time_left")) {
 		summon_time_left = s.summon_time_left
 	}
+	if(variable_instance_exists(id, "number_of_ability_points")) {
+		number_of_ability_points = s.number_of_ability_points
+	}
 	if(variable_instance_exists(id, "experience")) {
 		experience = s.experience
 		lvl = s.lvl
@@ -226,14 +233,6 @@ load = function(s) {
 	if(variable_instance_exists(id, "list_of_territory_tiles")) {
 		list_of_territory_tiles = s.list_of_territory_tiles
 	}
-	if(variable_instance_exists(id, "build_progress")) {
-		build_progress = s.build_progress
-	}
-	if(variable_instance_exists(id, "queue_list")) {
-		queue_list = s.queue_list
-	}
-	if(variable_instance_exists(id, "is_building")) {
-		is_building = s.is_building
-	}
+	
 	action_bar = s.action_bar
 }

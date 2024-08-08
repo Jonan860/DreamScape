@@ -1,5 +1,7 @@
 event_inherited()
-alarm[0] = owner.duration * game_get_speed(gamespeed_fps)
+if(variable_instance_exists(id, "owner")) {
+	alarm[0] = owner.duration * game_get_speed(gamespeed_fps)
+}
 image_alpha = 0.7
 
 save = function() {

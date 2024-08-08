@@ -27,13 +27,16 @@ function frostnovaDamageTile(tile) {
 				if(victim.object_index != obj_crystal and !object_is_ancestor(victim.object_index, obj_building)) {
 					if(scr_is_enemies(victim, owner)) {
 						var damage_store = owner.damage
+						var accuracy_store = owner.accuracy
 						owner.damage = getAmount()
-						with(owner) {
+						owner.accuracy = accuracy
+						with(owner) {							
 							scr_convert_damage_to_accuracy_included_damage(victim)
 						}
 					}
-					attackEffectWrapper(owner, victim)
+					attackEffectWrapper(owner, victim, true)
 					owner.damage = damage_store
+					owner.accuracy = accuracy_store
 				}
 			}
 		}

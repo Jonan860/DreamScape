@@ -85,6 +85,11 @@ save = function() {
 		_save.object_ind = object_index
 		array_push(_array, _save)
 	}
+	with(obj_building) {
+		var _save = save()
+		_save.object_ind = object_index
+		array_push(_array, _save)
+	}
 	with(obj_animator) {
 		var _save = save()
 		_save.object_ind = object_index
@@ -138,14 +143,14 @@ load = function() {
 				}
 			}
 		}
-	
+		with(obj_building) {
+		
+		}
 		with(obj_unit) {
 			for(var i = 0; i < array_length(list_of_active_debuff_structs); i++) {
 				with(list_of_active_debuff_structs[i]) {
 					victim = other.id
-					with(obj_unit) {
-						loadFromIdd(s, "owner")
-					}
+					unapply = spellToUnapply(Enum)
 				}
 			}
 			with(obj_unit) {
@@ -157,13 +162,23 @@ load = function() {
 			with(obj_player) {
 				loadFromIdd(other.saveData, "owner")
 			}
+			if(owner = global.player and object_is_ancestor(object_index, obj_hero)) {
+				abilities = createSpell(SPELLS.abilities, "d")
+				abilities.lvl = 1;
+			}
+		}
+		with(obj_building) {
+			
 		}
 		with(obj_animator) {
 			if(variable_instance_exists(id, "target")) {
 				with(obj_unit) {
-					if(idd == other.target) {
-						other.target = id
-					}
+					loadFromIdd(s, "target")
+				}
+			}
+			if(variable_instance_exists(id, "owner")) {
+				with(obj_unit) {
+					loadFromIdd(s, "owner")
 				}
 			}
 		}
@@ -185,22 +200,21 @@ load = function() {
 function buttonPressedIconPerform(buttonStr) {
 	with(global.tile_selected) {
 		with(array_first(selected_units)) {
-			with(buttonToSkill[? buttonStr]) {
-				if(global.hud.gui_display_abilities) {
-					if(icon == spr_abilities_button) {
-						iconPerform()
-					} else if(lvl < 3 
-								and (buttonStr != "r" or owner.lvl >= 6 and lvl < 2) 
-								and owner.number_of_ability_points > 0) {
-						level_up()
-					} 
-				} else {
-					if(lvl > 0) {
-						iconPerform()
-						exit
+			if(owner == global.player) {
+				with(ds_map_find_value(buttonToSkill, buttonStr)) {
+					if(!global.hud.gui_display_abilities or Enum == SPELLS.abilities) {
+						if(lvl > 0 or object_is_ancestor(other.object_index, obj_building)) {
+							iconPerform()
+							exit
+						}
+					} else {
+						if(other.number_of_ability_points > 0 and (buttonStr == "r" and lvl < 1 and owner.lvl >= 6 or buttonStr != "r" and lvl < 3)) {
+							global.hud.gui_display_abilities = 0
+							level_up()
+						}
 					}
 				}
-			}	
+			}
 		}
 	}
 }

@@ -8,16 +8,20 @@ build = function(skill) {
 	} else {
 		var most_north_tile = scr_get_most_north_occupiable_neighbour()
 		if(most_north_tile != noone) {
+			var varbreak = 0
 			loopTilesStart
-				if(scr_tile_empty(id) and habitable) {
-					var var_unit = scr_instance_create_at_tile_with_owner(skill.animator, id, global.player)
+				if(varbreak) {
+					break
+				}
+				if(scr_tile_empty(self) and habitable) {
+					var var_unit = scr_instance_create_at_tile_with_owner(skill.animator, self, global.player)
 					scr_apply_upgrades_on_new_unit(var_unit)
 					scr_make_room_for_instance_on_tile(most_north_tile, var_unit.altitude)
 					with(var_unit) {
 						scr_move_to_tile(most_north_tile)
 						x = tile._x; y = tile._y
 					}
-					break
+					varbreak = 1
 				}
 			loopTilesEnd
 		}

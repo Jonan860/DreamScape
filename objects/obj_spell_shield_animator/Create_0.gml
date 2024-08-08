@@ -1,6 +1,8 @@
 event_inherited()
-alarm[0] = owner.duration * game_get_speed(gamespeed_fps)
-HP = owner.getAmount() 
+if(variable_instance_exists(id, "owner")) {
+	alarm[0] = owner.duration * game_get_speed(gamespeed_fps)
+	HP = owner.getAmount() 
+}
 save = function() {
 	var s = {}
 	s.x = x; s.y = y

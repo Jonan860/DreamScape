@@ -5,7 +5,7 @@ function scr_swap_tile(unit1, unit2) {
 	loopTilesStart
 		if(scr_occupiable(self, ALTITUDES.ground) and scr_occupiable(self, ALTITUDES.air) and scr_occupiable(self, ALTITUDES.invisible)) {
 			var tile_to_use = self
-			return true
+			break;
 		}
 	loopTilesEnd
 

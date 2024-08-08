@@ -90,13 +90,23 @@ function spellToShouldRightPerformLocal(spellEnum) {
 	switch(spellEnum) {
 		case SPELLS.invisibility : return method(undefined, invisibilityShouldRightPerform)
 		case SPELLS.holy_light : return method(undefined, holyLightShouldRightShouldPerform)
-		case SPELLS.ninjago : return method(undefined, ninjagoIconShouldPerform)
+		
 		case SPELLS.spell_shield : return method(undefined, spellShieldShouldPerform)
 		case SPELLS.heal : return method(undefined, healShouldRightPerformLocal)
 		case SPELLS.slow : return method(undefined, slowShouldRightPerformLocal)
+		case SPELLS.freeze : return method(undefined, slowShouldRightPerformLocal)
+		case SPELLS.kawarimi_no_jutsu : return method(undefined, healShouldRightPerformLocal)
 		default : return function() {return true}
 	}
 }
+
+function spellToShouldIconPerformLocal(_Enum) {
+	switch(_Enum) {
+		case SPELLS.ninjago : return method(undefined, ninjagoIconShouldPerform)	
+		default : return function() {return true}
+	}
+}
+
 
 function slowShouldRightPerformLocal() {
 	return array_first(global.clicked_tile.occupants[? ALTITUDES.ground]) != undefined and scr_is_enemies(owner, array_first(global.clicked_tile.occupants[? ALTITUDES.ground]))
@@ -354,10 +364,12 @@ function curseRightPerform() {
 }
 
 function earthshatterRightPerform() {
+	show_debug_message("start earthshatrightperform")
 	owner.mana -= getManaCost()
 	cooldown_current = getCooldown()
 	owner.phase = UNIT_PHASES.earthshatter
-	instance_create_depth(owner.x, owner.y, global.clicked_tile.depth - 1, animator, {target : global.clicked_tile, owner : other})
+	instance_create_depth(owner.x, owner.y, 500 - 1, animator, {target : global.clicked_tile, owner : global.ida.earthshatter})
+	show_debug_message("earthshater has run instance_create_depth")
 }
 
 function kawarimiRightPerform()	{
@@ -367,7 +379,7 @@ function kawarimiRightPerform()	{
 		var var_unit_to_kawarimi1 = array_first(global.clicked_tile.occupants[? ALTITUDES.ground])
 		if(object_is_ancestor(var_unit_to_kawarimi1.object_index, obj_unit) and var_unit_to_kawarimi1.owner == global.player) {
 			global.game.unit_to_kawarimi1 = var_unit_to_kawarimi1
-			instance_create_depth(0, 0, var_unit_to_kawarimi1.depth + 1, animator)
+			instance_create_depth(0, 0, var_unit_to_kawarimi1.depth + 1, animator, {owner : other})
 		}
 	} else {	
 	var var_unit_to_kawarimi2 = array_first(global.clicked_tile.occupants[? ALTITUDES.ground])
@@ -378,7 +390,6 @@ function kawarimiRightPerform()	{
 		if(global.game.unit_to_kawarimi1 != global.game.unit_to_kawarimi2) {
 			scr_swap_tile(global.game.unit_to_kawarimi1, global.game.unit_to_kawarimi2)
 		}
-		global.game.unit_to_kawarimi1 = noone; global.game.unit_to_kawarimi2 = noone
 		}
 	}
 }

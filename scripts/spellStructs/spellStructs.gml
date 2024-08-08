@@ -52,7 +52,7 @@ function spellToAmount(spell) {
 		case SPELLS.frost_nova : return [30, 45, 60]
 		case SPELLS.earthshatter : 
 			var mapp = ds_map_create()
-			ds_map_add(mapp, "damage", [60, 30, 15])
+			ds_map_add(mapp, "damage", [120, 60, 30]) //acc = 0.3
 			ds_map_add(mapp, "stun", [10, 5, 2])
 			return mapp  // per distance
 		case SPELLS.locust_swarm : return 1
@@ -136,6 +136,15 @@ function spellToManaCosts(spell) {
 		default : return noone
 	}
 }
+function spellToAccuracy(spellEnum) {
+	switch(spellEnum) {
+		case SPELLS.earthshatter : return 0.3
+		case SPELLS.frost_nova  : return 1
+		case SPELLS.impale : return 1
+		case SPELLS.katon_gokakyu_no_jutsu : return 0.6
+		default : return 1
+	}
+}
 
 function spellToCursor(spellenum) {
 	switch(spellenum) {
@@ -161,7 +170,7 @@ function spellToAbilitiesInfo(spell) {
  + "\n Mana cost: " + string(mana_cost[0]) + ", " + string(mana_cost[1])+ ", " + string(mana_cost[2])
 
 	case SPELLS.impale : return 
-	case SPELLS.kawarimi_no_jutsu : return "Swaps the position of two targeted friendly units.\n" + "level: 1, 2, 3" + "getCooldown(): " + string(cooldown[0]) + ", " + string(cooldown[1]) + ", " + string(cooldown[2])
+	case SPELLS.kawarimi_no_jutsu : return "Swaps the position of two targeted friendly units.\n" + "level: 1, 2, 3" + "Cooldown : " + string(cooldown[0]) + ", " + string(cooldown[1]) + ", " + string(cooldown[2])
 
 	case SPELLS.holy_light : return "A holy light that can heal a friendly living unit."
  + "\n level: 1, 2, 3 Mana Cost: " + string(mana_cost[0]) + ", " + string(mana_cost[1]) + ", " + string(mana_cost[2])
@@ -169,13 +178,13 @@ function spellToAbilitiesInfo(spell) {
 	case SPELLS.spiked_carapace : return ""
 	case SPELLS.spell_shield : return "Projects a magical barrier, reducing incoming damage on the hero and surrounding units for a short period."
 		 + "\n level: 1, 2, 3"
-		 + "\n getCooldown(): " + string(getCooldown())
+		 + "\n Cooldown: " + string(getCooldown())
 		 + "\n Damage reduction: " + string(floor(100 * amount[0])) + string(floor(100 * amount[1])) + string(floor(100 * amount[2]))
 		 + "\n Mana Cost: " + string(mana_cost[0]) + ", " + string(mana_cost[1]) + ", " + string(mana_cost[2])
 		 + "\n Duration: " + string(duration)
 	case SPELLS.earthshatter : return "Earthshatter: A punch that shatters the ground in a wide area, stunning and damaging nearby ground units.\n"
 	 + "Mana: " + string(mana_cost) + "\n"
-	 + "getCooldown(): " + string(getCooldown()) + "\n"
+	 + "Cooldown: " + string(getCooldown()) + "\n"
 	 + "Damage: " + string(amount[?"damage"][0]) + ", " + string(amount[?"damage"][1]) + ", " + string(amount[?"damage"][2]) +"\n"
 	 + "Stun duration: " + string(amount[?"stun"][0]) + ", " + string(amount[?"stun"][1]) + ", " + string(amount[?"damage"][2])
 
@@ -183,13 +192,13 @@ function spellToAbilitiesInfo(spell) {
 	case SPELLS.freeze : return ""
 	case SPELLS.locust_swarm : return ""
 	case SPELLS.ninjago : return "The hero creats a tornado-like vortex of energy around himself hurting surrounding enemies"
-		+ "\n getCooldown(): " + string(getCooldown())
+		+ "\n Cooldown: " + string(getCooldown())
 		+ "\n Mana Cost: " + string(mana_cost[1]) + ", " + string(mana_cost[1]) + ", " + string(mana_cost[2])
 		+ "\n Duration: " + string(duration)
 		+ "\n Damage: " + "Damage x " + string(amount[0]) + ", " + string(amount[1]) + ", " + string(amount[2])
 
 	case SPELLS.golden_dragon : return "Summons a powerful golden dragon"
-		+ "\n getCooldown(): " + string(getCooldown())
+		+ "\n Cooldown: " + string(getCooldown())
 		+ "\n Mana Cost: " + string(mana_cost)
 		+ "\n Duration: " + string(duration)
 	case SPELLS.carrion_swarm : return ""
@@ -201,7 +210,7 @@ function spellToAbilitiesInfo(spell) {
 	case SPELLS.defend : return ""
 	case SPELLS.slow : return ""
 	case SPELLS.heal : return "Heals a target friendly non-mechanical wounded unit for " + string(amount) + " hit points"
-		 + "\n" + "getCooldown(): " + string(getCooldown())
+		 + "\n" + "Cooldown : " + string(getCooldown())
 		 + "\n" + "Mana cost " + string(mana_cost)
 		 + "\n" + "Range: " + string(range)
 	default : return ""
@@ -344,57 +353,57 @@ function spellToName(spell) {
 function spellToInfo(spell) {
 	switch(spell) {
 		case SPELLS.impale : return "impale"
-		case SPELLS.frost_nova : return "Causes ice damage on enemy units within an area\n getCooldown() : " + string(getCooldown())
+		case SPELLS.frost_nova : return "Causes ice damage on enemy units within an area\n Cooldown : " + string(getCooldown())
 		 + "\n Mana cost: " + string(mana_cost)
-		case SPELLS.carrion_beetles : return "The Crypt Lord progenerates 1 Carrion Beetle from a target soul to attack the Crypt Lord's enemies. \n Beetles are permanent but only 5 can be controlled at a time." + " getCooldown(): " + string(getCooldown()) + "\n Mana cost: " + string(mana_cost)
-		case SPELLS.dark_ritual : return "Sacrifices an allied unit for mana\n Coolworn : " + string(getCooldown())
+		case SPELLS.carrion_beetles : return "The Crypt Lord progenerates 1 Carrion Beetle from a target soul to attack the Crypt Lord's enemies. \n Beetles are permanent but only 5 can be controlled at a time." + " Cooldown : " + string(getCooldown()) + "\n Mana cost: " + string(mana_cost)
+		case SPELLS.dark_ritual : return "Sacrifices an allied unit for mana\n Cooldown : " + string(getCooldown())
 			 + "\n Mana cost: " + string(mana_cost)
 		case SPELLS.earthshatter : return "Earthshatter: A punch that shatters the ground in a wide area, stunning and damaging nearby ground units.\n"
 			 + "Mana: " + string(mana_cost) + "\n"
-			 + "getCooldown(): " + string(getCooldown()) + "\n"
+			 + "Cooldown: " + string(getCooldown()) + "\n"
 			 +"Damage: " + string(amount[?"damage"][0]) + ", " + string(amount[?"damage"][1]) + ", " + string(amount[?"damage"][2]) + "\n"
 			 + "Stun duration: " + string(amount[?"stun"][0]) + ", " + string(amount[?"stun"][1]) + ", " + string(amount[?"stun"][2])
 		case SPELLS.freeze : return "Freezes the target unit making it invulnarable and unable to attack.\n cooldown: " + string(getCooldown())
 			 + "\n Mana cost: " + string(mana_cost) + " Duration: " + string(duration) + " Range: " + string(1)
-		case SPELLS.frost_armor : return "Improves and applies frost element to armor of unit" + string(getCooldown())
+		case SPELLS.frost_armor : return "Improves and applies frost element to armor of unit" + "\n Cooldown " + string(getCooldown())
 	 + "\n Mana cost: " + string(mana_cost)
 		case SPELLS.golden_dragon : return "summons a powerful golden dragon"
-			 + "\n cooldown(): " + string(getCooldown())
+			 + "\n Cooldown(): " + string(getCooldown())
 			 + "\n Mana Cost: " + string(mana_cost)
 			 + "\n Duration: " + string(duration)
 		case SPELLS.kawarimi_no_jutsu :
 			return "Swaps the position of two targeted friendly units.\n" + "Mana_cost: " + string(mana_cost) + "\n"
-			+ "getCooldown(): " + string(getCooldown())
-		case SPELLS.sleep : return "Makes target enemy fall asleep, getCooldown(): "+string(getCooldown())
+			+ "Cooldown: " + string(getCooldown())
+		case SPELLS.sleep : return "Makes target enemy fall asleep, Cooldown: "+string(getCooldown())
 			+ "\n Mana cost: " + string(mana_cost)
-		case SPELLS.carrion_swarm : return "Freezes the target unit making it invulnarable and unable to attack.\n getCooldown(): "+string(getCooldown())
+		case SPELLS.carrion_swarm : return "Freezes the target unit making it invulnarable and unable to attack.\n Cooldown: "+string(getCooldown())
 			+ "\n Mana cost: " + string(mana_cost)
 		case SPELLS.ninjago : return "The hero creats a tornado-like vortex of energy around himself hurting surrounding enemies"
-			+ "\n getCooldown(): " + string(getCooldown())
+			+ "\n Cooldown: " + string(getCooldown())
 			+ "\n Mana Cost: " + string(mana_cost)
 			+ "\n Duration: " + string(duration)
 			+ "\n Damage: " + "Damage x " + string(amount)
 		case SPELLS.holy_light : return "A holy light that can heal a friendly living unit."
-			+ "\n getCooldown(): " + string(getCooldown())
+			+ "\n Cooldown: " + string(getCooldown())
 			+ "\n Mana Cost: " + string(mana_cost)
 			+ "\n Heal Amount: " + string(amount)
 		case SPELLS.spell_shield : return "Projects a magical barrier, reducing incoming damage on the hero and surrounding units for a short period."
-			+ "\n getCooldown(): " + string(getCooldown())
+			+ "\n Cooldown: " + string(getCooldown())
 			+ "\n Damage reduction: " + string(floor(100 * amount[max(lvl - 1, 0)])) + " %"
 			+ "\n Mana Cost: " + string(mana_cost)
 			 + "\n Duration: " + string(duration)
-		case SPELLS.spiked_carapace : return "The Crypt Lord forms barbed layers of chitinous armor \n that increases its defense and returns damage to enemy melee attackers., getCooldown(): " + string(getCooldown())
+		case SPELLS.spiked_carapace : return "The Crypt Lord forms barbed layers of chitinous armor \n that increases its defense and returns damage to enemy melee attackers., Cooldown: " + string(getCooldown())
 			 + "\n Mana cost: " + string(mana_cost[0])
-		case SPELLS.locust_swarm : return "Creates a swarm of angry locusts that bite and tear at nearby enemy units. \n As they chew the enemy flesh, they convert it into a substance that restores hit points to the Crypt Lord when they return. " + "getCooldown(): " + string(getCooldown()) + "\n Mana cost: " + string(mana_cost[0])
+		case SPELLS.locust_swarm : return "Creates a swarm of angry locusts that bite and tear at nearby enemy units. \n As they chew the enemy flesh, they convert it into a substance that restores hit points to the Crypt Lord when they return. " + "Cooldown: " + string(getCooldown()) + "\n Mana cost: " + string(mana_cost[0])
 		case SPELLS.vampiric_aura : return "All friendly melee units gain " + "45" + "percentage of damage caused, back as hit points when they hit a unit."  
 		case SPELLS.heal : return "Heals a target friendly non-mechanical wounded unit for " + string(amount) + " hit points"
-			+ "\n" + "getCooldown(): " + string(getCooldown())
+			+ "\n" + "Cooldown : " + string(getCooldown())
 			+ "\n" + "Mana cost " + string(mana_cost)
 			+ "\n" + "Range: " + string(range)
 		case SPELLS.slow : return "Slows targets movement and attack speed by " + string(1/3 * 100) + "." + "%" + "\n Duration:" 
 			+ string(60) + " seconds." + " Range:" + string(4) 
 			+ "Mana cost: " + string(25)
-		case SPELLS.katon_gokakyu_no_jutsu : return "Hurls an fireball towards the north,\n damaging everything in its path\n getCooldown(): " + string(getCooldown())
+		case SPELLS.katon_gokakyu_no_jutsu : return "Hurls an fireball towards the north,\n damaging everything in its path\n Cooldown: " + string(getCooldown())
 			+ "\n Mana cost: " + string(mana_cost) + "\n Damage: " + string(amount[max(lvl - 1, 0)])
 		case SPELLS.revive : return "Resurrects a Hero Soul on the same tile after 60 sec"
 		case SPELLS.buildFootman : return "Footman" + " Cost: " + string(ds_map_find_value(global.map_object_to_costs, obj_footman))
@@ -489,6 +498,7 @@ function createSpellSub(spellEnum) constructor {
 	amount = spellToAmount(spellEnum)
 	spellHealth = spellToSpellHealth(spellEnum)
 	range = spellToRange(spellEnum)
+	accuracy = spellToAccuracy(spellEnum)
 	duration = spellToDuration(spellEnum)
 	activated = 0
 	selected = 0
@@ -507,6 +517,12 @@ function createSpellSub(spellEnum) constructor {
 	}
 	shouldRightPerform = function() {
 		return owner.mana >= getManaCost() and cooldown_current <= 0 and shouldRightPerformLocal()
+	}
+	shouldIconPerform = function() {
+		if(object_is_ancestor(owner.object_index, obj_unit)) {
+			return owner.mana >= getManaCost() and cooldown_current <= 0 and shouldIconPerformLocal()
+		}
+		return true
 	}
 }
 
@@ -530,6 +546,7 @@ function createSpell(spellEnum, _letter) {
 		abilitiesInfo = spellToAbilitiesInfo(spellEnum)
 		shouldPerformLocal = spellToShouldPerform(spellEnum)
 		shouldRightPerformLocal = spellToShouldRightPerformLocal(spellEnum)
+		shouldIconPerformLocal = spellToShouldIconPerformLocal(spellEnum)
 		rightPerform = spellToRightPerform(spellEnum)
 		perform = spellToPerform(spellEnum)
 		iconPerform = spellToIconPerform(spellEnum)
@@ -572,7 +589,6 @@ function createSpell(spellEnum, _letter) {
 		}
 		
 		level_up = function () {
-			global.hud.gui_display_abilities = 0
 			lvl++
 			owner.number_of_ability_points--
 		}

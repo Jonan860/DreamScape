@@ -41,7 +41,7 @@ function scr_death() {
 			}
 		}
 		with(obj_ninjago_animator) {
-			if(creator == other.id) {
+			if(owner.owner == other.id) {
 				instance_destroy()
 			}
 		}
@@ -56,9 +56,8 @@ function scr_death() {
 				tile = other.tile
 				x = other.x; y = other.y
 				//array_remove_value(altitude_list, other.id)
-				_altitude_list = array_filter(_altitude_list, function(value, index) {return value != self.id})
-				var altitude_list2 = other.tile.occupants[? altitude]
-				array_push(altitude_list2, id)
+				_altitude_list = array_filter(_altitude_list, function(value, index) {return value != other.id})
+				array_push(_altitude_list, id)
 			}
 		}	
 		if(global.tile_selected != noone) {

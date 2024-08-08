@@ -35,7 +35,7 @@ switch(phase) {
 					food_amount = max_food_amount
 					phase = UNIT_PHASES.returning
 				}
-				time_until_next_feed_sec=max_time_until_next_feed_sec
+				time_until_next_feed_sec = max_time_until_next_feed_sec
 			}
 			break;
 	

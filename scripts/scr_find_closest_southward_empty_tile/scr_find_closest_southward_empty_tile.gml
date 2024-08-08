@@ -6,7 +6,7 @@ function scr_find_closest_southward_empty_tile(var_altitude, var_tile_to_clear) 
 	var var_angle
 	loopTilesStart
 		if(habitable) {
-			var_angle = point_direction(var_tile_to_clear._x, var_tile_to_clear._y, x, y)
+			var_angle = point_direction(var_tile_to_clear._x, var_tile_to_clear._y, _x, _y)
 			if(180 <= var_angle and var_angle <= 360) {
 				var_distance = scr_get_invisibles_distance(var_tile_to_clear, self)
 				if(var_distance < var_best_distance) {
@@ -27,7 +27,7 @@ function scr_find_closest_southward_empty_tile(var_altitude, var_tile_to_clear) 
 	}
 	for(var i = 1; i <= array_length(var_optimum_path) - 1; i++) {
 		var var_tile_on_optimum_path = var_optimum_path[i]
-		var_angle = point_direction(var_tile_to_clear.x, var_tile_to_clear.y, var_tile_on_optimum_path.x, var_tile_on_optimum_path.y)
+		var_angle = point_direction(var_tile_to_clear._x, var_tile_to_clear._y, var_tile_on_optimum_path._x, var_tile_on_optimum_path._y)
 		if(180 > var_angle and var_angle > 0) {
 			return noone
 		}

@@ -13,3 +13,4 @@ if(global.tile_selected != noone) {
 		}
 	}
 }
+

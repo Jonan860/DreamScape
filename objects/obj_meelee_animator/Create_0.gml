@@ -7,11 +7,12 @@ save = function() {
 	}
 	s.alarm = alarm[0]
 	s.object_index = object_index
+	return s
 }
 
 load = function(s) {
 	x = s.x; y = s.y
-	image_alpha = s.image_alpha
+	image_angle = s.image_angle
 	if(variable_instance_exists(id, "owner")) {
 		with(obj_unit) {
 			loadFromIdd(s, "owner")
