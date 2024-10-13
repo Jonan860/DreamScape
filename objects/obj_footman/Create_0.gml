@@ -18,9 +18,7 @@ altitude = ALTITUDES.ground
 experience_to_give = 100
 is_defending = 0
 defend = createSpell(SPELLS.defend, "q")
-if(owner.footman_has_defend_upgrade) {
-	defend.lvl = 1
-}
+
 skills = [defend]
 attack_target = method(undefined, scr_attack_target_footman)
 

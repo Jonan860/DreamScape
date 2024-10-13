@@ -11,6 +11,7 @@ save = function() {
 	var s = {}
 	s.x = x; s.y = y
 	s.alarm = alarm[0]
+	s.depth = depth
 	s.owner = owner.owner.id
 	s.total_damage_done = total_damage_done
 	s.max_damage = max_damage
@@ -20,6 +21,7 @@ save = function() {
 load = function(s) {
 	x = s.x; y = s.y
 	alarm[0] = s.alarm
+	depth = s.depth
 	with(obj_unit) {
 		loadFromIdd(s, "owner", "ninjago")
 	}

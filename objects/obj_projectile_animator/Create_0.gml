@@ -1,7 +1,7 @@
 save = function() {
 	var s = {}
 	if(variable_instance_exists(id, "owner")) {
-		s.owner = owner.id
+		s.owner = owner
 	}
 	s.target_tileX = target_tile.tile_x
 	s.target_tileY = target_tile.tile_y
@@ -14,6 +14,7 @@ save = function() {
 }
 
 load = function(s) {
+	owner = noone
 	with(obj_unit) {
 		loadFromIdd(s, "owner")
 	}

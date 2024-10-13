@@ -2,13 +2,13 @@ if(lifeTimeSec < total_time_sec - total_time_after_effect_end_sec) {
 	var varXscale = (1 + 1 * (2 * total_time_sec - total_time_after_effect_end_sec) / total_time_sec) * sprite_get_width(spr_hexagon_pink) / sprite_get_width(spr_frost_nova_bomb)
 	var varYscale = (1 + 1 * (2 * total_time_sec - lifeTimeSec) / total_time_sec) * sprite_get_height(spr_hexagon_pink) / sprite_get_height(spr_frost_nova_bomb)
 	var varRotation = lifeTimeSec * 360 % 360
-	draw_sprite_ext(spr_frost_nova_bomb, 0, target.x, target.y, varXscale , varYscale , varRotation , c_white, 0.8)
+	draw_sprite_ext(spr_frost_nova_bomb, 0, target._x, target._y, varXscale , varYscale , varRotation , c_white, 0.8)
 } else {
 	with(target) {
 		var varSubimg = ceil((other.total_time_after_effect_end_sec - (other.total_time_sec - other.lifeTimeSec)) * 45)
 		var varXscale2 = sprite_get_width(spr_hexagon_pink) / sprite_get_width(spr_frost_nova_ice_spikes)
 		var varYscale2 = sprite_get_height(spr_hexagon_pink) / sprite_get_height(spr_frost_nova_ice_spikes)
-		draw_sprite_ext(spr_frost_nova_ice_spikes, varSubimg , x, y, varXscale2, varYscale2, 0, c_white, 0.8)
+		draw_sprite_ext(spr_frost_nova_ice_spikes, varSubimg , _x, _y, varXscale2, varYscale2, 0, c_white, 0.8)
 		for(var i = 0; i <= array_length(list_of_neighbours) - 1; i++)	{
 			var var_tile = list_of_neighbours[i]
 			if(var_tile != noone) {

@@ -6,7 +6,6 @@ save = function() {
 }
 
 load = function(s) {
-	x = s.x; y = s.y
 	with(obj_unit) {
 		loadFromIdd(s, "owner", "vampiric_aura")
 	}

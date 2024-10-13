@@ -1,0 +1,9 @@
+something fishy with dispelupgrade
+something is fishy with save load builded building
+attack rate is displayed as 0
+wavenumber overflow at end of game
+necro raise icon grayed out
+idea: make player unit move only if enemy range advantage
+spell shield damage reduction written as 20000 %
+should gray out upgraded upgrade at buildings
+updrades can be qued with negative money

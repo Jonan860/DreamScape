@@ -6,7 +6,7 @@ owner = noone
 save = function() {
 	var s = {}
 	s.x = x; s.y = y
-	s.owner = owner
+	s.owner = owner.owner.id
 	s.direction = direction
 	s.speed = speed
 	s.nisses_lista = nisses_lista

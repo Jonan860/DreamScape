@@ -51,7 +51,7 @@ function scr_find_frost_nova_target_within_range() {
 					}
 				}
 				if(var_goodness_of_frost_nova > optimal_goodness) {
-					var_optimal_tile_target = id
+					var_optimal_tile_target = self
 					optimal_goodness = var_goodness_of_frost_nova
 				}
 			}

@@ -11,8 +11,9 @@ if(scr_is_enemies(owner.owner, other.id)) {
 			owner.damage = getAmount()
 			owner.accuracy = accuracy
 		}
+		var var_target = other
 		with(owner.owner) {
-			scr_convert_damage_to_accuracy_included_damage(other.id)
+			scr_convert_damage_to_accuracy_included_damage(var_target)
 		}
 		attackEffectWrapper(owner.owner, other.id, true)
 		array_push(nisses_lista, other.id)

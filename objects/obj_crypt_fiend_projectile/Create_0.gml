@@ -21,5 +21,6 @@ load = function(s) {
 	speed = s.speed
 	with(obj_unit) {
 		loadFromIdd(s, "owner")
+		loadFromIdd(s, "target")
 	}
 }

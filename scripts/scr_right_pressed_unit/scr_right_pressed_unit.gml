@@ -28,4 +28,4 @@ function scr_right_pressed_unit(var_selected_unit) {
 			}
 		}	
 	}
-	}
+}

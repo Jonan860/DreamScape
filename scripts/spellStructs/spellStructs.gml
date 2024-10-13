@@ -13,6 +13,8 @@ function spellToAnimator(spell) {
 		case SPELLS.buildBarracks : return obj_human_barrack
 		case SPELLS.dispel : return obj_dispel_animator
 		case SPELLS.revive : return obj_revive_animator
+		case SPELLS.buildInvisibility : return obj_sorceress_invisibility_upgrade
+		case SPELLS.buildDispel : return obj_priest_dispel_upgrade
 	}
 }
 
@@ -49,7 +51,7 @@ function spellToAmount(spell) {
 		case SPELLS.katon_gokakyu_no_jutsu : return [20, 30, 45]
 		case SPELLS.impale : return 1000
 		case SPELLS.spiked_carapace :  [[15/100, 25/100, 35/100], [18/100, 30/100, 42/100]]
-		case SPELLS.frost_nova : return [30, 45, 60]
+		case SPELLS.frost_nova : return [60, 90, 120]
 		case SPELLS.earthshatter : 
 			var mapp = ds_map_create()
 			ds_map_add(mapp, "damage", [120, 60, 30]) //acc = 0.3
@@ -139,7 +141,7 @@ function spellToManaCosts(spell) {
 function spellToAccuracy(spellEnum) {
 	switch(spellEnum) {
 		case SPELLS.earthshatter : return 0.3
-		case SPELLS.frost_nova  : return 1
+		case SPELLS.frost_nova  : return 3
 		case SPELLS.impale : return 1
 		case SPELLS.katon_gokakyu_no_jutsu : return 0.6
 		default : return 1
@@ -523,6 +525,9 @@ function createSpellSub(spellEnum) constructor {
 			return owner.mana >= getManaCost() and cooldown_current <= 0 and shouldIconPerformLocal()
 		}
 		return true
+	}
+	canRecruit = function() {
+		return global.player.money >= global.map_object_to_costs[? animator] 
 	}
 }
 

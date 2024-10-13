@@ -1,7 +1,7 @@
 
-#macro loopTilesStart for(var i = 0; i < array_length(global.gameBoard.tiles); i++) {with(global.gameBoard.tiles[i]) {
+#macro loopTilesStart for(var l = 0; l < array_length(global.gameBoard.tiles); l++) {with(global.gameBoard.tiles[l]) {
 #macro loopTilesEnd }}
-#macro loopTilesStart2 for(var j = 0; j < array_length(global.gameBoard.tiles); j++) {with(global.gameBoard.tiles[j]) {
+#macro loopTilesStart2 for(var m = 0; m < array_length(global.gameBoard.tiles); m++) {with(global.gameBoard.tiles[m]) {
 
 
 function mouseToTile() {

@@ -437,6 +437,7 @@
     {"id":{"name":"obj_ghoul","path":"objects/obj_ghoul/obj_ghoul.yy",},},
     {"id":{"name":"obj_hungry_hungry_lizard","path":"objects/obj_hungry_hungry_lizard/obj_hungry_hungry_lizard.yy",},},
     {"id":{"name":"obj_hero","path":"objects/obj_hero/obj_hero.yy",},},
+    {"id":{"name":"Note2","path":"notes/Note2/Note2.yy",},},
     {"id":{"name":"obj_ida","path":"objects/obj_ida/obj_ida.yy",},},
     {"id":{"name":"scr_find_friendlies_within_range","path":"scripts/scr_find_friendlies_within_range/scr_find_friendlies_within_range.yy",},},
     {"id":{"name":"obj_nils","path":"objects/obj_nils/obj_nils.yy",},},

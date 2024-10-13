@@ -8,7 +8,8 @@ min_window_width = 2048/2; min_window_height = 1179/2
 global.enemy_ai_think_time_in_sec = 5
 global.player_ai_think_time_in_sec = 0.1
 global.player_idle_ai_think_time_in_sec = 0.3
-
+global.recruitableUpgrades = [SPELLS.buildInvisibility, SPELLS.buildDefend, SPELLS.buildDispel, SPELLS.buildImprovedBows]
+global.recruitedUpgrades = []
 list_jukebox = []
 array_push(list_jukebox, sound_canon, sound_darth_nader, sound_head_of_nasa, sound_guitarmass, sound_infected_mushroom_kazabubu, sound_infected_mushroom_slowly, sound_overwerk, sound_sharxpowa, sound_soulji_murder, sound_spitfire)
 
@@ -23,9 +24,7 @@ array_push(enemies_wave_length_list, 80, 55, 55, 55, 40, 160, 5, 240, 5, 240, 5,
 enemies_wave_timer = 0
 wave_number = 0 // whole number
 wave1 = [obj_necromancer]
-wave1_x = [11]
 wave2 = [obj_necromancer]
-wave2_x = [11]
 wave3 = [obj_ghoul, obj_ghoul]
 wave4 = [obj_ghoul, obj_ghoul]
 wave5 = [obj_ghoul, obj_ghoul]
@@ -41,6 +40,8 @@ wave14 = [obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_
 wave15 = [obj_ghoul, obj_ghoul,obj_ghoul,obj_ghoul,obj_ghoul,obj_ghoul,obj_ghoul,obj_ghoul]
 wave16 = [obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul]
 wave17 = [obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul]
+wave1_x = [11]
+wave2_x = [11]
 wave3_x = [9, 11]
 wave4_x = [9, 11]
 wave5_x = [9, 11]
@@ -69,6 +70,8 @@ save = function() {
 		s.tile_selected_tile_x = global.tile_selected.tile_x
 		s.tile_selected_tile_y = global.tile_selected.tile_y
 	}
+	s.recruitableUpgrades = global.recruitableUpgrades
+	s.recruitedUpgrades = global.recruitedUpgrades
 	s.phase = phase
 	s.unit_to_kawarimi1 = unit_to_kawarimi1
 	s.unit_to_kawarimi2 = unit_to_kawarimi2
@@ -95,6 +98,11 @@ save = function() {
 		_save.object_ind = object_index
 		array_push(_array, _save)	
 	}
+	with(obj_soul) {
+		var _save = save()
+		_save.object_ind = object_index
+		array_push(_array, _save)
+	}
 	var _json = json_stringify( _array)
 	var _file = file_text_open_write("save.txt")
 	file_text_write_string(_file, _json)
@@ -111,6 +119,7 @@ load = function() {
 		instance_destroy(obj_player)
 		instance_destroy(obj_building)
 		instance_destroy(obj_animator)
+		instance_destroy(obj_soul_parent)
 	
 		var _targetArray = []
 		instance_create_layer(0, 0, "tiles", obj_game_board)
@@ -120,6 +129,8 @@ load = function() {
 				global.tile_selected = self
 			}
 		loopTilesEnd
+		global.recruitableUpgrades = s.recruitableUpgrades
+		global.recruitedUpgrades = s.recruitedUpgrades 
 		phase = s.phase
 		enemies_wave_timer = s.enemies_wave_timer
 		wave_number = s.wave_number
@@ -138,6 +149,10 @@ load = function() {
 					load(s)
 				}
 			} else if(object_is_ancestor(s.object_ind, obj_animator)) {
+				with(instance_create_layer(_x, _y, "ground", s.object_ind)) {
+					load(s)
+				}
+			} else if(object_is_ancestor(s.object_ind, obj_soul_parent)) {
 				with(instance_create_layer(_x, _y, "ground", s.object_ind)) {
 					load(s)
 				}
@@ -167,21 +182,7 @@ load = function() {
 				abilities.lvl = 1;
 			}
 		}
-		with(obj_building) {
-			
-		}
-		with(obj_animator) {
-			if(variable_instance_exists(id, "target")) {
-				with(obj_unit) {
-					loadFromIdd(s, "target")
-				}
-			}
-			if(variable_instance_exists(id, "owner")) {
-				with(obj_unit) {
-					loadFromIdd(s, "owner")
-				}
-			}
-		}
+		
 		loopTilesStart
 			if(is_back_tile) {
 				scr_instance_create_at_tile_with_owner(obj_crystal, self, global.player)
@@ -192,6 +193,7 @@ load = function() {
 		with(obj_unit) {
 			loadFromIdd(s, "unit_to_kawarimi1")
 			loadFromIdd(s, "unit_to_kawarimi2")
+			scr_apply_upgrades_on_new_unit(self)
 		}
 		file_text_close(_file)
 	}

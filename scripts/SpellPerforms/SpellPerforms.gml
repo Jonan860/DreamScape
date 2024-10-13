@@ -26,6 +26,8 @@ function spellToRightPerform(spell) {
 	}
 }
 
+
+
 function dispelRightPerform() {
 	global.clicked_tile.reduceDebuffDuration(getAmount())
 	for(var i = 0; i < array_length(global.clicked_tile.list_of_neighbours); i++) {
@@ -73,7 +75,7 @@ function decloakIconPerform() {
 			with(list_of_active_debuff_structs[i]) {
 				if(Enum == SPELLS.invisibility) {
 					unapply()
-					list = array_filter(list, function(value, index) {return value != other})
+					other.list_of_active_debuff_structs = array_filter(other.list_of_active_debuff_structs, function(value, index) {return value != other})
 					//array_remove_value(other.list_of_active_debuff_structs, self)
 					exit;
 				}
@@ -240,22 +242,22 @@ function revivePerform() {
 	}
 }
 
-function sleepRightPerform(varTarget = array_first(global.clicked_tile.ground_unit)) {
-	scr_apply_debuff(varTarget)
-	instance_create_depth(varTarget.x, varTarget.y, varTarget.depth - 1, obj_sleep_animator, {owner : other, target : varTarget})
-	with(varTarget) {
-		phase = UNIT_PHASES.sleep
-		with(obj_unit) {
-			if(target = varTarget) {
-				target = noone
-				phase = owner == global.enemy ? UNIT_PHASES.movement : UNIT_PHASES.idle
-				action_bar = owner == global.enemy ? action_bar : 0
-				destination = noone
-			}
-		}
-		target = noone
-		destination = noone
-	}
+function sleepRightPerform(var_victim = array_first(array_first(global.clicked_tile.occupants[? ALTITUDES.ground]))) {
+	scr_apply_debuff(var_victim)
+	//instance_create_depth(varTarget.x, varTarget.y, varTarget.depth - 1, obj_sleep_animator, {owner : other, target : varTarget})
+	//with(varTarget) {
+	//	phase = UNIT_PHASES.sleep
+	//	with(obj_unit) {
+	//		if(target = varTarget) {
+	//			target = noone
+	//			phase = owner == global.enemy ? UNIT_PHASES.movement : UNIT_PHASES.idle
+	//			action_bar = owner == global.enemy ? action_bar : 0
+	//			destination = noone
+	//		}
+	//	}
+	//	target = noone
+	//	destination = noone
+	//}
 }
 
 function freezeRightPerform(perputrator, victim) {
@@ -403,10 +405,11 @@ function holyLightRightPerform() {
 }
 
 function holyLightShouldRightShouldPerform() {
-	return global.selectedSpell = self 
-		and owner.mana >= getManaCost()
-		and cooldown_current == 0
-		and scr_get_distance(global.tile_selected, global.clicked_tile) <= range
+	if( !is_undefined(array_first(global.clicked_tile.occupants[? ALTITUDES.ground]))) {
+		return !scr_is_enemies(owner, array_first(global.clicked_tile.occupants[? ALTITUDES.ground]))
+	} else {
+		return false
+	}
 }
 	
 function defendIconPerform() {
@@ -419,14 +422,16 @@ function defendIconPerform() {
 }
 
 function performRecruit() {
-	if(!owner.unfinished and (animator == undefined or canRecruit(animator))) {
+	if(!owner.unfinished and canRecruit() and !array_contains(global.recruitedUpgrades, Enum)) {
+		if(array_contains(global.recruitableUpgrades, Enum)) {
+			array_delete(global.recruitableUpgrades, array_get_index(global.recruitableUpgrades, Enum), 1)
+			array_push(global.recruitedUpgrades, Enum)
+		}
 		recruit()
 	}
 }
 
-function canRecruit(obj) {
-	return global.player.money >= ds_map_find_value(global.map_object_to_costs, obj)
-}
+
 
 function recruit() { 
 	global.player.money -= getAmount()

@@ -26,8 +26,13 @@ if(!eaten) {
 	}
 	if(scr_is_debuffed(SPELLS.freeze)) {
 		draw_sprite(spr_ice_block, -1, x, y)
-	} else if(stunned) {
-		draw_sprite_ext(spr_stun_vortex, 8 * time_until_stunned_clear % 8, x, y - 2/3 * sprite_height/2, 1/2, 1/2, 0, c_white, 0.5)
+	} else {
+		if(stunned) {
+			draw_sprite_ext(spr_stun_vortex, 8 * time_until_stunned_clear % 8, x, y - 2/3 * sprite_height/2, 1/2, 1/2, 0, c_white, 0.5)
+		}
+	}
+	if(scr_is_debuffed(SPELLS.sleep)) {
+		draw_sprite_ext(spr_sleep, 8 * find_active_debuff(SPELLS.sleep).duration % 8, x + sprite_get_width(spr_sleep) / 2, y - 2/3 * sprite_height/2, 1, 1, 0, c_white, 1)
 	}
 	if(scr_is_debuffed(SPELLS.curse)) {
 		draw_sprite_ext(spr_curse_animation, 0, x, y, sprite_width / (3 * sprite_get_width(spr_curse_animation)), sprite_height / (3 * sprite_get_height(spr_curse_animation)), 0, c_white, 1)

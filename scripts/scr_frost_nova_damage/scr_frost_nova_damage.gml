@@ -33,10 +33,11 @@ function frostnovaDamageTile(tile) {
 						with(owner) {							
 							scr_convert_damage_to_accuracy_included_damage(victim)
 						}
+						attackEffectWrapper(owner, victim, true)
+						owner.damage = damage_store
+						owner.accuracy = accuracy_store
 					}
-					attackEffectWrapper(owner, victim, true)
-					owner.damage = damage_store
-					owner.accuracy = accuracy_store
+					
 				}
 			}
 		}
