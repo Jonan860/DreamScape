@@ -75,7 +75,9 @@ save = function() {
 	s.sprite_index = sprite_index
 	s.image_xscale = image_xscale
 	s.image_yscale = image_yscale
+	s._direction = direction
 	s._depth = depth
+	s._speed = speed
 	s.phase = phase
 	s.owner = owner
 	s.movement_cost = movement_cost
@@ -116,7 +118,11 @@ save = function() {
 		}
 	}
 	s.altitude = altitude
-	s.tileX = tile.tile_x; s.tileY = tile.tile_y
+	if(tile != noone) { // could be soul
+		s.tileX = tile.tile_x; s.tileY = tile.tile_y
+	} else {
+		show_debug_message("heuj")
+	}
 	s.x = x; s.y = y
 	if(variable_instance_exists(id, "skills")) {
 		s.skillLevels = []
@@ -153,25 +159,15 @@ save = function() {
 	s.action_bar = action_bar
 	return s
 }
-function saveTileList(list) {
-	var savedList = []
-	for(var i = 0; i < array_length(list); i++) {
-		array_push(savedList, [list[i].tile_x, list[i].tile_y]) 
-		return savedList
-	}
-}
-function loadTileList(list, savedList) {
-	list = []
-	for(var i = 0; i < array_length(savedList); i++) {
-		array_push(list, getTile(savedList[i][0], savedList[i][1]))
-	}
-}
+
 
 load = function(s) {
 	sprite_index = s.sprite_index
 	image_xscale = s.image_xscale
 	image_yscale = s.image_yscale
 	depth = s._depth
+	speed = s._speed
+	direction = s._direction
 	phase = s.phase
 	movement_cost = s.movement_cost
 	attack_cost = s.attack_cost
@@ -208,7 +204,9 @@ load = function(s) {
 	max_mana = s.max_mana
 	altitude = s.altitude
 	x = s.x; y = s.y
-	scr_move_to_tile(getTile(s.tileX, s.tileY))
+	if(variable_struct_exists(s, "tileX")) {
+		scr_move_to_tile(getTile(s.tileX, s.tileY))
+	}
 	if(s.selected) {
 		with(global.tile_selected) {
 			array_push(selected_units, other.id)

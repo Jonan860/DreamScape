@@ -1,7 +1,4 @@
-// Script assets have changed for v2.3.0 see
-// https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
 function scr_level_up(){
-
 	lvl++
 	number_of_ability_points++
 	HP *= HP_level_up_multiplier

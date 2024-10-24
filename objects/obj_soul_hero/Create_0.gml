@@ -16,8 +16,22 @@ resurrect = function() {
 			
 save = function() {
 	var s= {}
-	s.x = x; s.y = y
+	s._x = x; s._y = y
+	s.tileX = tile.tile_x
+	s.tileY = tile.tile_y
 	s.instance = instance
 	s.revival_time_left_sec = revival_time_left_sec
+	s.image_xscale = image_xscale
+	s.image_yscale = image_yscale
 	return s
+}
+
+load = function(s) {
+	instance = s.instance
+	x = s._x
+	y = s._y
+	image_xscale = s.image_xscale
+	image_yscale = s.image_yscale
+	tile = getTile(s.tileX, s.tileY)
+	revival_time_left_sec = s.revival_time_left_sec
 }

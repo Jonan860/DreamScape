@@ -460,6 +460,7 @@
     {"id":{"name":"obj_sorceress","path":"objects/obj_sorceress/obj_sorceress.yy",},},
     {"id":{"name":"obj_necromancer","path":"objects/obj_necromancer/obj_necromancer.yy",},},
     {"id":{"name":"obj_abomination","path":"objects/obj_abomination/obj_abomination.yy",},},
+    {"id":{"name":"saveloadtileList","path":"scripts/saveloadtileList/saveloadtileList.yy",},},
     {"id":{"name":"obj_crypt_fiend","path":"objects/obj_crypt_fiend/obj_crypt_fiend.yy",},},
     {"id":{"name":"obj_pauser","path":"objects/obj_pauser/obj_pauser.yy",},},
     {"id":{"name":"obj_horn_attack","path":"objects/obj_horn_attack/obj_horn_attack.yy",},},

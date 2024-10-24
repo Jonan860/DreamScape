@@ -1,7 +1,7 @@
 event_inherited();
 
 build = function(skill) {
-	if(skill.animator == undefined) {
+	if(array_contains([obj_footman_defend_upgrade, obj_priest_dispel_upgrade, obj_sorceress_invisibility_upgrade, obj_improved_bows_upgrade], skill.animator)) {
 		skill.perform()
 		array_delete(queue_list, 0, 1)
 		build_progress = 0

@@ -15,6 +15,8 @@ function spellToAnimator(spell) {
 		case SPELLS.revive : return obj_revive_animator
 		case SPELLS.buildInvisibility : return obj_sorceress_invisibility_upgrade
 		case SPELLS.buildDispel : return obj_priest_dispel_upgrade
+		case SPELLS.buildImprovedBows : return obj_improved_bows_upgrade
+		case SPELLS.buildDefend	: return obj_footman_defend_upgrade
 	}
 }
 

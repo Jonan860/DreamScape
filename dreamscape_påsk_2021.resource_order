@@ -365,6 +365,7 @@
     {"name":"obj_sorceress","order":1,"path":"objects/obj_sorceress/obj_sorceress.yy",},
     {"name":"obj_necromancer","order":3,"path":"objects/obj_necromancer/obj_necromancer.yy",},
     {"name":"obj_abomination","order":4,"path":"objects/obj_abomination/obj_abomination.yy",},
+    {"name":"saveloadtileList","order":90,"path":"scripts/saveloadtileList/saveloadtileList.yy",},
     {"name":"obj_crypt_fiend","order":5,"path":"objects/obj_crypt_fiend/obj_crypt_fiend.yy",},
     {"name":"obj_pauser","order":10,"path":"objects/obj_pauser/obj_pauser.yy",},
     {"name":"obj_horn_attack","order":1,"path":"objects/obj_horn_attack/obj_horn_attack.yy",},

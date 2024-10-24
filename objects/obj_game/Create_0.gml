@@ -98,7 +98,7 @@ save = function() {
 		_save.object_ind = object_index
 		array_push(_array, _save)	
 	}
-	with(obj_soul) {
+	with(obj_soul_parent) {
 		var _save = save()
 		_save.object_ind = object_index
 		array_push(_array, _save)
@@ -114,13 +114,35 @@ load = function() {
 		var _file = file_text_open_read("save.txt")	
 		var _json = file_text_read_string(_file)
 		var _array = json_parse(_json) 
-		instance_destroy(obj_unit)
+		var _deletedUnits = []
+		var _deletedPlayers = []
+		var _deletedBuildings = []
+		var _deletedAnimators = []
+		var _deletedSouls = []
+		with(obj_unit) {
+			array_push(_deletedUnits, id)
+			instance_destroy()
+		}
+		
 		instance_destroy(obj_game_board)
-		instance_destroy(obj_player)
-		instance_destroy(obj_building)
-		instance_destroy(obj_animator)
-		instance_destroy(obj_soul_parent)
-	
+		with(obj_player) {
+			array_push(_deletedPlayers)
+			instance_destroy()
+		}
+		
+		with(obj_building) {
+			array_push(_deletedBuildings)
+			instance_destroy()
+		}
+		with(obj_animator) {
+			array_push(_deletedAnimators)
+			instance_destroy()
+		}
+		with(obj_soul_parent) {
+			array_push(_deletedSouls)
+			instance_destroy()
+		}
+		
 		var _targetArray = []
 		instance_create_layer(0, 0, "tiles", obj_game_board)
 		var s = array_first(_array)
@@ -162,24 +184,53 @@ load = function() {
 		
 		}
 		with(obj_unit) {
-			for(var i = 0; i < array_length(list_of_active_debuff_structs); i++) {
-				with(list_of_active_debuff_structs[i]) {
-					victim = other.id
-					unapply = spellToUnapply(Enum)
+			if(!array_contains(_deletedUnits, id)) {
+				for(var i = 0; i < array_length(list_of_active_debuff_structs); i++) {
+					with(list_of_active_debuff_structs[i]) {
+						victim = other.id
+						unapply = spellToUnapply(Enum)
+					}
+				}
+				with(obj_unit) {
+					if(!array_contains(_deletedUnits, id)) {
+						loadFromIdd(other.saveData, "target")
+					}
+				}
+				
+				with(obj_building) {
+					loadFromIdd(other.saveData, "target")
+				}
+				with(obj_player) {
+					if(!array_contains(_deletedPlayers, id)) {
+						loadFromIdd(other.saveData, "owner")
+					}
+				}
+				if(owner = global.player and object_is_ancestor(object_index, obj_hero)) {
+					abilities = createSpell(SPELLS.abilities, "d")
+					abilities.lvl = 1;
 				}
 			}
-			with(obj_unit) {
-				loadFromIdd(other.saveData, "target")
-			}
-			with(obj_building) {
-				loadFromIdd(other.saveData, "target")
-			}
-			with(obj_player) {
-				loadFromIdd(other.saveData, "owner")
-			}
-			if(owner = global.player and object_is_ancestor(object_index, obj_hero)) {
-				abilities = createSpell(SPELLS.abilities, "d")
-				abilities.lvl = 1;
+		}
+		
+		with(obj_unit) { //debugg 
+			if(target != noone) {
+				var varTarget = target
+				var exists = false
+				with(obj_unit) {
+					if(varTarget == id) {
+							exists = true
+							break
+					}
+				}
+				with(obj_building) {
+					if(varTarget == id) {
+						exists = true
+						break;
+					}
+				}
+				if(!exists) {
+					target = noone // misslyckades att ladda target
+				}
 			}
 		}
 		
@@ -210,7 +261,7 @@ function buttonPressedIconPerform(buttonStr) {
 							exit
 						}
 					} else {
-						if(other.number_of_ability_points > 0 and (buttonStr == "r" and lvl < 1 and owner.lvl >= 6 or buttonStr != "r" and lvl < 3)) {
+						if(other.number_of_ability_points > 0 and (buttonStr == "r" and lvl < 1 and owner.lvl >= 6 or array_contains(["q", "w", "e"], buttonStr) and lvl < 3)) {
 							global.hud.gui_display_abilities = 0
 							level_up()
 						}
