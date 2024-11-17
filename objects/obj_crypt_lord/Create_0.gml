@@ -46,16 +46,21 @@ ai = function() {
 	if(mana >= carrion_beetles.getManaCost() and carrion_beetles.cooldown_current == 0) {
 		var soul_within_range = scr_find_soul_within_range(carrion_beetles.range)
 		if(soul_within_range != noone) {
+			var save = global.clicked_tile
+			global.clicked_tile = soul_within_range.tile
 			carrion_beetles.rightPerform(soul_within_range)
 			carrion_beetles.cooldown_current = carrion_beetles.getCooldown()
 			mana -= carrion_beetles.getManaCost()
+			global.clicked_tile = save
 		}
 	}
 	
 	if(mana >= locust_swarm.getManaCost() and locust_swarm.cooldown_current == 0) {
 		var list_of_enemies = scr_find_enemies_within_range(range)
 		if(!array_equals(list_of_enemies, [])) {
-			locust_swarm.iconPerform()
+			with(locust_swarm) {
+				iconPerform()
+			}
 			mana -= locust_swarm.getManaCost()
 			locust_swarm.cooldown_current = locust_swarm.getCooldown()
 		}

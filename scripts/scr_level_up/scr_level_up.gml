@@ -1,4 +1,4 @@
-function scr_level_up(){
+function scr_level_up() {
 	lvl++
 	number_of_ability_points++
 	HP *= HP_level_up_multiplier
@@ -14,7 +14,7 @@ function scr_level_up(){
 	experience_to_level_up *= experience_to_level_up_increase_rate
 	accuracy *= -ln(2) / ln(1 - 1 / (2 * evasion_level_up_multiplier))
 	
-	if(list_level_sprites[lvl] > 0) {
+	if(lvl < array_length(list_level_sprites)) {
 		image_xscale = 1; image_yscale = 1
 		sprite_index = list_level_sprites[lvl]
 		image_xscale = spr_width/sprite_width; image_yscale = spr_height/sprite_height

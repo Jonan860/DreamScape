@@ -46,6 +46,8 @@ ai = function () {
 		var var_dark_sacrifice = scr_find_dark_ritual_sacrifice()
 		if(var_dark_sacrifice != noone) {
 			dark_ritual.rightPerform(var_dark_sacrifice)
+			mana -= dark_ritual.getManaCost()
+			dark_ritual.cooldown_current = dark_ritual.getCooldown()
 		}
 	}
 }

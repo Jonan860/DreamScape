@@ -36,7 +36,7 @@ function spellToCooldown(spell) {
 		case SPELLS.golden_dragon : return 20
 		case SPELLS.carrion_beetles : return 1
 		case SPELLS.frost_armor : return 20
-		case SPELLS.dark_ritual : return 1
+		case SPELLS.dark_ritual : return 20
 		case SPELLS.slow : return 3
 		case SPELLS.invisibility : return 1
 		case SPELLS.curse : return 3
@@ -50,13 +50,13 @@ function spellToCooldown(spell) {
 
 function spellToAmount(spell) {
 	switch(spell) {
-		case SPELLS.katon_gokakyu_no_jutsu : return [20, 30, 45]
+		case SPELLS.katon_gokakyu_no_jutsu : return [60, 90, 120]
 		case SPELLS.impale : return 1000
 		case SPELLS.spiked_carapace :  [[15/100, 25/100, 35/100], [18/100, 30/100, 42/100]]
 		case SPELLS.frost_nova : return [60, 90, 120]
 		case SPELLS.earthshatter : 
 			var mapp = ds_map_create()
-			ds_map_add(mapp, "damage", [120, 60, 30]) //acc = 0.3
+			ds_map_add(mapp, "damage", [240, 120, 60]) //acc = 0.3
 			ds_map_add(mapp, "stun", [10, 5, 2])
 			return mapp  // per distance
 		case SPELLS.locust_swarm : return 1
@@ -125,7 +125,7 @@ function spellToManaCosts(spell) {
 		case SPELLS.freeze : return [30, 45, 60]
 		case SPELLS.locust_swarm : return [60]
 		case SPELLS.frost_armor : return [30, 30, 30]
-		case SPELLS.dark_ritual : return [0, 0, 0] 
+		case SPELLS.dark_ritual : return [5, 10, 15] 
 		case SPELLS.carrion_swarm : return [30, 45, 60]
 		case SPELLS.sleep : return [30, 45, 60]
 		case SPELLS.vampiric_aura : return [0, 0, 0]
@@ -584,7 +584,7 @@ function createSpell(spellEnum, _letter) {
 			owner = other
 			Enum = other.Enum;
 			unapply = spellToUnapply(other.Enum)
-			victim = _victim
+			victim = _victim.id
 			amount = other.getAmount()
 		}
 		scr_apply_debuff = function(victim) {

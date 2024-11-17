@@ -40,7 +40,22 @@ function scr_death() {
 				phase = UNIT_PHASES.returning
 			}
 		}
+		with(obj_locust_animator) {
+			if(owner.owner == other.id) {
+				instance_destroy()
+			}
+		}
 		with(obj_ninjago_animator) {
+			if(owner.owner == other.id) {
+				instance_destroy()
+			}
+		}
+		with(obj_vampiric_aura_animator) {
+			if(owner.owner == other.id) {
+				instance_destroy()
+			}
+		}
+		with(obj_frost_nova_animator) {
 			if(owner.owner == other.id) {
 				instance_destroy()
 			}

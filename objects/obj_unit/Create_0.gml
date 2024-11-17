@@ -80,6 +80,7 @@ save = function() {
 	s._speed = speed
 	s.phase = phase
 	s.owner = owner
+	s.enemy_ai_spell_counter = enemy_ai_spell_counter
 	s.movement_cost = movement_cost
 	s.attack_cost = attack_cost
 	s.damage = damage
@@ -113,8 +114,9 @@ save = function() {
 	s.selected = 0
 	with(global.tile_selected) {
 		for(var i = 0; i < array_length(selected_units); i++) {
-			if(selected_units[i].id == other.id)
-			s.selected = 1
+			if(instance_exists(selected_units[i].id) and selected_units[i].id == other.id) {
+				s.selected = 1
+			}
 		}
 	}
 	s.altitude = altitude
@@ -141,7 +143,7 @@ save = function() {
 		s.object_in_stomach = object_in_stomach
 	}
 	if(variable_instance_exists(id, "list_of_territory_tiles")) {
-		s.list_of_territory_tiles = list_of_territory_tiles
+		s.list_of_territory_tiles = saveTileList(list_of_territory_tiles)
 	}
 	if(variable_instance_exists(id, "build_progress")) {
 		s.build_progress = build_progress
@@ -169,6 +171,7 @@ load = function(s) {
 	speed = s._speed
 	direction = s._direction
 	phase = s.phase
+	enemy_ai_spell_counter = s.enemy_ai_spell_counter
 	movement_cost = s.movement_cost
 	attack_cost = s.attack_cost
 	damage = s.damage
@@ -191,9 +194,9 @@ load = function(s) {
 	}
 	eaten = s.eaten
 	has_waited_for_blocker_to_move = s.has_waited_for_blocker_to_move
-	loadTileList(path, s.path)
-	loadTileList(optimal_path, s.optimal_path)
-	loadTileList(tiles_within_range, s.tiles_within_range)
+	path = loadTileList(path, s.path)
+	optimal_path = loadTileList(optimal_path, s.optimal_path)
+	tiles_within_range = loadTileList(tiles_within_range, s.tiles_within_range)
 	list_path_arrow_directions = s.list_path_arrow_directions
 	list_of_active_debuff_structs = s.list_of_active_debuff_structs
 	
@@ -231,7 +234,8 @@ load = function(s) {
 		object_in_stomach = s.object_in_stomach
 	}
 	if(variable_instance_exists(id, "list_of_territory_tiles")) {
-		list_of_territory_tiles = s.list_of_territory_tiles
+		list_of_territory_tiles = []
+		list_of_territory_tiles = loadTileList(list_of_territory_tiles, s.list_of_territory_tiles)
 	}
 	
 	action_bar = s.action_bar

@@ -35,11 +35,11 @@ wave9 = [obj_ghoul, obj_ghoul, obj_ghoul, obj_dreadlord, obj_ghoul, obj_ghoul, o
 wave10 = [obj_crypt_fiend, obj_crypt_fiend, obj_crypt_fiend, obj_crypt_lord, obj_crypt_fiend, obj_crypt_fiend, obj_crypt_fiend]
 wave11 = [obj_crypt_fiend, obj_crypt_fiend, obj_crypt_fiend, obj_crypt_fiend, obj_crypt_fiend, obj_crypt_fiend, obj_crypt_fiend]
 wave12 = [obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul]
-wave13 = [obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul]
-wave14 = [obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul]
-wave15 = [obj_ghoul, obj_ghoul,obj_ghoul,obj_ghoul,obj_ghoul,obj_ghoul,obj_ghoul,obj_ghoul]
-wave16 = [obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul]
-wave17 = [obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul]
+wave13 = [obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul]
+wave14 = [obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul]
+wave15 = [obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul]
+wave16 = [obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul]
+wave17 = [obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul]
 wave1_x = [11]
 wave2_x = [11]
 wave3_x = [9, 11]
@@ -94,6 +94,13 @@ save = function() {
 		array_push(_array, _save)
 	}
 	with(obj_animator) {
+		if(!object_is_ancestor(object_index, obj_attack_animator)) {
+			var _save = save()
+			_save.object_ind = object_index
+			array_push(_array, _save)	
+		}
+	}
+	with(obj_attack_animator) {
 		var _save = save()
 		_save.object_ind = object_index
 		array_push(_array, _save)	
@@ -103,6 +110,7 @@ save = function() {
 		_save.object_ind = object_index
 		array_push(_array, _save)
 	}
+	show_debug_message("save array size = " + string(array_length(_array)))
 	var _json = json_stringify( _array)
 	var _file = file_text_open_write("save.txt")
 	file_text_write_string(_file, _json)
@@ -121,11 +129,13 @@ load = function() {
 		var _deletedSouls = []
 		with(obj_unit) {
 			array_push(_deletedUnits, id)
+			idd = 0
 			instance_destroy()
 		}
 		
 		instance_destroy(obj_game_board)
 		with(obj_player) {
+			idd = 0
 			array_push(_deletedPlayers)
 			instance_destroy()
 		}
@@ -135,11 +145,16 @@ load = function() {
 			instance_destroy()
 		}
 		with(obj_animator) {
+			idd = 0
 			array_push(_deletedAnimators)
 			instance_destroy()
 		}
 		with(obj_soul_parent) {
+			idd = 0
 			array_push(_deletedSouls)
+			instance_destroy()
+		}
+		with(obj_crystal) {
 			instance_destroy()
 		}
 		
@@ -176,6 +191,7 @@ load = function() {
 				}
 			} else if(object_is_ancestor(s.object_ind, obj_soul_parent)) {
 				with(instance_create_layer(_x, _y, "ground", s.object_ind)) {
+					saveData = s
 					load(s)
 				}
 			}
@@ -194,9 +210,13 @@ load = function() {
 				with(obj_unit) {
 					if(!array_contains(_deletedUnits, id)) {
 						loadFromIdd(other.saveData, "target")
+						loadFromIdd(other.saveData, "object_in_stomach")
 					}
 				}
 				
+				if(variable_instance_exists(id, "object_in_stomach") and object_in_stomach != noone) {
+					scr_eat_enemy(object_in_stomach)
+				}
 				with(obj_building) {
 					loadFromIdd(other.saveData, "target")
 				}
@@ -230,9 +250,16 @@ load = function() {
 				}
 				if(!exists) {
 					target = noone // misslyckades att ladda target
+					phase = UNIT_PHASES.idle
 				}
 			}
 		}
+		with(obj_soul_hero) {
+			with(obj_unit) {
+				loadFromIdd(other.saveData, "instance")
+			}
+		}
+		
 		
 		loopTilesStart
 			if(is_back_tile) {
@@ -244,7 +271,7 @@ load = function() {
 		with(obj_unit) {
 			loadFromIdd(s, "unit_to_kawarimi1")
 			loadFromIdd(s, "unit_to_kawarimi2")
-			scr_apply_upgrades_on_new_unit(self)
+			//scr_apply_upgrades_on_new_unit(self)
 		}
 		file_text_close(_file)
 	}
@@ -256,7 +283,7 @@ function buttonPressedIconPerform(buttonStr) {
 			if(owner == global.player) {
 				with(ds_map_find_value(buttonToSkill, buttonStr)) {
 					if(!global.hud.gui_display_abilities or Enum == SPELLS.abilities) {
-						if(lvl > 0 or object_is_ancestor(other.object_index, obj_building)) {
+						if(lvl > 0 and shouldIconPerform() or object_is_ancestor(other.object_index, obj_building)) {
 							iconPerform()
 							exit
 						}

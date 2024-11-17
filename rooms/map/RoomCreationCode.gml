@@ -1,5 +1,5 @@
 window_set_fullscreen(1)
-#macro debugg true
+#macro debugg false
 audio_group_load(jukebox)
 draw_set_font(font0)
 randomize()
@@ -19,31 +19,14 @@ global.saveData = {}
 
 
 scr_instance_create_at_tile_with_owner(obj_ida, getTile(10, 14), global.player)
-with(global.ida) {
-	repeat(5) {
-		scr_level_up()
-	}
-	HP = 1
-}
-with(scr_instance_create_at_tile_with_owner(obj_priest, getTile(9, 15), global.player)) {
-	dispel.lvl = 1
-}
+
 
 scr_instance_create_at_tile_with_owner(obj_nils, getTile(18, 2), global.player)
-with(global.nils) {
-	repeat(5) {
-		scr_level_up()
-	}
-}
-scr_instance_create_at_tile_with_owner(obj_lille_skutt, getTile(13, 15), global.player)
 
-var ban = scr_instance_create_at_tile_with_owner(obj_banshee, getTile(8, 2), global.enemy)
-ban.HP = 1
-scr_instance_create_at_tile_with_owner(obj_crypt_fiend, getTile(9, 1), global.enemy)
+scr_instance_create_at_tile_with_owner(obj_lille_skutt, getTile(13, 15), global.player)
 
 hungry_hungry_lizard = scr_instance_create_at_tile_with_owner(obj_hungry_hungry_lizard, getTile(18, 2), global.creep_lord)
 with(hungry_hungry_lizard) {
-	HP = -10
 	start_tile = tile
 	loopTilesStart
 		if(

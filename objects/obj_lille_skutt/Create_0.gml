@@ -28,7 +28,7 @@ progress_bar_x2 = global.hud.hud_width * 3/4
 progress_bar_y1 = global.camera_height - global.hud.hud_height / 2
 progress_bar_y2 = global.camera_height - global.hud.hud_height * (1/2 - 1/20)
 build_progress = 0 // of 100
-
+attack_target = function() {}
 buildBarracks = createSpell(SPELLS.buildBarracks, "q")
 buildBarracks.lvl = 1
 buildArcaneSanctum = createSpell(SPELLS.buildArcaneSanctum, "w")

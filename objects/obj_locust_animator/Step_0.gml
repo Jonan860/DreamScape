@@ -1,8 +1,7 @@
 x = owner.owner.x; y = owner.owner.y
+var varOwner = id
 if(active_locusts < max_active_locusts and time_until_next_locust <= 0 and duration > 0) {
-	with(instance_create_depth(x, y, 0, obj_locust, {owner : other})) {
-		owner = owner.id
-	}
+	instance_create_depth(x, y, 0, obj_locust, {owner : varOwner}) 
 	active_locusts++
 	time_until_next_locust = locust_spawn_interval_sec
 } else {

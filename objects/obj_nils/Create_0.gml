@@ -28,7 +28,7 @@ golden_dragon = createSpell(SPELLS.golden_dragon, "r")
 
 skills = [holy_light, spell_shield, ninjago, golden_dragon, revive]
 
-list_level_sprites = [0, spr_nils_level_1, spr_nils_level_2, spr_nils_level_3, spr_nils_level_4, spr_nils_level_5, spr_nils_level_6, spr_nils_level_7, spr_nils_level_8]
+list_level_sprites = [0, spr_nils_level_1, spr_nils_level_2, spr_nils_level_3, spr_nils_level_4, spr_nils_level_5, spr_nils_level_6, spr_nils_level_7, spr_nils_level_8, spr_nils_level_8, spr_nils_level_8, spr_nils_level_8, spr_nils_level_8, spr_nils_level_8]
 spr_height = sprite_height
 spr_width = sprite_width
 

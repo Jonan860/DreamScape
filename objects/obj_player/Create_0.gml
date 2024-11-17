@@ -1,5 +1,5 @@
 idd = noone
-money = 1000 //100
+money = 100 //100
 footman_has_defend_upgrade = 0
 elven_archers_has_improved_bows = 0
 sorceress_has_invisibility = 0

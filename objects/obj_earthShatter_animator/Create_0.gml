@@ -35,8 +35,8 @@ load = function(s) {
 	jumping = s.jumping
 	total_time_to_earthshatter_impact = s.total_time_to_earthshatter_impact
 	target = getTile(s.targetX, s.targetY)
-	impacted_tiles_list = [] // is necessary
-	loadTileList(impacted_tiles_list, s.impacted_tiles_list)
+	impacted_tiles_list = [] // is necessary// for real
+	impacted_tiles_list = loadTileList(impacted_tiles_list, s.impacted_tiles_list)
 	with(obj_unit) {
 		loadFromIdd(s, "owner", "earthshatter")
 	}

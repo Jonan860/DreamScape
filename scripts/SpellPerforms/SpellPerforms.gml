@@ -242,8 +242,8 @@ function revivePerform() {
 	}
 }
 
-function sleepRightPerform(var_victim = array_first(array_first(global.clicked_tile.occupants[? ALTITUDES.ground]))) {
-	scr_apply_debuff(var_victim)
+function sleepRightPerform() {
+	scr_apply_debuff(array_first(array_first(global.clicked_tile.occupants[? ALTITUDES.ground])))
 	//instance_create_depth(varTarget.x, varTarget.y, varTarget.depth - 1, obj_sleep_animator, {owner : other, target : varTarget})
 	//with(varTarget) {
 	//	phase = UNIT_PHASES.sleep
