@@ -40,7 +40,7 @@ function spellToCooldown(spell) {
 		case SPELLS.slow : return 3
 		case SPELLS.invisibility : return 1
 		case SPELLS.curse : return 3
-		case SPELLS.heal : return 1.5
+		case SPELLS.heal : return 2
 		case SPELLS.buildArcaneSanctum : return 0
 		case SPELLS.buildBarracks : return 0
 		case SPELLS.dispel : return 20
