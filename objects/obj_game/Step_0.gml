@@ -8,7 +8,7 @@ if(room == map) {
 			scr_movement()
 			for(var i = 0; i < array_length(skills); i++) {
 				with(skills[i]) {
-					cooldown_current = max(0, cooldown_current - 1 / game_get_speed(gamespeed_fps));
+					cooldown_current = max(0, cooldown_current - 1 / game_get_speed(gamespeed_fps) * global.gamespeed);
 					icon_animation_index = autocast ? (icon_animation_index + icon_animation_speed/room_speed) % 7 : 0
 				
 					//if(shouldPerform()) {

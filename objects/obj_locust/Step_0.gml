@@ -1,4 +1,4 @@
-
+if(instance_exists(owner)) {
 switch(phase) {
 	case UNIT_PHASES.searching : 
 		if(time_until_next_direction_change <= 0) {
@@ -52,4 +52,9 @@ switch(phase) {
 			instance_destroy()
 		}
 		break;
+}
+}
+else
+{
+show_debug_message("grattis din debug verkar funka")
 }

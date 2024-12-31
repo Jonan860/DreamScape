@@ -4,7 +4,7 @@ dialogue_speaker1 = global.ida_dialogue
 dialogue_audience1 = [global.lille_skutt_dialogue]
 
 dialogue_speaker2 = global.lille_skutt_dialogue
-dialogue_string2 = "Hjälp! Nils har blivit uppäten av en jätteödla! och armé med ghoulisar är på väg hit från norr"
+dialogue_string2 = "Hjälp! Nils har blivit uppäten av en jätteödla! och en armé av ghoulisar är på väg hit från norr"
 dialogue_audience2 = [global.ida_dialogue]
 
 dialogue_speaker3 = global.ida_dialogue

@@ -4,7 +4,7 @@ function scr_buff_duration_countdown() {
 		var list_size = array_length(list_of_active_debuff_structs)
 		for(var i = 0; i < list_size; i++) {
 			var structu = list_of_active_debuff_structs[i]
-			structu.duration -= 1/room_speed
+			structu.duration -= 1/room_speed*global.gamespeed
 			if(structu.duration <= 0) {
 				structu.unapply() //need to be called from unit
 				array_delete(list_of_active_debuff_structs, i, 1)

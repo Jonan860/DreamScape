@@ -4,7 +4,7 @@ global.camera_height = camera_get_view_height(view_camera[0])
 optimal_path = []
 max_window_width = window_get_width(); max_window_height = window_get_height()
 min_window_width = 2048/2; min_window_height = 1179/2
-
+global.gamespeed = 1
 global.enemy_ai_think_time_in_sec = 5
 global.player_ai_think_time_in_sec = 0.1
 global.player_idle_ai_think_time_in_sec = 0.3

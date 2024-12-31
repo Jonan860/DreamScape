@@ -121,9 +121,10 @@ function scr_hud_draw_gui_unit() {
 			}
 		}
 	}
-	if(object_index == obj_lille_skutt) {
-		scr_dra_hud_button_with_hover_inf_lille_skutt()
-	} else if(object_is_ancestor(object_index, obj_unit)) {
+	//if(object_index == obj_lille_skutt) {
+	//	scr_dra_hud_button_with_hover_inf_lille_skutt()
+	//} else 
+	if(object_is_ancestor(object_index, obj_unit)) {
 		draw_skills_buttons()
 	}
 }

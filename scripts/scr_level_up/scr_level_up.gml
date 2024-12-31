@@ -6,9 +6,10 @@ function scr_level_up() {
 	damage *= damage_level_up_multiplier
 	damage_reduction = (armor_level_up_multiplier + damage_reduction - 1) / armor_level_up_multiplier
 	evasiveness = (evasion_level_up_multiplier + evasiveness - 1) / evasion_level_up_multiplier
-	mana *= mana_level_up_multiplier
-	max_mana *= mana_level_up_multiplier
-	mana_regen_rate_per_sec *= mana_regen_level_up_multiplier
+	var mana_multi = (max_mana + 20) / max_mana
+	max_mana *= mana_multi // mana_level_up_multiplier
+	mana *= mana_multi
+	mana_regen_rate_per_sec *= mana_multi //mana_regen_level_up_multiplier
 	HP_regeneration_rate *= HP_regen_level_up_multplier
 	experience -= experience_to_level_up
 	experience_to_level_up *= experience_to_level_up_increase_rate

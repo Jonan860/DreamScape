@@ -8,7 +8,7 @@ function scr_frost_nova_damage() {
 			frostnovaDamageTile(target.list_of_neighbours[i])
 		}
 	}
-	damage = store_damage
+	owner.damage = store_damage
 	owner.phase = owner.owner == global.player ? UNIT_PHASES.idle : UNIT_PHASES.movement
 	owner.action_bar *= owner.owner != global.player
 }

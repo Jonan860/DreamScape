@@ -1,7 +1,7 @@
 if(owner.owner.phase == UNIT_PHASES.reviving) {
 	with(instance_position(owner.owner.x, owner.owner.y, obj_soul_hero)) {
 		if(revival_time_left_sec > 0) {
-			revival_time_left_sec -= 1/room_speed
+			revival_time_left_sec -= 1/room_speed * global.gamespeed
 		} else {
 			var var_hero = instance
 			with(var_hero) {

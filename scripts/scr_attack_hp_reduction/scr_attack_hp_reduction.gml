@@ -12,8 +12,8 @@ function scr_attack_hp_reduction(var_perputrator, var_victim) {
 			if(object_index == obj_crypt_lord) {
 				with(spiked_carapace) {
 					if(lvl > 0 and var_perputrator.range == 1) {
-						var return_damage_fraction = amount[0][lvl - 1]
-						var_perputrator.HP -= var_hp_to_remove * return_damage_fraction
+						var return_damage_fraction = amount[1][lvl - 1]
+						var_perputrator.HP -= var_hp_to_remove * return_damage_fraction //damage reduction fixas i create event
 					}
 				}
 			}

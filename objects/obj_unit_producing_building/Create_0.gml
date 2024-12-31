@@ -38,7 +38,7 @@ build = function(skill) {
 }
 
 function updateRecruitQueue() {
-	build_progress += 1 / room_speed  //game_get_speed(gamespeed_fps)
+	build_progress += 1 / room_speed * global.gamespeed  //game_get_speed(gamespeed_fps)
 	var skill = buttonToSkill[? array_first(queue_list)]
 	if(build_progress >= skill.getDuration()) {
 		build(skill)
@@ -46,7 +46,7 @@ function updateRecruitQueue() {
 }
 
 function updateSelfConstruction() {
-	build_progress += global.map_objects_to_build_time[?object_index] / game_get_speed(gamespeed_fps)   ////could be something weird here
+	build_progress += global.map_objects_to_build_time[?object_index] / game_get_speed(gamespeed_fps) * global.gamespeed  ////could be something weird here
 	if(build_progress > 100) {
 		unfinished = 0
 		build_progress = 0////

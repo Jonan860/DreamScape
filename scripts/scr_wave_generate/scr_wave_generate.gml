@@ -1,5 +1,6 @@
 function scr_wave_generate() {
 	if(enemies_wave_timer = 0 and wave_number <= array_length(wave_list)) {
+		global.gamespeed = 1
 		var var_wave = wave_list[wave_number - 1]
 		var var_wave_x = wave_x_list_of_lists[wave_number - 1]
 		for(var j = 0; j < array_length(var_wave); j++) {
@@ -35,6 +36,7 @@ function scr_wave_generate() {
 										scr_level_up()
 									}
 									spiked_carapace.lvl = 3
+									damage_reduction = damage_reduction	+ spiked_carapace.amount[0][lvl - 1] - damage_reduction * spiked_carapace.amount[0][lvl - 1]
 									carrion_beetles.lvl = 3
 									locust_swarm.lvl = 1
 								}

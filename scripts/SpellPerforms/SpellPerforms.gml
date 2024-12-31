@@ -237,13 +237,13 @@ function vampiricAuraIconPerform() {
 function revivePerform() {
 	with(instance_position(x, y, obj_soul_hero)) {
 		if(revival_time_left_sec > 0) {
-			revival_time_left_sec -= 1/game_get_speed(gamespeed_fps)
+			revival_time_left_sec -= 1/game_get_speed(gamespeed_fps) * global.gamespeed
 		}
 	}
 }
 
 function sleepRightPerform() {
-	scr_apply_debuff(array_first(array_first(global.clicked_tile.occupants[? ALTITUDES.ground])))
+	scr_apply_debuff(array_first(global.clicked_tile.occupants[? ALTITUDES.ground]))
 	//instance_create_depth(varTarget.x, varTarget.y, varTarget.depth - 1, obj_sleep_animator, {owner : other, target : varTarget})
 	//with(varTarget) {
 	//	phase = UNIT_PHASES.sleep
@@ -367,7 +367,6 @@ function curseRightPerform() {
 
 function earthshatterRightPerform() {
 	show_debug_message("start earthshatrightperform")
-	owner.mana -= getManaCost()
 	cooldown_current = getCooldown()
 	owner.phase = UNIT_PHASES.earthshatter
 	instance_create_depth(owner.x, owner.y, 500 - 1, animator, {target : global.clicked_tile, owner : global.ida.earthshatter})
