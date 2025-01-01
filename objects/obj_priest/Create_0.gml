@@ -18,7 +18,7 @@ mana = 50
 max_mana = 100
 mana_regen_rate_per_sec = 0.6
 heal = createSpell(SPELLS.heal, "q")
-heal.lvl = 1
+heal.level_up()
 heal.autocast = 1
 dispel = createSpell(SPELLS.dispel, "w")
 skills = [heal, dispel]

@@ -137,6 +137,7 @@ save = function() {
 	}
 	if(variable_instance_exists(id, "experience")) {
 		s.experience = experience
+		s.experience_to_level_up = experience_to_level_up
 		s.lvl = lvl
 	}
 	if(variable_instance_exists(id, "object_in_stomach")) {
@@ -217,7 +218,10 @@ load = function(s) {
 	}
 	if(variable_instance_exists(id, "skills")) {
 		for(var i = 0; i < array_length(skills); i++) {
-			skills[i].lvl = s.skillLevels[i]
+			skills[i].lvl = 0
+			repeat(s.skillLevels[i]) {
+				skills[i].level_up() 
+			}
 		}
 	}
 	if(variable_instance_exists(id, "summon_time_left")) {
@@ -228,6 +232,7 @@ load = function(s) {
 	}
 	if(variable_instance_exists(id, "experience")) {
 		experience = s.experience
+		experience_to_level_up = s.experience_to_level_up
 		lvl = s.lvl
 	}
 	if(variable_instance_exists(id, "object_in_stomach")) {

@@ -92,7 +92,7 @@ function spellToShouldRightPerformLocal(spellEnum) {
 	switch(spellEnum) {
 		case SPELLS.invisibility : return method(undefined, invisibilityShouldRightPerform)
 		case SPELLS.holy_light : return method(undefined, holyLightShouldRightShouldPerform)
-		
+		case SPELLS.golden_dragon : return method(undefined, goldenDragonShouldRightPerform)
 		case SPELLS.spell_shield : return method(undefined, spellShieldShouldPerform)
 		case SPELLS.heal : return method(undefined, healShouldRightPerformLocal)
 		case SPELLS.slow : return method(undefined, slowShouldRightPerformLocal)
@@ -200,7 +200,7 @@ function selectSwitchCursor() {
 }
 
 function goldenDragonShouldRightPerform() {
-
+	return !instance_exists(obj_golden_dragon)
 }
 function invisibilityShouldIconPerform() {return global.player.sorceress_has_invisibility}
 
@@ -291,7 +291,7 @@ function spellToPerform(spellEnum) {
 function buildDispelPerform() {
 	global.player.priest_has_dispel = 1
 	with(obj_priest) {
-		dispel.lvl = 1
+		dispel.level_up()
 		mana *= learnSpellManaMultiplicator
 		max_mana *= learnSpellManaMultiplicator
 		mana_regen_rate_per_sec *= learnSpellManaMultiplicator
@@ -302,7 +302,7 @@ function buildDispelPerform() {
 function buildInvisibilityPerform() {
 	global.player.sorceress_has_invisibility = 1
 	with(obj_sorceress) {
-		invisibility.lvl = 1
+		invisibility.level_up()
 		mana *= learnSpellManaMultiplicator
 		max_mana *= learnSpellManaMultiplicator
 		mana_regen_rate_per_sec *= learnSpellManaMultiplicator
@@ -312,7 +312,7 @@ function buildInvisibilityPerform() {
 function buildDefendPerform() {
 	global.player.footman_has_defend_upgrade = 1
 	with(obj_footman) {
-		defend.lvl = 1
+		defend.level_up()
 	}
 }
 

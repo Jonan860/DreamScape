@@ -16,8 +16,9 @@ function scr_wave_generate() {
 									repeat(3) {
 										scr_level_up()
 									}
-									frost_nova.lvl = 2
-									dark_ritual.lvl = 1
+									frost_nova.level_up()
+									frost_nova.level_up()
+									dark_ritual.level_up()
 								}
 								break;
 							case obj_dreadlord : 
@@ -25,8 +26,11 @@ function scr_wave_generate() {
 									repeat(5) {
 										scr_level_up()
 									}
-									sleep.lvl = 2
-									vampiric_aura.lvl = 3
+									sleep.level_up()
+									sleep.level_up()
+									vampiric_aura.level_up()
+									vampiric_aura.level_up()
+									vampiric_aura.level_up()
 									vampiric_aura.iconPerform()
 								}
 								break;
@@ -35,10 +39,14 @@ function scr_wave_generate() {
 									repeat(7) {
 										scr_level_up()
 									}
-									spiked_carapace.lvl = 3
-									damage_reduction = damage_reduction	+ spiked_carapace.amount[0][lvl - 1] - damage_reduction * spiked_carapace.amount[0][lvl - 1]
-									carrion_beetles.lvl = 3
-									locust_swarm.lvl = 1
+									spiked_carapace.level_up()
+									spiked_carapace.level_up()
+									spiked_carapace.level_up()
+									damage_reduction = damage_reduction	+ spiked_carapace.amount[0][spiked_carapace.lvl - 1] - damage_reduction * spiked_carapace.amount[0][spiked_carapace.lvl - 1]
+									carrion_beetles.level_up()
+									carrion_beetles.level_up()
+									carrion_beetles.level_up()
+									locust_swarm.level_up()
 								}
 								break;
 						}

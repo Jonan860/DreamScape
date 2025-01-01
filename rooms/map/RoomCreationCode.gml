@@ -19,8 +19,6 @@ global.saveData = {}
 
 
 scr_instance_create_at_tile_with_owner(obj_ida, getTile(10, 14), global.player)
-
-
 scr_instance_create_at_tile_with_owner(obj_nils, getTile(18, 2), global.player)
 
 scr_instance_create_at_tile_with_owner(obj_lille_skutt, getTile(13, 15), global.player)

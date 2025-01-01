@@ -33,7 +33,7 @@ function spellToCooldown(spell) {
 		case SPELLS.freeze : return 20
 		case SPELLS.locust_swarm : return 180
 		case SPELLS.ninjago : return 20
-		case SPELLS.golden_dragon : return 20
+		case SPELLS.golden_dragon : return 60
 		case SPELLS.carrion_beetles : return 1
 		case SPELLS.frost_armor : return 20
 		case SPELLS.dark_ritual : return 20
@@ -44,6 +44,7 @@ function spellToCooldown(spell) {
 		case SPELLS.buildArcaneSanctum : return 0
 		case SPELLS.buildBarracks : return 0
 		case SPELLS.dispel : return 20
+		case SPELLS.sleep : return 4
 		default : return noone
 	}
 }
@@ -369,46 +370,46 @@ function spellToInfo(spell) {
 			 +"Damage per range: " + string(amount[?"damage"][0]) + ", " + string(amount[?"damage"][1]) + ", " + string(amount[?"damage"][2]) + "\n"
 			 + "Stun duration per range: " + string(amount[?"stun"][0]) + ", " + string(amount[?"stun"][1]) + ", " + string(amount[?"stun"][2])
 		case SPELLS.freeze : return "Freezes the target unit making it unable to attack.\n cooldown: " + string(getCooldown())
-			 + "\n Mana cost: " + string(getManaCost()) + " Duration: " + string(duration) + " Range: " + string(1)
+			 + "\n Mana cost: " + string(getManaCost()) + " Duration: " + string(getDuration()) + " Range: " + string(1)
 		case SPELLS.frost_armor : return "Improves and applies frost element to armor of unit" + "\n Cooldown " + string(getCooldown())
 	 + "\n Mana cost: " + string(getManaCost())
 		case SPELLS.golden_dragon : return "summons a powerful golden dragon"
-			 + "\n Cooldown(): " + string(getCooldown())
+			 + "\n Cooldown: " + string(getCooldown())
 			 + "\n Mana Cost: " + string(getManaCost())
-			 + "\n Duration: " + string(duration)
+			 + "\n Duration: " + string(getDuration())
 		case SPELLS.kawarimi_no_jutsu :
 			return "Swaps the position of two targeted friendly units.\n" + "Mana_cost: " + string(getManaCost()) + "\n"
 			+ "Cooldown: " + string(getCooldown())
-		case SPELLS.sleep : return "Makes target enemy fall asleep for, " + string(getAmount()) + " seconds. Cooldown: "+string(getCooldown())
+		case SPELLS.sleep : return "Makes target enemy fall asleep for, " + string(getDuration()) + " seconds. Cooldown: "+string(getCooldown())
 			+ "\n Mana cost: " + string(getManaCost())
 		case SPELLS.carrion_swarm : return "Freezes the target unit making it unable to attack.\n Cooldown: "+string(getCooldown())
 			+ "\n Mana cost: " + string(getManaCost())
 		case SPELLS.ninjago : return "The hero creats a tornado-like vortex of energy around himself hurting surrounding enemies"
 			+ "\n Cooldown: " + string(getCooldown())
 			+ "\n Mana Cost: " + string(getManaCost())
-			+ "\n Duration: " + string(duration)
-			+ "\n Damage Cap: " + string(amount)
+			+ "\n Duration: " + string(getDuration())
+			+ "\n Damage Cap: " + string(getAmount())
 		case SPELLS.holy_light : return "A holy light that can heal a friendly living unit."
 			+ "\n Cooldown: " + string(getCooldown())
 			+ "\n Mana Cost: " + string(getManaCost())
-			+ "\n Heal Amount: " + string(amount)
+			+ "\n Heal Amount: " + string(getAmount())
 		case SPELLS.spell_shield : return "Projects a magical barrier, blocking incoming damage on the hero and surrounding units for a short period."
 			+ "\n Cooldown: " + string(getCooldown())
 			+ "\n Blocked Damage Cap: " + string(getAmount()) //string(floor(amount[max(lvl - 1, 0)]))
-			+ " %"
+			+ ""
 			+ "\n Mana Cost: " + string(getManaCost())
-			 + "\n Duration: " + string(duration)
-		case SPELLS.spiked_carapace : return "The Crypt Lord forms barbed layers of chitinous armor \n that increases its defense and returns" + string(amount[1][lvl - 1]*100) +  "% of damage to enemy melee attackers., Cooldown: " + string(getCooldown())
-			 + "\n Mana cost: " + string(getManaCost())
+			 + "\n Duration: " + string(getDuration())
+		case SPELLS.spiked_carapace : return "The Crypt Lord forms barbed layers of chitinous armor \n that increases its defense and returns " + string(amount[1][max(lvl - 1, 0)]*100) +  "% of damage to enemy melee attackers."
+			 + ""
 		case SPELLS.locust_swarm : return "Creates a swarm of angry locusts that bite and tear at nearby enemy units. \n As they chew the enemy flesh, they convert it into a substance that restores hit points to the Crypt Lord when they return. " + "Cooldown: " + string(getCooldown()) + "\n Mana cost: " + string(mana_cost[0])
 		case SPELLS.vampiric_aura : return "All friendly melee units gain " + string(getAmount()) + "percentage of damage caused, back as hit points when they hit a unit."  
-		case SPELLS.heal : return "Heals a target friendly non-mechanical wounded unit for " + string(amount) + " hit points"
+		case SPELLS.heal : return "Heals a target friendly non-mechanical wounded unit for " + string(getAmount()) + " hit points"
 			+ "\n" + "Cooldown : " + string(getCooldown())
 			+ "\n" + "Mana cost " + string(getManaCost())
 			+ "\n" + "Range: " + string(range)
-		case SPELLS.slow : return "Slows targets movement and attack speed by " + string(getAmount() * 100) + "." + "%" + "\n Duration:" 
-			+ string(getDuration()) + " seconds." + " Range:" + string(4) 
-			+ "Mana cost: " + string(25)
+		case SPELLS.slow : return "Slows targets movement and attack speed by " + string(getAmount() * 100) + "%." + "\n Duration: " 
+			+ string(getDuration()) + " seconds." + "\n Range: " + string(4) 
+			+ "\n Mana cost: " + string(getManaCost())
 		case SPELLS.katon_gokakyu_no_jutsu : return "Hurls an fireball,\n damaging everything in its path\n Cooldown: " + string(getCooldown())
 			+ "\n Mana cost: " + string(getManaCost()) + "\n Damage: " + string(getAmount())//string(amount[max(lvl - 1, 0)])
 		case SPELLS.revive : return "Resurrects a Hero Soul on the same tile after "+ string(getDuration())+  " seconds"
@@ -423,9 +424,15 @@ function spellToInfo(spell) {
 		case SPELLS.raise : return "Summons a skeleton from a soul"
 		case SPELLS.decloak : return "Stop being invisible to be able to perform additional actions."
 		case SPELLS.dispel : return "Reduces duration of hostile buffs in an area"
+		+ "\n Mana Cost: " + string(getManaCost())
+		+ "\n Range: " + string(range)
+		+ "\n Dispel Damage: " + string(getAmount())
+		+ "\n Cooldown: " + string(getCooldown())
 		case SPELLS.buildDefend : return "Gives all footmans the ability to use the defend ability, Cost: " + string(getAmount())
 		case SPELLS.buildImprovedBows : return "Increases the range of all archers by 1, Cost: " + string(getAmount())
 		case SPELLS.defend : return "Reduces damage taken but makes the footman unable to attack"
+		case SPELLS.invisibility : return "Makes a target friendly unit invisible. Units can't attack while invisible"
+		+ "\n Mana cost: " + string(getManaCost())
 	}
 }
 
@@ -602,7 +609,10 @@ function createSpell(spellEnum, _letter) {
 		
 		level_up = function () {
 			lvl++
-			owner.number_of_ability_points--
+			if(object_is_ancestor(owner.object_index, obj_hero)) {
+				owner.number_of_ability_points--
+			}
+			info = spellToInfo(Enum)
 		}
 	}
 	ds_map_add(buttonToSkill, _letter, spell)
