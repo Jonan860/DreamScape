@@ -152,7 +152,8 @@ function draw_status_text() {
 	draw_text_transformed(damage_text_x, damage_text_y, "Damage: " + string(round(other.damage)), 3, 3, 0)
 	draw_text_transformed(accuracy_text_x, accuracy_text_y, "Accuracy: " + string(round(100 * other.accuracy)/100), 3, 3, 0)
 	draw_text_transformed(evasion_text_x, evasion_text_y, "Evasion: " + string(round(100 * other.evasiveness)) + "%", 3, 3, 0)
-	draw_text_transformed(damage_reduction_text_x, damage_reduction_text_y, "Armor: " + string(round(100 * other.damage_reduction)) + "%", 3, 3, 0)
+	draw_text_transformed(armor_text_x, armor_text_y, "Armor: " + string(/*round(*/other.armor/*)*/), 3, 3, 0)
+	draw_text_transformed(armor_coverage_text_x, armor_coverage_text_y, "ArmCov: " + string(other.armor_coverage), 3, 3, 0)
 	draw_text_transformed(range_text_x, range_text_y, "Range: " + string(round(100 * other.range) / 100), 3, 3, 0)
 	draw_text_transformed(attack_rate_text_x, attack_rate_text_y, "Attack rate: " + string(round(100 * 1/other.attack_cost / room_speed) / 100), 3, 3, 0)
 	if(other.mana != noone) {

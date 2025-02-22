@@ -15,7 +15,9 @@ tile = noone
 
 max_HP = 400
 HP = max_HP
-damage_reduction = 0
+base_armor = [1]
+armor = base_armor
+armor_coverage = [100]
 element = ELEMENTS.fortified //fortified later maybe
 
 sorc = createSpell(SPELLS.buildSorceress, "q")

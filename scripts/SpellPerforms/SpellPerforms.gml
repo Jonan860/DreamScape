@@ -12,6 +12,7 @@ function spellToRightPerform(spell) {
 		case SPELLS.holy_light : return method(undefined, holyLightRightPerform)
 		case SPELLS.impale : return;
 		case SPELLS.katon_gokakyu_no_jutsu : return method(undefined, katonGokakyuNoJutsuRightPerform)
+		//case SPELLS.death_coil _ return method(undefined, deathCoilRightPerform)
 		case SPELLS.kawarimi_no_jutsu : return method(undefined, kawarimiRightPerform)
 		case SPELLS.sleep : return method(undefined, sleepRightPerform)
 		case SPELLS.slow : return method(undefined, slowRightPerform)
@@ -53,6 +54,7 @@ function spellToIconPerform(spellenum) {
 		case SPELLS.ninjago : return method(undefined, ninjagoIconPerform)
 		case SPELLS.earthshatter : return method(undefined, selectSwitchCursor)
 		case SPELLS.katon_gokakyu_no_jutsu : return method(undefined, selectSwitchCursor)
+		case SPELLS.death_coil : return method(undefined, selectSwitchCursor)
 		case SPELLS.golden_dragon : return method(undefined, selectSwitchCursor)
 		case SPELLS.vampiric_aura : return method(undefined, vampiricAuraIconPerform)
 		case SPELLS.locust_swarm : return method(undefined, locustIconPerform)
@@ -415,7 +417,7 @@ function defendIconPerform() {
 	if(global.player.footman_has_defend_upgrade) {
 		with(owner) {
 			is_defending = !is_defending
-			update_damage_reduction()
+			update_armor()
 		}
 	}
 }

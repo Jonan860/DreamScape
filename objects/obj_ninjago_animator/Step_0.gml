@@ -27,7 +27,6 @@ if(counter_to_attack >= owner.owner.attack_cost) {
 					}
 					total_damage_done += HP1 - HP2
 					owner.owner.target = store_target
-				//scr_attack_hp_reduction(creator,var_occupant_ground)
 				}
 			}
 		}

@@ -5,4 +5,6 @@ time_between_withdrawals = 20
 time_since_last_withdrawal = 0
 HP = 200
 max_HP = 200
-damage_reduction = 0
+base_armor = [1]
+armor = base_armor
+armor_coverage = [100]

@@ -42,7 +42,9 @@ function scr_wave_generate() {
 									spiked_carapace.level_up()
 									spiked_carapace.level_up()
 									spiked_carapace.level_up()
-									damage_reduction = damage_reduction	+ spiked_carapace.amount[0][spiked_carapace.lvl - 1] - damage_reduction * spiked_carapace.amount[0][spiked_carapace.lvl - 1]
+									for(i = 0; i < array_length(armor); i++) {
+										armor[i] = armor[i] + spiked_carapace.amount[0][spiked_carapace.lvl - 1]
+									}
 									carrion_beetles.level_up()
 									carrion_beetles.level_up()
 									carrion_beetles.level_up()

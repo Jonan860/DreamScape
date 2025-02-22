@@ -18,7 +18,7 @@ function scr_find_best_procentage_debuff_target_from_list(list_of_targets, ailme
 	for(var i = 0; i < array_length(non_ailed_units); i++) {
 		var candidate = non_ailed_units[i] 
 		with(candidate) {
-			var goodness = damage * HP / (attack_cost * (1 - damage_reduction))
+			var goodness = (damage + armor) * HP / attack_cost
 			if(goodness > best_goodness) {
 				best_goodness = goodness
 				best_candidate_yet = candidate

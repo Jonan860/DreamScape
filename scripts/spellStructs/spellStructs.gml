@@ -3,6 +3,7 @@
 function spellToAnimator(spell) {
 	switch(spell) {
 		case SPELLS.katon_gokakyu_no_jutsu : return obj_katon_gokakyu_no_jutsu
+		case SPELLS.death_coil : return obj_death_coil_animator
 		case SPELLS.kawarimi_no_jutsu : return obj_kawarimi_animator 
 		case SPELLS.buildFootman : return obj_footman
 		case SPELLS.buildArcher : return obj_elven_archer
@@ -23,6 +24,7 @@ function spellToAnimator(spell) {
 function spellToCooldown(spell) {
 	switch(spell) {
 		case SPELLS.katon_gokakyu_no_jutsu : return 20
+		case SPELLS.death_coil: return 20
 		case SPELLS.impale : return 20
 		case SPELLS.earthshatter : return 60
 		case SPELLS.frost_nova : return 20
@@ -51,7 +53,7 @@ function spellToCooldown(spell) {
 
 function spellToAmount(spell) {
 	switch(spell) {
-		case SPELLS.katon_gokakyu_no_jutsu : return [60, 90, 120]
+		case SPELLS.katon_gokakyu_no_jutsu : return [50, 90, 120]
 		case SPELLS.impale : return 1000
 		case SPELLS.spiked_carapace :  return [[15/100, 25/100, 35/100], [18/100, 30/100, 42/100]]
 		case SPELLS.frost_nova : return [60, 90, 120]
@@ -658,7 +660,10 @@ enum SPELLS {
 	buildArcaneSanctum,
 	buildMoneyTree,
 	decloak,
-	dispel
+	dispel,
+	death_coil,
+	unholy_aura,
+	death_pact
 }
 
 #macro learnSpellManaMultiplicator 1.25

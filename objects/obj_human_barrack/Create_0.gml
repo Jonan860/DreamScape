@@ -9,7 +9,9 @@ build_progress = 0 // of 1002
 tile = noone
 HP = 400
 max_HP = 400
-damage_reduction = 0 
+base_armor = [1]
+armor = base_armor
+armor_coverage = [100]
 
 footman = createSpell(SPELLS.buildFootman, "q")
 footman.lvl = 1

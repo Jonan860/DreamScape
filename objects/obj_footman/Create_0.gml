@@ -8,8 +8,9 @@ HP = 100
 max_HP = 100
 HP_regeneration_rate = 0.1
 damage = 10
-base_damage_reduction = 0.2
-damage_reduction = 0.2
+base_armor = [3, 1, 0]
+armor = base_armor
+piercing = 1
 accuracy = 1
 base_accuracy = accuracy
 evasiveness = 0.5
@@ -22,6 +23,3 @@ defend = createSpell(SPELLS.defend, "q")
 skills = [defend]
 attack_target = method(undefined, scr_attack_target_footman)
 
-update_damage_reduction = function() {
-	damage_reduction = (base_damage_reduction + is_defending) / (1 + is_defending)
-}
