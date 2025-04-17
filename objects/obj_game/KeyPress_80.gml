@@ -1,0 +1,1 @@
+audio_set_master_gain(0, audio_get_master_gain(0) <= 0)

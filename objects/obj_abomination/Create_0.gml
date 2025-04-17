@@ -1,0 +1,24 @@
+event_inherited()
+movement_cost = 3 * game_get_speed(gamespeed_fps) 
+attack_cost = 1.5 * game_get_speed(gamespeed_fps)
+max_action_bar = 3 * game_get_speed(gamespeed_fps)
+action_bar = 0
+range = 1
+HP = 200
+max_HP = 200
+HP_regeneration_rate = 0.2
+damage = 30
+base_armor = [1, 0]
+armor = base_armor
+armor_coverage = [50, 50]
+piercing = 1
+accuracy = 0.5
+base_accuracy = accuracy
+evasiveness = 0.25
+altitude = ALTITUDES.ground
+experience_to_give = 300
+
+attack_animator = spr_butcher_knife
+
+ai = function() {}
+attack_target = method(undefined, scr_attack_target_meelee)
