@@ -29,8 +29,8 @@
   "properties": [],
   "solid": false,
   "spriteId": {
-    "name": "spr_kai_animation",
-    "path": "sprites/spr_kai_animation/spr_kai_animation.yy",
+    "name": "spr_kai",
+    "path": "sprites/spr_kai/spr_kai.yy",
   },
   "spriteMaskId": null,
   "visible": true,

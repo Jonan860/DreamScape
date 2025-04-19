@@ -25,10 +25,35 @@ function spellToRightPerform(spell) {
 		case SPELLS.dispel : return method(undefined, dispelRightPerform)
 		case SPELLS.death_coil : return method(undefined, deathCoilRightPerform)
 		case SPELLS.unholy_aura : return;
+		case SPELLS.shannaro : return method(undefined, shannaroRightPerform)
 	}
 }
 
-
+function shannaroRightPerform() {
+	var tileXtrans = global.clicked_tile.tile_x - owner.tile.tile_x
+	var tileYtrans = global.clicked_tile.tile_y - owner.tile.tile_y
+	var moves = getAmount()[? "distance"][lvl - 1]
+	var varTarget = array_first(global.clicked_tile.occupants[? ALTITUDES.ground])
+	
+	var accuracy_store = owner.accuracy
+	owner.accuracy = accuracy
+	var damage_store = owner.damage
+	owner.damage = getAmount()[? "damage"][lvl - 1]
+	with(owner) {							
+		scr_convert_damage_to_accuracy_included_damage(varTarget)
+	}
+	attackEffectWrapper(owner, varTarget, true)
+	owner.damage = damage_store
+	owner.accuracy = accuracy_store
+	
+	with(instance_create_depth(owner.x, owner.y, 0, obj_shannaro_animator)) {
+		tile_translation_x = tileXtrans
+		tile_translation_y = tileYtrans
+		owner = other
+		target = varTarget
+		number_of_moves = moves
+	}
+}
 
 function dispelRightPerform() {
 	global.clicked_tile.reduceDebuffDuration(getAmount())
@@ -70,6 +95,9 @@ function spellToIconPerform(spellenum) {
 		case SPELLS.decloak : return method(undefined, decloakIconPerform)
 		case SPELLS.dispel : return method(undefined, selectSwitchCursor)
 		case SPELLS.unholy_aura : return method(undefined, auraIconPerform)
+		case SPELLS.kai : return method(undefined, selectSwitchCursor)
+		case SPELLS.iryo_ninjutsu : return method(undefined, selectSwitchCursor)
+		case SPELLS.shannaro : return method(undefined, selectSwitchCursor)
 	}
 }
 
@@ -102,6 +130,7 @@ function spellToShouldRightPerformLocal(spellEnum) {
 		case SPELLS.slow : return method(undefined, slowShouldRightPerformLocal)
 		case SPELLS.freeze : return method(undefined, slowShouldRightPerformLocal)
 		case SPELLS.kawarimi_no_jutsu : return method(undefined, healShouldRightPerformLocal)
+		case SPELLS.shannaro : return method(undefined, slowShouldRightPerformLocal)
 		default : return function() {return true}
 	}
 }
@@ -487,8 +516,10 @@ function angleToVaderstreck(angle) {
 	}
 	return angles[closest_index];
 }
+
+
 function deathCoilRightPerform(_target) {
-	var angle = angleToVaderstreck(point_direction(owner.x, owner.y, global.clicked_tile._x, global.clicked_tile._y))
+	var angle = angleToVaderstreck(point_direction(owner.x, owner.y, _target.x, _target.y))
 	with(instance_create_depth(owner.tile._x, owner.tile._y, owner.depth, animator)) {
 		owner = other
 		target = _target

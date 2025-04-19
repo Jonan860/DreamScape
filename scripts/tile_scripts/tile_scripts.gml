@@ -50,6 +50,14 @@ function createTile() constructor {
 	west_tile = noone; east_tile = noone
 	list_of_neighbours = []
 	array_push(list_of_neighbours, south_east_tile, south_west_tile, north_east_tile, north_west_tile, north_tile, south_tile)
+	angleToNeighbour = ds_map_create()
+	ds_map_add(angleToNeighbour, 90, north_tile)
+	ds_map_add(angleToNeighbour, 270, south_tile)
+	ds_map_add(angleToNeighbour, NWA, north_west_tile)
+	ds_map_add(angleToNeighbour, SWA, south_west_tile)
+	ds_map_add(angleToNeighbour, NEA, north_east_tile)
+	ds_map_add(angleToNeighbour, NEA, south_east_tile)
+	
 	occupants = ds_map_create()
 	ds_map_add(occupants, ALTITUDES.ground, [])
 	ds_map_add(occupants, ALTITUDES.invisible, [])

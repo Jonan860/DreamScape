@@ -199,9 +199,9 @@ function spellToCursor(spellenum) {
 		case SPELLS.golden_dragon : return spr_golden_dragon_cursor
 		case SPELLS.invisibility : return spr_invisibility_cursor
 		case SPELLS.dispel : return spr_dispel_cursor
-		case SPELLS.shannaro : return spr_shannaro
-		case SPELLS.kai : return spr_kai_animation
-		case SPELLS.iryo_ninjutsu : return spr_iryo_ninjutsu
+		case SPELLS.shannaro : return spr_shannaro_cursor
+		case SPELLS.kai : return spr_kai_cursor
+		case SPELLS.iryo_ninjutsu : return spr_iryo_ninjutsu_cursor
 		default : return noone
 	}
 }
@@ -337,7 +337,7 @@ function spellToIcon(spell) {
 		case SPELLS.death_pact : return spr_death_pact_icon
 		case SPELLS.death_coil : return spr_death_coil_icon
 		case SPELLS.iryo_ninjutsu : return spr_iryo_ninjutsu
-		case SPELLS.kai : return spr_kai_animation
+		case SPELLS.kai : return spr_kai
 		case SPELLS.shannaro : return spr_shannaro_icon
 		default : return noone
 	}

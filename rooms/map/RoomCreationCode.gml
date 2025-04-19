@@ -1,5 +1,5 @@
 window_set_fullscreen(1)
-#macro debugg false
+#macro debugg true
 audio_group_load(jukebox)
 draw_set_font(font0)
 randomize()
@@ -17,25 +17,31 @@ instance_create_depth(0, 0, -100, obj_game)
 
 global.saveData = {}
 
-with(scr_instance_create_at_tile_with_owner(obj_jonathan, getTile(10, 2), global.enemy)) {
-	repeat(3) {
-		scr_level_up()
-	}
-	unholy_aura.level_up()
-	death_coil.level_up()
-	death_pact.level_up()
-	unholy_aura.iconPerform()
-}
+//with(scr_instance_create_at_tile_with_owner(obj_jonathan, getTile(10, 2), global.enemy)) {
+//	repeat(3) {
+//		scr_level_up()
+//	}
+//	unholy_aura.level_up()
+//	death_coil.level_up()
+//	death_pact.level_up()
+//	unholy_aura.iconPerform()
+//}
+
+scr_instance_create_at_tile_with_owner(obj_ghoul, getTile(10, 2), global.enemy)
+
 
 
 with(scr_instance_create_at_tile_with_owner(obj_sakura, getTile(8, 14), global.player)) {
-	repeat(3) {
+	repeat(5) {
 		scr_level_up()
 	}
 	iryo_ninjutsu.level_up()
 	kai.level_up()
 	shannaro.level_up()
+	shannaro.level_up()
+	shannaro.level_up()
 }
+
 scr_instance_create_at_tile_with_owner(obj_ida, getTile(10, 14), global.player)
 scr_instance_create_at_tile_with_owner(obj_nils, getTile(18, 2), global.player)
 

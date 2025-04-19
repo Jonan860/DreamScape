@@ -13,6 +13,7 @@ base_armor = [2, 1]
 armor = base_armor
 armor_coverage = [50, 50]
 accuracy = 1
+piercing = 0;
 base_accuracy = 1
 evasiveness = 0.5
 altitude = ALTITUDES.ground
