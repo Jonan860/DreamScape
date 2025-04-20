@@ -26,6 +26,14 @@ function spellToRightPerform(spell) {
 		case SPELLS.death_coil : return method(undefined, deathCoilRightPerform)
 		case SPELLS.unholy_aura : return;
 		case SPELLS.shannaro : return method(undefined, shannaroRightPerform)
+		case SPELLS.iryo_ninjutsu : return method(undefined, iryoNinjutsuRightPerform)
+	}
+}
+
+function iryoNinjutsuRightPerform() {
+	with(instance_create_depth(owner.x, owner.y, 0, obj_iryo_ninjutsu_animator)) {
+		target = array_first(global.clicked_tile.occupants[? ALTITUDES.ground])
+		owner = other
 	}
 }
 
@@ -131,6 +139,7 @@ function spellToShouldRightPerformLocal(spellEnum) {
 		case SPELLS.freeze : return method(undefined, slowShouldRightPerformLocal)
 		case SPELLS.kawarimi_no_jutsu : return method(undefined, healShouldRightPerformLocal)
 		case SPELLS.shannaro : return method(undefined, slowShouldRightPerformLocal)
+		case SPELLS.iryo_ninjutsu : return method(undefined, holyLightShouldRightShouldPerform)
 		default : return function() {return true}
 	}
 }
