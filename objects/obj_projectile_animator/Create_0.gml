@@ -1,3 +1,5 @@
+shouldPerform = false
+
 save = function() {
 	var s = {}
 	if(variable_instance_exists(id, "owner")) {

@@ -1,4 +1,4 @@
-if(room == map) {
+if(room == room_map) {
 	if(abs(window_get_height() - max_window_height) < 1) {
 		window_set_size(min_window_width,min_window_height)
 	} else if(abs(window_get_height() - min_window_height) < 1) {

@@ -1,13 +1,13 @@
 {
   "resourceType": "GMRoom",
   "resourceVersion": "1.0",
-  "name": "map",
-  "creationCodeFile": "rooms/map/RoomCreationCode.gml",
+  "name": "room_map",
+  "creationCodeFile": "rooms/room_map/RoomCreationCode.gml",
   "inheritCode": false,
   "inheritCreationOrder": false,
   "inheritLayers": false,
   "instanceCreationOrder": [
-    {"name":"inst_639B9440","path":"rooms/map/map.yy",},
+    {"name":"inst_639B9440","path":"rooms/room_map/room_map.yy",},
   ],
   "isDnd": false,
   "layers": [

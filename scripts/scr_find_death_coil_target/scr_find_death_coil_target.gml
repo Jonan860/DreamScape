@@ -1,11 +1,11 @@
-function scr_find_death_coil_target(){
+function scr_find_damage_spell_target(){
 	var var_optimal_goodness_to_coil = 0
 	var var_optimal_coil = noone
 	var var_goodness = 0
-	var var_damage = death_coil.getAmount()
+	var var_damage = damage_spell.getAmount()
 	with(obj_unit) {
 		if(owner = global.player) {
-			if(scr_get_distance(tile, other.tile) <= other.death_coil.range) {
+			if(scr_get_distance(tile, other.tile) <= other.damage_spell.range) {
 				var_goodness = damage*accuracy*(is_undefined(mana) ? 1 : 2) * min(var_damage, HP)	//HP * var_conversion - max(0, HP * var_conversion - other.mana)
 				if(var_goodness > var_optimal_goodness_to_coil) {
 					var_optimal_goodness_to_coil = var_goodness
@@ -15,7 +15,7 @@ function scr_find_death_coil_target(){
 		}
 		
 		if(owner = global.enemy and id != other.owner) {
-			if(scr_get_distance(tile, other.tile) <= other.death_coil.range) {
+			if(scr_get_distance(tile, other.tile) <= other.damage_spell.range) {
 				var_goodness = damage*accuracy*(is_undefined(mana) ? 1 : 2) * min(var_damage, max_HP - HP)	//HP * var_conversion - max(0, HP * var_conversion - other.mana)
 				if(var_goodness > var_optimal_goodness_to_coil) {
 					var_optimal_goodness_to_coil = var_goodness
@@ -24,5 +24,6 @@ function scr_find_death_coil_target(){
 			}
 		}
 	}
-	return var_optimal_goodness_to_coil > death_coil.getManaCost() * 2 ? var_optimal_coil : noone
+	return var_optimal_goodness_to_coil > damage_spell.getManaCost() * 2 ? var_optimal_coil : noone
 }
+

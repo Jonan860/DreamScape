@@ -1,4 +1,4 @@
-if(room == map) {
+if(room == room_map) {
 	scr_win_condition_check_and_perform()
 	scr_lose_condition_check_and_perform()
 	if(phase == GAME_PHASES.battle) {

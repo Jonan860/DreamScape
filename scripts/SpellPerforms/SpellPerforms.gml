@@ -34,6 +34,11 @@ function iryoNinjutsuRightPerform() {
 	with(instance_create_depth(owner.x, owner.y, 0, obj_iryo_ninjutsu_animator)) {
 		target = array_first(global.clicked_tile.occupants[? ALTITUDES.ground])
 		owner = other
+		image_xscale = sprite_get_width(spr_hexagon_pink) / sprite_get_width(sprite_index)
+		image_yscale = sprite_get_height(spr_hexagon_pink) / sprite_get_height(sprite_index)
+		x = (owner.owner.x + target.x) / 2
+		y = (owner.owner.y + target.y) / 2
+		image_alpha = 0.7
 	}
 }
 
@@ -104,8 +109,18 @@ function spellToIconPerform(spellenum) {
 		case SPELLS.dispel : return method(undefined, selectSwitchCursor)
 		case SPELLS.unholy_aura : return method(undefined, auraIconPerform)
 		case SPELLS.kai : return method(undefined, selectSwitchCursor)
-		case SPELLS.iryo_ninjutsu : return method(undefined, selectSwitchCursor)
+		case SPELLS.iryo_ninjutsu : return method(undefined, selectSwitchCursorDeselect)
 		case SPELLS.shannaro : return method(undefined, selectSwitchCursor)
+	}
+}
+
+function selectSwitchCursorDeselect() {
+	if(instance_exists(obj_iryo_ninjutsu_animator)) {
+		with(obj_iryo_ninjutsu_animator) {
+			instance_destroy()
+		}
+	} else {
+		selectSwitchCursor()
 	}
 }
 
@@ -246,11 +261,7 @@ function goldenDragonShouldRightPerform() {
 }
 function invisibilityShouldIconPerform() {return global.player.sorceress_has_invisibility}
 
-function healAnimationEnd() {
-	with(target) {
-		HP = min(max_HP, HP + other.amount)
-	}
-}
+
 
 function healRightPerform() {
 		var varTarget = array_first(global.clicked_tile.occupants[? ALTITUDES.ground])

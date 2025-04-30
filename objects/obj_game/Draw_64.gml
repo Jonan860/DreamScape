@@ -1,4 +1,4 @@
-if(room = map) {
+if(room = room_map) {
 	if(wave_number <= array_length(enemies_wave_length_list) - 1) {
 		var var_color = draw_get_color()
 		draw_set_color(c_white)

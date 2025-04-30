@@ -22,6 +22,7 @@ function spellToAnimator(spell) {
 		case SPELLS.kai : return obj_kai_animator
 		case SPELLS.iryo_ninjutsu : return obj_iryo_ninjutsu_animator
 		case SPELLS.shannaro : return obj_shannaro_animator
+		case SPELLS.life_drain : return obj_life_drain_animator
 	}
 }
 
@@ -52,6 +53,9 @@ function spellToCooldown(spell) {
 		case SPELLS.dispel : return 20
 		case SPELLS.sleep : return 4
 		case SPELLS.shannaro : return 20
+		case SPELLS.life_drain : return 8
+		case SPELLS.dark_arrow : return 0
+		case SPELLS.silence : return 20
 		default : return noone
 	}
 }
@@ -100,6 +104,9 @@ function spellToAmount(spell) {
 			ds_map_add(mapp, "distance", [1,2,3])
 			return mapp  // per distance
 		case SPELLS.kai : return [80, 160, 240]
+		case SPELLS.life_drain : return [30, 60, 100]
+		case SPELLS.silence : return [2, 2, 3] //aoe
+		case SPELLS.dark_arrow : return [1, 5, 10]
 		default : return noone
 	}
 }
@@ -130,6 +137,9 @@ function spellToRange(spell) {
 		case SPELLS.iryo_ninjutsu : return 1
 		case SPELLS.kai : return 4
 		case SPELLS.shannaro : return 1
+		case SPELLS.life_drain : return 2
+		case SPELLS.dark_arrow : return 2
+		case SPELLS.silence : return 6
 		default : return noone
 	}
 }
@@ -138,6 +148,7 @@ function spellToPiercing(spell) {
 	switch(spell) {
 		case SPELLS.death_coil : return 100;
 		case SPELLS.shannaro : return 0
+		case SPELLS.life_drain : return 100
 	}
 }
 
@@ -171,6 +182,8 @@ function spellToManaCosts(spell) {
 		case SPELLS.kai : return [20, 40, 60]
 		case SPELLS.iryo_ninjutsu : return [2,4,6]
 		case SPELLS.shannaro : return [20, 40, 60]
+		case SPELLS.life_drain : return [25, 90, 150]
+		case SPELLS.dark_arrow : return [5, 10, 15]
 		default : return noone
 	}
 }
@@ -181,6 +194,8 @@ function spellToAccuracy(spellEnum) {
 		case SPELLS.impale : return 1
 		case SPELLS.katon_gokakyu_no_jutsu : return 0.6
 		case SPELLS.shannaro : return 3
+		case SPELLS.life_drain : return 100
+		case SPELLS.dark_arrow : return 0
 		default : return 1
 	}
 }
@@ -202,6 +217,8 @@ function spellToCursor(spellenum) {
 		case SPELLS.shannaro : return spr_shannaro_cursor
 		case SPELLS.kai : return spr_kai_cursor
 		case SPELLS.iryo_ninjutsu : return spr_iryo_ninjutsu_cursor
+		case SPELLS.life_drain : return spr_life_drain_cursor
+		case SPELLS.silence : return spr_silence_icon
 		default : return noone
 	}
 }
@@ -265,6 +282,9 @@ function spellToAbilitiesInfo(spell) {
 	+ "\n damage: " + string(amount[?"damage"][0]) + ", " + string(amount[?"damage"][1]) + ", " + string(amount[?"damage"][2])
 	+ "\n distance: " + + string(amount[?"distance"][0]) + ", " + string(amount[?"distance"][1]) + ", " + string(amount[?"distance"][2])
 
+	case SPELLS.life_drain : return "Absorbs the life essence of a target enemy unit by taking hit points from it every second and giving them to the Dark Ranger. "
+	case SPELLS.dark_arrow : return "Adds extra damage to attacks. Units killed while under the effect of Black Arrow will turn into Dark Minions."
+	case SPELLS.silence : return "Stops all enemies in a target area from casting spells. The area of effect and duration increase with level."
 	default : return ""
 	}
 	
@@ -289,6 +309,8 @@ function spellToSpellHealth(spell) {
 		case SPELLS.raise : return 100;
 		case SPELLS.curse : return 100;
 		case SPELLS.heal : return 100;
+		case SPELLS.dark_arrow : return	1;
+		case SPELLS.silence : return [40, 80, 100]
 		default : return noone;
 	}
 }
@@ -339,6 +361,9 @@ function spellToIcon(spell) {
 		case SPELLS.iryo_ninjutsu : return spr_iryo_ninjutsu
 		case SPELLS.kai : return spr_kai
 		case SPELLS.shannaro : return spr_shannaro_icon
+		case SPELLS.life_drain : return spr_life_drain_icon
+		case SPELLS.dark_arrow : return spr_black_arrow_icon
+		case SPELLS.silence : return spr_silence_icon
 		default : return noone
 	}
 }
@@ -377,6 +402,9 @@ function spellToDuration(spell) {
 		case SPELLS.buildDispel : return 30
 		case SPELLS.buildImprovedBows : return 30
 		case SPELLS.revive : return 20
+		case SPELLS.life_drain : return 8
+		case SPELLS.dark_arrow : return 2
+		case SPELLS.silence : return [10, 20, 30]
 		default : return noone
 	}
 }
@@ -407,6 +435,9 @@ function spellToName(spell) {
 		case SPELLS.kai : return "Kai"
 		case SPELLS.shannaro : return "Shannaro"
 		case SPELLS.iryo_ninjutsu : return "Iryo Ninjutsu"
+		case SPELLS.life_drain : return "Life Drain"
+		case SPELLS.silence : return "Silence"
+		case SPELLS.dark_arrow : return "Dark Arrow"
 	}
 }
 
@@ -725,7 +756,10 @@ enum SPELLS {
 	death_pact,
 	kai,
 	iryo_ninjutsu,
-	shannaro
+	shannaro,
+	dark_arrow,
+	life_drain,
+	silence
 }
 
 #macro learnSpellManaMultiplicator 1.25

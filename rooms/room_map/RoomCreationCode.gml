@@ -27,7 +27,7 @@ global.saveData = {}
 //	unholy_aura.iconPerform()
 //}
 
-scr_instance_create_at_tile_with_owner(obj_ghoul, getTile(10, 2), global.enemy)
+scr_instance_create_at_tile_with_owner(obj_sylvanas, getTile(10, 2), global.enemy)
 
 
 

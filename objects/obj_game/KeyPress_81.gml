@@ -1,5 +1,5 @@
 
-if(room == map) {
+if(room == room_map) {
 	buttonPressedIconPerform("q")
 }
 

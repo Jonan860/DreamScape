@@ -1,4 +1,4 @@
-if(room == map) {
+if(room == room_map) {
 	if(!scr_is_cursor_on_hud()) {
 		show_debug_message("before clickedT_TIle = moustotile")
 		global.clicked_tile = mouseToTile()

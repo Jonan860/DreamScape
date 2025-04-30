@@ -59,3 +59,5 @@ function scr_find_frost_nova_target_within_range() {
 	loopTilesEnd
 	return var_optimal_tile_target
 }
+
+
