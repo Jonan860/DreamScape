@@ -17,7 +17,7 @@ function scr_hunt_attack_enemy() {
 						other.target = id
 						break;
 					}
-					var_n += 1
+					var_n++
 				}
 			}
 			if(!enemy_exists) {

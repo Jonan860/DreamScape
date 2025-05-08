@@ -12,6 +12,7 @@ function spellToRightPerform(spell) {
 		case SPELLS.holy_light : return method(undefined, holyLightRightPerform)
 		case SPELLS.impale : return;
 		case SPELLS.katon_gokakyu_no_jutsu : return method(undefined, katonGokakyuNoJutsuRightPerform)
+		//case SPELLS.death_coil _ return method(undefined, deathCoilRightPerform)
 		case SPELLS.kawarimi_no_jutsu : return method(undefined, kawarimiRightPerform)
 		case SPELLS.sleep : return method(undefined, sleepRightPerform)
 		case SPELLS.slow : return method(undefined, slowRightPerform)
@@ -26,10 +27,12 @@ function spellToRightPerform(spell) {
 	}
 }
 
+
+
 function dispelRightPerform() {
 	global.clicked_tile.reduceDebuffDuration(getAmount())
-	for(var i = 0; i < ds_list_size(global.clicked_tile.list_of_neighbours); i++) {
-		global.clicked_tile.list_of_neighbours[| i].reduceDebuffDuration(getAmount())
+	for(var i = 0; i < array_length(global.clicked_tile.list_of_neighbours); i++) {
+		global.clicked_tile.list_of_neighbours[i].reduceDebuffDuration(getAmount())
 	}
 }
 
@@ -51,6 +54,7 @@ function spellToIconPerform(spellenum) {
 		case SPELLS.ninjago : return method(undefined, ninjagoIconPerform)
 		case SPELLS.earthshatter : return method(undefined, selectSwitchCursor)
 		case SPELLS.katon_gokakyu_no_jutsu : return method(undefined, selectSwitchCursor)
+		case SPELLS.death_coil : return method(undefined, selectSwitchCursor)
 		case SPELLS.golden_dragon : return method(undefined, selectSwitchCursor)
 		case SPELLS.vampiric_aura : return method(undefined, vampiricAuraIconPerform)
 		case SPELLS.locust_swarm : return method(undefined, locustIconPerform)
@@ -69,11 +73,12 @@ function spellToIconPerform(spellenum) {
 
 function decloakIconPerform() {
 	with(owner) {
-		for(var i = 0; i < ds_list_size(list_of_active_debuff_structs); i++) {
-			with(list_of_active_debuff_structs[|i]) {
-				if(Enum = SPELLS.invisibility) {
+		for(var i = 0; i < array_length(list_of_active_debuff_structs); i++) {
+			with(list_of_active_debuff_structs[i]) {
+				if(Enum == SPELLS.invisibility) {
 					unapply()
-					scr_ds_list_remove_value(other.list_of_active_debuff_structs, self)
+					other.list_of_active_debuff_structs = array_filter(other.list_of_active_debuff_structs, function(value, index) {return value != other})
+					//array_remove_value(other.list_of_active_debuff_structs, self)
 					exit;
 				}
 			
@@ -89,20 +94,30 @@ function spellToShouldRightPerformLocal(spellEnum) {
 	switch(spellEnum) {
 		case SPELLS.invisibility : return method(undefined, invisibilityShouldRightPerform)
 		case SPELLS.holy_light : return method(undefined, holyLightShouldRightShouldPerform)
-		case SPELLS.ninjago : return method(undefined, ninjagoIconShouldPerform)
+		case SPELLS.golden_dragon : return method(undefined, goldenDragonShouldRightPerform)
 		case SPELLS.spell_shield : return method(undefined, spellShieldShouldPerform)
 		case SPELLS.heal : return method(undefined, healShouldRightPerformLocal)
 		case SPELLS.slow : return method(undefined, slowShouldRightPerformLocal)
+		case SPELLS.freeze : return method(undefined, slowShouldRightPerformLocal)
+		case SPELLS.kawarimi_no_jutsu : return method(undefined, healShouldRightPerformLocal)
 		default : return function() {return true}
 	}
 }
 
+function spellToShouldIconPerformLocal(_Enum) {
+	switch(_Enum) {
+		case SPELLS.ninjago : return method(undefined, ninjagoIconShouldPerform)	
+		default : return function() {return true}
+	}
+}
+
+
 function slowShouldRightPerformLocal() {
-	return global.clicked_tile.grounds_list[|0] != undefined and scr_is_enemies(owner, global.clicked_tile.grounds_list[|0])
+	return array_first(global.clicked_tile.occupants[? ALTITUDES.ground]) != undefined and scr_is_enemies(owner, array_first(global.clicked_tile.occupants[? ALTITUDES.ground]))
 }
 
 function healShouldRightPerformLocal() {
-	return global.clicked_tile.grounds_list[|0] != undefined and !scr_is_enemies(owner, global.clicked_tile.grounds_list[|0])
+	return array_first(global.clicked_tile.occupants[? ALTITUDES.ground]) != undefined and !scr_is_enemies(owner, array_first(global.clicked_tile.occupants[? ALTITUDES.ground]))
 }
 
 function carrionBeetleRightPerform(soul_to_raise) {
@@ -121,7 +136,7 @@ function goldenDragonRightPerform() {
 function raiseRightPerform(obj) {
 	scr_make_room_for_instance_on_tile(global.clicked_tile, ALTITUDES.ground)
 	scr_instance_create_at_tile_with_owner(obj, global.clicked_tile, owner.owner)
-	instance_destroy(instance_nearest(global.clicked_tile.x, global.clicked_tile.y, obj_soul))
+	instance_destroy(instance_nearest(global.clicked_tile._x, global.clicked_tile._y, obj_soul))
 }
 
 function darkSacrificeRightPerform(var_sacrifice) {
@@ -135,15 +150,15 @@ function darkSacrificeRightPerform(var_sacrifice) {
 total_time_to_earthshatter_impact = 0
 time_until_earthshatter_impact = 0
 earthshatter_aoe = 2
-earthshatter_stun_per_distance = ds_list_create()
-ds_list_add(earthshatter_stun_per_distance, 10, 5, 2)
+earthshatter_stun_per_distance = []
+array_push(earthshatter_stun_per_distance, 10, 5, 2)
 
 function spellToShouldPerform(_spell) {
 	switch(_spell) {
 		case SPELLS.curse : 
 			return function() {
 				with(owner) {
-					return !ds_list_empty(scr_find_enemies_within_range(other.range))
+					return !(array_length(scr_find_enemies_within_range(other.range)) == 0)
 				}
 			}
 		default : return true
@@ -160,17 +175,18 @@ function buildBuildingRightPressed() {
 		}	
 	}
 }
-function revivePerform() {
-	with(var_selected) {
-		if(phase == UNIT_PHASES.reviving) {
-			action_bar = 0
-		} else {
+function reviveIconPerform() {
+	if(owner.phase == UNIT_PHASES.reviving) {
+		owner.action_bar = 0
+	} else {
+		with(owner) {
 			scr_disblend_list(path)
-			ds_list_clear(path)
+			path = []
 			target = noone
 		}
-		phase = phase == UNIT_PHASES.reviving ? UNIT_PHASES.idle : UNIT_PHASES.reviving
+		instance_create_depth(owner.x, owner.y, owner.depth + 1, animator, {owner : other})
 	}
+	owner.phase = owner.phase == UNIT_PHASES.reviving ? UNIT_PHASES.idle : UNIT_PHASES.reviving
 }
 
 function selectSwitchCursor() {
@@ -186,7 +202,7 @@ function selectSwitchCursor() {
 }
 
 function goldenDragonShouldRightPerform() {
-
+	return !instance_exists(obj_golden_dragon)
 }
 function invisibilityShouldIconPerform() {return global.player.sorceress_has_invisibility}
 
@@ -197,7 +213,7 @@ function healAnimationEnd() {
 }
 
 function healRightPerform() {
-		var varTarget = global.clicked_tile.grounds_list[|0]
+		var varTarget = array_first(global.clicked_tile.occupants[? ALTITUDES.ground])
 		instance_create_depth(varTarget.x, varTarget.y, varTarget.depth - 1, obj_heal_animator, {target : varTarget, owner : other})
 }
 
@@ -223,32 +239,31 @@ function vampiricAuraIconPerform() {
 function revivePerform() {
 	with(instance_position(x, y, obj_soul_hero)) {
 		if(revival_time_left_sec > 0) {
-			revival_time_left_sec -= 1/game_get_speed(gamespeed_fps)
+			revival_time_left_sec -= 1/game_get_speed(gamespeed_fps) * global.gamespeed
 		}
 	}
 }
 
-function sleepRightPerform(varTarget = global.clicked_tile.ground_unit[0]) {
-	scr_apply_debuff(varTarget)
-	instance_create_depth(varTarget.x, varTarget.y, varTarget.depth - 1, obj_sleep_animator, {owner : other, target : varTarget})
-	with(varTarget) {
-		phase = UNIT_PHASES.sleep
-		with(obj_unit) {
-			if(target = varTarget) {
-				target = noone
-				phase = owner == global.enemy ? UNIT_PHASES.movement : UNIT_PHASES.idle
-				action_bar = owner == global.enemy ? action_bar : 0
-				destination = noone
-			}
-		}
-		target = noone
-		destination = noone
-	}
+function sleepRightPerform() {
+	scr_apply_debuff(array_first(global.clicked_tile.occupants[? ALTITUDES.ground]))
+	//instance_create_depth(varTarget.x, varTarget.y, varTarget.depth - 1, obj_sleep_animator, {owner : other, target : varTarget})
+	//with(varTarget) {
+	//	phase = UNIT_PHASES.sleep
+	//	with(obj_unit) {
+	//		if(target = varTarget) {
+	//			target = noone
+	//			phase = owner == global.enemy ? UNIT_PHASES.movement : UNIT_PHASES.idle
+	//			action_bar = owner == global.enemy ? action_bar : 0
+	//			destination = noone
+	//		}
+	//	}
+	//	target = noone
+	//	destination = noone
+	//}
 }
 
 function freezeRightPerform(perputrator, victim) {
-	//global.clicked_tile.grounds_list[|0].freezed.applied = 1
-	scr_apply_debuff(global.clicked_tile.grounds_list[|0])
+	scr_apply_debuff(array_first(global.clicked_tile.occupants[? ALTITUDES.ground]))
 }
 
 
@@ -260,7 +275,7 @@ function freezeRightPerform2() {
 			if(global.ida.freeze.cooldown_current == 0 and scr_get_distance(global.tile_selected, global.clicked_tile) == 1 and global.ida.mana >= mana_cost) {
 				global.ida.mana -= mana_cost
 				global.ida.freeze.cooldown_current = cooldown
-				scr_freeze_unit(global.ida, global.clicked_tile.grounds_list[|0])
+				scr_freeze_unit(global.ida, array_first(global.clicked_tile.occupants[? ALTITUDES.ground]))
 			}
 		}
 	}
@@ -278,7 +293,7 @@ function spellToPerform(spellEnum) {
 function buildDispelPerform() {
 	global.player.priest_has_dispel = 1
 	with(obj_priest) {
-		dispel.lvl = 1
+		dispel.level_up()
 		mana *= learnSpellManaMultiplicator
 		max_mana *= learnSpellManaMultiplicator
 		mana_regen_rate_per_sec *= learnSpellManaMultiplicator
@@ -289,7 +304,7 @@ function buildDispelPerform() {
 function buildInvisibilityPerform() {
 	global.player.sorceress_has_invisibility = 1
 	with(obj_sorceress) {
-		invisibility.lvl = 1
+		invisibility.level_up()
 		mana *= learnSpellManaMultiplicator
 		max_mana *= learnSpellManaMultiplicator
 		mana_regen_rate_per_sec *= learnSpellManaMultiplicator
@@ -299,7 +314,7 @@ function buildInvisibilityPerform() {
 function buildDefendPerform() {
 	global.player.footman_has_defend_upgrade = 1
 	with(obj_footman) {
-		defend.lvl = 1
+		defend.level_up()
 	}
 }
 
@@ -311,7 +326,7 @@ function buildImprovedBowsPerform() {
 }
 
 function slowRightPerform() {
-	scr_apply_debuff(global.clicked_tile.grounds_list[|0])
+	scr_apply_debuff(array_first(global.clicked_tile.occupants[? ALTITUDES.ground]))
 }
 
 function cloakRightPerform(targeto) {
@@ -321,9 +336,11 @@ function cloakRightPerform(targeto) {
 }
 
 function invisibilityRightPerform(){
-	scr_apply_debuff(global.clicked_tile.grounds_list[|0])
-	scr_make_all_unit_detarget(global.clicked_tile.grounds_list[|0])
-	with(global.clicked_tile.grounds_list[|0]) {
+	scr_apply_debuff(array_first(global.clicked_tile.occupants[? ALTITUDES.ground]))
+	with(obj_unit) {
+		unit_detarget(array_first(global.clicked_tile.occupants[? ALTITUDES.ground]))
+	}
+	with(array_first(global.clicked_tile.occupants[? ALTITUDES.ground])) {
 		setAltitude(ALTITUDES.invisible)
 		phase = UNIT_PHASES.idle
 		action_bar = 0
@@ -332,42 +349,43 @@ function invisibilityRightPerform(){
 
 function frostNovaRightPerform(var_target_tile) {
 	phase = "frost nova"
-	var var_frost_nova = instance_create_layer(var_target_tile.x, var_target_tile.y, "tiles", obj_frost_nova_animator, {owner : other, target : var_target_tile})
+	var var_frost_nova = instance_create_layer(var_target_tile._x, var_target_tile._y, "tiles", obj_frost_nova_animator, {owner : other, target : var_target_tile})
 	with(var_frost_nova) {
 		depth -= 1
 	}
 }
 
 function invisibilityShouldRightPerform() {
-	with(global.clicked_tile.grounds_list[|0]) {
+	with(array_first(global.clicked_tile.occupants[? ALTITUDES.ground])) {
 		return !scr_is_enemies(id, other.owner.id)
 	}
 	return false
 }
 	
 function curseRightPerform() {
-	scr_apply_debuff(global.clicked_tile.grounds_list[|0])
-	global.clicked_tile.grounds_list[|0].scr_update_accuracy()
+	scr_apply_debuff(array_first(global.clicked_tile.occupants[? ALTITUDES.ground]))
+	array_first(global.clicked_tile.occupants[? ALTITUDES.ground]).scr_update_accuracy()
 }
 
 function earthshatterRightPerform() {
-	owner.mana -= getManaCost()
+	show_debug_message("start earthshatrightperform")
 	cooldown_current = getCooldown()
 	owner.phase = UNIT_PHASES.earthshatter
-	instance_create_depth(owner.x, owner.y, global.clicked_tile.depth - 1, animator, {target : global.clicked_tile, owner : other})
+	instance_create_depth(owner.x, owner.y, 500 - 1, animator, {target : global.clicked_tile, owner : global.ida.earthshatter})
+	show_debug_message("earthshater has run instance_create_depth")
 }
 
 function kawarimiRightPerform()	{
 		owner.mana += getManaCost()
 		cooldown_current = 0
 	if(global.game.unit_to_kawarimi1 == noone) {
-		var var_unit_to_kawarimi1 = global.clicked_tile.grounds_list[|0]
+		var var_unit_to_kawarimi1 = array_first(global.clicked_tile.occupants[? ALTITUDES.ground])
 		if(object_is_ancestor(var_unit_to_kawarimi1.object_index, obj_unit) and var_unit_to_kawarimi1.owner == global.player) {
 			global.game.unit_to_kawarimi1 = var_unit_to_kawarimi1
-			instance_create_depth(0, 0, var_unit_to_kawarimi1.depth + 1, animator)
+			instance_create_depth(0, 0, var_unit_to_kawarimi1.depth + 1, animator, {owner : other})
 		}
 	} else {	
-	var var_unit_to_kawarimi2 = global.clicked_tile.grounds_list[|0]
+	var var_unit_to_kawarimi2 = array_first(global.clicked_tile.occupants[? ALTITUDES.ground])
 	if(object_is_ancestor(var_unit_to_kawarimi2.object_index, obj_unit) and var_unit_to_kawarimi2.owner == global.player) {
 		owner.mana -= getManaCost()
 		cooldown_current = getCooldown()
@@ -375,13 +393,12 @@ function kawarimiRightPerform()	{
 		if(global.game.unit_to_kawarimi1 != global.game.unit_to_kawarimi2) {
 			scr_swap_tile(global.game.unit_to_kawarimi1, global.game.unit_to_kawarimi2)
 		}
-		global.game.unit_to_kawarimi1 = noone; global.game.unit_to_kawarimi2 = noone
 		}
 	}
 }
 
 function holyLightRightPerform() {
-	var _target = global.clicked_tile.grounds_list[|0]
+	var _target = array_first(global.clicked_tile.occupants[? ALTITUDES.ground])
 	with(_target) {
 		HP = min(max_HP, HP + other.getAmount())
 	}
@@ -389,34 +406,37 @@ function holyLightRightPerform() {
 }
 
 function holyLightShouldRightShouldPerform() {
-	return global.selectedSpell = self 
-		and owner.mana >= getManaCost()
-		and cooldown_current == 0
-		and scr_get_distance(global.tile_selected, global.clicked_tile) <= range
+	if( !is_undefined(array_first(global.clicked_tile.occupants[? ALTITUDES.ground]))) {
+		return !scr_is_enemies(owner, array_first(global.clicked_tile.occupants[? ALTITUDES.ground]))
+	} else {
+		return false
+	}
 }
 	
 function defendIconPerform() {
 	if(global.player.footman_has_defend_upgrade) {
 		with(owner) {
 			is_defending = !is_defending
-			update_damage_reduction()
+			update_armor()
 		}
 	}
 }
 
 function performRecruit() {
-	if(!owner.unfinished and (animator == undefined or canRecruit(animator))) {
+	if(!owner.unfinished and canRecruit() and !array_contains(global.recruitedUpgrades, Enum)) {
+		if(array_contains(global.recruitableUpgrades, Enum)) {
+			array_delete(global.recruitableUpgrades, array_get_index(global.recruitableUpgrades, Enum), 1)
+			array_push(global.recruitedUpgrades, Enum)
+		}
 		recruit()
 	}
 }
 
-function canRecruit(obj) {
-	return global.player.money >= ds_map_find_value(global.map_object_to_costs, obj)
-}
+
 
 function recruit() { 
 	global.player.money -= getAmount()
-	ds_list_add(owner.queue_list, letter)
+	array_push(owner.queue_list, letter)
 }
 
 function ninjagoIconPerform() {
@@ -437,7 +457,7 @@ function heal_target(_target) {
  
  
  function katonGokakyuNoJutsuRightPerform() {
-	var angle = point_direction(owner.x, owner.y, global.clicked_tile.x, global.clicked_tile.y) 
+	var angle = point_direction(owner.x, owner.y, global.clicked_tile._x, global.clicked_tile._y) 
 	var angles = [90, 270, NWA, SWA, NEA, NWA - 180]
 	var closest_angle_dist = 1000;
 	var i;
@@ -449,7 +469,7 @@ function heal_target(_target) {
 	}
 	angle = angles[closest_index];
 	
-	with(instance_create_depth(owner.tile.x, owner.tile.y, owner.depth, animator)) {
+	with(instance_create_depth(owner.tile._x, owner.tile._y, owner.depth, animator)) {
 		owner = other
 		image_angle = angle
 		x += sprite_get_width(spr_hexagon_pink) / 3 * cos(angle * pi/180)

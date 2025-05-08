@@ -1,4 +1,5 @@
 event_inherited()
+global.nils = id
 movement_cost = 3 * room_speed
 attack_cost = 1.5 * room_speed
 max_action_bar = 3 * room_speed
@@ -8,7 +9,8 @@ HP = 100
 max_HP = 100
 HP_regeneration_rate = 0.2
 damage = 10
-damage_reduction = 0.5
+base_armor = 0.5
+piercing = 0
 accuracy = 1
 base_accuracy = 1
 evasiveness = 0.5
@@ -24,12 +26,10 @@ holy_light = createSpell(SPELLS.holy_light, "q")
 spell_shield = createSpell(SPELLS.spell_shield, "w")
 ninjago = createSpell(SPELLS.ninjago, "e")
 golden_dragon = createSpell(SPELLS.golden_dragon, "r")
-revive = createSpell(SPELLS.revive, "s")
 
 skills = [holy_light, spell_shield, ninjago, golden_dragon, revive]
 
-ds_list_level_sprites = ds_list_create()
-ds_list_add(ds_list_level_sprites, 0, spr_nils_level_1, spr_nils_level_2, spr_nils_level_3, spr_nils_level_4, spr_nils_level_5, spr_nils_level_6, spr_nils_level_7, spr_nils_level_8)
+list_level_sprites = [0, spr_nils_level_1, spr_nils_level_2, spr_nils_level_3, spr_nils_level_4, spr_nils_level_5, spr_nils_level_6, spr_nils_level_7, spr_nils_level_8, spr_nils_level_8, spr_nils_level_8, spr_nils_level_8, spr_nils_level_8, spr_nils_level_8]
 spr_height = sprite_height
 spr_width = sprite_width
 

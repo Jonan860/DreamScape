@@ -1,6 +1,8 @@
-
+event_inherited()
 target = noone
-damage_per_feed = owner.owner.getAmount()
+if(owner != noone) {
+	damage_per_feed = owner.owner.getAmount()
+}
 feed_per_sec = 1
 max_time_until_next_feed_sec = 1
 time_until_next_feed_sec = max_time_until_next_feed_sec
@@ -18,17 +20,18 @@ image_yscale = sprite_get_height(spr_hexagon_pink) / 8 / sprite_height
 
 save = function() {
 	var s = {}
-	s.x = x
-	s.y = y
+	s.x = x; s.y = y
 	s.food_amount = food_amount
 	s.target = target
-	s.owner = owner
+	s.owner = owner.id
+	return s
 }
 
 load = function(s) {
-	x = s.x
-	y = s.y
+	x = s.x; y = s.y
 	food_amount = s.food_amount
 	target = s.target
-	owner = s.owner
+	with(obj_unit) {
+		loadFromIdd(s, "owner")
+	}
 }

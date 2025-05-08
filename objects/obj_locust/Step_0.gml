@@ -1,4 +1,4 @@
-
+if(instance_exists(owner)) {
 switch(phase) {
 	case UNIT_PHASES.searching : 
 		if(time_until_next_direction_change <= 0) {
@@ -27,7 +27,7 @@ switch(phase) {
 				owner.damage = damage_per_feed
 				owner.element = element
 				var stored_target_hp = target.HP
-				scr_attack_hp_reduction(owner, target)
+				scr_attack_hp_reduction(owner, target, array_length(target.armor) - 1)
 				owner.damage = stored_damage
 				owner.element = stored_element
 				food_amount += stored_target_hp - target.HP
@@ -35,7 +35,7 @@ switch(phase) {
 					food_amount = max_food_amount
 					phase = UNIT_PHASES.returning
 				}
-				time_until_next_feed_sec=max_time_until_next_feed_sec
+				time_until_next_feed_sec = max_time_until_next_feed_sec
 			}
 			break;
 	
@@ -52,4 +52,9 @@ switch(phase) {
 			instance_destroy()
 		}
 		break;
+}
+}
+else
+{
+show_debug_message("grattis din debug verkar funka")
 }

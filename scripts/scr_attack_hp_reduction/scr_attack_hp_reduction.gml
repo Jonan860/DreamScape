@@ -1,17 +1,21 @@
-function scr_attack_hp_reduction(var_perputrator, var_victim) {
+function scr_attack_hp_reduction(var_perputrator, var_victim, _armor) {
 	with(scr_get_nearby_friendly_spell_shield(var_victim)) {
 		HP -= var_perputrator.damage
 		exit;
 	}
 	var elementattackbonus = scr_get_element_attack_bonus(var_perputrator.element, var_victim.element)
-	var var_hp_to_remove = var_perputrator.damage * (1 - var_victim.damage_reduction)  * elementattackbonus
+	var var_hp_to_remove = max(var_perputrator.damage - max(_armor - var_perputrator.piercing,0), 0) * elementattackbonus
 	var_victim.HP -= var_hp_to_remove
 	if(object_is_ancestor(var_perputrator.object_index, obj_unit)) {
 		var_perputrator.HP = min(var_perputrator.max_HP, var_perputrator.HP + get_max_vamp_aura(var_perputrator) / 100 * var_hp_to_remove)
-		if(var_victim.object_index == obj_crypt_lord) {
-			if(var_victim.spiked_carapace.lvl > 0 and var_perputrator.range == 1) {
-				var return_damage_fraction = var_victim.list_of_returned_damage_from_spiked_carapacelvl[|var_victim.spell_w.lvl - 1]
-				var_perputrator.HP -= var_hp_to_remove * return_damage_fraction
+		with(var_victim) {
+			if(object_index == obj_crypt_lord) {
+				with(spiked_carapace) {
+					if(lvl > 0 and var_perputrator.range == 1) {
+						var return_damage_fraction = amount[1][lvl - 1]
+						var_perputrator.HP -= var_hp_to_remove * return_damage_fraction //damage reduction fixas i create event
+					}
+				}
 			}
 		}
 	}

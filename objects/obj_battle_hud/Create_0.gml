@@ -54,23 +54,25 @@ lvl_text_y = var_camera_height - 3 * hud_height/4
 
 stats_text_y_space = 2/15 * hud_height
 HP_text_x = lvl_text_x - 4 * hud_height/5
-HP_text_y = lvl_text_y + hud_height/15 + 64
+HP_text_y = lvl_text_y + hud_height/15 + 64 - stats_text_y_space
 evasion_text_x = HP_text_x
 evasion_text_y = HP_text_y + stats_text_y_space
-damage_reduction_text_x = HP_text_x
-damage_reduction_text_y = evasion_text_y + stats_text_y_space
+armor_text_x = HP_text_x
+armor_text_y = evasion_text_y + stats_text_y_space
+accuracy_text_x = HP_text_x
+accuracy_text_y = armor_text_y + stats_text_y_space
 range_text_x = HP_text_x
-range_text_y = damage_reduction_text_y + stats_text_y_space
+range_text_y = accuracy_text_y + stats_text_y_space
 
 
 mana_text_x = lvl_text_x
-mana_text_y = HP_text_y
+mana_text_y = lvl_text_y + stats_text_y_space
 damage_text_x = mana_text_x
-damage_text_y = evasion_text_y
-accuracy_text_x = mana_text_x
-accuracy_text_y = damage_reduction_text_y
+damage_text_y = mana_text_y + stats_text_y_space
+armor_coverage_text_x = mana_text_x
+armor_coverage_text_y = damage_text_y + stats_text_y_space
 attack_rate_text_x = mana_text_x
-attack_rate_text_y = range_text_y  
+attack_rate_text_y = armor_coverage_text_y + stats_text_y_space
 
 summon_time_bar_x1 = var_camera_width/2 - 2 * spell_button_width
 summon_timer_bar_y1 = var_camera_height - 4 * spell_button_height

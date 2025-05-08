@@ -6,12 +6,16 @@ max_action_bar = 3 * room_speed
 action_bar = 0
 base_range = 2
 range = 2
-scr_update_range()
+
+
 HP = 150
 max_HP = 150
 HP_regeneration_rate = 0.1
 damage = 5.8
-damage_reduction = 0
+base_armor = [1, 0]
+armor = base_armor
+armor_coverage = [50, 50]
+piercing = 1
 accuracy = 1.7
 base_accuracy = accuracy
 evasiveness = 0.3

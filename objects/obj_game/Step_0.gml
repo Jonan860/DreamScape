@@ -8,15 +8,12 @@ if(room == map) {
 			scr_movement()
 			for(var i = 0; i < array_length(skills); i++) {
 				with(skills[i]) {
-					cooldown_current = max(0, cooldown_current - 1 / game_get_speed(gamespeed_fps));
+					cooldown_current = max(0, cooldown_current - 1 / game_get_speed(gamespeed_fps) * global.gamespeed);
+					icon_animation_index = autocast ? (icon_animation_index + icon_animation_speed/room_speed) % 7 : 0
+				
 					//if(shouldPerform()) {
 					//	perform()
 					//}
-				}
-			}
-			for(var i = 0; i < array_length(skills); i++) {
-				with(skills[i]) {
-					icon_animation_index = autocast ? (icon_animation_index + icon_animation_speed/room_speed) % 7 : 0
 				}
 			}
 			////scr_death()  maybe solves bug see above
@@ -25,7 +22,7 @@ if(room == map) {
 			if(unfinished and global.lille_skutt.is_building == id) {
 				updateSelfConstruction()
 			}
-			if(!ds_list_empty(queue_list)) {
+			if(!array_equals(queue_list, [])) {
 				updateRecruitQueue()
 			}
 		}
@@ -37,7 +34,6 @@ if(room == map) {
 		scr_hp_digestion()
 		scr_missing_time_countdown()
 		scr_stun_countdown()
-		scr_earthquake_crack_countdown()
 		scr_buff_duration_countdown()
 		scr_enemies_wave_generation()
 		scr_light_beam_damage()

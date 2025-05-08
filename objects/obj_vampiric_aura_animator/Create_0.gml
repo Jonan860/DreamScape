@@ -1,12 +1,12 @@
+event_inherited()
 save = function() {
 	var s = {}
-	s.x = x
-	s.y = y
-	s.owner = owner
+	s.owner = owner.owner.id
+	return s
 }
 
 load = function(s) {
-	x = s.x
-	y = s.y
-	owner = s.owner
+	with(obj_unit) {
+		loadFromIdd(s, "owner", "vampiric_aura")
+	}
 }

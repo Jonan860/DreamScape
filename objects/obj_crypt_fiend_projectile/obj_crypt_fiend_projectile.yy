@@ -13,7 +13,10 @@
     "name": "attack animator",
     "path": "folders/Objects/attack animator.yy",
   },
-  "parentObjectId": null,
+  "parentObjectId": {
+    "name": "obj_attack_animator",
+    "path": "objects/obj_attack_animator/obj_attack_animator.yy",
+  },
   "persistent": false,
   "physicsAngularDamping": 0.1,
   "physicsDensity": 0.5,

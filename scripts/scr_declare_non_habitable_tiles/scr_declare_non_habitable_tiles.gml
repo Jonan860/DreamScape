@@ -1,5 +1,5 @@
 function scr_declare_non_habitable_tiles() {
-	with(obj_tile) {
+	loopTilesStart
 		if(
 		(tile_x == 14 and tile_y != 10) 
 		or tile_x <= 5
@@ -19,5 +19,5 @@ function scr_declare_non_habitable_tiles() {
 		{
 			habitable = 0
 		}
-	}
+	loopTilesEnd
 }

@@ -1,10 +1,6 @@
-
-owner = noone
-
-save = function() {
-	var saveDataLocal = {owner : owner}
+if(!variable_instance_exists(id, "owner")) {
+	owner = noone
 }
-
-load = function(s) {
-	owner = s.owner
+save = function() {
+	return {owner : owner}
 }

@@ -8,7 +8,9 @@ HP = 150 //150
 max_HP = 150 //150
 HP_regeneration_rate = 0.3
 damage = 10
-damage_reduction = 0.2
+base_armor = [3, 1, 0]
+armor = base_armor
+armor_coverage = [50, 25, 25]
 accuracy = 1
 base_accuracy = 1
 evasiveness = 0.5
@@ -25,9 +27,8 @@ frost_nova = createSpell(SPELLS.frost_nova, "q")
 frost_armor = createSpell(SPELLS.frost_armor, "w")
 dark_ritual = createSpell(SPELLS.dark_ritual, "e")
 skills = [frost_nova, frost_armor, dark_ritual]
+list_level_sprites = [0, spr_lich_big_head, spr_lich_big_head, spr_lich_big_head, spr_lich_big_head]
 
-ds_list_level_sprites = ds_list_create()
-ds_list_add(ds_list_level_sprites, 0, spr_lich_big_head, spr_lich_big_head, spr_lich_big_head, spr_lich_big_head)
 spr_height = sprite_height
 spr_width = sprite_width
 
@@ -47,6 +48,8 @@ ai = function () {
 		var var_dark_sacrifice = scr_find_dark_ritual_sacrifice()
 		if(var_dark_sacrifice != noone) {
 			dark_ritual.rightPerform(var_dark_sacrifice)
+			mana -= dark_ritual.getManaCost()
+			dark_ritual.cooldown_current = dark_ritual.getCooldown()
 		}
 	}
 }

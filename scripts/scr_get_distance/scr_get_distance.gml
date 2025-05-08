@@ -9,8 +9,8 @@ function scr_get_distance(start_tile, end_tile) {
 		return 1000 
 	}
 	
-	var startx = start_tile.x; var starty = start_tile.y
-	var endx = end_tile.x; var endy = end_tile.y
+	var startx = start_tile._x; var starty = start_tile._y
+	var endx = end_tile._x; var endy = end_tile._y
 	var angle = point_direction(startx, starty, endx, endy)
 	if(angle <= NEA) {
 		angle += 180

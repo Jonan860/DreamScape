@@ -13,3 +13,6 @@ lasso // multiple selection:
 kawarimi list compatible:
 
 list of selected_units, most be ordered by gui prioriti: hero,mage,range1,range2,range3,flyying,invis
+
+
+check locust animator event list on both computers

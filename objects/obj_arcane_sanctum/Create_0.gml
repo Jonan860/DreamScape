@@ -3,7 +3,7 @@ event_inherited()
 rally_tile = noone
 unfinished = 0
 
-queue_list = ds_list_create()
+queue_list = []
 
 progress_bar_x1 = global.hud.hud_width / 4
 progress_bar_x2 = global.hud.hud_width * 3/4
@@ -15,11 +15,18 @@ tile = noone
 
 max_HP = 400
 HP = max_HP
-damage_reduction = 0
+base_armor = [1]
+armor = base_armor
+armor_coverage = [100]
 element = ELEMENTS.fortified //fortified later maybe
 
-footman = createSpell(SPELLS.buildSorceress, "q")
-archer = createSpell(SPELLS.buildPriest, "w")
-defend = createSpell(SPELLS.buildInvisibility, "a")
-improvedBows = createSpell(SPELLS.buildDispel, "s")
+sorc = createSpell(SPELLS.buildSorceress, "q")
+sorc.lvl = 1
+priest = createSpell(SPELLS.buildPriest, "w")
+priest.lvl = 1
+invis = createSpell(SPELLS.buildInvisibility, "a")
+invis.lvl = 1
+dispel = createSpell(SPELLS.buildDispel, "s")
+dispel.lvl = 1
+
 

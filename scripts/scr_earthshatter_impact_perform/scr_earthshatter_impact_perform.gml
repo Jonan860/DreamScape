@@ -1,15 +1,21 @@
 function scr_earthshatter_impact_perform() { 
-	for(var i = 0; i < ds_list_size(impacted_tiles_list); i += 1) {
-		var  tile_to_impact = impacted_tiles_list[|i]
-		var ground_unit = tile_to_impact.grounds_list[|0]
+	for(var i = 0; i < array_length(impacted_tiles_list); i++) {
+		var  tile_to_impact = impacted_tiles_list[i]
+		var ground_unit = array_first(tile_to_impact.occupants[? ALTITUDES.ground])
 		if(!is_undefined(ground_unit) and ground_unit.object_index != obj_crystal and ground_unit != owner.owner) {
 			var distance_from_impact = scr_get_distance(target, tile_to_impact)
 			with(owner) {
-				var store_damage = owner.damage
-				owner.damage = amount[?"damage"][distance_from_impact - 1]   //bugg Här sätts damage till undefined 
-				attackEffectWrapper(owner.id, ground_unit)
-				owner.damage = store_damage
-				scr_stun(ground_unit, amount[?"stun"][distance_from_impact - 1])
+				with(owner) {
+					var store_damage = damage
+					var store_accuracy = accuracy
+					damage = other.amount[?"damage"][distance_from_impact]   //bugg Här sätts damage till undefined 
+					accuracy = other.accuracy
+					scr_convert_damage_to_accuracy_included_damage(ground_unit)
+					attackEffectWrapper(id, ground_unit, true)
+					damage = store_damage
+					accuracy = store_accuracy
+					scr_stun(ground_unit, other.amount[?"stun"][distance_from_impact])
+				}
 			}
 		}
 	}

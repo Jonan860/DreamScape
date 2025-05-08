@@ -8,7 +8,9 @@ HP = 150
 max_HP = 150
 HP_regeneration_rate = 0.3
 damage = 10
-damage_reduction = 0.2
+
+base_armor = [3, 1, 0]
+armor = base_armor
 accuracy = 1
 base_accuracy = 1
 evasiveness = 0.5
@@ -27,8 +29,8 @@ vampiric_aura = createSpell(SPELLS.vampiric_aura, "e")
 
 skills = [carrion_swarm, sleep, vampiric_aura]
 
-ds_list_level_sprites = ds_list_create()
-ds_list_add(ds_list_level_sprites, 0, spr_dreadlord2, spr_dreadlord2, spr_dreadlord2, spr_dreadlord2)
+list_level_sprites = [0, spr_dreadlord2, spr_dreadlord2, spr_dreadlord2, spr_dreadlord2, spr_dreadlord2, spr_dreadlord2]
+
 spr_height = sprite_height
 spr_width = sprite_width
 

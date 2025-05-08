@@ -8,8 +8,11 @@ HP = 150
 max_HP = 150
 HP_regeneration_rate = 0.3
 damage = 10
-base_damage_reduction = 0.2
-damage_reduction = 0.2
+base_armor = [5, 3, 0]
+armor = base_armor
+base_armor_coverage = [50, 25, 25]
+armor_coverage = base_armor_coverage
+piercing = 1
 accuracy = 1
 base_accuracy = 1
 evasiveness = 0.5
@@ -29,16 +32,10 @@ locust_swarm = createSpell(SPELLS.locust_swarm, "r")
 
 skills = [impale, spiked_carapace, carrion_beetles, locust_swarm]
 
-ds_list_level_sprites = ds_list_create()
-ds_list_add(ds_list_level_sprites, 0, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord)
+list_level_sprites = []
+array_push(list_level_sprites, 0, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord, spr_crypt_lord)
 spr_height = sprite_height; spr_width = sprite_width
 
-updateDamageReduction = function() {
-	if(carapace.lvl > 0) {
-		var reduction_from_spiked_carapace = list_of_damage_reduction_from_spiked_carapacelvl[|spiked_carapace.lvl - 1]
-		damage_reduction = 1 - (1 - base_damage_reduction) * (1 - reduction_from_spiked_carapace)
-	}
-}
 
 attack_target = method(undefined, scr_attack_target_hungry_hungry_lizard)
 
@@ -46,19 +43,23 @@ ai = function() {
 	if(mana >= carrion_beetles.getManaCost() and carrion_beetles.cooldown_current == 0) {
 		var soul_within_range = scr_find_soul_within_range(carrion_beetles.range)
 		if(soul_within_range != noone) {
+			var save = global.clicked_tile
+			global.clicked_tile = soul_within_range.tile
 			carrion_beetles.rightPerform(soul_within_range)
 			carrion_beetles.cooldown_current = carrion_beetles.getCooldown()
 			mana -= carrion_beetles.getManaCost()
+			global.clicked_tile = save
 		}
 	}
 	
 	if(mana >= locust_swarm.getManaCost() and locust_swarm.cooldown_current == 0) {
 		var list_of_enemies = scr_find_enemies_within_range(range)
-		if(!ds_list_empty(list_of_enemies)) {
-			locust_swarm.iconPerform()
+		if(!array_equals(list_of_enemies, [])) {
+			with(locust_swarm) {
+				iconPerform()
+			}
 			mana -= locust_swarm.getManaCost()
 			locust_swarm.cooldown_current = locust_swarm.getCooldown()
 		}
-		ds_list_destroy(list_of_enemies)
 	}
 }

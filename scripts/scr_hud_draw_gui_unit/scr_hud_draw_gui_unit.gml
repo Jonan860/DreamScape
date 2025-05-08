@@ -9,8 +9,8 @@ function scr_hud_draw_gui_unit_prod_building() {
 		draw_set_halign(var_old_align)
 	}
 	scr_dra_hud_button_with_hover_inf_building()
-	if(!ds_list_empty(queue_list)) {
-		draw_healthbar(other.progress_bar_x1, other.progress_bar_y1, other.progress_bar_x2, other.progress_bar_y2,build_progress / buttonToSkill[?queue_list[|0]].getDuration() * 100, c_black, c_lime, c_green, 0, 1, 0)
+	if(!array_equals(queue_list, [])) {
+		draw_healthbar(other.progress_bar_x1, other.progress_bar_y1, other.progress_bar_x2, other.progress_bar_y2,build_progress / buttonToSkill[? queue_list[0]].getDuration() * 100, c_black, c_lime, c_green, 0, 1, 0)
 		draw_queue()
 	}
 }
@@ -25,9 +25,9 @@ function scr_dra_hud_button_with_hover_inf_lille_skutt() {
 }
 
 function draw_queue() {
-	for(var i = 0; i <= ds_list_size(queue_list) - 1; i += 1) {
-		var var_object = buttonToSkill[? queue_list[|i]].animator
-		var var_sprite = buttonToSkill[? queue_list[|i]].icon
+	for(var i = 0; i <= array_length(queue_list) - 1; i++) {
+		var var_object = buttonToSkill[? queue_list[i]].animator
+		var var_sprite = buttonToSkill[? queue_list[i]].icon
 		var var_lenght = other.length_of_training_queue_icon
 		var var_xxx = other.training_queue_x + i * other.length_of_training_queue_icon
 		var var_yyy = other.training_queue_y
@@ -48,6 +48,9 @@ function draw_skills_buttons() {
 				var subimg = floor(icon_animation_index)
 				with(global.hud.charToButton[? letter]) {
 					draw_sprite_ext(other.icon, subimg, _x, _y, global.hud.spell_button_width / sprite_get_width(other.icon), global.hud.spell_button_height / sprite_get_height(other.icon), 0, -1, other.lvl > 0 ? 1 : 0.5)
+					if(global.hud.gui_display_abilities) {
+						draw_text_transformed_color(_x, _y, other.lvl, 3, 3, 0, c_black, c_black, c_black, c_black, 1)
+					}
 				}
 				draw_cooldown()
 			}
@@ -69,7 +72,7 @@ function draw_skills_buttons() {
 function scr_dra_hud_button_with_hover_inf_building() {
 	if(!global.hud.gui_display_abilities) {
 		with(global.tile_selected) {
-			with(selected_units[|0]) {
+			with(array_first(selected_units)) {
 				var button = ds_map_find_first(buttonToSkill)
 				for(var i = 0; i < ds_map_size(buttonToSkill); i++) {
 					with(buttonToSkill[? button]) {
@@ -118,9 +121,10 @@ function scr_hud_draw_gui_unit() {
 			}
 		}
 	}
-	if(object_index == obj_lille_skutt) {
-		scr_dra_hud_button_with_hover_inf_lille_skutt()
-	} else if(object_is_ancestor(object_index, obj_unit)) {
+	//if(object_index == obj_lille_skutt) {
+	//	scr_dra_hud_button_with_hover_inf_lille_skutt()
+	//} else 
+	if(object_is_ancestor(object_index, obj_unit)) {
 		draw_skills_buttons()
 	}
 }
@@ -148,7 +152,8 @@ function draw_status_text() {
 	draw_text_transformed(damage_text_x, damage_text_y, "Damage: " + string(round(other.damage)), 3, 3, 0)
 	draw_text_transformed(accuracy_text_x, accuracy_text_y, "Accuracy: " + string(round(100 * other.accuracy)/100), 3, 3, 0)
 	draw_text_transformed(evasion_text_x, evasion_text_y, "Evasion: " + string(round(100 * other.evasiveness)) + "%", 3, 3, 0)
-	draw_text_transformed(damage_reduction_text_x, damage_reduction_text_y, "Armor: " + string(round(100 * other.damage_reduction)) + "%", 3, 3, 0)
+	draw_text_transformed(armor_text_x, armor_text_y, "Armor: " + string(/*round(*/other.armor/*)*/), 3, 3, 0)
+	draw_text_transformed(armor_coverage_text_x, armor_coverage_text_y, "ArmCov: " + string(other.armor_coverage), 3, 3, 0)
 	draw_text_transformed(range_text_x, range_text_y, "Range: " + string(round(100 * other.range) / 100), 3, 3, 0)
 	draw_text_transformed(attack_rate_text_x, attack_rate_text_y, "Attack rate: " + string(round(100 * 1/other.attack_cost / room_speed) / 100), 3, 3, 0)
 	if(other.mana != noone) {

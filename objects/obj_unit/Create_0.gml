@@ -5,21 +5,22 @@ decloak.lvl = 1
 
 setAltitude = function(_altitude) {
 	scr_make_room_for_instance_on_tile(tile, _altitude)
-	scr_ds_list_remove_value(tile.occupants[? altitude], id)
+	tile.occupants[? altitude] = array_filter(tile.occupants[? altitude], function(value, index) {return value != id})
+	//array_remove_value(tile.occupants[? altitude], id)
 	altitude = _altitude
-	ds_list_add(tile.occupants[? altitude], id)
+	array_push(tile.occupants[? altitude], id)
 }
 
 var var_tile_scale = sprite_get_height(spr_hexagon_pink) / max(sprite_height, sprite_width)
 image_yscale = var_tile_scale; image_xscale = var_tile_scale
-path = ds_list_create()
-list_path_arrow_directions = ds_list_create()
-tile = instance_position(x, y, obj_tile)
+path = []
+list_path_arrow_directions = []
+tile = coordToTile()
 destination = noone
 phase = UNIT_PHASES.idle
 target = noone
-optimal_path = ds_list_create()
-tiles_within_range = ds_list_create()
+optimal_path = []
+tiles_within_range = []
 element = ELEMENTS.normal
 
 HP_regeneration_rate = 0
@@ -36,7 +37,7 @@ player_ai_idle_counter = 1
 missing_time = 0
 
 
-list_of_active_debuff_structs = ds_list_create()
+list_of_active_debuff_structs = []
 eaten = 0
 stunned = 0
 time_until_stunned_clear = 0
@@ -54,53 +55,96 @@ reduceDebuffDuration = function(dispelAmount) {
 		if(dispelAmount == 0) {
 			break;
 		}
-		with(list_of_active_debuff_structs[| i]) {
+		with(list_of_active_debuff_structs[i]) {
 			duration -= min(total_duration * dispelAmount / spellHealth, duration)
 			dispelAmount -= min(dispelAmount, duration / total_duration * spellHealth)
 		}
 	}
 }
 
-
 scr_update_accuracy = function() {
 	var cursed = scr_is_debuffed(SPELLS.curse)
 	if(cursed) {
-		var curse = createSpell(SPELLS.curse)
 		accuracy = base_accuracy * find_active_debuff(SPELLS.curse).amount
 	}
 }
 
 
-
 save = function() { 
 	var s = {}
+	s.sprite_index = sprite_index
+	s.image_xscale = image_xscale
+	s.image_yscale = image_yscale
+	s._direction = direction
+	s._depth = depth
+	s._speed = speed
 	s.phase = phase
+	s.owner = owner
+	s.enemy_ai_spell_counter = enemy_ai_spell_counter
+	s.movement_cost = movement_cost
+	s.attack_cost = attack_cost
+	s.damage = damage
+	s.armor = armor
+	s.range = range
+	s.accuracy = accuracy
+	s.base_accuracy = base_accuracy
+	s.evasiveness = evasiveness
+	if(variable_instance_exists(id, "mana_regen_rate_per_sec")) {
+		s.mana_regen_rate_per_sec = mana_regen_rate_per_sec
+	}
+	s.max_action_bar = max_action_bar
 	s.HP = HP
+	s.max_HP = max_HP
+	s.idd = id
 	s.target = target
-	s.destination = destination
+	if(destination != noone) {
+		s.destinationX = destination.tile_x
+		s.destinationY = destination.tile_y
+	}
 	s.eaten = eaten
 	s.has_waited_for_blocker_to_move = has_waited_for_blocker_to_move
-	s.path = path
+	s.path = saveTileList(path)
+	s.optimal_path = saveTileList(optimal_path)
+	s.tiles_within_range = saveTileList(tiles_within_range)
+	s.list_path_arrow_directions = list_path_arrow_directions
+	s.list_of_active_debuff_structs = list_of_active_debuff_structs
 	s.lvl = lvl
 	s.mana = mana
+	s.max_mana = max_mana
+	s.selected = 0
+	with(global.tile_selected) {
+		for(var i = 0; i < array_length(selected_units); i++) {
+			if(instance_exists(selected_units[i].id) and selected_units[i].id == other.id) {
+				s.selected = 1
+			}
+		}
+	}
 	s.altitude = altitude
-	s.x = x
-	s.y = y
+	if(tile != noone) { // could be soul
+		s.tileX = tile.tile_x; s.tileY = tile.tile_y
+	} else {
+		show_debug_message("heuj")
+	}
+	s.x = x; s.y = y
 	if(variable_instance_exists(id, "skills")) {
-		s.skills = skills
+		s.skillLevels = []
+		for(var i = 0; i < array_length(skills); i++) {
+			array_push(s.skillLevels, skills[i].lvl)
+		}
 	}
 	if(variable_instance_exists(id, "summon_time_left")) {
 		s.summon_time_left = summon_time_left
 	}
 	if(variable_instance_exists(id, "experience")) {
 		s.experience = experience
+		s.experience_to_level_up = experience_to_level_up
 		s.lvl = lvl
 	}
 	if(variable_instance_exists(id, "object_in_stomach")) {
 		s.object_in_stomach = object_in_stomach
 	}
 	if(variable_instance_exists(id, "list_of_territory_tiles")) {
-		s.list_of_territory_tiles = list_of_territory_tiles
+		s.list_of_territory_tiles = saveTileList(list_of_territory_tiles)
 	}
 	if(variable_instance_exists(id, "build_progress")) {
 		s.build_progress = build_progress
@@ -111,46 +155,93 @@ save = function() {
 	if(variable_instance_exists(id, "is_building")) {
 		s.is_building = is_building
 	}
+	if(variable_instance_exists(id, "number_of_ability_points")) {
+		s.number_of_ability_points = number_of_ability_points
+	}
+	
 	s.action_bar = action_bar
+	return s
 }
 
+
 load = function(s) {
+	sprite_index = s.sprite_index
+	image_xscale = s.image_xscale
+	image_yscale = s.image_yscale
+	depth = s._depth
+	speed = s._speed
+	direction = s._direction
 	phase = s.phase
+	enemy_ai_spell_counter = s.enemy_ai_spell_counter
+	movement_cost = s.movement_cost
+	attack_cost = s.attack_cost
+	damage = s.damage
+	armor = s.armor
+	range = s.range
+	accuracy = s.accuracy
+	base_accuracy = s.base_accuracy
+	evasiveness = s.evasiveness
+	if(variable_instance_exists(id, "mana_regen_rate_per_sec")) {
+		mana_regen_rate_per_sec = s.mana_regen_rate_per_sec
+	}
+	max_action_bar = s.max_action_bar
 	HP = s.HP
-	target = s.target
-	destination = s.destination
+	max_HP = s.max_HP
+	owner = s.owner
+	if(variable_struct_exists(s, "destinationX")) {
+		destination = getTile(s.destinationX, s.destinationY)
+	} else {
+		destination = noone
+	}
 	eaten = s.eaten
 	has_waited_for_blocker_to_move = s.has_waited_for_blocker_to_move
-	path = s.path
+	path = loadTileList(path, s.path)
+	optimal_path = loadTileList(optimal_path, s.optimal_path)
+	tiles_within_range = loadTileList(tiles_within_range, s.tiles_within_range)
+	list_path_arrow_directions = s.list_path_arrow_directions
+	list_of_active_debuff_structs = s.list_of_active_debuff_structs
+	
+	idd = s.idd
+	target = s.target
 	lvl = s.lvl
 	mana = s.mana
+	max_mana = s.max_mana
 	altitude = s.altitude
-	x = s.x
-	y = s.y
+	x = s.x; y = s.y
+	if(variable_struct_exists(s, "tileX")) {
+		scr_move_to_tile(getTile(s.tileX, s.tileY))
+	}
+	if(s.selected) {
+		with(global.tile_selected) {
+			array_push(selected_units, other.id)
+		}
+	}
 	if(variable_instance_exists(id, "skills")) {
-		skills = s.skills
+		for(var i = 0; i < array_length(skills); i++) {
+			skills[i].lvl = 0
+			repeat(s.skillLevels[i]) {
+				skills[i].level_up() 
+			}
+		}
 	}
 	if(variable_instance_exists(id, "summon_time_left")) {
 		summon_time_left = s.summon_time_left
 	}
+	if(variable_instance_exists(id, "number_of_ability_points")) {
+		number_of_ability_points = s.number_of_ability_points
+	}
 	if(variable_instance_exists(id, "experience")) {
 		experience = s.experience
+		experience_to_level_up = s.experience_to_level_up
 		lvl = s.lvl
 	}
 	if(variable_instance_exists(id, "object_in_stomach")) {
 		object_in_stomach = s.object_in_stomach
 	}
 	if(variable_instance_exists(id, "list_of_territory_tiles")) {
-		list_of_territory_tiles = s.list_of_territory_tiles
+		list_of_territory_tiles = []
+		list_of_territory_tiles = loadTileList(list_of_territory_tiles, s.list_of_territory_tiles)
 	}
-	if(variable_instance_exists(id, "build_progress")) {
-		build_progress = s.build_progress
-	}
-	if(variable_instance_exists(id, "queue_list")) {
-		queue_list = s.queue_list
-	}
-	if(variable_instance_exists(id, "is_building")) {
-		is_building = s.is_building
-	}
+	
 	action_bar = s.action_bar
 }

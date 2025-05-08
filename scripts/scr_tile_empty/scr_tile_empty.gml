@@ -1,3 +1,3 @@
 function scr_tile_empty(tile2) {
-	return ds_list_empty(tile2.grounds_list) and ds_list_empty(tile2.airs_list) and ds_list_empty(tile2.invisibles_list)
+	return (array_equals(tile2.occupants[? ALTITUDES.ground], []) and array_equals(tile2.occupants[? ALTITUDES.air], []) and array_equals(tile2.occupants[? ALTITUDES.invisible], []))
 }

@@ -1,4 +1,5 @@
 event_inherited()
+global.lille_skutt = id
 x_translate = 0; y_translate = 0
 movement_cost = 3 * room_speed
 attack_cost = 1.5 * room_speed
@@ -8,7 +9,9 @@ range = 1
 HP = 50
 max_HP = 50
 damage = 0
-damage_reduction = 0.2
+base_armor = [1, 0]
+armor = base_armor
+armor_coverage = [50, 50]
 accuracy = 1
 base_accuracy = 1
 evasiveness = 0.8
@@ -20,14 +23,14 @@ spr_hammer_sub = 0
 human_barracks_build_progress = 0 // of 100
 human_barracks_build_queue_lenght = 0
 
-queue_list = ds_list_create()
+queue_list = []
 
 progress_bar_x1 = global.hud.hud_width / 4
 progress_bar_x2 = global.hud.hud_width * 3/4
 progress_bar_y1 = global.camera_height - global.hud.hud_height / 2
 progress_bar_y2 = global.camera_height - global.hud.hud_height * (1/2 - 1/20)
 build_progress = 0 // of 100
-
+attack_target = function() {}
 buildBarracks = createSpell(SPELLS.buildBarracks, "q")
 buildBarracks.lvl = 1
 buildArcaneSanctum = createSpell(SPELLS.buildArcaneSanctum, "w")

@@ -1,6 +1,6 @@
 
 var x1 = x; var y1 = y
-var x2 = target_tile.x; var y2 = target_tile.y
+var x2 = target_tile._x; var y2 = target_tile._y
 
 draw_self()
 

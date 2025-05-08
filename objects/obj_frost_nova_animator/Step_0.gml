@@ -1,5 +1,5 @@
 var the_lich = owner.owner
-lifeTimeSec += 1 / game_get_speed(gamespeed_fps)
+lifeTimeSec += 1 / game_get_speed(gamespeed_fps) * global.gamespeed
 if(the_lich != noone) {
 	if(lifeTimeSec >= total_time_sec) {
 		instance_destroy()

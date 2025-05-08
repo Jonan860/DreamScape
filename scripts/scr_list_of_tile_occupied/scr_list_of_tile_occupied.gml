@@ -1,6 +1,6 @@
 function scr_list_of_tile_occupied(list, altitude){
-	for(var i = 0; i < ds_list_size(list); i += 1) {
-		var tilu = list[|i]
+	for(var i = 0; i < array_length(list); i++) {
+		var tilu = list[i]
 		if(scr_occupiable(tilu,altitude)) {
 			return 0
 		}

@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "scr_perform_s_decloaking",
+  "name": "scr_is_button_pressed",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {

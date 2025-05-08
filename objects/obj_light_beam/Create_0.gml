@@ -6,6 +6,7 @@ save = function() {
 	var s = {}
 	s.owner = owner
 	s.alarm = alarm[0]
+	return s
 }
 
 load = function(s) {
