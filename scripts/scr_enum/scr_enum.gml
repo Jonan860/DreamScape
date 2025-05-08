@@ -25,8 +25,8 @@ enum UNIT_PHASES {
 	reviving,
 	dead,
 	earthshatterJump,
-	sacrificed
-	
+	sacrificed,
+	channeling
 }
 
 enum GAME_PHASES {

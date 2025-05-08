@@ -16,3 +16,5 @@ list of selected_units, most be ordered by gui prioriti: hero,mage,range1,range2
 
 
 check locust animator event list on both computers
+
+https://gx.games/games/4khe6r/dont-drop-it-alpha-/

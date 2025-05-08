@@ -144,6 +144,65 @@ function spellToRange(spell) {
 	}
 }
 
+function spellToTargetable(spell) {
+	switch(spell) {
+		case SPELLS.holy_light : return method(undefined, targetableFriendly) 
+		case SPELLS.dark_ritual : return method(undefined, targetableFriendly)
+		case SPELLS.death_pact : return method(undefined, targetableFriendly) 
+		case SPELLS.frost_armor : return method(undefined, targetableFriendly) 
+		case SPELLS.heal : return method(undefined, targetableFriendly) 
+		case SPELLS.iryo_ninjutsu : return method(undefined, targetableFriendly) 
+		case SPELLS.kawarimi_no_jutsu : return method(undefined, targetableFriendly)
+		case SPELLS.invisibility : return method(undefined, targetableFriendly)
+		
+		case SPELLS.curse : return method(undefined, targetableEnemy) 
+		case SPELLS.frost_nova : return method(undefined, targetableEnemy) 
+		case SPELLS.impale : return method(undefined, targetableEnemy)
+		case SPELLS.freeze : return method(undefined, targetableEnemy)
+		case SPELLS.life_drain : return method(undefined, targetableEnemy)
+		case SPELLS.shannaro : return method(undefined, targetableEnemy)
+		case SPELLS.sleep : return method(undefined, targetableEnemy)
+		case SPELLS.slow : return method(undefined, targetableEnemy)
+		default : return function() {return true}
+	}
+}
+
+function targetableFriendly(varunit) {
+	return !scr_is_enemies(owner, varunit)
+}
+
+function targetableEnemy(varunit) {
+	return scr_is_enemies(owner, varunit)
+}
+
+
+function spellToEvaluateGoodness(spell) {
+	switch(spell) {
+		case SPELLS.curse : return method(undefined, evaluateProcentageDebuff)
+		case SPELLS.freeze : return method(undefined, evaluateProcentageDebuff)
+		case SPELLS.frost_nova : return method(undefined, evaluateProcentageDebuff)
+		case SPELLS.sleep : return method(undefined, evaluateProcentageDebuff)
+		case SPELLS.slow : return method(undefined, evaluateProcentageDebuff)
+		case SPELLS.heal : return method(undefined, evaluateLinearHeal)
+		case SPELLS.holy_light : return method(undefined, evaluateLinearHeal)
+		case SPELLS
+	}
+}
+
+function evaluateProcentageDebuff(_unit) {
+	return (_unit.damage + _unit.armor) * _unit.HP / _unit.attack_cost
+}
+
+function evaluateLinearHeal(_unit) {
+	return (is_undefined(mana) ? 1 : 2) * (_unit.damage + _unit.armor) * min(getAmount(), max_HP - HP) / _unit.attack_cost
+}
+
+function evaluatelinearDamage() {
+	return (is_undefined(mana) ? 1 : 2) * _unit.damage
+}
+
+
+
 function spellToPiercing(spell) {
 	switch(spell) {
 		case SPELLS.death_coil : return 100;
@@ -524,6 +583,9 @@ function spellToInfo(spell) {
 		case SPELLS.iryo_ninjutsu : return ""
 		case SPELLS.kai : return ""
 		case SPELLS.shannaro : return ""
+		case SPELLS.life_drain : return ""
+		case SPELLS.silence : return ""
+		case SPELLS.dark_arrow : return ""
 	}
 }
 

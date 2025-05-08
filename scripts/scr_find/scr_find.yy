@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "scr_find_sleep_target_within_range",
+  "name": "scr_find",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {

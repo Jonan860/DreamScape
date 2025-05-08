@@ -5,7 +5,7 @@
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "group_ai",
-    "path": "folders/Scripts/group_ai.yy",
+    "name": "scr_find_optimal_target",
+    "path": "folders/Scripts/scr_find_optimal_target.yy",
   },
 }

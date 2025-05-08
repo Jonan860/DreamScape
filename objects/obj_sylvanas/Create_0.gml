@@ -35,18 +35,27 @@ spr_height = sprite_height
 spr_width = sprite_width
 
 ai = function () {
-	if(HP < max_HP / 2 and mana >= life_drain.getManaCost() and life_drain.cooldown_current) {
-		var lifeDrainTarget = scr_find_life_drain_target_within_range()
-	}
-	if(mana >= frost_nova.getManaCost() and frost_nova.cooldown_current == 0 and phase != UNIT_PHASES.frostNova) {
-		var frost_nova_target_tile_within_range = scr_find_frost_nova_target_within_range()
-		if(frost_nova_target_tile_within_range != noone) {
-			frost_nova.rightPerform(frost_nova_target_tile_within_range)
-			mana -= frost_nova.getManaCost()
-			frost_nova.cooldown_current = frost_nova.getCooldown()
+	dark_arrow.autocast = false
+	if(phase != UNIT_PHASES.channeling and mana > life_drain.getManaCost()) {
+		dark_arrow.autocast = true
+		if(HP < max_HP / 2 and mana >= life_drain.getManaCost() and life_drain.cooldown_current) {
+			var lifeDrainTarget = scr_find_damage_spell_target()
+			if(lifeDrainTarget != noone) {
+				life_drain.rightPerform(lifeDrainTarget)
+			}
 		}
-		exit;
-	}
+		else{
+			var silenceTile = scr_find_silence_tile()
+		}
+		if(mana >= frost_nova.getManaCost() and frost_nova.cooldown_current == 0 and phase != UNIT_PHASES.frostNova) {
+			var frost_nova_target_tile_within_range = scr_find_frost_nova_target_within_range()
+			if(frost_nova_target_tile_within_range != noone) {
+				frost_nova.rightPerform(frost_nova_target_tile_within_range)
+				mana -= frost_nova.getManaCost()
+				frost_nova.cooldown_current = frost_nova.getCooldown()
+			}
+			exit;
+		}
 
 
 	if(frost_nova.getManaCost() + dark_ritual.getManaCost() > mana and mana >= dark_ritual.getManaCost() and dark_ritual.cooldown_current == 0 and dark_ritual.lvl > 0 and phase != "frost nova") {
@@ -59,4 +68,4 @@ ai = function () {
 	}
 }
 
-attack_target = function() {attack_target_magic_projectile(c_aqua)}
+attack_target = method(undefined, scr_attack_target_dark_ranger)

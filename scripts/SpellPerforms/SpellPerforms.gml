@@ -27,6 +27,15 @@ function spellToRightPerform(spell) {
 		case SPELLS.unholy_aura : return;
 		case SPELLS.shannaro : return method(undefined, shannaroRightPerform)
 		case SPELLS.iryo_ninjutsu : return method(undefined, iryoNinjutsuRightPerform)
+		case SPELLS.life_drain : return method(undefined, lifeDrainRightPerform)
+	}
+}
+
+function lifeDrainRightPerform() {
+	with(instance_create_depth(owner.x, owner.y, 0, obj_life_drain_animator)) {
+		target = array_first(global.clicked_tile.occupants[? ALTITUDES.ground])
+		owner = other
+		
 	}
 }
 
@@ -34,8 +43,6 @@ function iryoNinjutsuRightPerform() {
 	with(instance_create_depth(owner.x, owner.y, 0, obj_iryo_ninjutsu_animator)) {
 		target = array_first(global.clicked_tile.occupants[? ALTITUDES.ground])
 		owner = other
-		image_xscale = sprite_get_width(spr_hexagon_pink) / sprite_get_width(sprite_index)
-		image_yscale = sprite_get_height(spr_hexagon_pink) / sprite_get_height(sprite_index)
 		x = (owner.owner.x + target.x) / 2
 		y = (owner.owner.y + target.y) / 2
 		image_alpha = 0.7

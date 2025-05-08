@@ -5,7 +5,7 @@
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "Scripts",
-    "path": "folders/Scripts.yy",
+    "name": "scr_find_optimal_target",
+    "path": "folders/Scripts/scr_find_optimal_target.yy",
   },
 }
