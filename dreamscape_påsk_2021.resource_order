@@ -368,7 +368,6 @@
     {"name":"search_target_just_outside_range","order":2,"path":"scripts/search_target_just_outside_range/search_target_just_outside_range.yy",},
     {"name":"scr_find_frost_nova_target_within_range","order":4,"path":"scripts/scr_find_frost_nova_target_within_range/scr_find_frost_nova_target_within_range.yy",},
     {"name":"scr_frost_nova_damage","order":4,"path":"scripts/scr_frost_nova_damage/scr_frost_nova_damage.yy",},
-    {"name":"scr_find_dark_ritual_sacrifice","order":3,"path":"scripts/scr_find_dark_ritual_sacrifice/scr_find_dark_ritual_sacrifice.yy",},
     {"name":"scr_right_pressed_enemy","order":7,"path":"scripts/scr_right_pressed_enemy/scr_right_pressed_enemy.yy",},
     {"name":"spr_curse_icon_autocast","order":3,"path":"sprites/spr_curse_icon_autocast/spr_curse_icon_autocast.yy",},
     {"name":"obj_tile","order":6,"path":"objects/obj_tile/obj_tile.yy",},

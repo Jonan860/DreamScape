@@ -31,7 +31,8 @@ function frostnovaDamageTile(tile) {
 						var accuracy_store = owner.accuracy
 						owner.accuracy = accuracy
 						var damage_store = owner.damage
-						with(owner) {							
+						var varOwner = owner
+						with(varOwner) {							
 							scr_convert_damage_to_accuracy_included_damage(victim)
 						}
 						attackEffectWrapper(owner, victim, true)

@@ -25,7 +25,7 @@ function scr_create_tile_on_map() {
 	
 }
 function getTileCoordinate(_x, _y) {
-	if(tile_x % 0) {
+	if(tile_x % 2) {
 		var j = (_x + 64) / (12 * 32)
 		var i = _y / (8 * 32)
 		var tileX = round(2 * j - 1)
@@ -33,6 +33,7 @@ function getTileCoordinate(_x, _y) {
 		return [tileX, tileY]
 	}
 }
+
 function tileCordinateToCordinate(tile_x, tile_y) {
 	if(!(tile_x % 2)) {
 		var _x = 4 * 32 + 12 * 32 * tile_x / 2

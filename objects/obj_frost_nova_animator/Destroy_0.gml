@@ -1,5 +1,9 @@
+//feather ignore all
+
+
 if(instance_exists(owner.owner)) {
-	with(owner) {
+	var varOwner = owner
+	with(varOwner) {
 		target = other.target
 		scr_frost_nova_damage()
 	}

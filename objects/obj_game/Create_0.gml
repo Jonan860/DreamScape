@@ -136,22 +136,22 @@ load = function() {
 		instance_destroy(obj_game_board)
 		with(obj_player) {
 			idd = 0
-			array_push(_deletedPlayers)
+			array_push(_deletedPlayers, id)
 			instance_destroy()
 		}
 		
 		with(obj_building) {
-			array_push(_deletedBuildings)
+			array_push(_deletedBuildings, id)
 			instance_destroy()
 		}
 		with(obj_animator) {
 			idd = 0
-			array_push(_deletedAnimators)
+			array_push(_deletedAnimators, id)
 			instance_destroy()
 		}
 		with(obj_soul_parent) {
 			idd = 0
-			array_push(_deletedSouls)
+			array_push(_deletedSouls, id)
 			instance_destroy()
 		}
 		with(obj_crystal) {

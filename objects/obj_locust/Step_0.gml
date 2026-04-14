@@ -27,7 +27,10 @@ switch(phase) {
 				owner.damage = damage_per_feed
 				owner.element = element
 				var stored_target_hp = target.HP
-				scr_attack_hp_reduction(owner, target, array_length(target.armor) - 1)
+				var varArmor = target.armor
+				if(is_array(varArmor)) {
+					scr_attack_hp_reduction(owner, target, array_length(varArmor) - 1)
+				}
 				owner.damage = stored_damage
 				owner.element = stored_element
 				food_amount += stored_target_hp - target.HP

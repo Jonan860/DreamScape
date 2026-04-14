@@ -1,3 +1,5 @@
+// feather ignore all
+
 function scr_update_path_to_destination() {
 	with(obj_game) {
 		show_debug_message("instance_unit_again" + string(other.id))

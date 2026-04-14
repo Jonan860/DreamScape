@@ -431,7 +431,7 @@ function earthshatterRightPerform() {
 	show_debug_message("start earthshatrightperform")
 	cooldown_current = getCooldown()
 	owner.phase = UNIT_PHASES.earthshatter
-	instance_create_depth(owner.x, owner.y, 500 - 1, animator, {target : global.clicked_tile, owner : global.ida.earthshatter})
+	instance_create_depth(owner.x, owner.y, 500 - 1, animator, {target_tile : global.clicked_tile, owner : global.ida.earthshatter})
 	show_debug_message("earthshater has run instance_create_depth")
 }
 

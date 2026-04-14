@@ -185,7 +185,7 @@ function spellToEvaluateGoodness(spell) {
 		case SPELLS.slow : return method(undefined, evaluateProcentageDebuff)
 		case SPELLS.heal : return method(undefined, evaluateLinearHeal)
 		case SPELLS.holy_light : return method(undefined, evaluateLinearHeal)
-		case SPELLS
+		//case SPELLS
 	}
 }
 
@@ -287,7 +287,8 @@ function spellToAbilitiesInfo(spell) {
 	case SPELLS.katon_gokakyu_no_jutsu : return  "Hurls an fireball,\n damaging everything in its path\n" + "level: 1,2,3 " + "Damage = " + string(amount[0]) + ", " + string(amount[1]) + ", " + string(amount[2])
  + "\n Mana cost: " + string(mana_cost[0]) + ", " + string(mana_cost[1])+ ", " + string(mana_cost[2])
 
-	case SPELLS.impale : return 
+	case SPELLS.impale : return "" 
+	
 	case SPELLS.kawarimi_no_jutsu : return "Swaps the position of two targeted friendly units.\n" + "level: 1, 2, 3" + "Cooldown : " + string(cooldown[0]) + ", " + string(cooldown[1]) + ", " + string(cooldown[2])
 
 	case SPELLS.holy_light : return "A holy light that can heal a friendly living unit."

@@ -20,7 +20,7 @@ function scr_find_path(start_tile, end_tile, altitude) {
 	} else {
 		while(shortest_yet != end_tile and shortest_yet != noone and shortest_yet.distance < 50) {
 			if(noone != scr_find_shortest_yet()) {
-				shortest_yet = scr_find_shortest_yet(altitude)
+				shortest_yet = scr_find_shortest_yet() // borde inte behöva altitude om update distance har det
 				with(shortest_yet) {
 					scr_update_distance_neighbours(altitude)
 					path_find_checked = 1
