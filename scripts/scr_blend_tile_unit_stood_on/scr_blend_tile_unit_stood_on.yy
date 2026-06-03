@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_blend_tile_unit_stood_on",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_blend_tile_unit_stood_on",
+  "parent":{
+    "name":"group_movement_player",
+    "path":"folders/Scripts/group_movement/group_movement_player.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

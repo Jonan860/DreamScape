@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_hunt_attack_enemy",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_hunt_attack_enemy",
+  "parent":{
+    "name":"group_movement",
+    "path":"folders/Scripts/group_movement.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

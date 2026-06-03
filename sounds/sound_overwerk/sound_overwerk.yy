@@ -1,0 +1,26 @@
+{
+  "$GMSound":"v2",
+  "%Name":"sound_overwerk",
+  "audioGroupId":{
+    "name":"jukebox",
+    "path":"audiogroups/jukebox",
+  },
+  "bitDepth":1,
+  "channelFormat":0,
+  "compression":0,
+  "compressionQuality":4,
+  "conversionMode":0,
+  "duration":410.49316,
+  "exportDir":"",
+  "name":"sound_overwerk",
+  "parent":{
+    "name":"Sounds",
+    "path":"folders/Sounds.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"sound_overwerk",
+  "volume":1.0,
+}

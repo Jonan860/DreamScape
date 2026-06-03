@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_map_object_to_build_time_content",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_map_object_to_build_time_content",
+  "parent":{
+    "name":"map_obj_content_build",
+    "path":"folders/Scripts/map_obj_content_build.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

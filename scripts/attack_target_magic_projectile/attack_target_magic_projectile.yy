@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"attack_target_magic_projectile",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"attack_target_magic_projectile",
+  "parent":{
+    "name":"group_attack_target",
+    "path":"folders/Scripts/group_attack_target.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

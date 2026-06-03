@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_update_priority_debuff_list",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_update_priority_debuff_list",
+  "parent":{
+    "name":"group_buff_debuff",
+    "path":"folders/Scripts/group_buff_debuff.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

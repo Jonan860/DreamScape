@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"attackEffectWrapper",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"attackEffectWrapper",
+  "parent":{
+    "name":"Scripts",
+    "path":"folders/Scripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

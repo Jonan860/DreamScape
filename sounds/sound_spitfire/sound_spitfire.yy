@@ -1,0 +1,26 @@
+{
+  "$GMSound":"v2",
+  "%Name":"sound_spitfire",
+  "audioGroupId":{
+    "name":"jukebox",
+    "path":"audiogroups/jukebox",
+  },
+  "bitDepth":1,
+  "channelFormat":0,
+  "compression":0,
+  "compressionQuality":4,
+  "conversionMode":0,
+  "duration":434.89154,
+  "exportDir":"",
+  "name":"sound_spitfire",
+  "parent":{
+    "name":"Sounds",
+    "path":"folders/Sounds.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"sound_spitfire",
+  "volume":1.0,
+}

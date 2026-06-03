@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"structPerformDamage",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"structPerformDamage",
+  "parent":{
+    "name":"group_attack_target",
+    "path":"folders/Scripts/group_attack_target.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

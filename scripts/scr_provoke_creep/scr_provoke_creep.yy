@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_provoke_creep",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_provoke_creep",
+  "parent":{
+    "name":"group_attack_target",
+    "path":"folders/Scripts/group_attack_target.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

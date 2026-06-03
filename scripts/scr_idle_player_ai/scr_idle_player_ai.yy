@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_idle_player_ai",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_idle_player_ai",
+  "parent":{
+    "name":"group_ai",
+    "path":"folders/Scripts/group_ai.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

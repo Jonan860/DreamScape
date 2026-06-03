@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_stun",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_stun",
+  "parent":{
+    "name":"earthshatter",
+    "path":"folders/Scripts/spells/earthshatter.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

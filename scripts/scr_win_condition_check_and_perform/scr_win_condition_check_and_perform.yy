@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_win_condition_check_and_perform",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_win_condition_check_and_perform",
+  "parent":{
+    "name":"Scripts",
+    "path":"folders/Scripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

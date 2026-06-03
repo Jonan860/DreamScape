@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_earthshatter_impact_perform",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_earthshatter_impact_perform",
+  "parent":{
+    "name":"earthshatter",
+    "path":"folders/Scripts/spells/earthshatter.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

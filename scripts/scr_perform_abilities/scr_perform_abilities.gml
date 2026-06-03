@@ -1,0 +1,8 @@
+function scr_perform_abilities() {
+	if(global.tile_selected != noone) {
+		var var_selected_unit = array_first(global.tile_selected.selected_units)
+		if(var_selected_unit.owner = global.player and object_is_ancestor(var_selected_unit.object_index, obj_hero)) {
+			gui_display_abilities =! gui_display_abilities
+		}
+	}
+}

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_attack_hp_reduction",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_attack_hp_reduction",
+  "parent":{
+    "name":"group_attack_target",
+    "path":"folders/Scripts/group_attack_target.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

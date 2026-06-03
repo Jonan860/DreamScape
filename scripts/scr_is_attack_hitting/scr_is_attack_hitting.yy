@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_is_attack_hitting",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_is_attack_hitting",
+  "parent":{
+    "name":"group_attack_target",
+    "path":"folders/Scripts/group_attack_target.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

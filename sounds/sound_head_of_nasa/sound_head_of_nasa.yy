@@ -1,0 +1,26 @@
+{
+  "$GMSound":"v2",
+  "%Name":"sound_head_of_nasa",
+  "audioGroupId":{
+    "name":"jukebox",
+    "path":"audiogroups/jukebox",
+  },
+  "bitDepth":1,
+  "channelFormat":0,
+  "compression":0,
+  "compressionQuality":4,
+  "conversionMode":0,
+  "duration":465.29807,
+  "exportDir":"",
+  "name":"sound_head_of_nasa",
+  "parent":{
+    "name":"Sounds",
+    "path":"folders/Sounds.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"sound_head_of_nasa",
+  "volume":1.0,
+}

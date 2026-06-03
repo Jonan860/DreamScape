@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_meele_attack_target",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_meele_attack_target",
+  "parent":{
+    "name":"meele",
+    "path":"folders/Scripts/group_attack_target/meele.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"spellStructs",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"spellStructs",
+  "parent":{
+    "name":"structs",
+    "path":"folders/Scripts/spells/structs.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_perform_abilities",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_perform_abilities",
+  "parent":{
+    "name":"check_and_perform_hud",
+    "path":"folders/Scripts/check_and_perform_hud.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

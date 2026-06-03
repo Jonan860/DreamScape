@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_right_pressed_enemy",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_right_pressed_enemy",
+  "parent":{
+    "name":"right_pressed",
+    "path":"folders/Scripts/right_pressed.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

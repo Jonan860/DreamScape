@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_attack_target_hungry_hungry_lizard",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_attack_target_hungry_hungry_lizard",
+  "parent":{
+    "name":"meele",
+    "path":"folders/Scripts/group_attack_target/meele.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

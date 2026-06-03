@@ -1,0 +1,26 @@
+{
+  "$GMSound":"v2",
+  "%Name":"sound_infected_mushroom_kazabubu",
+  "audioGroupId":{
+    "name":"jukebox",
+    "path":"audiogroups/jukebox",
+  },
+  "bitDepth":1,
+  "channelFormat":0,
+  "compression":0,
+  "compressionQuality":4,
+  "conversionMode":0,
+  "duration":382.56827,
+  "exportDir":"",
+  "name":"sound_infected_mushroom_kazabubu",
+  "parent":{
+    "name":"Sounds",
+    "path":"folders/Sounds.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"sound_infected_mushroom_kazabubu",
+  "volume":1.0,
+}

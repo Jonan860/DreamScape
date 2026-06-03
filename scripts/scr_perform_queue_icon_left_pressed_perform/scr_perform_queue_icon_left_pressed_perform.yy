@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_perform_queue_icon_left_pressed_perform",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_perform_queue_icon_left_pressed_perform",
+  "parent":{
+    "name":"check_queue_icon_and_perform",
+    "path":"folders/Scripts/check_and_perform_hud/check_button_and_perform_action/check_queue_icon_and_perform.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

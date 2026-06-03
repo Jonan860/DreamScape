@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"saveloadtileList",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"saveloadtileList",
+  "parent":{
+    "name":"Scripts",
+    "path":"folders/Scripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

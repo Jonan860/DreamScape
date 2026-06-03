@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_find",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_find",
+  "parent":{
+    "name":"scr_find_optimal_target",
+    "path":"folders/Scripts/scr_find_optimal_target.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

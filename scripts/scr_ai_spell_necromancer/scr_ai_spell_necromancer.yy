@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_ai_spell_necromancer",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_ai_spell_necromancer",
+  "parent":{
+    "name":"group_ai",
+    "path":"folders/Scripts/group_ai.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

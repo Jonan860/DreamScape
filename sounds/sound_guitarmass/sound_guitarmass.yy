@@ -1,0 +1,26 @@
+{
+  "$GMSound":"v2",
+  "%Name":"sound_guitarmass",
+  "audioGroupId":{
+    "name":"jukebox",
+    "path":"audiogroups/jukebox",
+  },
+  "bitDepth":1,
+  "channelFormat":0,
+  "compression":0,
+  "compressionQuality":4,
+  "conversionMode":0,
+  "duration":399.18213,
+  "exportDir":"",
+  "name":"sound_guitarmass",
+  "parent":{
+    "name":"Sounds",
+    "path":"folders/Sounds.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"sound_guitarmass",
+  "volume":1.0,
+}

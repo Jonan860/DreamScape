@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_is_cursor_on_hud",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_is_cursor_on_hud",
+  "parent":{
+    "name":"check_and_perform_hud",
+    "path":"folders/Scripts/check_and_perform_hud.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

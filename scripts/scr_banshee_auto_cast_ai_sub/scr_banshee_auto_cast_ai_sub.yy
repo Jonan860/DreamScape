@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_banshee_auto_cast_ai_sub",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_banshee_auto_cast_ai_sub",
+  "parent":{
+    "name":"group_ai",
+    "path":"folders/Scripts/group_ai.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

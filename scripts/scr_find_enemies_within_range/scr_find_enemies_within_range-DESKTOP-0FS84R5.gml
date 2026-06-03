@@ -1,0 +1,31 @@
+function scr_find_enemies_within_range() {
+	var var_enemies_within_range=ds_list_create()
+	//var var_tiles_within_range3=scr_get_tiles_within_range(range)
+	//for(i=0;i<=ds_list_size(var_tiles_within_range3)-1;i+=1)
+	//{
+	//var tile3=ds_list_find_value(var_tiles_within_range3,i)
+
+	//if(ds_map_find_value(tile3.occupants,"ground")!=noone)
+	//{
+	//if(scr_is_enemies(self,ds_map_find_value(tile3.occupants,"ground")))
+	//{
+	//ds_list_add(var_enemies_within_range,ds_map_find_value(tile3.occupants,"ground"))
+	//}
+	//}
+	//}
+	with(obj_unit)
+	{
+		if(phase!="dead" and other.phase!="dead")
+		{
+		var var_distance=scr_get_distance(self.tile,other.tile)
+	if(scr_is_enemies(self,other) and var_distance<=other.range)
+	{
+	ds_list_add(var_enemies_within_range,self)   /// careful with var
+	}
+		}
+	}
+
+	return var_enemies_within_range
+
+
+}

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_creep_lord_hunt",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_creep_lord_hunt",
+  "parent":{
+    "name":"group_movement",
+    "path":"folders/Scripts/group_movement.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

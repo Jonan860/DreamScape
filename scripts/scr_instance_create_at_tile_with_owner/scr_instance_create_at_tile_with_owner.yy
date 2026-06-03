@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_instance_create_at_tile_with_owner",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_instance_create_at_tile_with_owner",
+  "parent":{
+    "name":"Scripts",
+    "path":"folders/Scripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
