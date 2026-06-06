@@ -26,7 +26,8 @@ enum UNIT_PHASES {
 	dead,
 	earthshatterJump,
 	sacrificed,
-	channeling
+	channeling,
+	iryoNinjutsu
 }
 
 enum GAME_PHASES {

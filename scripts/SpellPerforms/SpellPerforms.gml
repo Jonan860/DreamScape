@@ -62,6 +62,7 @@ function lifeDrainRightPerform() {
 }
 
 function iryoNinjutsuRightPerform() {
+	owner.phase = UNIT_PHASES.iryoNinjutsu
 	with(instance_create_depth(owner.x, owner.y, 0, obj_iryo_ninjutsu_animator)) {
 		target = array_first(global.clicked_tile.occupants[? ALTITUDES.ground])
 		owner = other

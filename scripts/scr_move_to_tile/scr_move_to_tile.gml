@@ -1,4 +1,7 @@
 function scr_move_to_tile(tile2) {
+	if(self.object_index == obj_sakura and instance_exists(obj_iryo_ninjutsu_animator)) {
+		show_debug_message("hejsan")
+	}
 	if(scr_occupiable(tile2, altitude)) {
 		if(tile != noone) {
 			tile.occupants[?altitude] = array_filter(tile.occupants[? altitude], function(value, index) {return value != self.id})

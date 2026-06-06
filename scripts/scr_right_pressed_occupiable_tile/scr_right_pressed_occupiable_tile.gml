@@ -1,4 +1,7 @@
 function scr_right_pressed_occupiable_tile(var_selected_unit) {
+	if(self.object_index == obj_sakura and instance_exists(obj_iryo_ninjutsu_animator)) {
+		show_debug_message("hejsis")
+	}
 	if(var_selected_unit == global.lille_skutt) {
 		global.lille_skutt.is_building = noone
 	}

@@ -4,6 +4,10 @@ function scr_movement_player() {
 			action_bar = 0
 			has_waited_for_blocker_to_move = !has_waited_for_blocker_to_move
 			if(has_waited_for_blocker_to_move) {
+				if(self.object_index = obj_sakura and instance_exists(obj_iryo_ninjutsu_animator))
+				{
+					show_debug_message("hejhej")
+				}
 				phase = UNIT_PHASES.idle
 			}
 			exit;

@@ -7,6 +7,9 @@ function scr_idle_player_ai() {
 		if(var_target != noone) {
 			target = var_target
 			destination = target.tile
+			if(self.object_index == obj_sakura and instance_exists(obj_iryo_ninjutsu_animator)) {
+				show_debug_message("hej");
+			}
 			phase = UNIT_PHASES.hunt
 		}
 	}
