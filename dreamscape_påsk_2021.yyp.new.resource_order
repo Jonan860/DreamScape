@@ -425,6 +425,7 @@
     {"name":"spr_soul_hero1","order":3,"path":"sprites/spr_soul_hero1/spr_soul_hero1.yy",},
     {"name":"spr_soul_hero3","order":1,"path":"sprites/spr_soul_hero3/spr_soul_hero3.yy",},
     {"name":"spr_spade_cursor","order":4,"path":"sprites/spr_spade_cursor/spr_spade_cursor.yy",},
+    {"name":"spr_spell_beams","order":108,"path":"sprites/spr_spell_beams/spr_spell_beams.yy",},
     {"name":"spr_spell_shield_button","order":22,"path":"sprites/spr_spell_shield_button/spr_spell_shield_button.yy",},
     {"name":"spr_spell_shield","order":21,"path":"sprites/spr_spell_shield/spr_spell_shield.yy",},
     {"name":"spr_spiked_carapace_icon","order":2,"path":"sprites/spr_spiked_carapace_icon/spr_spiked_carapace_icon.yy",},

@@ -3,7 +3,7 @@ if(instance_exists(target) and instance_exists(owner.owner) and scr_get_distance
 	x = (owner.owner.x + target.x) / 2
 	y = (owner.owner.y + target.y) / 2
 	
-	if(target.HP != target.max_HP and owner.owner.phase == UNIT_PHASES.iryoNinjutsu) {
+	if(target.HP != target.max_HP and owner.owner.phase == UNIT_PHASES.channeling) {
 		target.HP = min(target.max_HP, target.HP + owner.getAmount() / game_get_speed(gamespeed_fps) * global.gamespeed) 
 		owner.owner.mana = max(0, owner.owner.mana - owner.getManaCost() / game_get_speed(gamespeed_fps) * global.gamespeed) 
 	} else {

@@ -529,6 +529,7 @@
     {"id":{"name":"spr_soul_hero3","path":"sprites/spr_soul_hero3/spr_soul_hero3.yy",},},
     {"id":{"name":"spr_soul","path":"sprites/spr_soul/spr_soul.yy",},},
     {"id":{"name":"spr_spade_cursor","path":"sprites/spr_spade_cursor/spr_spade_cursor.yy",},},
+    {"id":{"name":"spr_spell_beams","path":"sprites/spr_spell_beams/spr_spell_beams.yy",},},
     {"id":{"name":"spr_spell_shield_button","path":"sprites/spr_spell_shield_button/spr_spell_shield_button.yy",},},
     {"id":{"name":"spr_spell_shield","path":"sprites/spr_spell_shield/spr_spell_shield.yy",},},
     {"id":{"name":"spr_spiked_carapace_icon","path":"sprites/spr_spiked_carapace_icon/spr_spiked_carapace_icon.yy",},},

@@ -55,14 +55,24 @@ function silenceRightPerform(varTile) {
  * Function Description
  */
 function lifeDrainRightPerform() {
+	owner.phase = UNIT_PHASES.channeling
+	var varduration = getDuration()
 	with(instance_create_depth(owner.x, owner.y, 0, obj_life_drain_animator)) {
 		target = array_first(global.clicked_tile.occupants[? ALTITUDES.ground])
 		owner = other
+		x = (owner.owner.x + target.x) / 2;
+		y = (owner.owner.y +  target.y) / 2;
+		alarm[0] = varduration  * game_get_speed(gamespeed_fps)
+		image_xscale = point_distance(owner.owner.x, owner.owner.y, target.x, target.y) / sprite_width;
+		image_angle = point_direction(owner.owner.x, owner.owner.y, target.x,  target.y);
+		image_alpha = 0.8
+		
+		
 	}
 }
 
 function iryoNinjutsuRightPerform() {
-	owner.phase = UNIT_PHASES.iryoNinjutsu
+	owner.phase = UNIT_PHASES.channeling
 	with(instance_create_depth(owner.x, owner.y, 0, obj_iryo_ninjutsu_animator)) {
 		target = array_first(global.clicked_tile.occupants[? ALTITUDES.ground])
 		owner = other
