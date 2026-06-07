@@ -1,0 +1,1 @@
+owner.owner.phase = UNIT_PHASES.idle

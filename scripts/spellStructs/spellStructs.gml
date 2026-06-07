@@ -262,6 +262,7 @@ function spellToManaCosts(spell) {
 		case SPELLS.shannaro : return [20, 40, 60]
 		case SPELLS.life_drain : return [25, 50, 75]
 		case SPELLS.dark_arrow : return [5, 10, 15]
+		case SPELLS.silence : return [10, 20, 30]
 		default : return noone
 	}
 }
