@@ -56,6 +56,8 @@ function spellToCooldown(spell) {
 		case SPELLS.life_drain : return 8
 		case SPELLS.dark_arrow : return 0
 		case SPELLS.silence : return 20
+		case SPELLS.haste : return 0.5
+		case SPELLS.flash_heal : return 20;
 		default : return noone
 	}
 }
@@ -107,6 +109,8 @@ function spellToAmount(spell) {
 		case SPELLS.life_drain : return [30, 60, 100]
 		case SPELLS.silence : return [10, 20, 30] //condition duration
 		case SPELLS.dark_arrow : return [1, 5, 10]
+		case SPELLS.haste : return 25
+		case SPELLS.flash_heal : return 1
 		default : return noone
 	}
 }
@@ -263,6 +267,8 @@ function spellToManaCosts(spell) {
 		case SPELLS.life_drain : return [25, 50, 75]
 		case SPELLS.dark_arrow : return [5, 10, 15]
 		case SPELLS.silence : return [10, 20, 30]
+		case SPELLS.haste : return 20
+		case SPELLS.flash_heal : return 1
 		default : return noone
 	}
 }
@@ -391,6 +397,7 @@ function spellToSpellHealth(spell) {
 		case SPELLS.heal : return 100;
 		case SPELLS.dark_arrow : return	1;
 		case SPELLS.silence : return [40, 80, 100]
+		case SPELLS.haste : return 50
 		default : return noone;
 	}
 }
@@ -444,6 +451,8 @@ function spellToIcon(spell) {
 		case SPELLS.life_drain : return spr_life_drain_icon
 		case SPELLS.dark_arrow : return spr_black_arrow_icon
 		case SPELLS.silence : return spr_silence_icon
+		case SPELLS.haste : return spr_haste_icon
+		case SPELLS.flash_heal : return spr_flash_heal_icon
 		default : return noone
 	}
 }
@@ -485,6 +494,8 @@ function spellToDuration(spell) {
 		case SPELLS.life_drain : return 8
 		case SPELLS.dark_arrow : return 2
 		case SPELLS.silence : return [10, 20, 30] // animation duratiuon
+		case SPELLS.haste : return 1
+		case SPELLS.flash_heal : return 1
 		default : return noone
 	}
 }
@@ -518,7 +529,9 @@ function spellToName(spell) {
 		case SPELLS.life_drain : return "Life Drain"
 		case SPELLS.silence : return "Silence"
 		case SPELLS.dark_arrow : return "Dark Arrow"
-		case SPELLS.abilities : return "Abilities"	
+		case SPELLS.abilities : return "Abilities"
+		case SPELLS.haste : return "Haste"
+		case SPELLS.flash_heal : return "Flash Heal"
 		}
 }
 
@@ -608,6 +621,8 @@ function spellToInfo(spell) {
 		case SPELLS.life_drain : return ""
 		case SPELLS.silence : return ""
 		case SPELLS.dark_arrow : return ""
+		case SPELLS.haste : return "increases attack speed by " + string(getAmount()) + "%  , can stack"
+		+ "\n Mana Cost: " + string(getManaCost())
 	}
 }
 
@@ -860,7 +875,9 @@ enum SPELLS {
 	shannaro,
 	dark_arrow,
 	life_drain,
-	silence
+	silence,
+	haste,
+	flash_heal
 }
 
 #macro learnSpellManaMultiplicator 1.25

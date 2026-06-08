@@ -29,6 +29,8 @@ function spellToRightPerform(spell) {
 		case SPELLS.iryo_ninjutsu : return method(undefined, iryoNinjutsuRightPerform)
 		case SPELLS.life_drain : return method(undefined, lifeDrainRightPerform)
 		case SPELLS.silence : return method(undefined, silenceRightPerform)
+		case SPELLS.haste: return;
+		case SPELLS.flash_heal: return;
 	}
 }
 

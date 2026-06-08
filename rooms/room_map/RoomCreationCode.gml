@@ -42,6 +42,8 @@ with(scr_instance_create_at_tile_with_owner(obj_sakura, getTile(8, 14), global.p
 	shannaro.level_up()
 }
 
+scr_instance_create_at_tile_with_owner(obj_valkyrie, getTile(7, 15), global.player)
+
 scr_instance_create_at_tile_with_owner(obj_ida, getTile(10, 14), global.player)
 scr_instance_create_at_tile_with_owner(obj_nils, getTile(18, 2), global.player)
 
