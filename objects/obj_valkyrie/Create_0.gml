@@ -18,7 +18,7 @@ base_accuracy = accuracy
 evasiveness = 0.75
 altitude = ALTITUDES.ground
 experience_to_give = 200
-mana = 0
+mana = 100
 max_mana = 100
 mana_regen_rate_per_sec = -0.3
 

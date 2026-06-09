@@ -112,8 +112,10 @@ function shannaroRightPerform() {
 
 function dispelRightPerform() {
 	global.clicked_tile.reduceDebuffDuration(getAmount())
+	global.clicked_tile.reduceBuffDuration(getAmount())
 	for(var i = 0; i < array_length(global.clicked_tile.list_of_neighbours); i++) {
 		global.clicked_tile.list_of_neighbours[i].reduceDebuffDuration(getAmount())
+		global.clicked_tile.list_of_neighbours[i].reduceBuffDuration(getAmount())
 	}
 }
 
@@ -160,6 +162,23 @@ function spellToIconPerform(spellenum) {
 		case SPELLS.kai : return method(undefined, selectSwitchCursor)
 		case SPELLS.iryo_ninjutsu : return method(undefined, selectSwitchCursorDeselect)
 		case SPELLS.shannaro : return method(undefined, selectSwitchCursor)
+		case SPELLS.flash_heal : return method(undefined, flashHealIconPerform)
+		case SPELLS.haste : return method(undefined, hasteIconPerform)
+	}
+}
+
+function hasteIconPerform() {
+	if(cooldown_current == 0 and owner.mana >= getManaCost()) {
+		scr_apply_buff(owner)
+	}
+}
+
+function flashHealIconPerform() {
+	if(cooldown_current == 0) {
+		var hpToHeal = min(owner.max_HP - owner.HP, owner.mana)
+		owner.HP += hpToHeal
+		owner.mana -= hpToHeal
+		cooldown_current = getCooldown()
 	}
 }
 

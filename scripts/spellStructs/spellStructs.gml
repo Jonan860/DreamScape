@@ -494,7 +494,7 @@ function spellToDuration(spell) {
 		case SPELLS.life_drain : return 8
 		case SPELLS.dark_arrow : return 2
 		case SPELLS.silence : return [10, 20, 30] // animation duratiuon
-		case SPELLS.haste : return 1
+		case SPELLS.haste : return 60
 		case SPELLS.flash_heal : return 1
 		default : return noone
 	}
@@ -664,9 +664,20 @@ function spellToAi(spell) {
 	switch(spell) {
 		case SPELLS.slow : return method(undefined, slow_ai)
 		case SPELLS.heal : return method(undefined, heal_ai)
+		case SPELLS.haste : return method(undefined, haste_ai)
 		default : return noone
 	}
 }
+
+function haste_ai() {
+	if(owner.mana >= getManaCost() and cooldown_current == 0) {
+		iconPerform()
+		owner.mana -= getManaCost()
+		cooldown_current = getCooldown()
+		owner.action_bar = 0
+	}
+}
+
 
 function heal_ai() {
 	with(owner) {
@@ -795,7 +806,7 @@ function createSpell(spellEnum, _letter) {
 			draw_set_halign(old_align)
 		}
 		
-		createDebuff = function(_victim) constructor {
+		createDebufforBuff = function(_victim) constructor {
 			total_duration = other.getDuration()
 			spellHealth = other.getSpellHealth()
 			duration = other.getDuration()
@@ -808,10 +819,17 @@ function createSpell(spellEnum, _letter) {
 			amount = other.getAmount()
 		}
 		scr_apply_debuff = function(victim) {
-			var debuff_struct = new createDebuff(victim)
+			var debuff_struct = new createDebufforBuff(victim)
 			with(victim) {
 				array_push(list_of_active_debuff_structs, debuff_struct) 
 				scr_sort_debuff_list_after_dispellity()
+			}
+		}
+		scr_apply_buff = function(victim) {
+			var debuff_struct = new createDebufforBuff(victim)
+			with(victim) {
+				array_push(list_of_active_buff_structs, debuff_struct) 
+				scr_sort_buff_list_after_dispellity()
 			}
 		}
 		

@@ -38,6 +38,7 @@ missing_time = 0
 attack_animator = noone
 
 list_of_active_debuff_structs = []
+list_of_active_buff_structs = []
 eaten = 0
 stunned = 0
 time_until_stunned_clear = 0
@@ -56,6 +57,19 @@ reduceDebuffDuration = function(dispelAmount) {
 			break;
 		}
 		with(list_of_active_debuff_structs[i]) {
+			duration -= min(total_duration * dispelAmount / spellHealth, duration)
+			dispelAmount -= min(dispelAmount, duration / total_duration * spellHealth)
+		}
+	}
+}
+
+reduceBuffDuration = function(dispelAmount) {
+	scr_sort_buff_list_after_dispellity()
+	for(var i = 0; i < list_of_active_buff_structs; i++) {
+		if(dispelAmount == 0) {
+			break;
+		}
+		with(list_of_active_buff_structs[i]) {
 			duration -= min(total_duration * dispelAmount / spellHealth, duration)
 			dispelAmount -= min(dispelAmount, duration / total_duration * spellHealth)
 		}
@@ -108,6 +122,7 @@ save = function() {
 	s.tiles_within_range = saveTileList(tiles_within_range)
 	s.list_path_arrow_directions = list_path_arrow_directions
 	s.list_of_active_debuff_structs = list_of_active_debuff_structs
+	s.list_of_active_buff_structs = list_of_active_buff_structs
 	s.lvl = lvl
 	s.mana = mana
 	s.max_mana = max_mana
@@ -200,7 +215,7 @@ load = function(s) {
 	tiles_within_range = loadTileList(tiles_within_range, s.tiles_within_range)
 	list_path_arrow_directions = s.list_path_arrow_directions
 	list_of_active_debuff_structs = s.list_of_active_debuff_structs
-	
+	list_of_active_buff_structs = s.list_of_active_buff_structs
 	idd = s.idd
 	target = s.target
 	lvl = s.lvl

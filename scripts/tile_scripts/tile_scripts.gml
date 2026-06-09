@@ -101,4 +101,17 @@ function createTile() constructor {
 			}
 		}
 	}
+	reduceBuffDuration = function(dispelAmount) {
+		var altitudes = [ALTITUDES.ground, ALTITUDES.air, ALTITUDES.invisible]
+		for(var i = 0; i < array_length(altitudes); i++) {
+			var _list = occupants[? altitudes[i]]
+			for(var j = 0; j < array_length(_list); j++) {
+				with(_list[ j]) {
+					if(object_is_ancestor(object_index, obj_unit)) {
+						reduceBuffDuration(dispelAmount)
+					}
+				}
+			}
+		}
+	}
 }

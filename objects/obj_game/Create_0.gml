@@ -207,6 +207,13 @@ load = function() {
 						unapply = spellToUnapply(Enum)
 					}
 				}
+				for(var i = 0; i < array_length(list_of_active_buff_structs); i++) {
+					with(list_of_active_buff_structs[i]) {
+						victim = other.id
+						unapply = spellToUnapply(Enum)
+					}
+				}
+				
 				with(obj_unit) {
 					if(!array_contains(_deletedUnits, id)) {
 						loadFromIdd(other.saveData, "target")

@@ -2,7 +2,7 @@ function scr_creep_lord_hunt() {
 	var distance = scr_get_distance(tile, target.tile)
 	show_debug_message("distance = " + string(distance))
 	if(0 < distance and distance <= range) {
-		if(action_bar >= attack_cost) {
+		if(canAttack()) {
 			scr_attack_target()
 		}
 	} else if(action_bar >= movement_cost and distance > range) {

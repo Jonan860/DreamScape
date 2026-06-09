@@ -18,7 +18,7 @@ function scr_movement() {
 			if( phase == UNIT_PHASES.movement and action_bar >= movement_cost) {
 				scr_movement_enemy()
 			} 
-			if(phase == UNIT_PHASES.hunt and action_bar >= attack_cost) {
+			if(phase == UNIT_PHASES.hunt and canAttack()) {
 				scr_hunt_attack_enemy()
 			}; break;
 		case global.creep_lord :
@@ -31,7 +31,7 @@ function scr_movement() {
 	}
 	
 	if(phase != UNIT_PHASES.dead and phase != UNIT_PHASES.reviving and phase != UNIT_PHASES.earthshatterJump) {
-		if((owner == global.player or owner == global.creep_lord) and phase == UNIT_PHASES.hunt and action_bar >= min(attack_cost, movement_cost)) {
+		if((owner == global.player or owner == global.creep_lord) and phase == UNIT_PHASES.hunt and ((action_bar >= min(attack_cost, movement_cost)) or canAttack())) {
 			scr_player_hunt()
 		}
 	}
