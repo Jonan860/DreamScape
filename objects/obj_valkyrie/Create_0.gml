@@ -18,7 +18,7 @@ base_accuracy = accuracy
 evasiveness = 0.75
 altitude = ALTITUDES.ground
 experience_to_give = 200
-mana = 100
+mana = 0
 max_mana = 100
 mana_regen_rate_per_sec = -0.3
 
@@ -26,10 +26,12 @@ attack_animator = obj_sword_attack
 
 haste = createSpell(SPELLS.haste, "q")
 flash_heal = createSpell(SPELLS.flash_heal, "w")
-skills = [haste, flash_heal]
+soul_harvest = createSpell(SPELLS.soul_harvest, "e")
+skills = [haste, flash_heal, soul_harvest]
 haste.autocast = 1;
 haste.lvl = 1
 flash_heal.lvl = 1
+soul_harvest.lvl = 1
 ai = method(undefined, scr_ai_spell_banshee)
 
 attack_target = method(undefined, scr_attack_target_meelee)

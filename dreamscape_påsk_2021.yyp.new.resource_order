@@ -426,6 +426,7 @@
     {"name":"spr_sorceress1","order":3,"path":"sprites/spr_sorceress1/spr_sorceress1.yy",},
     {"name":"spr_sorceress2","order":1,"path":"sprites/spr_sorceress2/spr_sorceress2.yy",},
     {"name":"spr_sorceress3","order":4,"path":"sprites/spr_sorceress3/spr_sorceress3.yy",},
+    {"name":"spr_soul_harvest_icon","order":114,"path":"sprites/spr_soul_harvest_icon/spr_soul_harvest_icon.yy",},
     {"name":"spr_soul_hero","order":2,"path":"sprites/spr_soul_hero/spr_soul_hero.yy",},
     {"name":"spr_soul_hero1","order":3,"path":"sprites/spr_soul_hero1/spr_soul_hero1.yy",},
     {"name":"spr_soul_hero3","order":1,"path":"sprites/spr_soul_hero3/spr_soul_hero3.yy",},

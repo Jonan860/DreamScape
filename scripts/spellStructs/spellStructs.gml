@@ -111,6 +111,7 @@ function spellToAmount(spell) {
 		case SPELLS.dark_arrow : return [1, 5, 10]
 		case SPELLS.haste : return 25
 		case SPELLS.flash_heal : return 1
+		case SPELLS.soul_harvest : return 5
 		default : return noone
 	}
 }
@@ -453,6 +454,7 @@ function spellToIcon(spell) {
 		case SPELLS.silence : return spr_silence_icon
 		case SPELLS.haste : return spr_haste_icon
 		case SPELLS.flash_heal : return spr_flash_heal_icon
+		case SPELLS.soul_harvest : return spr_soul_harvest_icon
 		default : return noone
 	}
 }
@@ -532,6 +534,7 @@ function spellToName(spell) {
 		case SPELLS.abilities : return "Abilities"
 		case SPELLS.haste : return "Haste"
 		case SPELLS.flash_heal : return "Flash Heal"
+		case SPELLS.soul_harvest : return "Soul Harvest"
 		}
 }
 
@@ -623,6 +626,7 @@ function spellToInfo(spell) {
 		case SPELLS.dark_arrow : return ""
 		case SPELLS.haste : return "increases attack speed by " + string(getAmount()) + "%  , can stack"
 		+ "\n Mana Cost: " + string(getManaCost())
+		case SPELLS.flash_heal : return "converts all mana into HP"
 	}
 }
 
@@ -895,7 +899,8 @@ enum SPELLS {
 	life_drain,
 	silence,
 	haste,
-	flash_heal
+	flash_heal,
+	soul_harvest
 }
 
 #macro learnSpellManaMultiplicator 1.25

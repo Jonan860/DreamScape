@@ -1,4 +1,9 @@
 function scr_attack_hp_reduction(var_perputrator, var_victim, _armor) {
+	with(var_perputrator) {
+		if(variable_instance_exists(id, "soul_harvest")) {
+			mana = min(max_mana, mana + soul_harvest.getAmount())
+		}
+	}
 	with(scr_get_nearby_friendly_spell_shield(var_victim)) {
 		HP -= var_perputrator.damage
 		exit;

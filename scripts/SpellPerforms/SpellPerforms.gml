@@ -31,6 +31,7 @@ function spellToRightPerform(spell) {
 		case SPELLS.silence : return method(undefined, silenceRightPerform)
 		case SPELLS.haste: return;
 		case SPELLS.flash_heal: return;
+		case SPELLS.soul_harvest: return;
 	}
 }
 
@@ -164,6 +165,7 @@ function spellToIconPerform(spellenum) {
 		case SPELLS.shannaro : return method(undefined, selectSwitchCursor)
 		case SPELLS.flash_heal : return method(undefined, flashHealIconPerform)
 		case SPELLS.haste : return method(undefined, hasteIconPerform)
+		case SPELLS.soul_harvest : return function(){}
 	}
 }
 
