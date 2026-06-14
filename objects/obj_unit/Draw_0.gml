@@ -11,7 +11,7 @@ if(owner == global.player) {
 
 //ai = function() {}
 
-if(!eaten) {
+if(!eaten and !tied_up) {
 	if(scr_is_debuffed(SPELLS.slow)) {
 		var varXscale2 = sprite_get_width(spr_hexagon_pink)/sprite_get_width(spr_slow)
 		var varYscale2 = sprite_get_height(spr_hexagon_pink)/sprite_get_height(spr_slow)
@@ -40,4 +40,7 @@ if(!eaten) {
 	if(scr_is_debuffed(SPELLS.silence)) {
 		draw_sprite_ext(spr_silenced, 0, x, y, sprite_width / (3 * sprite_get_width(spr_silenced)), sprite_height / (3 * sprite_get_height(spr_silenced)), 0, c_white, 1)
 	}
+}
+else if(tied_up) {
+draw_self()
 }

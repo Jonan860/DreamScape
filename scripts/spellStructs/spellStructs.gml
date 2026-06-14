@@ -23,6 +23,7 @@ function spellToAnimator(spell) {
 		case SPELLS.iryo_ninjutsu : return obj_iryo_ninjutsu_animator
 		case SPELLS.shannaro : return obj_shannaro_animator
 		case SPELLS.life_drain : return obj_life_drain_animator
+		case SPELLS.abolish_magic : return obj_kai_animator
 	}
 }
 
@@ -58,6 +59,7 @@ function spellToCooldown(spell) {
 		case SPELLS.silence : return 20
 		case SPELLS.haste : return 0.5
 		case SPELLS.flash_heal : return 20;
+		case SPELLS.imba_heal : return 2 
 		default : return noone
 	}
 }
@@ -112,6 +114,8 @@ function spellToAmount(spell) {
 		case SPELLS.haste : return 25
 		case SPELLS.flash_heal : return 1
 		case SPELLS.soul_harvest : return 5
+		case SPELLS.imba_heal : return 25
+		case SPELLS.abolish_magic : return 100
 		default : return noone
 	}
 }
@@ -154,6 +158,8 @@ function spellToRange(spell) {
 		case SPELLS.life_drain : return 2
 		case SPELLS.dark_arrow : return 2
 		case SPELLS.silence : return 6
+		case SPELLS.imba_heal : return 2
+		case SPELLS.abolish_magic : return 4
 		default : return noone
 	}
 }
@@ -178,6 +184,7 @@ function spellToTargetable(spell) {
 		case SPELLS.sleep : return method(undefined, targetableEnemy)
 		case SPELLS.slow : return method(undefined, targetableEnemy)
 		case SPELLS.silence : return method(undefined, targetableSilence)
+		case SPELLS.imba_heal : return method(undefined, targetableFriendly) 
 		default : return function() {return true}
 	}
 }
@@ -205,6 +212,7 @@ function spellToEvaluateGoodness(spell) {
 		case SPELLS.heal : return method(undefined, evaluateLinearHeal)
 		case SPELLS.holy_light : return method(undefined, evaluateLinearHeal)
 		case SPELLS.silence : return method(undefined, evaluateSilence)
+		case SPELLS.imba_heal : return method(undefined, evaluateLinearHeal)
 		//case SPELLS
 	}
 }
@@ -270,6 +278,8 @@ function spellToManaCosts(spell) {
 		case SPELLS.silence : return [10, 20, 30]
 		case SPELLS.haste : return 20
 		case SPELLS.flash_heal : return 1
+		case SPELLS.imba_heal : return 25
+		case SPELLS.abolish_magic : return 25
 		default : return noone
 	}
 }
@@ -372,7 +382,9 @@ function spellToAbilitiesInfo(spell) {
 	case SPELLS.life_drain : return "Absorbs the life essence of a target enemy unit by taking hit points from it every second and giving them to the Dark Ranger. "
 	case SPELLS.dark_arrow : return "Adds extra damage to attacks. Units killed while under the effect of Black Arrow will turn into Dark Minions."
 	case SPELLS.silence : return "Stops all enemies in a target area from casting spells. The area of effect and duration increase with level."
-	default : return ""
+	case SPELLS.imba_heal : return "Totally Imba, Slay!"
+	case SPELLS.abolish_magic : return "Dispels positive buffs from enemy units, and negative buffs from friendly units. Deals " + string(getAmount) + " dispel damage."
+	default : return  
 	}
 	
 }
@@ -446,8 +458,8 @@ function spellToIcon(spell) {
 		case SPELLS.unholy_aura : return spr_unholy_aura_icon
 		case SPELLS.death_pact : return spr_death_pact_icon
 		case SPELLS.death_coil : return spr_death_coil_icon
-		case SPELLS.iryo_ninjutsu : return spr_iryo_ninjutsu
-		case SPELLS.kai : return spr_kai
+		case SPELLS.iryo_ninjutsu : return spr_iryo_ninjutsu_icon
+		case SPELLS.kai : return spr_kai_icon
 		case SPELLS.shannaro : return spr_shannaro_icon
 		case SPELLS.life_drain : return spr_life_drain_icon
 		case SPELLS.dark_arrow : return spr_black_arrow_icon
@@ -455,6 +467,8 @@ function spellToIcon(spell) {
 		case SPELLS.haste : return spr_haste_icon
 		case SPELLS.flash_heal : return spr_flash_heal_icon
 		case SPELLS.soul_harvest : return spr_soul_harvest_icon
+		case SPELLS.imba_heal : return spr_imba_heal_icon
+		case SPELLS.abolish_magic : return spr_kai_icon
 		default : return noone
 	}
 }
@@ -498,6 +512,7 @@ function spellToDuration(spell) {
 		case SPELLS.silence : return [10, 20, 30] // animation duratiuon
 		case SPELLS.haste : return 60
 		case SPELLS.flash_heal : return 1
+		case SPELLS.imba_heal : return 0.5
 		default : return noone
 	}
 }
@@ -535,6 +550,7 @@ function spellToName(spell) {
 		case SPELLS.haste : return "Haste"
 		case SPELLS.flash_heal : return "Flash Heal"
 		case SPELLS.soul_harvest : return "Soul Harvest"
+		case SPELLS.abolish_magic : return "Abolish Magic"
 		}
 }
 
@@ -619,7 +635,7 @@ function spellToInfo(spell) {
 		+ "\n Mana cost: " + string(getManaCost())
 		case SPELLS.unholy_aura : return "Increases the life regeneration rate of nearby friendly units by " + string(getAmount()) + " HP per second."
 		case SPELLS.iryo_ninjutsu : return ""
-		case SPELLS.kai : return ""
+		case SPELLS.kai : return "Dispels positive buffs from enemy units, and negative buffs from friendly units. Deals " + string(getAmount) + " dispel damage."
 		case SPELLS.shannaro : return ""
 		case SPELLS.life_drain : return ""
 		case SPELLS.silence : return ""
@@ -627,6 +643,8 @@ function spellToInfo(spell) {
 		case SPELLS.haste : return "increases attack speed by " + string(getAmount()) + "%  , can stack"
 		+ "\n Mana Cost: " + string(getManaCost())
 		case SPELLS.flash_heal : return "converts all mana into HP"
+		case SPELLS.imba_heal : return "Totally Imba, Slay!"
+		case SPELLS.abolish_magic : return "Dispels positive buffs from enemy units, and negative buffs from friendly units. Deals " + string(getAmount) + " dispel damage."
 	}
 }
 
@@ -669,6 +687,7 @@ function spellToAi(spell) {
 		case SPELLS.slow : return method(undefined, slow_ai)
 		case SPELLS.heal : return method(undefined, heal_ai)
 		case SPELLS.haste : return method(undefined, haste_ai)
+		case SPELLS.imba_heal : return method(undefined, heal_ai)
 		default : return noone
 	}
 }
@@ -900,7 +919,9 @@ enum SPELLS {
 	silence,
 	haste,
 	flash_heal,
-	soul_harvest
+	soul_harvest,
+	imba_heal,
+	abolish_magic
 }
 
 #macro learnSpellManaMultiplicator 1.25

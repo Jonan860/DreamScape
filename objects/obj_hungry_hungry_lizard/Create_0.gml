@@ -15,7 +15,6 @@ base_accuracy = 1
 evasiveness = 0.2
 base_evasivness = evasiveness
 altitude = ALTITUDES.ground
-list_of_territory_tiles = []
 start_tile = noone
 object_in_stomach = noone
 digestion_rate = 1/2 //per second

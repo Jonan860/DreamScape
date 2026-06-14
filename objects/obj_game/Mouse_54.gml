@@ -24,7 +24,7 @@ if(room == room_map) {
 								with(ds_map_find_value(buttonToSkill, buttons[i])) {
 									if(!global.hud.gui_display_abilities) {
 										if(lvl > 0 or object_is_ancestor(other.object_index, obj_building)) {
-											if(array_contains([SPELLS.heal, SPELLS.slow], Enum)) {
+											if(array_contains([SPELLS.heal, SPELLS.slow, SPELLS.haste, SPELLS.imba_heal], Enum)) {
 												autocast = !autocast
 											}
 											owner.phase = UNIT_PHASES.idle

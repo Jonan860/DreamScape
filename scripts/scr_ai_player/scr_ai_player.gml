@@ -8,10 +8,11 @@ function scr_ai_player() {
 	}
 	
 	if(phase == UNIT_PHASES.healing) {
-		if(target.HP = target.max_HP or scr_get_distance(tile, target.tile) > heal.range or altitude = ALTITUDES.invisible) {
+		var healskill = variable_instance_exists(id,"heal") ? heal : imba_heal
+		if(target.HP = target.max_HP or scr_get_distance(tile, target.tile) > healskill.range or altitude = ALTITUDES.invisible) {
 			phase = UNIT_PHASES.idle
-		} else if(heal.getManaCost() < mana and heal.cooldown_current <= 0) {
-			with(heal) {
+		} else if(healskill.getManaCost() < mana and healskill.cooldown_current <= 0) {
+			with(healskill) {
 				var temp = global.clicked_tile
 				global.clicked_tile = other.target.tile
 				rightPerform()

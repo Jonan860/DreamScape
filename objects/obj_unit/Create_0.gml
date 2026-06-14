@@ -10,7 +10,7 @@ setAltitude = function(_altitude) {
 	altitude = _altitude
 	array_push(tile.occupants[? altitude], id)
 }
-
+list_of_territory_tiles = []
 var var_tile_scale = sprite_get_height(spr_hexagon_pink) / max(sprite_height, sprite_width)
 image_yscale = var_tile_scale; image_xscale = var_tile_scale
 path = []
@@ -40,6 +40,7 @@ attack_animator = noone
 list_of_active_debuff_structs = []
 list_of_active_buff_structs = []
 eaten = 0
+tied_up = 0
 stunned = 0
 time_until_stunned_clear = 0
 invisible = 0
@@ -116,6 +117,7 @@ save = function() {
 		s.destinationY = destination.tile_y
 	}
 	s.eaten = eaten
+	s.tied_up = tied_up
 	s.has_waited_for_blocker_to_move = has_waited_for_blocker_to_move
 	s.path = saveTileList(path)
 	s.optimal_path = saveTileList(optimal_path)
@@ -209,6 +211,7 @@ load = function(s) {
 		destination = noone
 	}
 	eaten = s.eaten
+	tied_up = s.tied_up
 	has_waited_for_blocker_to_move = s.has_waited_for_blocker_to_move
 	path = loadTileList(path, s.path)
 	optimal_path = loadTileList(optimal_path, s.optimal_path)

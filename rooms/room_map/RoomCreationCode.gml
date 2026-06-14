@@ -31,7 +31,8 @@ scr_instance_create_at_tile_with_owner(obj_sylvanas, getTile(10, 2), global.enem
 
 
 
-with(scr_instance_create_at_tile_with_owner(obj_sakura, getTile(8, 14), global.player)) {
+with(scr_instance_create_at_tile_with_owner(obj_sakura, getTile(2, 0), global.player)) {
+	tied_up = true
 	repeat(5) {
 		scr_level_up()
 	}
@@ -63,6 +64,35 @@ with(hungry_hungry_lizard) {
 		}
 	loopTilesEnd
 }
+
+troll_priest1 = scr_instance_create_at_tile_with_owner(obj_troll_priest, getTile(4, 0), global.creep_lord)
+troll_priest2 = scr_instance_create_at_tile_with_owner(obj_troll_priest, getTile(0, 0), global.creep_lord)
+troll_trapper1 = scr_instance_create_at_tile_with_owner(obj_troll_trapper, getTile(1, 1), global.creep_lord)
+troll_trapper2 = scr_instance_create_at_tile_with_owner(obj_troll_trapper, getTile(3, 1), global.creep_lord)
+troll_warlord = scr_instance_create_at_tile_with_owner(obj_troll_warlord, getTile(2, 2), global.creep_lord)
+
+
+assignTrollTerritory(troll_priest1)
+assignTrollTerritory(troll_priest2)
+assignTrollTerritory(troll_trapper1)
+assignTrollTerritory(troll_trapper2)
+assignTrollTerritory(troll_warlord)
+
+
+function assignTrollTerritory(var_inst) {
+	with(var_inst) {
+		start_tile = tile
+		loopTilesStart
+			if(tile_x <= 5 and tile_x >= 0 and tile_y <= 6 and tile_y >=0)
+			{
+				array_push(other.list_of_territory_tiles, self)
+			}
+		loopTilesEnd
+	}
+}
+
+
+
 
 scr_instance_create_at_tile_with_owner(obj_human_barrack, getTile(12, 16), global.player)
 scr_instance_create_at_tile_with_owner(obj_money_tree, getTile(10, 16), global.player)

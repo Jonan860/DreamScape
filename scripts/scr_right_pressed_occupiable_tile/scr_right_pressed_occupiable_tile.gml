@@ -19,7 +19,7 @@ function command_all_units_down() { // kan bli lite buggigt kanske
 	}
 	repeat(5) {
 		with(obj_unit) {
-			if(owner == global.player and phase == UNIT_PHASES.idle and !eaten) {
+			if(owner == global.player and phase == UNIT_PHASES.idle and !eaten and !tied_up) {
 				if(id == global.lille_skutt.id) {
 					global.lille_skutt.is_building = noone
 				} 

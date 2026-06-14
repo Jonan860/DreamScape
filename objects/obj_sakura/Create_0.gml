@@ -22,14 +22,14 @@ altitude = ALTITUDES.ground
 max_mana = 100
 mana = 100
 mana_regen_rate_per_sec = 0.6   //per second
-
+tied_up = 1
 kai = createSpell(SPELLS.kai, "q")
 iryo_ninjutsu = createSpell(SPELLS.iryo_ninjutsu, "w")
 shannaro = createSpell(SPELLS.shannaro, "e")
 earthshatter = createSpell(SPELLS.earthshatter, "r")
-
 skills = [kai, iryo_ninjutsu, shannaro, earthshatter, revive]
 attack_target = function() {attack_target_magic_projectile()}
 list_level_sprites = [0, spr_sakura, spr_sakura, spr_sakura, spr_sakura, spr_sakura, spr_sakura, spr_sakura, spr_sakura, spr_sakura, spr_sakura, spr_sakura, spr_sakura, spr_sakura]
 spr_height = sprite_height
 spr_width = sprite_width
+image_index = spr_sakura_tied_up

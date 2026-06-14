@@ -32,6 +32,8 @@ function spellToRightPerform(spell) {
 		case SPELLS.haste: return;
 		case SPELLS.flash_heal: return;
 		case SPELLS.soul_harvest: return;
+		case SPELLS.imba_heal: return method(undefined, healRightPerform)
+		case SPELLS.abolish_magic : return method(undefined, abolishMagicRightPerform)
 	}
 }
 
@@ -63,8 +65,8 @@ function lifeDrainRightPerform() {
 	with(instance_create_depth(owner.x, owner.y, 0, obj_life_drain_animator)) {
 		target = array_first(global.clicked_tile.occupants[? ALTITUDES.ground])
 		owner = other
-		x = (owner.owner.x + target.x) / 2;
-		y = (owner.owner.y +  target.y) / 2;
+		x = (owner.owner.x + _target.x) / 2;
+		y = (owner.owner.y + _target.y) / 2;
 		alarm[0] = varduration  * game_get_speed(gamespeed_fps)
 		image_xscale = point_distance(owner.owner.x, owner.owner.y, target.x, target.y) / sprite_width;
 		image_angle = point_direction(owner.owner.x, owner.owner.y, target.x,  target.y);
@@ -120,6 +122,11 @@ function dispelRightPerform() {
 	}
 }
 
+function abolishMagicRightPerform() {
+global.clicked_tile.reduceDebuffDuration(getAmount())
+global.clicked_tile.reduceBuffDuration(getAmount())
+}
+
 function spellToLeastAcceptableGoodness(spellEnum) {
 	switch(spellEnum) {
 		case SPELLS.silence : return 200
@@ -166,12 +173,14 @@ function spellToIconPerform(spellenum) {
 		case SPELLS.flash_heal : return method(undefined, flashHealIconPerform)
 		case SPELLS.haste : return method(undefined, hasteIconPerform)
 		case SPELLS.soul_harvest : return function(){}
+		case SPELLS.imba_heal : return function(){}
 	}
 }
 
 function hasteIconPerform() {
 	if(cooldown_current == 0 and owner.mana >= getManaCost()) {
 		scr_apply_buff(owner)
+		instance_create_depth(owner.x, owner.y, owner.depth - 1, obj_haste_animator, {target : owner, owner : other})
 	}
 }
 
@@ -225,6 +234,7 @@ function spellToShouldRightPerformLocal(spellEnum) {
 		case SPELLS.kawarimi_no_jutsu : return method(undefined, healShouldRightPerformLocal)
 		case SPELLS.shannaro : return method(undefined, slowShouldRightPerformLocal)
 		case SPELLS.iryo_ninjutsu : return method(undefined, holyLightShouldRightShouldPerform)
+		case SPELLS.imba_heal : return method(undefined, healShouldRightPerformLocal)
 		default : return function() {return true}
 	}
 }
