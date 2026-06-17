@@ -1,5 +1,6 @@
 
 function scr_creep_ai() {
+	scr_ai_spell_enemy()
 	switch(phase) {
 		case UNIT_PHASES.hunt :
 			if(scr_get_distance(tile, target.tile) > range or array_get_index(list_of_territory_tiles, target.tile) == noone and action_bar == 0) {

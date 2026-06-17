@@ -36,6 +36,7 @@ player_ai_spell_counter = 1
 player_ai_idle_counter = 1
 missing_time = 0
 attack_animator = noone
+creep_buddies = []
 
 list_of_active_debuff_structs = []
 list_of_active_buff_structs = []

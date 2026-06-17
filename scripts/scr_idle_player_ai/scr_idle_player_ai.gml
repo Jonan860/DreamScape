@@ -8,6 +8,18 @@ function scr_idle_player_ai() {
 			target = var_target
 			destination = target.tile
 			phase = UNIT_PHASES.hunt
+			if(owner == global.creep_lord) {
+				for (var i = 0; i < array_length(creep_buddies); i++)
+				{
+					if(creep_buddies[i].target == noone) {
+						with(creep_buddies[i]) {
+							target = var_target
+							destination = target.tile
+							phase = UNIT_PHASES.hunt
+						}
+					}
+				}
+			}
 		}
 	}
 }

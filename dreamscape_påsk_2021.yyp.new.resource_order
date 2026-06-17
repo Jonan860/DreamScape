@@ -111,7 +111,7 @@
     {"name":"obj_sword_attack","order":3,"path":"objects/obj_sword_attack/obj_sword_attack.yy",},
     {"name":"obj_sylvanas","order":7,"path":"objects/obj_sylvanas/obj_sylvanas.yy",},
     {"name":"obj_tile","order":6,"path":"objects/obj_tile/obj_tile.yy",},
-    {"name":"obj_troll_priest","order":22,"path":"objects/obj_troll_priest/obj_troll_priest.yy",},
+    {"name":"obj_troll_priest","order":14,"path":"objects/obj_troll_priest/obj_troll_priest.yy",},
     {"name":"obj_troll_trapper","order":12,"path":"objects/obj_troll_trapper/obj_troll_trapper.yy",},
     {"name":"obj_troll_warlord","order":13,"path":"objects/obj_troll_warlord/obj_troll_warlord.yy",},
     {"name":"obj_unholy_aura_animator","order":20,"path":"objects/obj_unholy_aura_animator/obj_unholy_aura_animator.yy",},

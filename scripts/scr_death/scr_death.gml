@@ -7,6 +7,10 @@ function scr_death() {
 	
 	if(HP <= 0 and phase != UNIT_PHASES.dead or time_has_runned_out or (phase == UNIT_PHASES.sacrificed and time_until_dark_ritual_sacrifice_sec <= 0)) {
 		scr_give_experience()
+		
+		array_remove_value(creep_buddies, id);	
+		
+		
 		with(obj_projectile_animator) {
 			if(owner == other.id) {
 				owner = noone

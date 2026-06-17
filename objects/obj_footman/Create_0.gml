@@ -10,6 +10,7 @@ HP_regeneration_rate = 0.1
 damage = 10
 base_armor = [3, 1, 0]
 armor = base_armor
+armor_coverage = [60, 30, 10]
 piercing = 1
 accuracy = 1
 base_accuracy = accuracy

@@ -19,10 +19,11 @@ start_tile = noone
 object_in_stomach = noone
 digestion_rate = 1/2 //per second
 experience_to_give = 300
-
+piercing = 0
 
 attack_animator = obj_horn_attack
 
 attack_target = method(undefined, scr_attack_target_meelee)
+ai = function() {}
 
 

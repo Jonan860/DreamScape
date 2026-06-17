@@ -59,14 +59,20 @@ function silenceRightPerform(varTile) {
 /**
  * Function Description
  */
-function lifeDrainRightPerform() {
+function lifeDrainRightPerform(varTarget = undefined ) {
 	owner.phase = UNIT_PHASES.channeling
 	var varduration = getDuration()
 	with(instance_create_depth(owner.x, owner.y, 0, obj_life_drain_animator)) {
-		target = array_first(global.clicked_tile.occupants[? ALTITUDES.ground])
+		if(varTarget == undefined) {
+			target = array_first(global.clicked_tile.occupants[? ALTITUDES.ground])
+		} 
+		else
+		{
+			target = varTarget
+		}
 		owner = other
-		x = (owner.owner.x + _target.x) / 2;
-		y = (owner.owner.y + _target.y) / 2;
+		x = (owner.owner.x + target.x) / 2;
+		y = (owner.owner.y + target.y) / 2;
 		alarm[0] = varduration  * game_get_speed(gamespeed_fps)
 		image_xscale = point_distance(owner.owner.x, owner.owner.y, target.x, target.y) / sprite_width;
 		image_angle = point_direction(owner.owner.x, owner.owner.y, target.x,  target.y);

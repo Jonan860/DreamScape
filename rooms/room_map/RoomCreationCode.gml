@@ -33,6 +33,10 @@ scr_instance_create_at_tile_with_owner(obj_sylvanas, getTile(10, 2), global.enem
 
 with(scr_instance_create_at_tile_with_owner(obj_sakura, getTile(2, 0), global.player)) {
 	tied_up = true
+	
+	var var_alt_list = tile.occupants[?altitude]
+	tile.occupants[?altitude] = array_filter(var_alt_list, function(value, index) {return value != id})
+	//array_remove_value(var_alt_list, id)
 	repeat(5) {
 		scr_level_up()
 	}
@@ -71,19 +75,21 @@ troll_trapper1 = scr_instance_create_at_tile_with_owner(obj_troll_trapper, getTi
 troll_trapper2 = scr_instance_create_at_tile_with_owner(obj_troll_trapper, getTile(3, 1), global.creep_lord)
 troll_warlord = scr_instance_create_at_tile_with_owner(obj_troll_warlord, getTile(2, 2), global.creep_lord)
 
+var buddies = [troll_priest1, troll_priest2, troll_trapper1, troll_trapper2, troll_warlord]
+assignTrollTerritory(troll_priest1, buddies)
+assignTrollTerritory(troll_priest2, buddies)
+assignTrollTerritory(troll_trapper1, buddies)
+assignTrollTerritory(troll_trapper2, buddies)
+assignTrollTerritory(troll_warlord, buddies)
 
-assignTrollTerritory(troll_priest1)
-assignTrollTerritory(troll_priest2)
-assignTrollTerritory(troll_trapper1)
-assignTrollTerritory(troll_trapper2)
-assignTrollTerritory(troll_warlord)
 
 
-function assignTrollTerritory(var_inst) {
+function assignTrollTerritory(var_inst, buddies) {
 	with(var_inst) {
+		creep_buddies = buddies
 		start_tile = tile
 		loopTilesStart
-			if(tile_x <= 5 and tile_x >= 0 and tile_y <= 6 and tile_y >=0)
+			if(tile_x <= 5 and tile_x >= 0 and tile_y <= 10 and tile_y >=0 and !(tile_x == 2 and tile_y == 0))
 			{
 				array_push(other.list_of_territory_tiles, self)
 			}

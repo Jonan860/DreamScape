@@ -32,3 +32,10 @@ attack_animator = obj_magic_projectile_animator
 
 
 attack_target = function() {attack_target_magic_projectile(c_yellow)}
+
+ai = function() {
+	if(canPerform() and imba_heal.autocast ) {
+		scr_banshee_auto_cast_ai_sub()
+		scr_
+	}
+}

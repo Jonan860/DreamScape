@@ -8,6 +8,7 @@ range = 1
 HP = 200 //200
 max_HP = 200 ///200
 damage = 20
+piercing = 0
 base_armor = [3, 1, 0]
 armor = base_armor
 armor_coverage = [50, 25, 25]
@@ -25,3 +26,4 @@ experience_to_give = 300
 attack_animator = obj_horn_attack
 
 attack_target = method(undefined, scr_attack_target_meelee)
+ai = function() {}
