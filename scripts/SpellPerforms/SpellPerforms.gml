@@ -128,14 +128,16 @@ function dispelRightPerform() {
 	}
 }
 
-function abolishMagicRightPerform() {
-global.clicked_tile.reduceDebuffDuration(getAmount())
-global.clicked_tile.reduceBuffDuration(getAmount())
+function abolishMagicRightPerform(varTile = global.clicked_tile) {
+	varTile.reduceDebuffDuration(getAmount())
+	varTile.reduceBuffDuration(getAmount())
 }
 
 function spellToLeastAcceptableGoodness(spellEnum) {
 	switch(spellEnum) {
 		case SPELLS.silence : return 200
+		case SPELLS.imba_heal : return 1
+		case SPELLS.abolish_magic : return 25
 		default : return 0
 	}
 }
@@ -367,8 +369,8 @@ function invisibilityShouldIconPerform() {return global.player.sorceress_has_inv
 
 
 
-function healRightPerform() {
-		var varTarget = array_first(global.clicked_tile.occupants[? ALTITUDES.ground])
+function healRightPerform(varTile = global.clicked_tile) {
+		var varTarget = array_first(varTile.occupants[? ALTITUDES.ground])
 		instance_create_depth(varTarget.x, varTarget.y, varTarget.depth - 1, obj_heal_animator, {target : varTarget, owner : other})
 }
 

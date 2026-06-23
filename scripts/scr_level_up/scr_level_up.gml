@@ -17,7 +17,7 @@ function scr_level_up() {
 	
 	if(lvl < array_length(list_level_sprites)) {
 		image_xscale = 1; image_yscale = 1
-		sprite_index = list_level_sprites[lvl]
+		sprite_index = tied_up ? sprite_index : list_level_sprites[lvl]
 		image_xscale = spr_width/sprite_width; image_yscale = spr_height/sprite_height
 	}
 }

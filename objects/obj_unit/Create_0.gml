@@ -38,6 +38,16 @@ missing_time = 0
 attack_animator = noone
 creep_buddies = []
 
+
+armor_coverage = []
+armor = []
+function averageArmor() {
+	var varAverage = 0
+	for(var i = 0; i < array_length(armor_coverage); i++) {
+		varAverage += armor_coverage[i] * armor[i] / 100
+	}
+	return varAverage
+}
 list_of_active_debuff_structs = []
 list_of_active_buff_structs = []
 eaten = 0
@@ -54,7 +64,7 @@ has_waited_for_blocker_to_move = 0
 
 reduceDebuffDuration = function(dispelAmount) {
 	scr_sort_debuff_list_after_dispellity()
-	for(var i = 0; i < list_of_active_debuff_structs; i++) {
+	for(var i = 0; i < array_length(list_of_active_debuff_structs); i++) {
 		if(dispelAmount == 0) {
 			break;
 		}
@@ -67,7 +77,7 @@ reduceDebuffDuration = function(dispelAmount) {
 
 reduceBuffDuration = function(dispelAmount) {
 	scr_sort_buff_list_after_dispellity()
-	for(var i = 0; i < list_of_active_buff_structs; i++) {
+	for(var i = 0; i < array_length(list_of_active_buff_structs); i++) {
 		if(dispelAmount == 0) {
 			break;
 		}

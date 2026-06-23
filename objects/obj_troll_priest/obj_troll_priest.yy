@@ -8,8 +8,8 @@
   "name":"obj_troll_priest",
   "overriddenProperties":[],
   "parent":{
-    "name":"units",
-    "path":"folders/Objects/units.yy",
+    "name":"mages",
+    "path":"folders/Objects/units/mages.yy",
   },
   "parentObjectId":{
     "name":"obj_mage",

@@ -25,5 +25,6 @@ attack_animator = obj_horn_attack
 
 attack_target = method(undefined, scr_attack_target_meelee)
 
+ai = function(){}
 
 

@@ -213,8 +213,32 @@ function spellToEvaluateGoodness(spell) {
 		case SPELLS.holy_light : return method(undefined, evaluateLinearHeal)
 		case SPELLS.silence : return method(undefined, evaluateSilence)
 		case SPELLS.imba_heal : return method(undefined, evaluateLinearHeal)
+		case SPELLS.abolish_magic : return method(undefined, evaluateDispel)
 		//case SPELLS
 	}
+}
+
+
+function evaluateDispel(_unit) {
+		spellsList = scr_is_enemies(_unit, owner) ? _unit.list_of_active_buff_structs : _unit.list_of_active_debuff_structs
+		var goodness = 0
+		var dispelDamage = getAmount()
+		for(var i = 0; i < array_length(spellsList); i++) {
+			if(dispelDamage <= 0) {
+				break;
+			}
+			var varSpell = spellsList[i]
+			var varSpellhealth = varSpell.spellHealth * (varSpell.duration / varSpell.total_duration)
+			var varSpellGoodness = varSpell.mana_cost * (varSpell.duration / varSpell.total_duration)
+			if(dispelDamage > varSpellhealth) {
+				goodness += varSpellGoodness
+				dispelDamage -= varSpellhealth
+			} else {
+				goodness += dispelDamage / varSpell.spellHealth * varSpell.mana_cost
+				dispelDamage = 0
+			}
+		}
+		return goodness
 }
 
 function evaluateProcentageDebuff(_unit) {
@@ -222,7 +246,12 @@ function evaluateProcentageDebuff(_unit) {
 }
 
 function evaluateLinearHeal(_unit) {
-	return (is_undefined(mana) ? 1 : 2) * (_unit.damage + _unit.armor) * min(getAmount(), max_HP - HP) / _unit.attack_cost
+	
+	var ret = (variable_instance_exists (_unit, "mana") ? 1 : 2) * (_unit.damage + _unit.averageArmor()) * min(getAmount(), _unit.max_HP - _unit.HP) / _unit.attack_cost
+	if(ret > 0) {
+		show_debug_message("hejsnamn")
+	}
+	return ret
 }
 
 function evaluatelinearDamage() {
@@ -840,6 +869,7 @@ function createSpell(spellEnum, _letter) {
 			unapply = spellToUnapply(other.Enum)
 			victim = _victim.id
 			amount = other.getAmount()
+			mana_cost = other.getManaCost()
 		}
 		scr_apply_debuff = function(victim) {
 			var debuff_struct = new createDebufforBuff(victim)

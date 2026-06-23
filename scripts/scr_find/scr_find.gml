@@ -129,11 +129,11 @@ function scr_find_sleep_target_within_range() {
 function scr_find_spell_target(spell) {
 	with(spell) {
 		var var_optimal_unit = noone
-		var var_optimal_goodness = least_acceptable_goodness
-		var varTiles = scr_get_tiles_within_range(range)
+		var var_optimal_goodness = leastAcceptableGoodness
+		var varTiles = scr_get_tiles_within_range(range, owner.tile)
 		for(i = 0; i < array_length(varTiles); i++) {
 			var varunit = array_first(varTiles[i].occupants[? ALTITUDES.ground])
-			if(targetable(varunit)) {
+			if(!is_undefined(varunit) and targetable(varunit)) {
 				if(evaluateGoodness(varunit) > var_optimal_goodness) {
 					var_optimal_goodness = evaluateGoodness(varunit)
 					var_optimal_unit = varunit

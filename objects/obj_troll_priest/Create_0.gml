@@ -5,7 +5,7 @@ max_action_bar = 3 * room_speed
 action_bar = 0
 range = 2
 HP = 200
-max_HP = 70
+max_HP = 200
 HP_regeneration_rate = 0.1
 damage = 3
 base_armor = [1, 0]
@@ -34,8 +34,17 @@ attack_animator = obj_magic_projectile_animator
 attack_target = function() {attack_target_magic_projectile(c_yellow)}
 
 ai = function() {
-	if(canPerform() and imba_heal.autocast ) {
-		scr_banshee_auto_cast_ai_sub()
-		scr_
+	if(imba_heal.canPerform() and imba_heal.autocast ) {
+	 
+	var abolish_target = scr_find_spell_target(abolish_magic)
+	 
+	 if(abolish_target != noone ) {
+		abolish_magic.rightPerform(abolish_target.tile)
+	 } else {
+		var healTarget = scr_find_spell_target(imba_heal)
+		if(healTarget != noone) {
+			imba_heal.rightPerform(healTarget.tile)
+		}
+	 }
 	}
 }
