@@ -21,6 +21,7 @@ function spellToRightPerform(spell) {
 		case SPELLS.raise : return method(undefined, raiseSkeletonRightPerform);
 		case SPELLS.buildArcaneSanctum : return method(undefined, buildBuildingRightPressed)
 		case SPELLS.buildBarracks : return method(undefined, buildBuildingRightPressed)
+		case SPELLS.buildTempleOfOdin : return method(undefined, buildBuildingRightPressed)
 		case SPELLS.invisibility  : return method(undefined, invisibilityRightPerform)
 		case SPELLS.dispel : return method(undefined, dispelRightPerform)
 		case SPELLS.death_coil : return method(undefined, deathCoilRightPerform)
@@ -149,6 +150,7 @@ function spellToIconPerform(spellenum) {
 		case SPELLS.revive : return method(undefined, reviveIconPerform)
 		case SPELLS.heal : return method(undefined, selectSwitchCursor)
 		case SPELLS.buildBarracks : return method(undefined, selectSwitchCursor)
+		case SPELLS.buildTempleOfOdin : return method(undefined, selectSwitchCursor)
 		case SPELLS.buildArcaneSanctum : return method(undefined, selectSwitchCursor)
 		case SPELLS.invisibility : return method(undefined, selectSwitchCursor)
 		case SPELLS.holy_light : return method(undefined, selectSwitchCursor)
@@ -165,6 +167,7 @@ function spellToIconPerform(spellenum) {
 		case SPELLS.vampiric_aura : return method(undefined, auraIconPerform)
 		case SPELLS.locust_swarm : return method(undefined, locustIconPerform)
 		case SPELLS.buildFootman : return method(undefined, performRecruit);
+		case SPELLS.buildValkyrie : return method(undefined, performRecruit);
 		case SPELLS.buildArcher : return method(undefined, performRecruit);
 		case SPELLS.buildPriest : return method(undefined, performRecruit);
 		case SPELLS.buildSorceress : return method(undefined, performRecruit);
@@ -313,7 +316,7 @@ function spellCanPerform() {
 	with(owner) {
 		var silenced = scr_is_debuffed(SPELLS.silence)
 	}
-	return owner.mana > getManaCost() and cooldown_current == 0 and !silenced
+	return (owner.mana == noone or owner.mana > getManaCost()) and cooldown_current == 0 and !silenced
 }
 
 function spellToCanPerformLocal(_spell) {
@@ -403,6 +406,7 @@ function revivePerform() {
 
 function sleepRightPerform() {
 	scr_apply_debuff(array_first(global.clicked_tile.occupants[? ALTITUDES.ground]))
+	array_first(global.clicked_tile.occupants[? ALTITUDES.ground]).phase = UNIT_PHASES.idle
 	//instance_create_depth(varTarget.x, varTarget.y, varTarget.depth - 1, obj_sleep_animator, {owner : other, target : varTarget})
 	//with(varTarget) {
 	//	phase = UNIT_PHASES.sleep
@@ -421,22 +425,9 @@ function sleepRightPerform() {
 
 function freezeRightPerform(perputrator, victim) {
 	scr_apply_debuff(array_first(global.clicked_tile.occupants[? ALTITUDES.ground]))
+	array_first(global.clicked_tile.occupants[? ALTITUDES.ground]).phase = UNIT_PHASES.idle
 }
 
-
-function freezeRightPerform2() {
-	if(cursor_sprite == spr_freeze_cursor and !scr_is_debuffed(SPELLS.freeze)) {
-		if(global.ida.freeze.lvl > 0) {
-			var cooldown = getCooldown()
-			var mana_cost = getManaCost()
-			if(global.ida.freeze.canPerform() and scr_get_distance(global.tile_selected, global.clicked_tile) == 1) {
-				global.ida.mana -= mana_cost
-				global.ida.freeze.cooldown_current = cooldown
-				scr_freeze_unit(global.ida, array_first(global.clicked_tile.occupants[? ALTITUDES.ground]))
-			}
-		}
-	}
-}
 
 function spellToPerform(spellEnum) {
 	switch(spellEnum) {

@@ -16,7 +16,7 @@ function scr_hud_draw_gui_unit_prod_building() {
 }
 
 function scr_dra_hud_button_with_hover_inf_lille_skutt() {
-	var buttons = ["q", "w"]
+	var buttons = ["q", "w", "e"]
 	for (var i = 0; i < array_length(buttons); i++) {
 		var button = buttonToSkill[?buttons[i]]
 		var hudButton = global.hud.charToButton[? buttons[i]]

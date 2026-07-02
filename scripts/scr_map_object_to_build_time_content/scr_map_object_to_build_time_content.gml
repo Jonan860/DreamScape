@@ -9,4 +9,6 @@ function scr_map_object_to_build_time_content() {
 	ds_map_add(global.map_objects_to_build_time, obj_sorceress_invisibility_upgrade, 30)
 	ds_map_add(global.map_objects_to_build_time, obj_priest_dispel_upgrade, 30)
 	ds_map_add(global.map_objects_to_build_time, obj_improved_bows_upgrade, 30)
+	ds_map_add(global.map_objects_to_build_time, obj_valkyrie, 80)
+	ds_map_add(global.map_objects_to_build_time, obj_temple_of_odin, 60)
 }

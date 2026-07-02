@@ -86,7 +86,7 @@
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2026.0.0.16",
+    "IDEVersion":"2024.14.4.222",
   },
   "name":"dreamscape_påsk_2021.yyp.new",
   "resources":[
@@ -179,6 +179,7 @@
     {"id":{"name":"obj_summon","path":"objects/obj_summon/obj_summon.yy",},},
     {"id":{"name":"obj_sword_attack","path":"objects/obj_sword_attack/obj_sword_attack.yy",},},
     {"id":{"name":"obj_sylvanas","path":"objects/obj_sylvanas/obj_sylvanas.yy",},},
+    {"id":{"name":"obj_temple_of_odin","path":"objects/obj_temple_of_odin/obj_temple_of_odin.yy",},},
     {"id":{"name":"obj_tile","path":"objects/obj_tile/obj_tile.yy",},},
     {"id":{"name":"obj_troll_priest","path":"objects/obj_troll_priest/obj_troll_priest.yy",},},
     {"id":{"name":"obj_troll_trapper","path":"objects/obj_troll_trapper/obj_troll_trapper.yy",},},
@@ -557,6 +558,8 @@
     {"id":{"name":"spr_sword_attack","path":"sprites/spr_sword_attack/spr_sword_attack.yy",},},
     {"id":{"name":"spr_sylanas_gpt","path":"sprites/spr_sylanas_gpt/spr_sylanas_gpt.yy",},},
     {"id":{"name":"spr_sylvanas","path":"sprites/spr_sylvanas/spr_sylvanas.yy",},},
+    {"id":{"name":"spr_temple_of_odin_icon","path":"sprites/spr_temple_of_odin_icon/spr_temple_of_odin_icon.yy",},},
+    {"id":{"name":"spr_temple_of_odin","path":"sprites/spr_temple_of_odin/spr_temple_of_odin.yy",},},
     {"id":{"name":"spr_troll_priest_original","path":"sprites/spr_troll_priest_original/spr_troll_priest_original.yy",},},
     {"id":{"name":"spr_troll_priest","path":"sprites/spr_troll_priest/spr_troll_priest.yy",},},
     {"id":{"name":"spr_troll_trapper","path":"sprites/spr_troll_trapper/spr_troll_trapper.yy",},},
@@ -564,6 +567,7 @@
     {"id":{"name":"spr_unfinished_building","path":"sprites/spr_unfinished_building/spr_unfinished_building.yy",},},
     {"id":{"name":"spr_unholy_aura_icon","path":"sprites/spr_unholy_aura_icon/spr_unholy_aura_icon.yy",},},
     {"id":{"name":"spr_unholy_aura_origin","path":"sprites/spr_unholy_aura_origin/spr_unholy_aura_origin.yy",},},
+    {"id":{"name":"spr_valkyrie_icon","path":"sprites/spr_valkyrie_icon/spr_valkyrie_icon.yy",},},
     {"id":{"name":"spr_valkyrie","path":"sprites/spr_valkyrie/spr_valkyrie.yy",},},
     {"id":{"name":"spr_vampiric_aura_icon","path":"sprites/spr_vampiric_aura_icon/spr_vampiric_aura_icon.yy",},},
     {"id":{"name":"spr_vampiric_aura","path":"sprites/spr_vampiric_aura/spr_vampiric_aura.yy",},},

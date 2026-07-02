@@ -35,13 +35,15 @@ buildBarracks = createSpell(SPELLS.buildBarracks, "q")
 buildBarracks.lvl = 1
 buildArcaneSanctum = createSpell(SPELLS.buildArcaneSanctum, "w")
 buildArcaneSanctum.lvl = 1
-skills = [buildBarracks, buildArcaneSanctum]
+buildTempleOfOdin = createSpell(SPELLS.buildTempleOfOdin, "e")
+buildTempleOfOdin.lvl = 1
+skills = [buildBarracks, buildArcaneSanctum, buildTempleOfOdin]
 s_button = {
 	info : "Resurrects a Hero soul on the same tile after 60 sec",
 	icon : spr_resurrection_icon,
 	lvl : 1
 }
 ds_map_add(buttonToSkill, "s", s_button)
-buttons = ["q", "w", "s"]
+buttons = ["q", "w", "e", "s"]
 
 

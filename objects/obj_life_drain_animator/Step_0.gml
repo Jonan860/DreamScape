@@ -1,4 +1,4 @@
-if(instance_exists(target) and instance_exists(owner.owner) and scr_get_distance(owner.owner.tile, target.tile) <= owner.range) {
+if(instance_exists(target) and instance_exists(owner.owner) and scr_get_distance(owner.owner.tile, target.tile) <= owner.range and owner.owner.phase == UNIT_PHASES.channeling) {
 	x = (owner.owner.x + target.x) / 2
 	y = (owner.owner.y + target.y) / 2
 	image_xscale = point_distance(owner.owner.x, owner.owner.y, target.x, target.y) / sprite_width;

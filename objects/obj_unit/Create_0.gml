@@ -37,7 +37,7 @@ player_ai_idle_counter = 1
 missing_time = 0
 attack_animator = noone
 creep_buddies = []
-
+piercing = 0
 
 armor_coverage = []
 armor = []

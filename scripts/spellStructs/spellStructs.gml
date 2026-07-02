@@ -6,12 +6,14 @@ function spellToAnimator(spell) {
 		case SPELLS.death_coil : return obj_death_coil_animator
 		case SPELLS.kawarimi_no_jutsu : return obj_kawarimi_animator 
 		case SPELLS.buildFootman : return obj_footman
+		case SPELLS.buildValkyrie : return obj_valkyrie
 		case SPELLS.buildArcher : return obj_elven_archer
 		case SPELLS.buildPriest : return obj_priest
 		case SPELLS.buildSorceress : return obj_sorceress
 		case SPELLS.earthshatter : return obj_earthShatter_animator
 		case SPELLS.buildArcaneSanctum : return obj_arcane_sanctum
 		case SPELLS.buildBarracks : return obj_human_barrack
+		case SPELLS.buildTempleOfOdin : return obj_temple_of_odin
 		case SPELLS.dispel : return obj_dispel_animator
 		case SPELLS.revive : return obj_revive_animator
 		case SPELLS.buildInvisibility : return obj_sorceress_invisibility_upgrade
@@ -51,6 +53,7 @@ function spellToCooldown(spell) {
 		case SPELLS.heal : return 2
 		case SPELLS.buildArcaneSanctum : return 0
 		case SPELLS.buildBarracks : return 0
+		case SPELLS.buildTempleOfOdin : return 0
 		case SPELLS.dispel : return 20
 		case SPELLS.sleep : return 4
 		case SPELLS.shannaro : return 20
@@ -87,6 +90,7 @@ function spellToAmount(spell) {
 		case SPELLS.holy_light : return [30, 60, 90]
 		case SPELLS.spell_shield : return [200, 400, 600] //max health
 		case SPELLS.buildFootman : return 100
+		case SPELLS.buildValkyrie : return 200
 		case SPELLS.buildSorceress : return 100
 		case SPELLS.buildPriest : return 100
 		case SPELLS.buildArcher : return 100
@@ -95,6 +99,7 @@ function spellToAmount(spell) {
 		case SPELLS.buildImprovedBows : return 150
 		case SPELLS.buildMoneyTree : return 600
 		case SPELLS.buildBarracks : return 100
+		case SPELLS.buildTempleOfOdin : return 200
 		case SPELLS.buildArcaneSanctum : return 100
 		case SPELLS.buildInvisibility : return 150
 		case SPELLS.dispel : return 50
@@ -149,6 +154,7 @@ function spellToRange(spell) {
 		case SPELLS.vampiric_aura : return 4
 		case SPELLS.buildArcaneSanctum : return 1
 		case SPELLS.buildBarracks : return 1
+		case SPELLS.buildTempleOfOdin : return 1
 		case SPELLS.dispel : return 4
 		case SPELLS.death_coil : return 4
 		case SPELLS.unholy_aura : return 4
@@ -333,6 +339,7 @@ function spellToCursor(spellenum) {
 		case SPELLS.heal : return spr_heal_cursor
 		case SPELLS.buildArcaneSanctum : return spr_spade_cursor
 		case SPELLS.buildBarracks : return spr_spade_cursor
+		case SPELLS.buildTempleOfOdin : return spr_spade_cursor
 		case SPELLS.slow : return spr_slow_cursor
 		case SPELLS.holy_light : return spr_holy_light_cursor
 		case SPELLS.katon_gokakyu_no_jutsu : return spr_fire_ball_cursor
@@ -471,6 +478,7 @@ function spellToIcon(spell) {
 		case SPELLS.revive : return spr_resurrection_icon
 		case SPELLS.abilities : return spr_abilities_button
 		case SPELLS.buildFootman : return spr_footman_icon
+		case SPELLS.buildValkyrie : return spr_valkyrie_icon
 		case SPELLS.buildArcher : return spr_elven_archer_icon
 		case SPELLS.buildSorceress : return spr_sorceress_icon
 		case SPELLS.buildPriest : return spr_priest_icon
@@ -479,6 +487,7 @@ function spellToIcon(spell) {
 		case SPELLS.buildDefend : return spr_defend_icon
 		case SPELLS.buildImprovedBows : return spr_improved_bows
 		case SPELLS.buildBarracks : return spr_human_barracks_icon
+		case SPELLS.buildTempleOfOdin : return spr_temple_of_odin_icon
 		case SPELLS.buildArcaneSanctum : return spr_arcane_sanctum_icon
 		case SPELLS.raise : return  spr_raise_icon
 		case SPELLS.defend : return spr_defend_icon
@@ -526,9 +535,11 @@ function spellToDuration(spell) {
 		case SPELLS.heal : return 0.5
 		case SPELLS.dark_ritual : return 2
 		case SPELLS.buildBarracks : return 30
+		case SPELLS.buildTempleOfOdin : return 60
 		case SPELLS.buildArcaneSanctum : return 30
 		case SPELLS.buildSorceress : return 40
 		case SPELLS.buildPriest : return 40
+		case SPELLS.buildValkyrie : return 80
 		case SPELLS.buildFootman : return 40
 		case SPELLS.buildArcher : return 40
 		case SPELLS.buildDefend : return 30
@@ -561,6 +572,7 @@ function spellToName(spell) {
 		case SPELLS.golden_dragon : return "Golden Dragon"
 		case SPELLS.ninjago : return "Ninjago"
 		case SPELLS.buildFootman : return "Build Footman"
+		case SPELLS.buildValkyrie : return "Build Valkyrie"
 		case SPELLS.buildArcher : return "Build Archer"
 		case SPELLS.buildPriest : return "Build Priest"
 		case SPELLS.buildSorceress : return "Build Sorceress"
@@ -643,6 +655,7 @@ function spellToInfo(spell) {
 			+ "\n Mana cost: " + string(getManaCost()) + "\n Damage: " + string(getAmount())//string(amount[max(lvl - 1, 0)])
 		case SPELLS.revive : return "Resurrects a Hero Soul on the same tile after "+ string(getDuration())+  " seconds"
 		case SPELLS.buildFootman : return "Footman" + " Cost: " + string(ds_map_find_value(global.map_object_to_costs, obj_footman))
+		case SPELLS.buildValkyrie : return "Valkyrie" + " Cost: " + string(ds_map_find_value(global.map_object_to_costs, obj_valkyrie))
 		case SPELLS.buildArcher : return "Archer" + " Cost: " + string(ds_map_find_value(global.map_object_to_costs, obj_elven_archer))
 		case SPELLS.buildSorceress : return "Sorceress, Cost: " + string(ds_map_find_value(global.map_object_to_costs, obj_sorceress))
 		case SPELLS.buildPriest : return "Priest, Cost: " + string(ds_map_find_value(global.map_object_to_costs, obj_priest))
@@ -650,6 +663,7 @@ function spellToInfo(spell) {
 		case SPELLS.buildInvisibility : return "Sorceress invisibility upgrade: Allows sorceresses to cast invisibility on a ally unit, " + "\n and multiplies mana of sorceresses by " + string(learnSpellManaMultiplicator) + " and mana regen. " + "Cost " + string(getAmount())
 		case SPELLS.buildArcaneSanctum : return "Arcane Sanctum: Recruits Mages, Cost: " + string(getAmount());
 		case SPELLS.buildBarracks : return "Barracks: Recruits Warriors, Cost: " + string(getAmount())
+		case SPELLS.buildTempleOfOdin : return "Temple of Odin: Recruits Valkyries, Cost: " + string(getAmount())
 		case SPELLS.raise : return "Summons a skeleton from a soul"
 		case SPELLS.decloak : return "Stop being invisible to be able to perform additional actions."
 		case SPELLS.dispel : return "Reduces duration of hostile buffs in an area"
@@ -926,6 +940,7 @@ enum SPELLS {
 	raise,
 	abilities,
 	buildFootman,
+	buildValkyrie,
 	buildArcher,
 	buildSorceress,
 	buildPriest,
@@ -934,6 +949,7 @@ enum SPELLS {
 	buildDefend,
 	buildImprovedBows,
 	buildBarracks,
+	buildTempleOfOdin,
 	buildArcaneSanctum,
 	buildMoneyTree,
 	decloak,
