@@ -39,8 +39,15 @@ spr_height = sprite_height
 spr_width = sprite_width
 
 ai = function() {
-	if(death_coil.canPerform()) {
-		var varTarget = scr_find_death_coil_target()
+	if(HP < max_HP / 3 and death_pact.canPerform()) {
+		var varTarget = scr_find_spell_target(death_pact)
+		if(varTarget != noone) {
+			death_pact.rightPerform(varTarget.tile)
+			mana -= death_pact.getManaCost()
+			death_pact.cooldown_current = death_pact.getCooldown()
+		}
+	} else if(death_coil.canPerform()) {
+		var varTarget = scr_find_spell_target(death_coil)
 		if(varTarget != noone) {
 			death_coil.rightPerform(varTarget)
 			mana -= death_coil.getManaCost()

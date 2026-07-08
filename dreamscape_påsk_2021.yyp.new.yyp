@@ -86,7 +86,7 @@
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2024.14.4.222",
+    "IDEVersion":"2026.0.0.16",
   },
   "name":"dreamscape_påsk_2021.yyp.new",
   "resources":[
@@ -111,6 +111,7 @@
     {"id":{"name":"obj_cursor","path":"objects/obj_cursor/obj_cursor.yy",},},
     {"id":{"name":"obj_dark_ritual_animator","path":"objects/obj_dark_ritual_animator/obj_dark_ritual_animator.yy",},},
     {"id":{"name":"obj_death_coil_animator","path":"objects/obj_death_coil_animator/obj_death_coil_animator.yy",},},
+    {"id":{"name":"obj_death_pact_animator","path":"objects/obj_death_pact_animator/obj_death_pact_animator.yy",},},
     {"id":{"name":"obj_dialogue","path":"objects/obj_dialogue/obj_dialogue.yy",},},
     {"id":{"name":"obj_dispel_animator","path":"objects/obj_dispel_animator/obj_dispel_animator.yy",},},
     {"id":{"name":"obj_dreadlord","path":"objects/obj_dreadlord/obj_dreadlord.yy",},},

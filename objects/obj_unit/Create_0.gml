@@ -96,6 +96,30 @@ scr_update_accuracy = function() {
 }
 
 
+
+evaluate_HP_goodness = function() {
+	var footmodel = instance_create_depth(-10000, -10000, 0, obj_footman)
+	var damage_store = damage
+	var hpStore = HP
+	scr_convert_damage_to_accuracy_included_damage(footmodel)
+	with(footmodel) {
+		scr_convert_damage_to_accuracy_included_damage(other)
+	}
+	attackEffectWrapper(self, footmodel, true)
+	attackEffectWrapper(footmodel, self, true)
+	var damageRateFoot = (hpStore - HP) / footmodel.attack_cost * room_speed
+	var damageRate = (footmodel.max_HP - footmodel.HP) / attack_cost * room_speed
+	var lifeTime1hp = 1 / damageRateFoot
+	HP = hpStore
+	damage = damage_store
+	instance_destroy(footmodel, false)
+	var goodness = lifeTime1hp * damageRate / (global.footmanVsFootman.lifetime1HP * global.footmanVsFootman.damageRate)
+	return goodness
+}
+
+hp_goodness = 1
+
+
 save = function() { 
 	var s = {}
 	s.sprite_index = sprite_index

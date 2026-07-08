@@ -35,6 +35,7 @@ function spellToRightPerform(spell) {
 		case SPELLS.soul_harvest: return;
 		case SPELLS.imba_heal: return method(undefined, healRightPerform)
 		case SPELLS.abolish_magic : return method(undefined, abolishMagicRightPerform)
+		case SPELLS.death_pact : return method(undefined, deathPactRightPerform)
 	}
 }
 
@@ -133,7 +134,16 @@ function abolishMagicRightPerform(varTile = global.clicked_tile) {
 	varTile.reduceDebuffDuration(getAmount())
 	varTile.reduceBuffDuration(getAmount())
 }
-
+function deathPactRightPerform(varTile = global.clicked_tile) {
+	var varTarget = array_first(varTile.occupants[? ALTITUDES.ground])
+	var healthpool = varTarget.HP * getAmount()
+	owner.HP = min(owner.HP + healthpool, owner.max_HP)
+	
+	instance_create_depth(varTarget.x, varTarget.y, 0, obj_death_pact_animator, {owner : other, target : varTarget})
+	
+	
+}
+	
 function spellToLeastAcceptableGoodness(spellEnum) {
 	switch(spellEnum) {
 		case SPELLS.silence : return 200
@@ -315,8 +325,9 @@ function spellToShouldPerform(_spell) {
 function spellCanPerform() {
 	with(owner) {
 		var silenced = scr_is_debuffed(SPELLS.silence)
+		var freezed = scr_is_debuffed(SPELLS.freeze)
 	}
-	return (owner.mana == noone or owner.mana > getManaCost()) and cooldown_current == 0 and !silenced
+	return (owner.mana == noone or owner.mana > getManaCost()) and cooldown_current == 0 and !silenced and !freezed
 }
 
 function spellToCanPerformLocal(_spell) {

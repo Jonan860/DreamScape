@@ -34,3 +34,4 @@ ai = method(undefined, scr_ai_spell_banshee)
 attack_target = function() {
 	attack_target_magic_projectile()
 }
+

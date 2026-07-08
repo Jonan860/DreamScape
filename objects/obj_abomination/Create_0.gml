@@ -22,3 +22,4 @@ attack_animator = spr_butcher_knife
 
 ai = function() {}
 attack_target = method(undefined, scr_attack_target_meelee)
+

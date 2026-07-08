@@ -1,21 +1,22 @@
 {
   "$GMObject":"",
-  "%Name":"obj_death_coil_animator",
+  "%Name":"obj_death_pact_animator",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":1,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_death_coil_animator",
+  "name":"obj_death_pact_animator",
   "overriddenProperties":[],
   "parent":{
-    "name":"Projectile Animators",
-    "path":"folders/Objects/attack animator/Projectile Animators.yy",
+    "name":"attack animator",
+    "path":"folders/Objects/attack animator.yy",
   },
   "parentObjectId":{
-    "name":"obj_projectile_animator",
-    "path":"objects/obj_projectile_animator/obj_projectile_animator.yy",
+    "name":"obj_animator",
+    "path":"objects/obj_animator/obj_animator.yy",
   },
   "persistent":false,
   "physicsAngularDamping":0.1,
@@ -34,10 +35,7 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":{
-    "name":"spr_death_coil",
-    "path":"sprites/spr_death_coil/spr_death_coil.yy",
-  },
+  "spriteId":null,
   "spriteMaskId":null,
   "visible":true,
 }

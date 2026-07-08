@@ -1,4 +1,5 @@
 event_inherited()
+
 movement_cost = 3 * room_speed + 1
 attack_cost = 1.5 * room_speed * 2
 max_action_bar = 3 * room_speed + 1
@@ -26,5 +27,7 @@ attack_animator = obj_horn_attack
 attack_target = method(undefined, scr_attack_target_meelee)
 
 ai = function(){}
+
+
 
 

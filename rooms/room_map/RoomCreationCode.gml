@@ -12,6 +12,20 @@ global.tile_selected = noone
 global.selectedSpell = noone
 global.clicked_tile = noone
 global.hud = instance_create_layer(0, 0, "hud", obj_battle_hud)
+
+var footmodelOffensive = instance_create_depth(-10000, -10000, 0, obj_footman)
+var footmodelDefensive = instance_create_depth(-10000, -10000, 0, obj_footman)
+global.footmanVsFootman = {}
+with(footmodelOffensive) {
+	scr_convert_damage_to_accuracy_included_damage(footmodelDefensive)
+	attackEffectWrapper(footmodelOffensive, footmodelDefensive, true)
+	global.footmanVsFootman.damageRate = (footmodelDefensive.max_HP - footmodelDefensive.HP) / footmodelDefensive.attack_cost * room_speed
+	global.footmanVsFootman.lifetime1HP = 1 / global.footmanVsFootman.damageRate
+}
+
+instance_destroy(footmodelOffensive, false)
+instance_destroy(footmodelDefensive, false)
+
 instance_create_depth(0, 0, -100, obj_game)
 
 
@@ -27,9 +41,13 @@ global.saveData = {}
 //	unholy_aura.iconPerform()
 //}
 
-scr_instance_create_at_tile_with_owner(obj_sylvanas, getTile(10, 2), global.enemy)
+scr_instance_create_at_tile_with_owner(obj_jonathan, getTile(10, 2), global.enemy)
+with(global.jonathan) {
+	HP = max_HP/4
+}
+scr_instance_create_at_tile_with_owner(obj_crypt_fiend, getTile(12, 2), global.enemy)
 
-
+scr_instance_create_at_tile_with_owner(obj_footman, getTile(12, 10), global.player)
 
 with(scr_instance_create_at_tile_with_owner(obj_sakura, getTile(2, 0), global.player)) {
 	tied_up = true

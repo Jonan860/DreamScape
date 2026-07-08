@@ -121,6 +121,7 @@ function spellToAmount(spell) {
 		case SPELLS.soul_harvest : return 5
 		case SPELLS.imba_heal : return 25
 		case SPELLS.abolish_magic : return 100
+		case SPELLS.death_pact : return [1, 1.5, 2]
 		default : return noone
 	}
 }
@@ -166,6 +167,7 @@ function spellToRange(spell) {
 		case SPELLS.silence : return 6
 		case SPELLS.imba_heal : return 2
 		case SPELLS.abolish_magic : return 4
+		case SPELLS.death_pact : return 4
 		default : return noone
 	}
 }
@@ -174,7 +176,7 @@ function spellToTargetable(spell) {
 	switch(spell) {
 		case SPELLS.holy_light : return method(undefined, targetableFriendly) 
 		case SPELLS.dark_ritual : return method(undefined, targetableFriendly)
-		case SPELLS.death_pact : return method(undefined, targetableFriendly) 
+		case SPELLS.death_pact : return method(undefined, targetableNotSelfandFriend) 
 		case SPELLS.frost_armor : return method(undefined, targetableFriendly) 
 		case SPELLS.heal : return method(undefined, targetableFriendly) 
 		case SPELLS.iryo_ninjutsu : return method(undefined, targetableFriendly) 
@@ -191,12 +193,21 @@ function spellToTargetable(spell) {
 		case SPELLS.slow : return method(undefined, targetableEnemy)
 		case SPELLS.silence : return method(undefined, targetableSilence)
 		case SPELLS.imba_heal : return method(undefined, targetableFriendly) 
+		case SPELLS.death_coil : return method(undefined, targetableNotSelf)
 		default : return function() {return true}
 	}
 }
 
 function targetableSilence(varunit) {
 	return scr_is_enemies(owner, varunit) and (object_is_ancestor(varunit.object_index, obj_mage) or object_is_ancestor(varunit.object_index, obj_hero)) 
+}
+
+function targetableNotSelf(varunit) {
+	return owner.id != varunit.id
+}
+
+function targetableNotSelfandFriend(varunit) {
+	return owner.id != varunit.id and  !scr_is_enemies(owner, varunit)
 }
 
 function targetableFriendly(varunit) {
@@ -220,6 +231,8 @@ function spellToEvaluateGoodness(spell) {
 		case SPELLS.silence : return method(undefined, evaluateSilence)
 		case SPELLS.imba_heal : return method(undefined, evaluateLinearHeal)
 		case SPELLS.abolish_magic : return method(undefined, evaluateDispel)
+		case SPELLS.death_coil : return method(undefined, evaluateDeathCoil)
+		case SPELLS.death_pact : return method(undefined, evaluateDeathPact)
 		//case SPELLS
 	}
 }
@@ -260,8 +273,35 @@ function evaluateLinearHeal(_unit) {
 	return ret
 }
 
-function evaluatelinearDamage() {
-	return (is_undefined(mana) ? 1 : 2) * _unit.damage
+function evaluateLinearDamage(_unit) {
+	var ret = (variable_instance_exists (_unit, "mana") ? 1 : 2) * (_unit.damage + _unit.averageArmor()) * min(getAmount(), _unit.HP) / _unit.attack_cost  //funkar omm true damage, 100 acc
+	return ret
+}
+
+function evaluateDeathCoil(_unit) {
+	var ret = 0
+	if(!object_is_ancestor(_unit.object_index, obj_building) and _unit.object_index != obj_crystal) {
+		if(scr_is_enemies(_unit, owner)) {
+			ret = (variable_instance_exists (_unit, "mana") ? 1 : 2) * (_unit.damage + _unit.averageArmor()) * min(getAmount() / 2, _unit.HP) / _unit.attack_cost  //funkar omm true damage, 100 acc
+		} else {
+			ret = (variable_instance_exists (_unit, "mana") ? 1 : 2) * (_unit.damage + _unit.averageArmor()) * min(getAmount(), _unit.max_HP - _unit.HP) / _unit.attack_cost
+		}
+	}
+	return ret
+}
+
+function evaluateDeathPact(_unit) {
+	var ret = 0
+	
+	if(!object_is_ancestor(_unit.object_index, obj_building) and _unit.object_index != obj_crystal) {
+		
+		var health_recieved = _unit.HP*getAmount()
+		var goodness = min(owner.max_HP - owner.HP, health_recieved) * owner.hp_goodness 
+		var badness = health_recieved * _unit.hp_goodness
+		ret = goodness - badness
+		
+	}
+	return ret
 }
 
 function evaluateSilence(_unit) {
@@ -315,6 +355,7 @@ function spellToManaCosts(spell) {
 		case SPELLS.flash_heal : return 1
 		case SPELLS.imba_heal : return 25
 		case SPELLS.abolish_magic : return 25
+		case SPELLS.death_pact : return [50, 100, 150]
 		default : return noone
 	}
 }
@@ -326,6 +367,7 @@ function spellToAccuracy(spellEnum) {
 		case SPELLS.katon_gokakyu_no_jutsu : return 0.6
 		case SPELLS.shannaro : return 3
 		case SPELLS.life_drain : return 100
+		case SPELLS.death_coil : return 100
 		case SPELLS.dark_arrow : return 0
 		default : return 1
 	}
@@ -420,6 +462,7 @@ function spellToAbilitiesInfo(spell) {
 	case SPELLS.silence : return "Stops all enemies in a target area from casting spells. The area of effect and duration increase with level."
 	case SPELLS.imba_heal : return "Totally Imba, Slay!"
 	case SPELLS.abolish_magic : return "Dispels positive buffs from enemy units, and negative buffs from friendly units. Deals " + string(getAmount) + " dispel damage."
+	case SPELLS.death_pact : return "Sacrifies a friendly unit, tranfering its HP to the Death Knight"
 	default : return  
 	}
 	
@@ -553,6 +596,7 @@ function spellToDuration(spell) {
 		case SPELLS.haste : return 60
 		case SPELLS.flash_heal : return 1
 		case SPELLS.imba_heal : return 0.5
+		case SPELLS.death_pact : return 2
 		default : return noone
 	}
 }
@@ -841,6 +885,23 @@ function createSpell(spellEnum, _letter) {
 		getAmount = function() {
 			return is_array(amount) ? amount[max(lvl - 1, 0)] : amount
 		}
+		
+		
+		transferStatsToOwner = function()
+		{
+			var saveStats = {}
+			saveStats.damage = owner.damage
+			saveStats.accuracy = owner.accuracy
+			owner.damage = getAmount()
+			owner.accuracy = accuracy
+			return saveStats
+		}
+
+		
+		recreateOwnerStats = function(savedStats) {
+				owner.damage = savedStats.damage
+				owner.accuracy = savedStats.accuracy
+			}
 		
 		evaluateGoodness = spellToEvaluateGoodness(spellEnum)
 		info = spellToInfo(spellEnum)
