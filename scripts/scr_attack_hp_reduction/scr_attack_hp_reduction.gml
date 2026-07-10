@@ -38,7 +38,7 @@ function get_max_aura(unit, animator_object_index) {
 	with(animator_object_index) {
 		with(owner) {
 			if(unit.owner == owner.owner) {
-				if(scr_get_distance(unit.tile, owner.tile) <= owner.range) {
+				if(scr_get_distance(unit.tile, owner.tile) <= range) { //owner.range stod det fast någ fel
 					varMax = max(getAmount(), varMax)
 				}
 			}

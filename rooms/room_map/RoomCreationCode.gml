@@ -44,8 +44,24 @@ global.saveData = {}
 scr_instance_create_at_tile_with_owner(obj_jonathan, getTile(10, 2), global.enemy)
 with(global.jonathan) {
 	HP = max_HP/4
+	repeat(9) {
+		scr_level_up()
+	}
+	repeat(3) {
+		death_pact.level_up()
+	}
+	repeat(3) {
+		death_coil.level_up()
+	}
+	repeat(3) {
+		unholy_aura.level_up()
+	}
+	unholy_aura.iconPerform()
 }
 scr_instance_create_at_tile_with_owner(obj_crypt_fiend, getTile(12, 2), global.enemy)
+with(scr_instance_create_at_tile_with_owner(obj_crypt_fiend, getTile(8, 2), global.enemy)){
+	HP = max_HP / 6
+}
 
 scr_instance_create_at_tile_with_owner(obj_footman, getTile(12, 10), global.player)
 
