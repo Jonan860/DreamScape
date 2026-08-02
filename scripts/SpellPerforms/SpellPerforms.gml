@@ -149,6 +149,8 @@ function spellToLeastAcceptableGoodness(spellEnum) {
 		case SPELLS.silence : return 200
 		case SPELLS.imba_heal : return 1
 		case SPELLS.abolish_magic : return 25
+		case SPELLS.curse : return 15
+		case SPELLS.dark_ritual : return [5, 10, 15] 
 		default : return 0
 	}
 }
@@ -226,17 +228,7 @@ function selectSwitchCursorDeselect() {
 
 function decloakIconPerform() {
 	with(owner) {
-		for(var i = 0; i < array_length(list_of_active_debuff_structs); i++) {
-			with(list_of_active_debuff_structs[i]) {
-				if(Enum == SPELLS.invisibility) {
-					unapply()
-					other.list_of_active_debuff_structs = array_filter(other.list_of_active_debuff_structs, function(value, index) {return value != other})
-					//array_remove_value(other.list_of_active_debuff_structs, self)
-					exit;
-				}
-			
-			}
-		}
+		unapply(SPELLS.invisibility)
 	}
 }
 
@@ -334,7 +326,7 @@ function spellToCanPerformLocal(_spell) {
 	switch(_spell) {
 		case SPELLS.frost_nova : return function() {return owner.phase != UNIT_PHASES.frostNova}
 		case SPELLS.life_drain : return function() {return owner.phase != UNIT_PHASES.channeling}
-		case SPELLS.curse : return function() {return altitude != ALTITUDES.invisible}
+		case SPELLS.curse : return function() {return owner.altitude != ALTITUDES.invisible}
 		case SPELLS.dark_ritual : return function() {return lvl > 0 and owner.phase != "frost nova"}
 		default : return function() {return true} 
 	}
@@ -485,8 +477,13 @@ function buildImprovedBowsPerform() {
 }
 
 function slowRightPerform() {
-	scr_apply_debuff(array_first(global.clicked_tile.occupants[? ALTITUDES.ground]))
+	var victim = array_first(global.clicked_tile.occupants[? ALTITUDES.ground])
+	scr_apply_debuff(victim)
+	with(victim) {
+		scr_update_action_bar_speed()
+	}
 }
+
 
 function cloakRightPerform(targeto) {
 	with(targeto) {
@@ -523,9 +520,9 @@ function invisibilityShouldRightPerform() {
 	return false
 }
 	
-function curseRightPerform() {
-	scr_apply_debuff(array_first(global.clicked_tile.occupants[? ALTITUDES.ground]))
-	array_first(global.clicked_tile.occupants[? ALTITUDES.ground]).scr_update_accuracy()
+function curseRightPerform(victim = array_first(global.clicked_tile.occupants[? ALTITUDES.ground])) {
+	scr_apply_debuff(victim)
+	victim.scr_update_accuracy()
 }
 
 function earthshatterRightPerform() {

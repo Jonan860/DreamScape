@@ -261,7 +261,13 @@ function evaluateDispel(_unit) {
 }
 
 function evaluateProcentageDebuff(_unit) {
-	return (_unit.damage + _unit.armor) * _unit.HP / _unit.attack_cost
+	
+	//return (_unit.damage + _unit.armor) * _unit.HP / _unit.attack_cost
+	var vargoodness = _unit.HP * _unit.evaluate_HP_goodness()
+	rightPerform(_unit)
+	var vargoodnessnew = _unit.HP * _unit.evaluate_HP_goodness()
+	_unit.unapply(Enum)
+	return vargoodness - vargoodnessnew
 }
 
 function evaluateLinearHeal(_unit) {
@@ -807,7 +813,7 @@ function slow_ai() {
 		var list_slow_target_within_range = scr_find_enemies_within_range(other.range)
 	}
 	if(array_length(list_slow_target_within_range) > 0) { 
-		with(scr_find_best_procentage_debuff_target_from_list(list_slow_target_within_range, Enum)) {			
+		with(scr_find_best_procentage_debuff_target_from_list(list_slow_target_within_range, slow)) {			
 			global.clicked_tile = tile
 			other.rightPerform()
 			other.owner.mana -= other.getManaCost()
@@ -884,6 +890,9 @@ function createSpell(spellEnum, _letter) {
 		}
 		getAmount = function() {
 			return is_array(amount) ? amount[max(lvl - 1, 0)] : amount
+		}
+		getLeastAcceptableGoodness = function() {
+			return is_array(leastAcceptableGoodness) ? leastAcceptableGoodness[max(lvl - 1, 0)] : leastAcceptableGoodness
 		}
 		
 		

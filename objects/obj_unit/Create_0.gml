@@ -2,7 +2,8 @@ skills = []
 buttonToSkill = ds_map_create()
 decloak = createSpell(SPELLS.decloak, "s")
 decloak.lvl = 1
-
+action_bar = 0
+action_bar_speed = 1
 setAltitude = function(_altitude) {
 	scr_make_room_for_instance_on_tile(tile, _altitude)
 	tile.occupants[? altitude] = array_filter(tile.occupants[? altitude], function(value, index) {return value != id})
@@ -95,6 +96,9 @@ scr_update_accuracy = function() {
 	}
 }
 
+scr_update_action_bar_speed = function() {
+	action_bar_speed = (1 - (scr_is_debuffed(SPELLS.slow) ? (find_active_debuff(SPELLS.slow).amount) : 0))
+}
 
 
 evaluate_HP_goodness = function() {
@@ -108,13 +112,31 @@ evaluate_HP_goodness = function() {
 	attackEffectWrapper(self, footmodel, true)
 	attackEffectWrapper(footmodel, self, true)
 	var damageRateFoot = (hpStore - HP) / footmodel.attack_cost * room_speed
-	var damageRate = (footmodel.max_HP - footmodel.HP) / attack_cost * room_speed
+	var damageRate = (footmodel.max_HP - footmodel.HP) / attack_cost * room_speed *  action_bar_speed
 	var lifeTime1hp = 1 / damageRateFoot
 	HP = hpStore
 	damage = damage_store
 	instance_destroy(footmodel, false)
 	var goodness = lifeTime1hp * damageRate / (global.footmanVsFootman.lifetime1HP * global.footmanVsFootman.damageRate)
 	return goodness
+}
+
+unapply = function(buffEnum) {
+	var weirdVar = buffEnum
+	var bothList = [list_of_active_buff_structs, list_of_active_debuff_structs]
+	for(var j = 0; j < array_length(bothList); j++) {
+		var thisList = bothList[j]
+		for(var i = 0; i < array_length(thisList); i++) {
+			
+				if(thisList[i].Enum == buffEnum) {
+					thisList[i].unapply()
+					thisList = array_delete(thisList, i, 1)
+					//thisList = array_filter(thisList, function(value, index) {return value.Enum != weirdVar})
+					//array_remove_value(other.list_of_active_debuff_structs, self)
+					exit;
+				}
+		}
+	}
 }
 
 hp_goodness = 1

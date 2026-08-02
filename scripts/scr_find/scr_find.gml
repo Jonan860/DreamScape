@@ -30,13 +30,13 @@ function scr_find_best_heal_target_from_list(list_of_targets){
 	return best_candidate_yet
 }
 
-function scr_find_best_procentage_debuff_target_from_list(list_of_targets, ailmentEnum) {
+function scr_find_best_procentage_debuff_target_from_list(list_of_targets, spell) {
 	var target_list_length = array_length(list_of_targets)
 	var non_ailed_units = []
 	for(var i = 0; i < target_list_length; i++) {
 		var unit = list_of_targets[i]
 		with(unit) {
-			var has_debuff = scr_is_debuffed(ailmentEnum)
+			var has_debuff = scr_is_debuffed(spell.Enum)
 		}
 		if(!has_debuff) {
 			array_push(non_ailed_units, unit)
@@ -49,9 +49,12 @@ function scr_find_best_procentage_debuff_target_from_list(list_of_targets, ailme
 	var best_goodness = 0
 	for(var i = 0; i < array_length(non_ailed_units); i++) {
 		var candidate = non_ailed_units[i] 
+		with(spell) {
+			var goodness = evaluateProcentageDebuff(candidate)
+		}
 		with(candidate) {
-			var goodness = (damage + armor) * HP / attack_cost
-			if(goodness > best_goodness) {
+			//HP * evaluate_HP_goodness() //(damage + armor) * HP / attack_cost
+			if(goodness > best_goodness and goodness > spell.getLeastAcceptableGoodness()) {
 				best_goodness = goodness
 				best_candidate_yet = candidate
 			}
@@ -69,11 +72,13 @@ function scr_find_dark_ritual_sacrifice() {
 	with(obj_unit) {
 		if(owner = global.enemy and !object_is_ancestor(object_index, obj_hero)) {
 			if(scr_get_distance(tile, other.tile) <= other.dark_ritual.range) {
-				var_goodness = HP * var_conversion - max(0, HP * var_conversion - other.mana)
+				var_goodness = ( HP * var_conversion - max(0, HP * var_conversion - other.mana))
+				var var_badness = HP * evaluate_HP_goodness()
 				if(object_is_ancestor(object_index, obj_summon)) {
-					var_goodness *= 2
+					var_badness *= 1/2
 				}
-				if(var_goodness > var_optimal_goodness_to_ritual) {
+				var_goodness -= var_badness 
+				if(var_goodness > other.dark_ritual.getLeastAcceptableGoodness() and var_goodness > var_optimal_goodness_to_ritual) {
 					var_optimal_goodness_to_ritual = var_goodness
 					var_optimal_sacrifice = id
 				}
@@ -129,7 +134,7 @@ function scr_find_sleep_target_within_range() {
 function scr_find_spell_target(spell) {
 	with(spell) {
 		var var_optimal_unit = noone
-		var var_optimal_goodness = leastAcceptableGoodness
+		var var_optimal_goodness = getLeastAcceptableGoodness()
 		var varTiles = scr_get_tiles_within_range(range, owner.tile)
 		for(i = 0; i < array_length(varTiles); i++) {
 			var varunit = array_first(varTiles[i].occupants[? ALTITUDES.ground])
@@ -147,7 +152,7 @@ function scr_find_spell_target(spell) {
 
 function scr_find_spell_target_tile(spell) {
 	var varTilesWithinRange =  scr_get_tiles_within_range(spell.owner.range)
-	var var_optimal_goodness = spell.leastAcceptableGoodness
+	var var_optimal_goodness = spell.getLeastAcceptableGoodness()
 	var var_optimalTile = noone
 	
 	for(i = 0; i < array_length(varTilesWithinRange); i++) {
