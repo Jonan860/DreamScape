@@ -86,13 +86,14 @@
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2026.0.0.16",
+    "IDEVersion":"2024.14.4.222",
   },
   "name":"dreamscape_påsk_2021.yyp.new",
   "resources":[
     {"id":{"name":"font0","path":"fonts/font0/font0.yy",},},
     {"id":{"name":"Note1","path":"notes/Note1/Note1.yy",},},
     {"id":{"name":"Note2","path":"notes/Note2/Note2.yy",},},
+    {"id":{"name":"Note3","path":"notes/Note3/Note3.yy",},},
     {"id":{"name":"obj_abomination","path":"objects/obj_abomination/obj_abomination.yy",},},
     {"id":{"name":"obj_animator","path":"objects/obj_animator/obj_animator.yy",},},
     {"id":{"name":"obj_arcane_sanctum","path":"objects/obj_arcane_sanctum/obj_arcane_sanctum.yy",},},

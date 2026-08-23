@@ -149,8 +149,6 @@ function spellToLeastAcceptableGoodness(spellEnum) {
 		case SPELLS.silence : return 200
 		case SPELLS.imba_heal : return 1
 		case SPELLS.abolish_magic : return 25
-		case SPELLS.curse : return 15
-		case SPELLS.dark_ritual : return [5, 10, 15] 
 		default : return 0
 	}
 }
@@ -228,7 +226,17 @@ function selectSwitchCursorDeselect() {
 
 function decloakIconPerform() {
 	with(owner) {
-		unapply(SPELLS.invisibility)
+		for(var i = 0; i < array_length(list_of_active_debuff_structs); i++) {
+			with(list_of_active_debuff_structs[i]) {
+				if(Enum == SPELLS.invisibility) {
+					unapply()
+					other.list_of_active_debuff_structs = array_filter(other.list_of_active_debuff_structs, function(value, index) {return value != other})
+					//array_remove_value(other.list_of_active_debuff_structs, self)
+					exit;
+				}
+			
+			}
+		}
 	}
 }
 
@@ -477,13 +485,8 @@ function buildImprovedBowsPerform() {
 }
 
 function slowRightPerform() {
-	var victim = array_first(global.clicked_tile.occupants[? ALTITUDES.ground])
-	scr_apply_debuff(victim)
-	with(victim) {
-		scr_update_action_bar_speed()
-	}
+	scr_apply_debuff(array_first(global.clicked_tile.occupants[? ALTITUDES.ground]))
 }
-
 
 function cloakRightPerform(targeto) {
 	with(targeto) {
@@ -520,9 +523,12 @@ function invisibilityShouldRightPerform() {
 	return false
 }
 	
-function curseRightPerform(victim = array_first(global.clicked_tile.occupants[? ALTITUDES.ground])) {
-	scr_apply_debuff(victim)
-	victim.scr_update_accuracy()
+function curseRightPerform(_unit = noone) {
+	if(_unit == noone) {
+		_unit = array_first(global.clicked_tile.occupants[? ALTITUDES.ground])
+	}
+	scr_apply_debuff(_unit)
+	_unit.scr_update_accuracy()
 }
 
 function earthshatterRightPerform() {
