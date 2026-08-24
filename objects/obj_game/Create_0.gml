@@ -8,7 +8,7 @@ global.gamespeed = 1
 global.enemy_ai_think_time_in_sec = 5
 global.player_ai_think_time_in_sec = 0.1
 global.player_idle_ai_think_time_in_sec = 0.3
-global.recruitableUpgrades = [SPELLS.buildInvisibility, SPELLS.buildDefend, SPELLS.buildDispel, SPELLS.buildImprovedBows]
+global.recruitableUpgrades = [SPELLS.buildInvisibility, SPELLS.buildDefend, SPELLS.buildDispel, SPELLS.buildImprovedBows, SPELLS.buildPolymorph]
 global.recruitedUpgrades = []
 list_jukebox = []
 array_push(list_jukebox, sound_canon, sound_darth_nader, sound_head_of_nasa, sound_guitarmass, sound_infected_mushroom_kazabubu, sound_infected_mushroom_slowly, sound_overwerk, sound_sharxpowa, sound_soulji_murder, sound_spitfire)

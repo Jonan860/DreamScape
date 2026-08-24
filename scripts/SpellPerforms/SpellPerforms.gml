@@ -15,6 +15,7 @@ function spellToRightPerform(spell) {
 		case SPELLS.kawarimi_no_jutsu : return method(undefined, kawarimiRightPerform)
 		case SPELLS.sleep : return method(undefined, sleepRightPerform)
 		case SPELLS.slow : return method(undefined, slowRightPerform)
+		case SPELLS.polymorph : return method(undefined, polymorphRightPerform)
 		case SPELLS.spell_shield : return;
 		case SPELLS.spiked_carapace : return;
 		case SPELLS.vampiric_aura : return;
@@ -168,6 +169,7 @@ function spellToIconPerform(spellenum) {
 		case SPELLS.spell_shield : return method(undefined, spellShieldIconPerform)
 		case SPELLS.freeze : return method(undefined, selectSwitchCursor)
 		case SPELLS.slow : return method(undefined, selectSwitchCursor)
+		case SPELLS.polymorph : return method(undefined, selectSwitchCursor)
 		case SPELLS.kawarimi_no_jutsu : return method(undefined, selectSwitchCursor)
 		case SPELLS.ninjago : return method(undefined, ninjagoIconPerform)
 		case SPELLS.earthshatter : return method(undefined, selectSwitchCursor)
@@ -185,6 +187,7 @@ function spellToIconPerform(spellenum) {
 		case SPELLS.buildImprovedBows : return method(undefined, performRecruit);
 		case SPELLS.buildDefend : return method(undefined, performRecruit);
 		case SPELLS.buildInvisibility : return method(undefined, performRecruit);
+		case SPELLS.buildPolymorph : return method(undefined, performRecruit)
 		case SPELLS.decloak : return method(undefined, decloakIconPerform)
 		case SPELLS.dispel : return method(undefined, selectSwitchCursor)
 		case SPELLS.unholy_aura : return method(undefined, auraIconPerform)
@@ -251,6 +254,7 @@ function spellToShouldRightPerformLocal(spellEnum) {
 		case SPELLS.spell_shield : return method(undefined, spellShieldShouldPerform)
 		case SPELLS.heal : return method(undefined, healShouldRightPerformLocal)
 		case SPELLS.slow : return method(undefined, slowShouldRightPerformLocal)
+		case SPELLS.polymorph : return method(undefined, slowShouldRightPerformLocal)
 		case SPELLS.freeze : return method(undefined, slowShouldRightPerformLocal)
 		case SPELLS.kawarimi_no_jutsu : return method(undefined, healShouldRightPerformLocal)
 		case SPELLS.shannaro : return method(undefined, slowShouldRightPerformLocal)
@@ -271,6 +275,8 @@ function spellToShouldIconPerformLocal(_Enum) {
 function slowShouldRightPerformLocal() {
 	return array_first(global.clicked_tile.occupants[? ALTITUDES.ground]) != undefined and scr_is_enemies(owner, array_first(global.clicked_tile.occupants[? ALTITUDES.ground]))
 }
+
+
 
 function healShouldRightPerformLocal() {
 	return array_first(global.clicked_tile.occupants[? ALTITUDES.ground]) != undefined and !scr_is_enemies(owner, array_first(global.clicked_tile.occupants[? ALTITUDES.ground]))
@@ -326,8 +332,10 @@ function spellCanPerform() {
 	with(owner) {
 		var silenced = scr_is_debuffed(SPELLS.silence)
 		var freezed = scr_is_debuffed(SPELLS.freeze)
+		var polymorphed = scr_is_debuffed(SPELLS.polymorph)
 	}
-	return (owner.mana == noone or owner.mana > getManaCost()) and cooldown_current == 0 and !silenced and !freezed
+	var Disarmed = silenced or freezed or polymorphed
+	return (owner.mana == noone or owner.mana > getManaCost()) and cooldown_current == 0 and !Disarmed
 }
 
 function spellToCanPerformLocal(_spell) {
@@ -445,6 +453,7 @@ function spellToPerform(spellEnum) {
 		case SPELLS.buildDefend : return method(undefined, buildDefendPerform)
 		case SPELLS.buildImprovedBows : return method(undefined, buildImprovedBowsPerform)
 		case SPELLS.buildInvisibility : return method(undefined, buildInvisibilityPerform)
+		case SPELLS.buildPolymorph : return method(undefined, buildPolymorphPerform)
 		case SPELLS.buildDispel : return method(undefined, buildDispelPerform)
 	}
 }
@@ -453,6 +462,16 @@ function buildDispelPerform() {
 	global.player.priest_has_dispel = 1
 	with(obj_priest) {
 		dispel.level_up()
+		mana *= learnSpellManaMultiplicator
+		max_mana *= learnSpellManaMultiplicator
+		mana_regen_rate_per_sec *= learnSpellManaMultiplicator
+	}
+}
+
+function buildPolymorphPerform() {
+	global.player.sorceress_has_polymorph = 1
+	with(obj_sorceress) {
+		polymorph.level_up()
 		mana *= learnSpellManaMultiplicator
 		max_mana *= learnSpellManaMultiplicator
 		mana_regen_rate_per_sec *= learnSpellManaMultiplicator

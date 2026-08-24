@@ -26,6 +26,8 @@ priest = createSpell(SPELLS.buildPriest, "w")
 priest.lvl = 1
 invis = createSpell(SPELLS.buildInvisibility, "a")
 invis.lvl = 1
+polymoth = createSpell(SPELLS.buildPolymorph, "a")
+polymoth.lvl = 0
 dispel = createSpell(SPELLS.buildDispel, "s")
 dispel.lvl = 1
 

@@ -86,7 +86,7 @@
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2024.14.4.222",
+    "IDEVersion":"2026.0.0.16",
   },
   "name":"dreamscape_påsk_2021.yyp.new",
   "resources":[
@@ -173,6 +173,7 @@
     {"id":{"name":"obj_skeleton","path":"objects/obj_skeleton/obj_skeleton.yy",},},
     {"id":{"name":"obj_sleep_animator","path":"objects/obj_sleep_animator/obj_sleep_animator.yy",},},
     {"id":{"name":"obj_sorceress_invisibility_upgrade","path":"objects/obj_sorceress_invisibility_upgrade/obj_sorceress_invisibility_upgrade.yy",},},
+    {"id":{"name":"obj_sorceress_polymorph_upgrade","path":"objects/obj_sorceress_polymorph_upgrade/obj_sorceress_polymorph_upgrade.yy",},},
     {"id":{"name":"obj_sorceress","path":"objects/obj_sorceress/obj_sorceress.yy",},},
     {"id":{"name":"obj_soul_hero","path":"objects/obj_soul_hero/obj_soul_hero.yy",},},
     {"id":{"name":"obj_soul_parent","path":"objects/obj_soul_parent/obj_soul_parent.yy",},},
@@ -513,6 +514,8 @@
     {"id":{"name":"spr_ninjago","path":"sprites/spr_ninjago/spr_ninjago.yy",},},
     {"id":{"name":"spr_ninjago1","path":"sprites/spr_ninjago1/spr_ninjago1.yy",},},
     {"id":{"name":"spr_nyckelpiga","path":"sprites/spr_nyckelpiga/spr_nyckelpiga.yy",},},
+    {"id":{"name":"spr_polymorph_cursor","path":"sprites/spr_polymorph_cursor/spr_polymorph_cursor.yy",},},
+    {"id":{"name":"spr_polymorph_icon","path":"sprites/spr_polymorph_icon/spr_polymorph_icon.yy",},},
     {"id":{"name":"spr_priest_icon","path":"sprites/spr_priest_icon/spr_priest_icon.yy",},},
     {"id":{"name":"spr_priest_original","path":"sprites/spr_priest_original/spr_priest_original.yy",},},
     {"id":{"name":"spr_priest","path":"sprites/spr_priest/spr_priest.yy",},},
@@ -529,6 +532,7 @@
     {"id":{"name":"spr_shannaro_cursor","path":"sprites/spr_shannaro_cursor/spr_shannaro_cursor.yy",},},
     {"id":{"name":"spr_shannaro_icon","path":"sprites/spr_shannaro_icon/spr_shannaro_icon.yy",},},
     {"id":{"name":"spr_shannaro","path":"sprites/spr_shannaro/spr_shannaro.yy",},},
+    {"id":{"name":"spr_sheep","path":"sprites/spr_sheep/spr_sheep.yy",},},
     {"id":{"name":"spr_silence_icon","path":"sprites/spr_silence_icon/spr_silence_icon.yy",},},
     {"id":{"name":"spr_silence","path":"sprites/spr_silence/spr_silence.yy",},},
     {"id":{"name":"spr_silenced","path":"sprites/spr_silenced/spr_silenced.yy",},},

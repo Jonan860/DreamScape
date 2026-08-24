@@ -8,6 +8,12 @@ function scr_apply_upgrades_on_new_unit(var_unit){
 					mana *= learnSpellManaMultiplicator
 					invisibility.lvl = 1
 				}
+				if(global.player.sorceress_has_polymorph) {
+					max_mana *= learnSpellManaMultiplicator
+					mana_regen_rate_per_sec *= learnSpellManaMultiplicator
+					mana *= learnSpellManaMultiplicator
+					polymorph.lvl = 1
+				}
 			break;
 			case obj_elven_archer :
 				scr_update_range()

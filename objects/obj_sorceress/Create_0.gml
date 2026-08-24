@@ -25,10 +25,11 @@ attack_animator = obj_magic_projectile_animator
 
 slow = createSpell(SPELLS.slow, "q")
 invisibility = createSpell(SPELLS.invisibility, "w")
+polymorph = createSpell(SPELLS.polymorph, "e")
 slow.lvl = 1
 slow.autocast = 1
-buttons = ["q", "w"]
-skills = [slow, invisibility]
+buttons = ["q", "w", "e"]
+skills = [slow, invisibility, polymorph]
 slow_icon_animation_index = 0
 slow_icon_animation_speed = 8 //frames per sec
 

@@ -17,6 +17,7 @@ function spellToAnimator(spell) {
 		case SPELLS.dispel : return obj_dispel_animator
 		case SPELLS.revive : return obj_revive_animator
 		case SPELLS.buildInvisibility : return obj_sorceress_invisibility_upgrade
+		case SPELLS.buildInvisibility : return obj_sorceress_polymorph_upgrade
 		case SPELLS.buildDispel : return obj_priest_dispel_upgrade
 		case SPELLS.buildImprovedBows : return obj_improved_bows_upgrade
 		case SPELLS.buildDefend	: return obj_footman_defend_upgrade
@@ -48,6 +49,7 @@ function spellToCooldown(spell) {
 		case SPELLS.frost_armor : return 20
 		case SPELLS.dark_ritual : return 20
 		case SPELLS.slow : return 3
+		case SPELLS.polymorph : return 20
 		case SPELLS.invisibility : return 1
 		case SPELLS.curse : return 3
 		case SPELLS.heal : return 2
@@ -85,6 +87,7 @@ function spellToAmount(spell) {
 		case SPELLS.dark_ritual : return [0.33, 0.66, 1]
 		case SPELLS.defend : return 0.5
 		case SPELLS.slow : return [30/100]
+		case SPELLS.polymorph : return 20
 		case SPELLS.heal : return [4]
 		case SPELLS.curse : return ln(2/3) / ln(1/2)
 		case SPELLS.holy_light : return [30, 60, 90]
@@ -102,6 +105,7 @@ function spellToAmount(spell) {
 		case SPELLS.buildTempleOfOdin : return 200
 		case SPELLS.buildArcaneSanctum : return 100
 		case SPELLS.buildInvisibility : return 150
+		case SPELLS.buildPolymorph : return 150
 		case SPELLS.dispel : return 50
 		case SPELLS.death_coil : return [30, 60, 90]
 		case SPELLS.unholy_aura : return [0.25, 0.5, 0.75]
@@ -142,6 +146,7 @@ function spellToRange(spell) {
 		case SPELLS.frost_nova : return 5
 		case SPELLS.sleep : return 4
 		case SPELLS.slow : return 4
+		case SPELLS.polymorph : return 4
 		case SPELLS.freeze : return 1
 		case SPELLS.raise : return 4
 		case SPELLS.invisibility : return 4
@@ -191,6 +196,7 @@ function spellToTargetable(spell) {
 		case SPELLS.shannaro : return method(undefined, targetableEnemy)
 		case SPELLS.sleep : return method(undefined, targetableEnemy)
 		case SPELLS.slow : return method(undefined, targetableEnemy)
+		case SPELLS.polymorph : return method(undefined, targetableEnemy)
 		case SPELLS.silence : return method(undefined, targetableSilence)
 		case SPELLS.imba_heal : return method(undefined, targetableFriendly) 
 		case SPELLS.death_coil : return method(undefined, targetableNotSelf)
@@ -226,6 +232,7 @@ function spellToEvaluateGoodness(spell) {
 		case SPELLS.frost_nova : return method(undefined, evaluateProcentageDebuff)
 		case SPELLS.sleep : return method(undefined, evaluateProcentageDebuff)
 		case SPELLS.slow : return method(undefined, evaluateProcentageDebuff)
+		case SPELLS.polymorph : return method(undefined, evaluateProcentageDebuff)
 		case SPELLS.heal : return method(undefined, evaluateLinearHeal)
 		case SPELLS.holy_light : return method(undefined, evaluateLinearHeal)
 		case SPELLS.silence : return method(undefined, evaluateSilence)
@@ -342,7 +349,7 @@ function spellToManaCosts(spell) {
 		case SPELLS.carrion_swarm : return [30, 45, 60]
 		case SPELLS.sleep : return [30, 45, 60]
 		case SPELLS.vampiric_aura : return [0, 0, 0]
-		case SPELLS.slow : return 25
+		case SPELLS.slow : return 30
 		case SPELLS.raise : return 40
 		case SPELLS.heal : return 4
 		case SPELLS.curse : return 25
@@ -389,6 +396,7 @@ function spellToCursor(spellenum) {
 		case SPELLS.buildBarracks : return spr_spade_cursor
 		case SPELLS.buildTempleOfOdin : return spr_spade_cursor
 		case SPELLS.slow : return spr_slow_cursor
+		case SPELLS.polymorph : return spr_polymorph_cursor
 		case SPELLS.holy_light : return spr_holy_light_cursor
 		case SPELLS.katon_gokakyu_no_jutsu : return spr_fire_ball_cursor
 		case SPELLS.golden_dragon : return spr_golden_dragon_cursor
@@ -450,6 +458,7 @@ function spellToAbilitiesInfo(spell) {
 	case SPELLS.dark_ritual : return ""
 	case SPELLS.defend : return ""
 	case SPELLS.slow : return ""
+	case SPELLS.polymorph : return ""
 	case SPELLS.heal : return "Heals a target friendly non-mechanical wounded unit for " + string(amount) + " hit points"
 		 + "\n" + "Cooldown : " + string(getCooldown())
 		 + "\n" + "Mana cost " + string(mana_cost)
@@ -488,6 +497,7 @@ function spellToSpellHealth(spell) {
 		case SPELLS.carrion_beetles : return;
 		case SPELLS.katon_gokakyu_no_jutsu : return ;
 		case SPELLS.freeze : return 100;
+		case SPELLS.polymorph : return 300;
 		case SPELLS.slow : return 100;
 		case SPELLS.invisibility : return 100;
 		case SPELLS.raise : return 100;
@@ -522,6 +532,7 @@ function spellToIcon(spell) {
 		case SPELLS.vampiric_aura : return spr_vampiric_aura_icon
 		case SPELLS.heal : return spr_heal_icon
 		case SPELLS.slow : return spr_slow_icon
+		case SPELLS.polymorph : return spr_polymorph_icon
 		case SPELLS.invisibility : return spr_invisibility_icon
 		case SPELLS.curse : return spr_curse_icon
 		case SPELLS.revive : return spr_resurrection_icon
@@ -533,6 +544,7 @@ function spellToIcon(spell) {
 		case SPELLS.buildPriest : return spr_priest_icon
 		case SPELLS.buildDispel : return spr_dispel_icon
 		case SPELLS.buildInvisibility : return spr_invisibility_icon
+		case SPELLS.buildPolymorph : return spr_polymorph_icon
 		case SPELLS.buildDefend : return spr_defend_icon
 		case SPELLS.buildImprovedBows : return spr_improved_bows
 		case SPELLS.buildBarracks : return spr_human_barracks_icon
@@ -579,6 +591,7 @@ function spellToDuration(spell) {
 		case SPELLS.sleep : return [20, 40, 60]
 		case SPELLS.vampiric_aura : return 1
 		case SPELLS.slow : return 60
+		case SPELLS.polymorph : return 45
 		case SPELLS.invisibility : return 60
 		case SPELLS.curse : return 60
 		case SPELLS.heal : return 0.5
@@ -593,6 +606,7 @@ function spellToDuration(spell) {
 		case SPELLS.buildArcher : return 40
 		case SPELLS.buildDefend : return 30
 		case SPELLS.buildInvisibility : return 30
+		case SPELLS.buildPolymorph : return 30
 		case SPELLS.buildDispel : return 30
 		case SPELLS.buildImprovedBows : return 30
 		case SPELLS.revive : return 20
@@ -698,6 +712,10 @@ function spellToInfo(spell) {
 			+ "\n" + "Cooldown : " + string(getCooldown())
 			+ "\n" + "Mana cost " + string(getManaCost())
 			+ "\n" + "Range: " + string(range)
+		case SPELLS.polymorph : return "Turn the opponent into a sheep for " + string(getAmount()) + " seconds"
+		+ "\n" + "Cooldown : " + string(getCooldown())
+			+ "\n" + "Mana cost " + string(getManaCost())
+			+ "\n" + "Range: " + string(range)
 		case SPELLS.slow : return "Slows targets movement and attack speed by " + string(getAmount() * 100) + "%." + "\n Duration: " 
 			+ string(getDuration()) + " seconds." + "\n Range: " + string(4) 
 			+ "\n Mana cost: " + string(getManaCost())
@@ -711,6 +729,7 @@ function spellToInfo(spell) {
 		case SPELLS.buildPriest : return "Priest, Cost: " + string(ds_map_find_value(global.map_object_to_costs, obj_priest))
 		case SPELLS.buildDispel : return "Priest dispel upgrade: Allows priests to cast dispel, decreaseing the duration of buff an debuff in an area " + ". Cost: " + string(getAmount())
 		case SPELLS.buildInvisibility : return "Sorceress invisibility upgrade: Allows sorceresses to cast invisibility on a ally unit, " + "\n and multiplies mana of sorceresses by " + string(learnSpellManaMultiplicator) + " and mana regen. " + "Cost " + string(getAmount())
+		case SPELLS.buildPolymorph : return "Sorceress polymorph upgrade: Allows sorceresses to cast Polymorph"  + "\n and multiplies mana of sorceresses by " + string(learnSpellManaMultiplicator) + " and mana regen. " + "Cost " + string(getAmount())
 		case SPELLS.buildArcaneSanctum : return "Arcane Sanctum: Recruits Mages, Cost: " + string(getAmount());
 		case SPELLS.buildBarracks : return "Barracks: Recruits Warriors, Cost: " + string(getAmount())
 		case SPELLS.buildTempleOfOdin : return "Temple of Odin: Recruits Valkyries, Cost: " + string(getAmount())
@@ -1003,6 +1022,7 @@ enum SPELLS {
 	dark_ritual,
 	defend,
 	slow,
+	polymorph,
 	heal,
 	revive,
 	invisibility,
@@ -1016,6 +1036,7 @@ enum SPELLS {
 	buildPriest,
 	buildDispel,
 	buildInvisibility,
+	buildPolymorph,
 	buildDefend,
 	buildImprovedBows,
 	buildBarracks,
