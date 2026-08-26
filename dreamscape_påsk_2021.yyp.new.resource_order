@@ -425,7 +425,7 @@
     {"name":"spr_ninjago_sword","order":31,"path":"sprites/spr_ninjago_sword/spr_ninjago_sword.yy",},
     {"name":"spr_ninjago1","order":1,"path":"sprites/spr_ninjago1/spr_ninjago1.yy",},
     {"name":"spr_nyckelpiga","order":67,"path":"sprites/spr_nyckelpiga/spr_nyckelpiga.yy",},
-    {"name":"spr_polymorph_cursor","order":131,"path":"sprites/spr_polymorph_cursor/spr_polymorph_cursor.yy",},
+    {"name":"spr_polymorph_cursor","order":16,"path":"sprites/spr_polymorph_cursor/spr_polymorph_cursor.yy",},
     {"name":"spr_polymorph_icon","order":132,"path":"sprites/spr_polymorph_icon/spr_polymorph_icon.yy",},
     {"name":"spr_priest_icon","order":55,"path":"sprites/spr_priest_icon/spr_priest_icon.yy",},
     {"name":"spr_priest_original","order":70,"path":"sprites/spr_priest_original/spr_priest_original.yy",},

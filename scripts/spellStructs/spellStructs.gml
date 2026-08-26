@@ -17,7 +17,7 @@ function spellToAnimator(spell) {
 		case SPELLS.dispel : return obj_dispel_animator
 		case SPELLS.revive : return obj_revive_animator
 		case SPELLS.buildInvisibility : return obj_sorceress_invisibility_upgrade
-		case SPELLS.buildInvisibility : return obj_sorceress_polymorph_upgrade
+		case SPELLS.buildPolymorph : return obj_sorceress_polymorph_upgrade
 		case SPELLS.buildDispel : return obj_priest_dispel_upgrade
 		case SPELLS.buildImprovedBows : return obj_improved_bows_upgrade
 		case SPELLS.buildDefend	: return obj_footman_defend_upgrade
@@ -272,6 +272,7 @@ function evaluateProcentageDebuff(_unit) {
 	//return (_unit.damage + _unit.armor) * _unit.HP / _unit.attack_cost
 	var vargoodness = _unit.HP * _unit.evaluate_HP_goodness()
 	rightPerform(_unit)
+	_unit.scr_update_action_bar_speed()
 	var vargoodnessnew = _unit.HP * _unit.evaluate_HP_goodness()
 	_unit.unapply(Enum)
 	return vargoodness - vargoodnessnew
@@ -800,6 +801,7 @@ function spellToAi(spell) {
 		case SPELLS.heal : return method(undefined, heal_ai)
 		case SPELLS.haste : return method(undefined, haste_ai)
 		case SPELLS.imba_heal : return method(undefined, heal_ai)
+		case SPELLS.abolish_magic : return method(undefined, abolish_magic_ai)
 		default : return noone
 	}
 }
@@ -827,12 +829,16 @@ function heal_ai() {
 	}
 }
 
+function abolish_magic_ai() {
+	
+}
+
 function slow_ai() {
 	with(owner) {
 		var list_slow_target_within_range = scr_find_enemies_within_range(other.range)
 	}
 	if(array_length(list_slow_target_within_range) > 0) { 
-		with(scr_find_best_procentage_debuff_target_from_list(list_slow_target_within_range, slow)) {			
+		with(scr_find_best_procentage_debuff_target_from_list(list_slow_target_within_range, self)) {			
 			global.clicked_tile = tile
 			other.rightPerform()
 			other.owner.mana -= other.getManaCost()

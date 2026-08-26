@@ -198,6 +198,7 @@ function spellToIconPerform(spellenum) {
 		case SPELLS.haste : return method(undefined, hasteIconPerform)
 		case SPELLS.soul_harvest : return function(){}
 		case SPELLS.imba_heal : return function(){}
+		case SPELLS.abolish_magic : return function(){}
 	}
 }
 
@@ -447,6 +448,11 @@ function freezeRightPerform(perputrator, victim) {
 	array_first(global.clicked_tile.occupants[? ALTITUDES.ground]).phase = UNIT_PHASES.idle
 }
 
+function polymorphRightPerform(perputrator, victim) {
+	scr_apply_debuff(array_first(global.clicked_tile.occupants[? ALTITUDES.ground]))
+	array_first(global.clicked_tile.occupants[? ALTITUDES.ground]).phase = UNIT_PHASES.idle
+}
+
 
 function spellToPerform(spellEnum) {
 	switch(spellEnum) {
@@ -487,6 +493,10 @@ function buildInvisibilityPerform() {
 		max_mana *= learnSpellManaMultiplicator
 		mana_regen_rate_per_sec *= learnSpellManaMultiplicator
 	}
+	with(owner) {
+		ds_map_delete(buttonToSkill,"a")
+		ds_map_add(buttonToSkill,"a", polymoth)
+	}
 }
 
 function buildDefendPerform() {
@@ -503,8 +513,8 @@ function buildImprovedBowsPerform() {
 	}
 }
 
-function slowRightPerform() {
-	scr_apply_debuff(array_first(global.clicked_tile.occupants[? ALTITUDES.ground]))
+function slowRightPerform(_victim = array_first(global.clicked_tile.occupants[? ALTITUDES.ground])) {
+	scr_apply_debuff(_victim)
 }
 
 function cloakRightPerform(targeto) {

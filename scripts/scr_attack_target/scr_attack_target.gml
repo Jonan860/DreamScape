@@ -19,7 +19,7 @@ function canAttack() {
 		}
 	}
 	
-	if(action_bar < (attack_cost / power(1 + haste_bonus, hastes))) {
+	if(action_bar < (attack_cost / power(1 + haste_bonus, hastes)) or scr_is_debuffed(SPELLS.polymorph)) {
 		return false
 	}
 	if(object_index == obj_footman) {
