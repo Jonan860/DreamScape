@@ -107,7 +107,7 @@ function scr_find_damage_spell_target(damage_spell){
 		
 		if(owner = global.enemy and id != other.owner) {
 			if(scr_get_distance(tile, other.tile) <= damage_spell.range) {
-				var_goodness = damage*accuracy*(is_undefined(mana) ? 1 : 2) * min(var_damage, max_HP - HP)	//HP * var_conversion - max(0, HP * var_conversion - other.mana)
+				var_goodness = damage_amplification * damage*accuracy*(is_undefined(mana) ? 1 : 2) * min(var_damage, max_HP - HP)	//HP * var_conversion - max(0, HP * var_conversion - other.mana)
 				if(var_goodness > var_optimal_goodness_to_coil) {
 					var_optimal_goodness_to_coil = var_goodness
 					var_optimal_coil = id

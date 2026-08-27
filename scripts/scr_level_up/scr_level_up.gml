@@ -3,7 +3,7 @@ function scr_level_up() {
 	number_of_ability_points++
 	HP *= HP_level_up_multiplier
 	max_HP *= HP_level_up_multiplier
-	damage *= damage_level_up_multiplier
+	damage_amplification *= damage_level_up_multiplier
 	//damage_reduction = (armor_level_up_multiplier + damage_reduction - 1) / armor_level_up_multiplier
 	evasiveness = (evasion_level_up_multiplier + evasiveness - 1) / evasion_level_up_multiplier
 	var mana_multi = (max_mana + 20) / max_mana

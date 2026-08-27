@@ -4,6 +4,7 @@ decloak = createSpell(SPELLS.decloak, "s")
 decloak.lvl = 1
 action_bar = 0
 action_bar_speed = 1
+damage_amplification = 1
 setAltitude = function(_altitude) {
 	scr_make_room_for_instance_on_tile(tile, _altitude)
 	tile.occupants[? altitude] = array_filter(tile.occupants[? altitude], function(value, index) {return value != id})
@@ -156,6 +157,7 @@ save = function() {
 	s.movement_cost = movement_cost
 	s.attack_cost = attack_cost
 	s.damage = damage
+	s.damage_amplification = damage_amplification
 	s.armor = armor
 	s.range = range
 	s.accuracy = accuracy
@@ -250,6 +252,7 @@ load = function(s) {
 	movement_cost = s.movement_cost
 	attack_cost = s.attack_cost
 	damage = s.damage
+	damage_amplification = s.damage_amplification
 	armor = s.armor
 	range = s.range
 	accuracy = s.accuracy

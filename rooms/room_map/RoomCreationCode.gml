@@ -31,17 +31,20 @@ instance_create_depth(0, 0, -100, obj_game)
 
 global.saveData = {}
 
-//with(scr_instance_create_at_tile_with_owner(obj_jonathan, getTile(10, 2), global.enemy)) {
-//	repeat(3) {
-//		scr_level_up()
-//	}
-//	unholy_aura.level_up()
-//	death_coil.level_up()
-//	death_pact.level_up()
-//	unholy_aura.iconPerform()
-//}
+with(scr_instance_create_at_tile_with_owner(obj_jonathan, getTile(10, 2), global.enemy)) {
+	repeat(10) {
+		scr_level_up()
+	}
+	repeat(3)  { 
+		unholy_aura.level_up()
+		death_coil.level_up()
+		death_pact.level_up()
+	}
+	ninja_gos.level_up()
+	unholy_aura.iconPerform()
+}
 
-scr_instance_create_at_tile_with_owner(obj_banshee, getTile(10, 2), global.enemy)
+//scr_instance_create_at_tile_with_owner(obj_banshee, getTile(10, 2), global.enemy)
 //with(global.jonathan) {
 //	HP = max_HP/4
 //	repeat(9) {

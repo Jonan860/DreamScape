@@ -23,7 +23,9 @@ switch(phase) {
 			}
 			if(time_until_next_feed_sec <= 0) {
 				var stored_damage = owner.damage
+				var stored_damage_amplification = owner.damage_amplification
 				var stored_element = owner.element
+				owner.damage_amplification = 1
 				owner.damage = damage_per_feed
 				owner.element = element
 				var stored_target_hp = target.HP
@@ -32,6 +34,7 @@ switch(phase) {
 					scr_attack_hp_reduction(owner, target, array_length(varArmor) - 1)
 				}
 				owner.damage = stored_damage
+				owner.damage_amplification = stored_damage_amplification
 				owner.element = stored_element
 				food_amount += stored_target_hp - target.HP
 				if(food_amount >= max_food_amount or target.HP <= 0) {

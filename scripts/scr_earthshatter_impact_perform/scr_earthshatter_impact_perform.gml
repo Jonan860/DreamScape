@@ -8,12 +8,14 @@ function scr_earthshatter_impact_perform() {
 				with(owner) {
 					var store_damage = damage
 					var store_accuracy = accuracy
+					var store_damage_amplification = damage_amplification
 					damage = other.amount[?"damage"][distance_from_impact]   //bugg Här sätts damage till undefined 
 					accuracy = other.accuracy
 					scr_convert_damage_to_accuracy_included_damage(ground_unit)
 					attackEffectWrapper(id, ground_unit, true)
 					damage = store_damage
 					accuracy = store_accuracy
+					damage_amplification = store_damage_amplification
 					scr_stun(ground_unit, other.amount[?"stun"][distance_from_impact])
 				}
 			}

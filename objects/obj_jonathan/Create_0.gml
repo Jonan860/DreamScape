@@ -8,7 +8,8 @@ range = 1
 HP = 150
 max_HP = 150
 HP_regeneration_rate = 1
-damage = 25
+
+damage = 10
 base_armor = [5, 3, 0]
 armor = base_armor
 armor_coverage = [50, 25, 25]
@@ -28,9 +29,9 @@ attack_animator = obj_sword_attack
 death_coil = createSpell(SPELLS.death_coil, "q")
 death_pact = createSpell(SPELLS.death_pact, "w")
 unholy_aura = createSpell(SPELLS.unholy_aura, "e")
-earthshatter = createSpell(SPELLS.earthshatter, "r")
+ninja_gos = createSpell(SPELLS.ninja_gos, "r")
 
-skills = [death_coil, death_pact, unholy_aura, earthshatter]
+skills = [death_coil, death_pact, unholy_aura, ninja_gos]
 attack_target = function() { 
 		scr_attack_target_nils()
 }
@@ -39,7 +40,10 @@ spr_height = sprite_height
 spr_width = sprite_width
 
 ai = function() {
-	if(HP < max_HP / 3 and death_pact.canPerform()) {
+	if(ninja_gos) {
+	
+	}
+	else if(HP < max_HP / 3 and death_pact.canPerform()) {
 		var varTarget = scr_find_spell_target(death_pact)
 		if(varTarget != noone) {
 			death_pact.rightPerform(varTarget.tile)

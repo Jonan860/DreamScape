@@ -26,6 +26,7 @@ function spellToRightPerform(spell) {
 		case SPELLS.invisibility  : return method(undefined, invisibilityRightPerform)
 		case SPELLS.dispel : return method(undefined, dispelRightPerform)
 		case SPELLS.death_coil : return method(undefined, deathCoilRightPerform)
+		case SPELLS.ninja_gos : return method(undefined, ninjaGosRightPerform)
 		case SPELLS.unholy_aura : return;
 		case SPELLS.shannaro : return method(undefined, shannaroRightPerform)
 		case SPELLS.iryo_ninjutsu : return method(undefined, iryoNinjutsuRightPerform)
@@ -40,6 +41,9 @@ function spellToRightPerform(spell) {
 	}
 }
 
+function ninjaGosRightPerform() {
+	
+}
 
 function silenceRightPerform(varTile) {
 		
@@ -105,6 +109,7 @@ function shannaroRightPerform() {
 	var accuracy_store = owner.accuracy
 	owner.accuracy = accuracy
 	var damage_store = owner.damage
+	var damage_amplification_store = owner.damage_amplification_store
 	owner.damage = getAmount()[? "damage"][lvl - 1]
 	with(owner) {							
 		scr_convert_damage_to_accuracy_included_damage(varTarget)
@@ -112,6 +117,8 @@ function shannaroRightPerform() {
 	attackEffectWrapper(owner, varTarget, true)
 	owner.damage = damage_store
 	owner.accuracy = accuracy_store
+	owner.damage_amplification_store = damage_amplification_store
+	
 	
 	with(instance_create_depth(owner.x, owner.y, 0, obj_shannaro_animator)) {
 		tile_translation_x = tileXtrans

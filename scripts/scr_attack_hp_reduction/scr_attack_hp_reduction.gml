@@ -5,13 +5,13 @@ function scr_attack_hp_reduction(var_perputrator, var_victim, _armor) {
 		}
 	}
 	with(scr_get_nearby_friendly_spell_shield(var_victim)) {
-		HP -= var_perputrator.damage
+		HP -= var_perputrator.damage * var_perputrator.damage_amplification
 		exit;
 	}
 	var elementattackbonus = scr_get_element_attack_bonus(var_perputrator.element, var_victim.element)
 	var reducedArmor = max(_armor - var_perputrator.piercing, 0)
 	var reducedDamage = var_perputrator.damage - reducedArmor
-	var var_hp_to_remove = (reducedDamage > 0 ? ceil(reducedDamage) : power(2, reducedDamage)) * elementattackbonus
+	var var_hp_to_remove = (reducedDamage > 0 ? ceil(reducedDamage) : power(2, reducedDamage)) * elementattackbonus * var_perputrator.damage_amplification
 	var_victim.HP -= var_hp_to_remove
 	if(object_is_ancestor(var_perputrator.object_index, obj_unit)) {
 		var_perputrator.HP = min(var_perputrator.max_HP, var_perputrator.HP + get_max_aura(var_perputrator, obj_vampiric_aura_animator) / 100 * var_hp_to_remove)

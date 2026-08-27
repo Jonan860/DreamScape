@@ -73,6 +73,8 @@ armor_coverage_text_x = mana_text_x
 armor_coverage_text_y = damage_text_y + stats_text_y_space
 attack_rate_text_x = mana_text_x
 attack_rate_text_y = armor_coverage_text_y + stats_text_y_space
+damage_amplification_text_x = mana_text_x
+damage_amplification_text_y = attack_rate_text_y + stats_text_y_space
 
 summon_time_bar_x1 = var_camera_width/2 - 2 * spell_button_width
 summon_timer_bar_y1 = var_camera_height - 4 * spell_button_height

@@ -156,6 +156,8 @@ function draw_status_text() {
 	draw_text_transformed(armor_coverage_text_x, armor_coverage_text_y, "ArmCov: " + string(other.armor_coverage), 3, 3, 0)
 	draw_text_transformed(range_text_x, range_text_y, "Range: " + string(round(100 * other.range) / 100), 3, 3, 0)
 	draw_text_transformed(attack_rate_text_x, attack_rate_text_y, "Attack rate: " + string(round(100 * 1/other.attack_cost / room_speed) / 100), 3, 3, 0)
+	draw_text_transformed(damage_amplification_text_x, damage_amplification_text_y, "Damage Amplification: " + string(round(damage_amplification * 100) / 100), 3, 3, 0)
+	
 	if(other.mana != noone) {
 		draw_text_transformed(mana_text_x, mana_text_y, "Mana: " + string(round(other.mana)) + "/" + string(round(other.max_mana)), 3, 3, 0)
 	}

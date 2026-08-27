@@ -4,6 +4,7 @@ function spellToAnimator(spell) {
 	switch(spell) {
 		case SPELLS.katon_gokakyu_no_jutsu : return obj_katon_gokakyu_no_jutsu
 		case SPELLS.death_coil : return obj_death_coil_animator
+		case SPELLS.ninja_gos : return obj_ninja_gos_animator
 		case SPELLS.kawarimi_no_jutsu : return obj_kawarimi_animator 
 		case SPELLS.buildFootman : return obj_footman
 		case SPELLS.buildValkyrie : return obj_valkyrie
@@ -34,6 +35,7 @@ function spellToCooldown(spell) {
 	switch(spell) {
 		case SPELLS.katon_gokakyu_no_jutsu : return 20
 		case SPELLS.death_coil: return 20
+		case SPELLS.ninja_gos : return 40
 		case SPELLS.impale : return 20
 		case SPELLS.earthshatter : return 60
 		case SPELLS.frost_nova : return 20
@@ -108,6 +110,7 @@ function spellToAmount(spell) {
 		case SPELLS.buildPolymorph : return 150
 		case SPELLS.dispel : return 50
 		case SPELLS.death_coil : return [30, 60, 90]
+		case SPELLS.ninja_gos : return 10 //damage per sec absorbed to 50 50 mana / life
 		case SPELLS.unholy_aura : return [0.25, 0.5, 0.75]
 		case SPELLS.iryo_ninjutsu : return [2, 4, 6] //per sec
 		case SPELLS.shannaro : 
@@ -163,6 +166,7 @@ function spellToRange(spell) {
 		case SPELLS.buildTempleOfOdin : return 1
 		case SPELLS.dispel : return 4
 		case SPELLS.death_coil : return 4
+		case SPELLS.ninja_gos : return 6
 		case SPELLS.unholy_aura : return 4
 		case SPELLS.iryo_ninjutsu : return 1
 		case SPELLS.kai : return 4
@@ -239,11 +243,15 @@ function spellToEvaluateGoodness(spell) {
 		case SPELLS.imba_heal : return method(undefined, evaluateLinearHeal)
 		case SPELLS.abolish_magic : return method(undefined, evaluateDispel)
 		case SPELLS.death_coil : return method(undefined, evaluateDeathCoil)
+		case SPELLS.ninja_gos : return method(undefined, evaluateNinjaGos)
 		case SPELLS.death_pact : return method(undefined, evaluateDeathPact)
 		//case SPELLS
 	}
 }
 
+function evaluateNinjaGos() {
+
+}
 
 function evaluateDispel(_unit) {
 		spellsList = scr_is_enemies(_unit, owner) ? _unit.list_of_active_buff_structs : _unit.list_of_active_debuff_structs
@@ -280,7 +288,7 @@ function evaluateProcentageDebuff(_unit) {
 
 function evaluateLinearHeal(_unit) {
 	
-	var ret = (variable_instance_exists (_unit, "mana") ? 1 : 2) * (_unit.damage + _unit.averageArmor()) * min(getAmount(), _unit.max_HP - _unit.HP) / _unit.attack_cost
+	var ret = (variable_instance_exists (_unit, "mana") ? 1 : 2) * (_unit.damage * _unit.damage_amplification + _unit.averageArmor()) * min(getAmount(), _unit.max_HP - _unit.HP) / _unit.attack_cost
 	if(ret > 0) {
 		show_debug_message("hejsnamn")
 	}
@@ -288,7 +296,7 @@ function evaluateLinearHeal(_unit) {
 }
 
 function evaluateLinearDamage(_unit) {
-	var ret = (variable_instance_exists (_unit, "mana") ? 1 : 2) * (_unit.damage + _unit.averageArmor()) * min(getAmount(), _unit.HP) / _unit.attack_cost  //funkar omm true damage, 100 acc
+	var ret = (variable_instance_exists (_unit, "mana") ? 1 : 2) * (_unit.damage * _unit.damage_amplification + _unit.averageArmor()) * min(getAmount(), _unit.HP) / _unit.attack_cost  //funkar omm true damage, 100 acc
 	return ret
 }
 
@@ -296,9 +304,9 @@ function evaluateDeathCoil(_unit) {
 	var ret = 0
 	if(!object_is_ancestor(_unit.object_index, obj_building) and _unit.object_index != obj_crystal) {
 		if(scr_is_enemies(_unit, owner)) {
-			ret = (variable_instance_exists (_unit, "mana") ? 1 : 2) * (_unit.damage + _unit.averageArmor()) * min(getAmount() / 2, _unit.HP) / _unit.attack_cost  //funkar omm true damage, 100 acc
+			ret = (variable_instance_exists (_unit, "mana") ? 1 : 2) * (_unit.damage * _unit.damage_amplification + _unit.averageArmor()) * min(getAmount() / 2, _unit.HP) / _unit.attack_cost  //funkar omm true damage, 100 acc
 		} else {
-			ret = (variable_instance_exists (_unit, "mana") ? 1 : 2) * (_unit.damage + _unit.averageArmor()) * min(getAmount(), _unit.max_HP - _unit.HP) / _unit.attack_cost
+			ret = (variable_instance_exists (_unit, "mana") ? 1 : 2) * (_unit.damage * _unit.damage_amplification + _unit.averageArmor()) * min(getAmount(), _unit.max_HP - _unit.HP) / _unit.attack_cost
 		}
 	}
 	return ret
@@ -351,6 +359,7 @@ function spellToManaCosts(spell) {
 		case SPELLS.sleep : return [30, 45, 60]
 		case SPELLS.vampiric_aura : return [0, 0, 0]
 		case SPELLS.slow : return 30
+		case SPELLS.polymorph : return 60
 		case SPELLS.raise : return 40
 		case SPELLS.heal : return 4
 		case SPELLS.curse : return 25
@@ -359,6 +368,7 @@ function spellToManaCosts(spell) {
 		case SPELLS.ninjago : return [30, 60, 90]
 		case SPELLS.dispel : return 50
 		case SPELLS.death_coil : return [40, 50, 60]
+		case SPELLS.ninja_gos : return 100
 		case SPELLS.kai : return [20, 40, 60]
 		case SPELLS.iryo_ninjutsu : return [2,4,6]
 		case SPELLS.shannaro : return [20, 40, 60]
@@ -558,6 +568,7 @@ function spellToIcon(spell) {
 		case SPELLS.unholy_aura : return spr_unholy_aura_icon
 		case SPELLS.death_pact : return spr_death_pact_icon
 		case SPELLS.death_coil : return spr_death_coil_icon
+		case SPELLS.ninja_gos : return spr_ninja_gos_icon
 		case SPELLS.iryo_ninjutsu : return spr_iryo_ninjutsu_icon
 		case SPELLS.kai : return spr_kai_icon
 		case SPELLS.shannaro : return spr_shannaro_icon
@@ -926,8 +937,10 @@ function createSpell(spellEnum, _letter) {
 			var saveStats = {}
 			saveStats.damage = owner.damage
 			saveStats.accuracy = owner.accuracy
+			saveStats.damage_amplification = owner.damage_amplification
 			owner.damage = getAmount()
 			owner.accuracy = accuracy
+			owner.damage_amplification = 1
 			return saveStats
 		}
 
@@ -935,6 +948,7 @@ function createSpell(spellEnum, _letter) {
 		recreateOwnerStats = function(savedStats) {
 				owner.damage = savedStats.damage
 				owner.accuracy = savedStats.accuracy
+				owner.damage_amplification = savedStats.damage_amplification
 			}
 		
 		evaluateGoodness = spellToEvaluateGoodness(spellEnum)
@@ -1052,6 +1066,7 @@ enum SPELLS {
 	decloak,
 	dispel,
 	death_coil,
+	ninja_gos,
 	unholy_aura,
 	death_pact,
 	kai,

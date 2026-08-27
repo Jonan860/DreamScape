@@ -1,5 +1,7 @@
 function scr_frost_nova_damage() {
 	var store_damage = owner.damage  ///se upp! damage_sore och store_damage är olika
+	var store_damage_amplification = owner.damage_amplification
+	owner.damage_amplification = 1
 	owner.damage = getAmount()
 	frostnovaDamageTile(target) 
 	owner.damage *= 1/2   ////half damage on souranding area
@@ -9,6 +11,8 @@ function scr_frost_nova_damage() {
 		}
 	}
 	owner.damage = store_damage
+	
+	owner.damage_amplification = store_damage_amplification
 	owner.phase = owner.owner == global.player ? UNIT_PHASES.idle : UNIT_PHASES.movement
 	owner.action_bar *= owner.owner != global.player
 }
