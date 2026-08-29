@@ -40,8 +40,18 @@ spr_height = sprite_height
 spr_width = sprite_width
 
 ai = function() {
-	if(ninja_gos) {
-	
+	if( HP/ max_HP + mana / max_mana < 3/2 and ninja_gos.canPerform()) {
+		var target_list = scr_find_enemies_within_range(ninja_gos.range)
+		var target_hero_list = []
+		for(var i = 0; i < array_length(target_list); i++) {
+			if(object_is_ancestor(target_list[i].object_index, obj_hero)) {
+				array_push(target_hero_list, target_list[i])
+			}
+		}
+		var target_hero = target_hero_list[irandom(array_length(target_hero_list) - 1)];
+		ninja_gos.rightPerform(target_hero)
+		mana -= ninja_gos.getManaCost()
+		ninja_gos.cooldown_current = ninja_gos.getCooldown()
 	}
 	else if(HP < max_HP / 3 and death_pact.canPerform()) {
 		var varTarget = scr_find_spell_target(death_pact)

@@ -41,8 +41,17 @@ function spellToRightPerform(spell) {
 	}
 }
 
-function ninjaGosRightPerform() {
+function ninjaGosRightPerform(_unit) {
 	
+	with(obj_unit) {
+		unit_detarget(other.owner)
+	}
+	with(owner) {
+		setAltitude(ALTITUDES.invisible)
+		phase = UNIT_PHASES.ninja_gos;
+		target = _unit
+		action_bar = 0
+	}
 }
 
 function silenceRightPerform(varTile) {
