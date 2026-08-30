@@ -28,7 +28,8 @@ enum UNIT_PHASES {
 	sacrificed,
 	channeling,
 	iryoNinjutsu,
-	ninja_gos
+	ninja_gos,
+	gosing
 }
 
 enum GAME_PHASES {

@@ -21,6 +21,9 @@ function scr_movement() {
 			if(phase == UNIT_PHASES.hunt and canAttack()) {
 				scr_hunt_attack_enemy()
 			}; break;
+			if(phase == UNIT_PHASES.ninja_gos and action_bar >= movement_cost) {
+				scr_movement_player()
+			}
 		case global.creep_lord :
 			if( phase == UNIT_PHASES.returning and action_bar >= movement_cost/3) {
 				scr_movement_creep_return()

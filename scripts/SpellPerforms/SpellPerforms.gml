@@ -50,6 +50,8 @@ function ninjaGosRightPerform(_unit) {
 		setAltitude(ALTITUDES.invisible)
 		phase = UNIT_PHASES.ninja_gos;
 		target = _unit
+		destination = _unit.tile
+		scr_update_path_to_destination()
 		action_bar = 0
 	}
 }
