@@ -1,5 +1,8 @@
 function scr_ai_enemy() {
-	scr_ai_spell_enemy()
+	if(phase != UNIT_PHASES.ninja_gos and phase != UNIT_PHASES.gosing) {
+		scr_ai_spell_enemy()
+	}
+	
 	if(phase == UNIT_PHASES.hunt) { //should implies target exist
 		if(scr_get_distance(tile, target.tile) > range and action_bar == 0) {
 			phase = UNIT_PHASES.movement
@@ -23,8 +26,10 @@ function scr_ai_enemy() {
 				}
 			}
 			target = closest_hero
-		} else if(scr_get_distance(tile, target.tile == 1) {
+		} else if(scr_get_distance(tile, target.tile) == 1) {
 			phase = UNIT_PHASES.gosing
+		} else {
+			
 		}
 	}
 }

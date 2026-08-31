@@ -86,7 +86,12 @@ with(scr_instance_create_at_tile_with_owner(obj_sakura, getTile(2, 0), global.pl
 
 scr_instance_create_at_tile_with_owner(obj_valkyrie, getTile(7, 15), global.player)
 
-scr_instance_create_at_tile_with_owner(obj_ida, getTile(10, 14), global.player)
+with(scr_instance_create_at_tile_with_owner(obj_ida, getTile(10, 14), global.player))
+{
+repeat(10) {
+	scr_level_up()
+}
+}
 scr_instance_create_at_tile_with_owner(obj_nils, getTile(18, 2), global.player)
 
 scr_instance_create_at_tile_with_owner(obj_lille_skutt, getTile(13, 15), global.player)
