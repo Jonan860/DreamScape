@@ -629,6 +629,7 @@ function spellToDuration(spell) {
 		case SPELLS.flash_heal : return 1
 		case SPELLS.imba_heal : return 0.5
 		case SPELLS.death_pact : return 2
+		case SPELLS.ninja_gos : return 20
 		default : return noone
 	}
 }

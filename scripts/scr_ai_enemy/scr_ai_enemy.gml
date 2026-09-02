@@ -27,6 +27,7 @@ function scr_ai_enemy() {
 			}
 			target = closest_hero
 		} else if(scr_get_distance(tile, target.tile) == 1) {
+			
 			phase = UNIT_PHASES.gosing
 		} else {
 			

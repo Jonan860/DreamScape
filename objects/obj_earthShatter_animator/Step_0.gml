@@ -1,5 +1,5 @@
 if(jumping) {
-	var distance = point_distance(owner.owner.x, owner.owner.y, target._x, target._y)
+	var distance = point_distance(owner.owner.x, owner.owner.y, target_tile._x, target_tile._y)
 	if(distance < 10) {
 		jumping = 0
 		scr_earthshatter_impact_perform()

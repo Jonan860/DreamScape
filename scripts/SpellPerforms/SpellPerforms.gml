@@ -46,9 +46,11 @@ function ninjaGosRightPerform(_unit) {
 	with(obj_unit) {
 		unit_detarget(other.owner)
 	}
+	var _duration = getDuration()
 	with(owner) {
 		setAltitude(ALTITUDES.invisible)
 		phase = UNIT_PHASES.ninja_gos;
+		instance_create_depth(0, 0, 0, obj_ninja_gos_animator, {owner : ninja_gos, target : _unit, duration : _duration})
 		target = _unit
 		destination = _unit.tile
 		scr_update_path_to_destination()

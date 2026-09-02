@@ -3,7 +3,7 @@ function scr_earthshatter_impact_perform() {
 		var  tile_to_impact = impacted_tiles_list[i]
 		var ground_unit = array_first(tile_to_impact.occupants[? ALTITUDES.ground])
 		if(!is_undefined(ground_unit) and ground_unit.object_index != obj_crystal and ground_unit != owner.owner) {
-			var distance_from_impact = scr_get_distance(target, tile_to_impact)
+			var distance_from_impact = scr_get_distance(target_tile, tile_to_impact)
 			with(owner) {
 				with(owner) {
 					var store_damage = damage
@@ -21,8 +21,8 @@ function scr_earthshatter_impact_perform() {
 			}
 		}
 	}
-	scr_make_room_for_instance_on_tile(target, ALTITUDES.ground)
-	var _target = target
+	scr_make_room_for_instance_on_tile(target_tile, ALTITUDES.ground)
+	var _target = target_tile
 	with(owner.owner) {
 		speed = 0
 		image_xscale = spr_width / sprite_get_width(sprite_index)
