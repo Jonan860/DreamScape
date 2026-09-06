@@ -10,9 +10,11 @@ global.player_ai_think_time_in_sec = 0.1
 global.player_idle_ai_think_time_in_sec = 0.3
 global.recruitableUpgrades = [SPELLS.buildInvisibility, SPELLS.buildDefend, SPELLS.buildDispel, SPELLS.buildImprovedBows, SPELLS.buildPolymorph]
 global.recruitedUpgrades = []
+global.is_loading = false;
 list_jukebox = []
 array_push(list_jukebox, sound_canon, sound_darth_nader, sound_head_of_nasa, sound_guitarmass, sound_infected_mushroom_kazabubu, sound_infected_mushroom_slowly, sound_overwerk, sound_sharxpowa, sound_soulji_murder, sound_spitfire)
-
+load_state = 0;
+load_array = [];
 global.map_object_to_costs = ds_map_create() /// look row below for content!!
 scr_map_object_to_cost_build()
 global.map_objects_to_build_time = ds_map_create()
@@ -117,7 +119,422 @@ save = function() {
 	file_text_close(_file)
 }
 
+load_resolve_references = function() {
+
+    // ---------------------------------------------------------
+    // Resolve unit references
+    // ---------------------------------------------------------
+
+    with (obj_unit) {
+
+        // Remove buffs/debuffs that were created by the
+        // normal object creation process.
+        for (
+            var i = 0;
+            i < array_length(list_of_active_debuff_structs);
+            i++
+        ) {
+            with (list_of_active_debuff_structs[i]) {
+                victim = other.id;
+                unapply = spellToUnapply(Enum);
+            }
+        }
+
+        for (
+            var i = 0;
+            i < array_length(list_of_active_buff_structs);
+            i++
+        ) {
+            with (list_of_active_buff_structs[i]) {
+                victim = other.id;
+                unapply = spellToUnapply(Enum);
+            }
+        }
+
+
+        // -----------------------------------------------------
+        // Restore target
+        // -----------------------------------------------------
+
+		with(obj_unit) {
+			loadFromIdd(other.saveData, "target");
+		
+
+        // -----------------------------------------------------
+        // Restore object in stomach
+        // -----------------------------------------------------
+
+			loadFromIdd(other.saveData, "object_in_stomach");
+		}
+
+        // -----------------------------------------------------
+        // Restore owner
+        // -----------------------------------------------------
+
+        with (obj_building) {
+            loadFromIdd(other.saveData, "target");
+        }
+
+        with (obj_player) {
+            loadFromIdd(other.saveData, "owner");
+        }
+		
+		
+
+
+        // -----------------------------------------------------
+        // Restore swallowed object
+        // -----------------------------------------------------
+
+        if (
+            variable_instance_exists(id, "object_in_stomach")
+            &&
+            object_in_stomach != noone
+        ) {
+            scr_eat_enemy(object_in_stomach);
+        }
+
+
+        // -----------------------------------------------------
+        // Hero abilities
+        // -----------------------------------------------------
+
+        if (
+            owner == global.player
+            &&
+            object_is_ancestor(object_index, obj_hero)
+        ) {
+            abilities = createSpell(SPELLS.abilities, "d");
+            abilities.lvl = 1;
+        }
+    }
+
+
+		with(obj_animator) {
+			with(obj_unit) {
+				loadFromIdd(other.saveData, "target");
+				loadFromIdd(other.saveData, "owner", variable_struct_exists(other.saveData, "ownername") ? name_to_variable_name(other.saveData.ownername) : "id");
+			}
+		}
+    // ---------------------------------------------------------
+    // Soul heroes
+    // ---------------------------------------------------------
+
+    with (obj_soul_hero) {
+        with (obj_unit) {
+            loadFromIdd(other.saveData, "instance");
+        }
+    }
+
+
+    // ---------------------------------------------------------
+    // Debug: check that targets actually exist
+    // ---------------------------------------------------------
+
+    with (obj_unit) {
+
+        if (target != noone) {
+
+            var _target = target;
+            var _exists = false;
+
+            with (obj_unit) {
+                if (id == _target) {
+                    _exists = true;
+                    break;
+                }
+            }
+
+            with (obj_building) {
+                if (id == _target) {
+                    _exists = true;
+                    break;
+                }
+            }
+
+            if (!_exists) {
+                show_debug_message(
+                    "Failed to load target for unit " + string(id)
+                );
+
+                target = noone;
+                phase = UNIT_PHASES.idle;
+            }
+        }
+    }
+
+
+    // ---------------------------------------------------------
+    // Recreate crystals
+    // ---------------------------------------------------------
+
+    loopTilesStart
+        if (is_back_tile) {
+            scr_instance_create_at_tile_with_owner(
+                obj_crystal,
+                self,
+                global.player
+            );
+        }
+    loopTilesEnd
+
+
+    // ---------------------------------------------------------
+    // Restore Kawarimi
+    // ---------------------------------------------------------
+
+    var s = array_first(load_array);
+
+    with (obj_unit) {
+        loadFromIdd(s, "unit_to_kawarimi1");
+        loadFromIdd(s, "unit_to_kawarimi2");
+    }
+	global.is_loading = false;
+	load_state = 0;
+
+	show_debug_message("LOAD COMPLETE!");
+};
+
+load_create_instances = function() {
+    var _array = load_array;
+
+    // ---------------------------------------------------------
+    // Create game board
+    // ---------------------------------------------------------
+
+    instance_create_layer(
+        0,
+        0,
+        "tiles",
+        obj_game_board
+    );
+
+    // ---------------------------------------------------------
+    // Load global / board data
+    // ---------------------------------------------------------
+
+    var s = array_first(_array);
+
+    loopTilesStart
+        if (
+            variable_struct_exists(s, "tile_selected_tile_x")
+            && s.tile_selected_tile_x == tile_x
+            && s.tile_selected_tile_y == tile_y
+        ) {
+            global.tile_selected = self;
+        }
+    loopTilesEnd
+
+    global.recruitableUpgrades = s.recruitableUpgrades;
+    global.recruitedUpgrades = s.recruitedUpgrades;
+
+    phase = s.phase;
+    unit_to_kawarimi1 = s.unit_to_kawarimi1;
+    unit_to_kawarimi2 = s.unit_to_kawarimi2;
+
+    enemies_wave_timer = s.enemies_wave_timer;
+    wave_number = s.wave_number;
+
+    // ---------------------------------------------------------
+    // Create saved objects
+    // ---------------------------------------------------------
+
+    for (var i = 1; i < array_length(_array); i++) {
+
+        var s = _array[i];
+
+        var _y =
+            variable_struct_exists(s, "y")
+            ? s.y
+            : 0;
+
+        var _x =
+            variable_struct_exists(s, "x")
+            ? s.x
+            : 0;
+
+        var _altitude =
+            variable_struct_exists(s, "altitude")
+            ? altitudeToStr(s.altitude)
+            : "ground";
+
+
+        // -----------------------------------------------------
+        // Units / buildings
+        // -----------------------------------------------------
+
+        if (
+            object_is_ancestor(s.object_ind, obj_unit)
+            ||
+            object_is_ancestor(s.object_ind, obj_building)
+        ) {
+
+            var _inst = instance_create_layer(
+                _x,
+                _y,
+                _altitude,
+                s.object_ind,
+                {
+                    owner : s.owner
+                }
+            );
+
+            with (_inst) {
+                saveData = s;
+                load(s);
+            }
+        }
+
+        // -----------------------------------------------------
+        // Player
+        // -----------------------------------------------------
+
+        else if (s.object_ind == obj_player) {
+
+            var _inst = instance_create_layer(
+                _x,
+                _y,
+                "ground",
+                s.object_ind
+            );
+
+            with (_inst) {
+                load(s);
+            }
+        }
+
+        // -----------------------------------------------------
+        // Animators
+        // -----------------------------------------------------
+
+        else if (object_is_ancestor(s.object_ind, obj_animator)) {
+
+            var _inst = instance_create_layer(
+                _x,
+                _y,
+                "ground",
+                s.object_ind
+            );
+
+            with (_inst) {
+				saveData = s;
+                load(s);
+            }
+        }
+
+        // -----------------------------------------------------
+        // Souls
+        // -----------------------------------------------------
+
+        else if (object_is_ancestor(s.object_ind, obj_soul_parent)) {
+
+            var _inst = instance_create_layer(
+                _x,
+                _y,
+                "ground",
+                s.object_ind
+            );
+
+            with (_inst) {
+                saveData = s;
+                load(s);
+            }
+        }
+    }
+
+    show_debug_message("Finished creating saved instances.");
+
+    // Next step will resolve references.
+    load_state = 3;
+};
+
 load = function() {
+
+    if (load_state != 0) {
+        return;
+    }
+
+    if (!file_exists("save.txt")) {
+        show_debug_message("No save file found.");
+        return;
+    }
+
+    // ---------------------------------------------------------
+    // Read save file
+    // ---------------------------------------------------------
+
+    var _file = file_text_open_read("save.txt");
+    var _json = file_text_read_string(_file);
+    file_text_close(_file);
+
+    load_array = json_parse(_json);
+
+    show_debug_message(
+        "Loading save array size = "
+        + string(array_length(load_array))
+    );
+
+
+    // ---------------------------------------------------------
+    // Tell the game that we're loading.
+    // Objects that aren't being destroyed can use this to
+    // stop themselves from doing gameplay logic.
+    // ---------------------------------------------------------
+
+    global.is_loading = true;
+
+
+    // ---------------------------------------------------------
+    // Destroy temporary objects FIRST
+    // ---------------------------------------------------------
+
+    
+
+
+    // ---------------------------------------------------------
+    // Destroy saved/recreated objects
+    // ---------------------------------------------------------
+
+    with (obj_unit) {
+        idd = 0;
+        instance_destroy(self, false);
+    }
+
+    with (obj_player) {
+        idd = 0;
+        instance_destroy(self, false);
+    }
+
+    with (obj_building) {
+        instance_destroy(self, false);
+    }
+
+    with (obj_animator) {
+        idd = 0;
+        instance_destroy(self, false);
+    }
+
+    with (obj_soul_parent) {
+        idd = 0;
+        instance_destroy(self, false);
+    }
+
+    with (obj_crystal) {
+        instance_destroy(self, false);
+    }
+
+    with (obj_game_board) {
+        instance_destroy(self, false);
+    }
+
+
+    // ---------------------------------------------------------
+    // Wait one Step before creating the new world
+    // ---------------------------------------------------------
+
+    load_state = 1;
+};
+/*load = function() {
 	if(file_exists("save.txt")) {
 		var _file = file_text_open_read("save.txt")	
 		var _json = file_text_read_string(_file)
@@ -147,7 +564,7 @@ load = function() {
 		with(obj_animator) {
 			idd = 0
 			array_push(_deletedAnimators, id)
-			instance_destroy()
+			instance_destroy(false)
 		}
 		with(obj_soul_parent) {
 			idd = 0
@@ -225,7 +642,9 @@ load = function() {
 					scr_eat_enemy(object_in_stomach)
 				}
 				with(obj_building) {
-					loadFromIdd(other.saveData, "target")
+					if(!array_contains(_deletedBuildings, id)) {
+						loadFromIdd(other.saveData, "target")
+					}
 				}
 				with(obj_player) {
 					if(!array_contains(_deletedPlayers, id)) {
@@ -282,7 +701,7 @@ load = function() {
 		}
 		file_text_close(_file)
 	}
-}
+}*/
 
 function buttonPressedIconPerform(buttonStr) {
 	with(global.tile_selected) {

@@ -5,6 +5,7 @@ save = function() {
 	if(variable_instance_exists(id, "owner")) {
 		s.owner = owner
 	}
+	s.ownername = owner.name
 	s.target_tileX = target_tile.tile_x
 	s.target_tileY = target_tile.tile_y
 	s.x = x; s.y = y

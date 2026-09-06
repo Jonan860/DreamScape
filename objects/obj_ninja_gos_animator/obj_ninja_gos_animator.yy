@@ -34,10 +34,7 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":{
-    "name":"spr_ninjago",
-    "path":"sprites/spr_ninjago/spr_ninjago.yy",
-  },
+  "spriteId":null,
   "spriteMaskId":null,
   "visible":true,
 }

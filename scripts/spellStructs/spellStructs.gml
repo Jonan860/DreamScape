@@ -669,6 +669,7 @@ function spellToName(spell) {
 		case SPELLS.flash_heal : return "Flash Heal"
 		case SPELLS.soul_harvest : return "Soul Harvest"
 		case SPELLS.abolish_magic : return "Abolish Magic"
+		case SPELLS.death_coil : return "Death Coil"
 		}
 }
 

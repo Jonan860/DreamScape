@@ -19,7 +19,7 @@ switch(phase) {
 			}
 			time_until_next_direction_change = time_until_next_direction_change <= 0 ? time_between_direction_change : time_until_next_direction_change - 1 / room_speed
 			if(point_distance(x, y, target.x, target.y)) {
-				time_until_next_feed_sec -= 1/room_speed
+				time_until_next_feed_sec -= 1/room_speed * global.gamespeed
 			}
 			if(time_until_next_feed_sec <= 0) {
 				var stored_damage = owner.damage
@@ -48,7 +48,7 @@ switch(phase) {
 	
 
 	case UNIT_PHASES.returning :
-		time_until_next_direction_change -= 1/room_speed
+		time_until_next_direction_change -= 1/room_speed * global.gamespeed
 		if(time_until_next_direction_change <= 0) {
 			direction = point_direction(x, y, owner.x, owner.y)
 		}

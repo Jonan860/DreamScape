@@ -7,7 +7,7 @@ function scr_move_to_tile(tile2) {
 			tile.occupants[?altitude] = array_filter(tile.occupants[? altitude], function(value, index) {return value != self.id})
 			//array_remove_value(homeland, id)
 		}
-		if(global.tile_selected == tile) {
+		if(global.tile_selected != noone and global.tile_selected == tile) {
 			
 				tile.selected_units = array_filter(tile.selected_units, function(value, index) {return value != id})
 				//array_remove_value(selected_units, other.id)

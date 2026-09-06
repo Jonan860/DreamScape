@@ -200,6 +200,7 @@
     {"id":{"name":"attack_target_magic_projectile","path":"scripts/attack_target_magic_projectile/attack_target_magic_projectile.yy",},},
     {"id":{"name":"attackEffectWrapper","path":"scripts/attackEffectWrapper/attackEffectWrapper.yy",},},
     {"id":{"name":"loadFromIdd","path":"scripts/loadFromIdd/loadFromIdd.yy",},},
+    {"id":{"name":"name_to_variable_name","path":"scripts/name_to_variable_name/name_to_variable_name.yy",},},
     {"id":{"name":"saveloadtileList","path":"scripts/saveloadtileList/saveloadtileList.yy",},},
     {"id":{"name":"scr_ai_enemy","path":"scripts/scr_ai_enemy/scr_ai_enemy.yy",},},
     {"id":{"name":"scr_ai_player","path":"scripts/scr_ai_player/scr_ai_player.yy",},},

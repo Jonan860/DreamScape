@@ -11,11 +11,13 @@ save = function() {
 	s.target = target
 	s.owner = owner
 	s.speed = speed
+	s.idd = id
 	return s
 }
 
 load = function(s) {
 	x = s.x; y = s.y
+	idd = s.idd
 	image_angle = s.image_angle
 	target = s.target
 	speed = s.speed
