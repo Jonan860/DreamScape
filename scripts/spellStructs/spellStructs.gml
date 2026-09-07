@@ -784,11 +784,15 @@ function spellToUnapply(spellEnum) {
 
 function invisibilityUnapply() {
 	with(victim) {
-		setAltitude(base_altitude)
-		invisible = 0
-		phase = UNIT_PHASES.idle
-		action_bar = 0
+		become_visible()
 	}
+}
+
+function become_visible() {
+	setAltitude(base_altitude)
+	invisible = 0
+	phase = UNIT_PHASES.idle
+	action_bar = 0
 }
 
 function sleepUnapply() {
