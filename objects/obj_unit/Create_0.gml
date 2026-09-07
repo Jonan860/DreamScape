@@ -41,6 +41,7 @@ attack_animator = noone
 creep_buddies = []
 piercing = 0
 
+gosas = false
 armor_coverage = []
 armor = []
 function averageArmor() {

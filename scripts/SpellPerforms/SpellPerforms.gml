@@ -162,7 +162,6 @@ function deathPactRightPerform(varTile = global.clicked_tile) {
 	
 	instance_create_depth(varTarget.x, varTarget.y, 0, obj_death_pact_animator, {owner : other, target : varTarget})
 	
-	
 }
 	
 function spellToLeastAcceptableGoodness(spellEnum) {

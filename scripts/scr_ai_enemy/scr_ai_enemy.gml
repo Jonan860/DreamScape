@@ -29,6 +29,8 @@ function scr_ai_enemy() {
 		} else if(scr_get_distance(tile, target.tile) == 1) {
 			
 			phase = UNIT_PHASES.gosing
+			scr_move_to_tile(target.tile)
+			target.gosas = true
 		} else {
 			
 		}
