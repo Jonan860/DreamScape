@@ -1,0 +1,3 @@
+if(owner.owner.phase == UNIT_PHASES.gosing) {
+	draw_sprite_ext(spr_gos_head, duration, owner.owner.target.x - sprite_get_width(spr_hexagon_pink)/4 + cos(2 * duration) * sprite_get_width(spr_hexagon_pink)/16, owner.owner.target.y + sin(2 * duration) * sprite_get_width(spr_hexagon_pink)/16, 1/2 * sprite_get_width(spr_hexagon_pink) / sprite_get_width(spr_gos_head), 1/2 * sprite_get_height(spr_hexagon_pink) / sprite_get_height(spr_gos_head), 15 * cos(10*duration), c_white, 1)
+}

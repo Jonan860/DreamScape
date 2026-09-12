@@ -11,7 +11,7 @@ if(owner == global.player) {
 
 //ai = function() {}
 
-if(!eaten and !tied_up) {
+if(!eaten and !tied_up and phase != UNIT_PHASES.gosing) {
 	if(scr_is_debuffed(SPELLS.slow)) {
 		var varXscale2 = sprite_get_width(spr_hexagon_pink)/sprite_get_width(spr_slow)
 		var varYscale2 = sprite_get_height(spr_hexagon_pink)/sprite_get_height(spr_slow)

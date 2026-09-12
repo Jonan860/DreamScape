@@ -26,7 +26,7 @@ function scr_ai_enemy() {
 				}
 			}
 			target = closest_hero
-		} else if(scr_get_distance(tile, target.tile) == 1) {
+		} else if(scr_get_distance(tile, target.tile) == 0 and action_bar == 0) {
 			
 			phase = UNIT_PHASES.gosing
 			scr_move_to_tile(target.tile)

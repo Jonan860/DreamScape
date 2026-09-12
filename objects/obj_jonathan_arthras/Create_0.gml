@@ -48,16 +48,12 @@ ai = function() {
 				array_push(target_hero_list, target_list[i])
 			}
 		}
-		if(array_length(target_hero_list) != 0) {
-			var target_hero = target_hero_list[irandom(array_length(target_hero_list) - 1)];
-			ninja_gos.rightPerform(target_hero)
-			mana -= ninja_gos.getManaCost()
-			ninja_gos.cooldown_current = ninja_gos.getCooldown()
-			exit;
-		} 
+		var target_hero = target_hero_list[irandom(array_length(target_hero_list) - 1)];
+		ninja_gos.rightPerform(target_hero)
+		mana -= ninja_gos.getManaCost()
+		ninja_gos.cooldown_current = ninja_gos.getCooldown()
 	}
-	
-	if(HP < max_HP / 3 and death_pact.canPerform()) {
+	else if(HP < max_HP / 3 and death_pact.canPerform()) {
 		var varTarget = scr_find_spell_target(death_pact)
 		if(varTarget != noone) {
 			death_pact.rightPerform(varTarget.tile)
