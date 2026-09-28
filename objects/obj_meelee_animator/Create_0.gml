@@ -1,9 +1,11 @@
+idd = global.next_idd
+global.next_idd += 1
 save = function() {
 	var s = {}
 	s.x = x; s.y = y
 	s.image_angle = image_angle
 	if(variable_instance_exists(id, "owner")) {
-		s.owner = owner
+		s.owner = scr_get_idd(owner)
 	}
 	s.alarm = alarm[0]
 	s.object_index = object_index

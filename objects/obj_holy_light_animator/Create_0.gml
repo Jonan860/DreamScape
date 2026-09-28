@@ -7,7 +7,7 @@ image_alpha = 0.7
 save = function() {
 	return {
 			alarm : alarm[0],
-			owner : owner.owner.id
+			owner : scr_get_idd(owner.owner)
 		}
 }
 

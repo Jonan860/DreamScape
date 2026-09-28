@@ -26,6 +26,7 @@ defend = createSpell(SPELLS.defend, "q")
 
 
 
+
 skills = [defend]
 attack_target = method(undefined, scr_attack_target_meelee)
 

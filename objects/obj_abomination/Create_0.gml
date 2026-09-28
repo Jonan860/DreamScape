@@ -18,7 +18,7 @@ evasiveness = 0.25
 altitude = ALTITUDES.ground
 experience_to_give = 300
 
-attack_animator = spr_butcher_knife
+attack_animator = obj_knife_attack
 
 ai = function() {}
 attack_target = method(undefined, scr_attack_target_meelee)

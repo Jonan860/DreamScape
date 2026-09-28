@@ -28,6 +28,7 @@ function spellToAnimator(spell) {
 		case SPELLS.shannaro : return obj_shannaro_animator
 		case SPELLS.life_drain : return obj_life_drain_animator
 		case SPELLS.abolish_magic : return obj_kai_animator
+		case SPELLS.vampiric_aura : return obj_vampiric_aura_animator
 	}
 }
 
@@ -125,7 +126,7 @@ function spellToAmount(spell) {
 		case SPELLS.dark_arrow : return [1, 5, 10]
 		case SPELLS.haste : return 25
 		case SPELLS.flash_heal : return 1
-		case SPELLS.soul_harvest : return 5
+		case SPELLS.soul_harvest : return 7
 		case SPELLS.imba_heal : return 25
 		case SPELLS.abolish_magic : return 100
 		case SPELLS.death_pact : return [1, 1.5, 2]
@@ -183,7 +184,7 @@ function spellToRange(spell) {
 
 function spellToTargetable(spell) {
 	switch(spell) {
-		case SPELLS.holy_light : return method(undefined, targetableFriendly) 
+		case SPELLS.holy_light : return method(undefined, targetableNotSelfandFriend) 
 		case SPELLS.dark_ritual : return method(undefined, targetableFriendly)
 		case SPELLS.death_pact : return method(undefined, targetableNotSelfandFriend) 
 		case SPELLS.frost_armor : return method(undefined, targetableFriendly) 
@@ -288,7 +289,7 @@ function evaluateProcentageDebuff(_unit) {
 
 function evaluateLinearHeal(_unit) {
 	
-	var ret = (variable_instance_exists (_unit, "mana") ? 1 : 2) * (_unit.damage * _unit.damage_amplification + _unit.averageArmor()) * min(getAmount(), _unit.max_HP - _unit.HP) / _unit.attack_cost
+	var ret = (variable_instance_exists (_unit, "mana") ? 1 : 2) * (_unit.damage * _unit.amplification + _unit.averageArmor()) * min(getAmount(), _unit.max_HP - _unit.HP) / _unit.attack_cost
 	if(ret > 0) {
 		show_debug_message("hejsnamn")
 	}
@@ -296,7 +297,7 @@ function evaluateLinearHeal(_unit) {
 }
 
 function evaluateLinearDamage(_unit) {
-	var ret = (variable_instance_exists (_unit, "mana") ? 1 : 2) * (_unit.damage * _unit.damage_amplification + _unit.averageArmor()) * min(getAmount(), _unit.HP) / _unit.attack_cost  //funkar omm true damage, 100 acc
+	var ret = (variable_instance_exists (_unit, "mana") ? 1 : 2) * (_unit.damage * _unit.amplification + _unit.averageArmor()) * min(getAmount(), _unit.HP) / _unit.attack_cost  //funkar omm true damage, 100 acc
 	return ret
 }
 
@@ -304,9 +305,9 @@ function evaluateDeathCoil(_unit) {
 	var ret = 0
 	if(!object_is_ancestor(_unit.object_index, obj_building) and _unit.object_index != obj_crystal) {
 		if(scr_is_enemies(_unit, owner)) {
-			ret = (variable_instance_exists (_unit, "mana") ? 1 : 2) * (_unit.damage * _unit.damage_amplification + _unit.averageArmor()) * min(getAmount() / 2, _unit.HP) / _unit.attack_cost  //funkar omm true damage, 100 acc
+			ret = (variable_instance_exists (_unit, "mana") ? 1 : 2) * (_unit.damage * _unit.amplification + _unit.averageArmor()) * min(getAmount() / 2, _unit.HP) / _unit.attack_cost  //funkar omm true damage, 100 acc
 		} else {
-			ret = (variable_instance_exists (_unit, "mana") ? 1 : 2) * (_unit.damage * _unit.damage_amplification + _unit.averageArmor()) * min(getAmount(), _unit.max_HP - _unit.HP) / _unit.attack_cost
+			ret = (variable_instance_exists (_unit, "mana") ? 1 : 2) * (_unit.damage * _unit.amplification + _unit.averageArmor()) * min(getAmount(), _unit.max_HP - _unit.HP) / _unit.attack_cost
 		}
 	}
 	return ret
@@ -375,7 +376,7 @@ function spellToManaCosts(spell) {
 		case SPELLS.life_drain : return [25, 50, 75]
 		case SPELLS.dark_arrow : return [5, 10, 15]
 		case SPELLS.silence : return [10, 20, 30]
-		case SPELLS.haste : return 20
+		case SPELLS.haste : return 40
 		case SPELLS.flash_heal : return 1
 		case SPELLS.imba_heal : return 25
 		case SPELLS.abolish_magic : return 25
@@ -548,6 +549,7 @@ function spellToIcon(spell) {
 		case SPELLS.curse : return spr_curse_icon
 		case SPELLS.revive : return spr_resurrection_icon
 		case SPELLS.abilities : return spr_abilities_button
+		case SPELLS.sell : return spr_sell_button
 		case SPELLS.buildFootman : return spr_footman_icon
 		case SPELLS.buildValkyrie : return spr_valkyrie_icon
 		case SPELLS.buildArcher : return spr_elven_archer_icon
@@ -625,7 +627,7 @@ function spellToDuration(spell) {
 		case SPELLS.life_drain : return 8
 		case SPELLS.dark_arrow : return 2
 		case SPELLS.silence : return [10, 20, 30] // animation duratiuon
-		case SPELLS.haste : return 60
+		case SPELLS.haste : return 30
 		case SPELLS.flash_heal : return 1
 		case SPELLS.imba_heal : return 0.5
 		case SPELLS.death_pact : return 2
@@ -665,6 +667,7 @@ function spellToName(spell) {
 		case SPELLS.silence : return "Silence"
 		case SPELLS.dark_arrow : return "Dark Arrow"
 		case SPELLS.abilities : return "Abilities"
+		case SPELLS.sell : return "Sell"
 		case SPELLS.haste : return "Haste"
 		case SPELLS.flash_heal : return "Flash Heal"
 		case SPELLS.soul_harvest : return "Soul Harvest"
@@ -771,6 +774,8 @@ function spellToInfo(spell) {
 		case SPELLS.flash_heal : return "converts all mana into HP"
 		case SPELLS.imba_heal : return "Totally Imba, Slay!"
 		case SPELLS.abolish_magic : return "Dispels positive buffs from enemy units, and negative buffs from friendly units. Deals " + string(getAmount) + " dispel damage."
+		case SPELLS.soul_harvest : return "Each meelee hit increases mana by " + string(getAmount())
+		
 	}
 }
 
@@ -898,7 +903,7 @@ function createSpellSub(spellEnum) constructor {
 	}
 	shouldIconPerform = function() {
 		if(object_is_ancestor(owner.object_index, obj_unit)) {
-			return (canPerform() or name ="Abilities") and shouldIconPerformLocal()
+			return (canPerform() or name ="Abilities" or name = "Sell") and shouldIconPerformLocal()
 		}
 		return true
 	}
@@ -943,10 +948,10 @@ function createSpell(spellEnum, _letter) {
 			var saveStats = {}
 			saveStats.damage = owner.damage
 			saveStats.accuracy = owner.accuracy
-			saveStats.damage_amplification = owner.damage_amplification
+			saveStats.amplification = owner.amplification
 			owner.damage = getAmount()
 			owner.accuracy = accuracy
-			owner.damage_amplification = 1
+			owner.amplification = 1
 			return saveStats
 		}
 
@@ -954,7 +959,7 @@ function createSpell(spellEnum, _letter) {
 		recreateOwnerStats = function(savedStats) {
 				owner.damage = savedStats.damage
 				owner.accuracy = savedStats.accuracy
-				owner.damage_amplification = savedStats.damage_amplification
+				owner.amplification = savedStats.amplification
 			}
 		
 		evaluateGoodness = spellToEvaluateGoodness(spellEnum)
@@ -990,7 +995,7 @@ function createSpell(spellEnum, _letter) {
 		createDebufforBuff = function(_victim) constructor {
 			total_duration = other.getDuration()
 			spellHealth = other.getSpellHealth()
-			duration = other.getDuration()
+			duration = other.getDuration() / _victim.amplification
 			icon = other.icon
 			name = other.name
 			owner = other
@@ -1085,7 +1090,8 @@ enum SPELLS {
 	flash_heal,
 	soul_harvest,
 	imba_heal,
-	abolish_magic
+	abolish_magic,
+	sell
 }
 
 #macro learnSpellManaMultiplicator 1.25

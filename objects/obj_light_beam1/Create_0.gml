@@ -13,7 +13,7 @@ alarm[0] = 2 * room_speed
 
 save = function() {
 	var s = {}
-	s.owner = owner
+	s.owner = scr_get_idd(owner)
 	s.alarm = alarm[0]
 	return s
 }

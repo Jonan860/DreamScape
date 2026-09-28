@@ -3,6 +3,7 @@ window_set_fullscreen(1)
 audio_group_load(jukebox)
 draw_set_font(font0)
 randomize()
+global.next_idd = 0
 global.player = instance_create_depth(0, 0, 0, obj_player)
 global.enemy = instance_create_depth(0, 0, 0, obj_player)
 global.creep_lord = instance_create_depth(0, 0, 0, obj_player)
@@ -31,18 +32,18 @@ instance_create_depth(0, 0, -100, obj_game)
 
 global.saveData = {}
 
-with(scr_instance_create_at_tile_with_owner(obj_jonathan, getTile(10, 2), global.enemy)) {
-	repeat(10) {
-		scr_level_up()
-	}
-	repeat(3)  { 
-		unholy_aura.level_up()
-		death_coil.level_up()
-		death_pact.level_up()
-	}
-	ninja_gos.level_up()
-	unholy_aura.iconPerform()
-}
+//with(scr_instance_create_at_tile_with_owner(obj_jonathan, getTile(10, 2), global.enemy)) {
+//	repeat(10) {
+//		scr_level_up()
+//	}
+//	repeat(3)  { 
+//	unholy_aura.level_up()
+//	death_coil.level_up()
+//		death_pact.level_up()
+//	}
+//	ninja_gos.level_up()
+//	unholy_aura.iconPerform()
+//}
 
 //scr_instance_create_at_tile_with_owner(obj_banshee, getTile(10, 2), global.enemy)
 //with(global.jonathan) {
@@ -61,10 +62,10 @@ with(scr_instance_create_at_tile_with_owner(obj_jonathan, getTile(10, 2), global
 //	}
 //	unholy_aura.iconPerform()
 //}
-scr_instance_create_at_tile_with_owner(obj_crypt_fiend, getTile(12, 2), global.enemy)
-with(scr_instance_create_at_tile_with_owner(obj_crypt_fiend, getTile(8, 2), global.enemy)){
-	HP = max_HP / 6
-}
+//scr_instance_create_at_tile_with_owner(obj_crypt_fiend, getTile(12, 2), global.enemy)
+//with(scr_instance_create_at_tile_with_owner(obj_crypt_fiend, getTile(8, 2), global.enemy)){
+//	HP = max_HP / 6
+//}
 
 scr_instance_create_at_tile_with_owner(obj_footman, getTile(12, 10), global.player)
 
@@ -84,13 +85,13 @@ with(scr_instance_create_at_tile_with_owner(obj_sakura, getTile(2, 0), global.pl
 	shannaro.level_up()
 }
 
-scr_instance_create_at_tile_with_owner(obj_valkyrie, getTile(7, 15), global.player)
+//scr_instance_create_at_tile_with_owner(obj_valkyrie, getTile(7, 15), global.player)
 
 with(scr_instance_create_at_tile_with_owner(obj_ida, getTile(10, 14), global.player))
 {
-repeat(10) {
-	scr_level_up()
-}
+//repeat(10) {
+//	scr_level_up()
+//}
 }
 scr_instance_create_at_tile_with_owner(obj_nils, getTile(18, 2), global.player)
 

@@ -8,10 +8,10 @@ save = function() {
 	var s = {}
 	s.x = x; s.y = y
 	s.image_angle = image_angle
-	s.target = target
-	s.owner = owner
+	s.target = scr_get_idd(target)
+	s.owner = scr_get_idd(owner)
 	s.speed = speed
-	s.idd = id
+	s.idd = idd
 	return s
 }
 

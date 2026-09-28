@@ -56,17 +56,27 @@ function draw_skills_buttons() {
 			}
 		}
 	}
-	if(hero and owner == global.player) {
-		with(global.hud) {
-			var xx = abilities_button._x; var yy = abilities_button._y
-			var xxscale = spell_button_width / sprite_get_width(spr_abilities_button)
-			var yyscale = spell_button_height / sprite_get_height(spr_abilities_button)
-		}
-		draw_sprite_ext(spr_abilities_button, 0, xx, yy, xxscale, yyscale, 0, -1, 1)
-		if(number_of_ability_points > 0 and !global.hud.gui_display_abilities) {	
-			draw_text_ext_transformed_color(xx, yy, string(number_of_ability_points), -1, -1, 4, 4, 0, c_green, c_green, c_green, c_green, 1)
+	if(owner == global.player) {
+		if(hero) {
+			with(global.hud) {
+				var xx = abilities_button._x; var yy = abilities_button._y
+				var xxscale = spell_button_width / sprite_get_width(spr_abilities_button)
+				var yyscale = spell_button_height / sprite_get_height(spr_abilities_button)
+			}
+			draw_sprite_ext(spr_abilities_button, 0, xx, yy, xxscale, yyscale, 0, -1, 1)
+			if(number_of_ability_points > 0 and !global.hud.gui_display_abilities) {	
+				draw_text_ext_transformed_color(xx, yy, string(number_of_ability_points), -1, -1, 4, 4, 0, c_green, c_green, c_green, c_green, 1)
+			}
+		} else if(object_index != obj_lille_skutt) {
+			with(global.hud) {
+				var xx = sell_button._x; var yy = sell_button._y
+				var xxscale = spell_button_width / sprite_get_width(spr_abilities_button)
+				var yyscale = spell_button_height / sprite_get_height(spr_abilities_button)
+			}
+			draw_sprite_ext(spr_sell_button, 0, xx, yy, xxscale, yyscale, 0, -1, 1)
 		}
 	}
+	
 }
 
 function scr_dra_hud_button_with_hover_inf_building() {
@@ -156,7 +166,7 @@ function draw_status_text() {
 	draw_text_transformed(armor_coverage_text_x, armor_coverage_text_y, "ArmCov: " + string(other.armor_coverage), 3, 3, 0)
 	draw_text_transformed(range_text_x, range_text_y, "Range: " + string(round(100 * other.range) / 100), 3, 3, 0)
 	draw_text_transformed(attack_rate_text_x, attack_rate_text_y, "Attack rate: " + string(round(100 * 1/other.attack_cost / room_speed) / 100), 3, 3, 0)
-	draw_text_transformed(damage_amplification_text_x, damage_amplification_text_y, "Damage Amplification: " + string(round(other.damage_amplification * 100) / 100), 3, 3, 0)
+	draw_text_transformed(amplification_text_x, amplification_text_y, "Amplification: " + string(round(other.amplification * 100) / 100), 3, 3, 0)
 	
 	if(other.mana != noone) {
 		draw_text_transformed(mana_text_x, mana_text_y, "Mana: " + string(round(other.mana)) + "/" + string(round(other.max_mana)), 3, 3, 0)

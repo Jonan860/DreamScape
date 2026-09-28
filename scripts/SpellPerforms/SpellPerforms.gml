@@ -122,7 +122,7 @@ function shannaroRightPerform() {
 	var accuracy_store = owner.accuracy
 	owner.accuracy = accuracy
 	var damage_store = owner.damage
-	var damage_amplification_store = owner.damage_amplification_store
+	var amplification_store = owner.amplification_store
 	owner.damage = getAmount()[? "damage"][lvl - 1]
 	with(owner) {							
 		scr_convert_damage_to_accuracy_included_damage(varTarget)
@@ -130,7 +130,7 @@ function shannaroRightPerform() {
 	attackEffectWrapper(owner, varTarget, true)
 	owner.damage = damage_store
 	owner.accuracy = accuracy_store
-	owner.damage_amplification_store = damage_amplification_store
+	owner.amplification_store = amplification_store
 	
 	
 	with(instance_create_depth(owner.x, owner.y, 0, obj_shannaro_animator)) {
@@ -185,6 +185,7 @@ function spellToIconPerform(spellenum) {
 		case SPELLS.invisibility : return method(undefined, selectSwitchCursor)
 		case SPELLS.holy_light : return method(undefined, selectSwitchCursor)
 		case SPELLS.abilities : return method(undefined, abilitiesIconPerform)
+		case SPELLS.sell : return method(undefined, sellIconPerform)
 		case SPELLS.spell_shield : return method(undefined, spellShieldIconPerform)
 		case SPELLS.freeze : return method(undefined, selectSwitchCursor)
 		case SPELLS.slow : return method(undefined, selectSwitchCursor)
@@ -421,6 +422,11 @@ function abilitiesIconPerform() {
 	global.hud.gui_display_abilities = !global.hud.gui_display_abilities
 }
 
+function sellIconPerform() {
+	global.player.money += ds_map_find_value(global.map_object_to_costs, owner.object_index) * max(0, owner.HP / owner.max_HP)
+	owner.HP = -1000;
+}
+
 function spellShieldIconPerform() {
 	owner.mana -= getManaCost();
 	cooldown_current = getCooldown();
@@ -621,7 +627,7 @@ function holyLightRightPerform() {
 
 function holyLightShouldRightShouldPerform() {
 	if( !is_undefined(array_first(global.clicked_tile.occupants[? ALTITUDES.ground]))) {
-		return !scr_is_enemies(owner, array_first(global.clicked_tile.occupants[? ALTITUDES.ground]))
+		return !scr_is_enemies(owner, array_first(global.clicked_tile.occupants[? ALTITUDES.ground])) and owner.id !=  array_first(global.clicked_tile.occupants[? ALTITUDES.ground])
 	} else {
 		return false
 	}

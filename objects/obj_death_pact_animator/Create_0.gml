@@ -5,8 +5,8 @@ depth -= 1
 save = function() {
 	return {
 		duration_left : duration_left,
-		owner : owner.owner.id,
-		target : target.id
+		owner : scr_get_idd(owner.owner),
+		target : scr_get_idd(target)
 	}
 }
 

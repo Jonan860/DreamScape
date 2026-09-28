@@ -199,15 +199,17 @@ load_resolve_references = function() {
         // Hero abilities
         // -----------------------------------------------------
 
-        if (
-            owner == global.player
-            &&
-            object_is_ancestor(object_index, obj_hero)
-        ) {
-            abilities = createSpell(SPELLS.abilities, "d");
-            abilities.lvl = 1;
-        }
-    }
+        if (owner == global.player) {
+            if(object_is_ancestor(object_index, obj_hero)) 
+			{
+		        abilities = createSpell(SPELLS.abilities, "d");
+		        abilities.lvl = 1;
+			} else if(object_index != obj_lille_skutt) {
+				sell = createSpell(SPELLS.sell, "c")
+				sell.lvl = 1
+			}
+		}
+	}
 
 
 		with(obj_animator) {
@@ -399,6 +401,7 @@ load_create_instances = function() {
             );
 
             with (_inst) {
+				saveData = s
                 load(s);
             }
         }

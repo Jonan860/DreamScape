@@ -1,4 +1,5 @@
-
+idd = global.next_idd
+global.next_idd += 1
 var var_tile_scale = sprite_get_height(spr_hexagon_pink)/max(sprite_height,sprite_width)
 image_yscale = var_tile_scale; image_xscale = var_tile_scale
 rally_tile = noone //is a tile
@@ -25,8 +26,8 @@ save = function() {
 	if(variable_instance_exists(id, "queue_list")) {
 		s.queue_list = queue_list
 	}
-	s.owner = global.player // behövs för kompelering
-	s.idd = id
+	s.owner = global.player.idd // behövs för kompelering
+	s.idd = idd
 	return s
 }
 

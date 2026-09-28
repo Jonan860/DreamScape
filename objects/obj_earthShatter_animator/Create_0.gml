@@ -25,7 +25,7 @@ save = function() {
 		total_time_to_earthshatter_impact : total_time_to_earthshatter_impact,
 		targetX : target_tile._x,
 		targetY : target_tile._y,
-		owner : owner.owner.id,
+		owner : scr_get_idd(owner.owner),
 		time_until_earthshatter_gone : time_until_earthshatter_gone,
 		impacted_tiles_list : saveTileList(impacted_tiles_list)
 	}

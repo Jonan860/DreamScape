@@ -6,13 +6,13 @@ target = noone
 save = function() {
 	var s = {}
 	s.x = x; s.y = y
-	s.owner = owner.owner.id
+	s.owner = scr_get_idd(owner.owner)
 	s.ownername = owner.name
 	s.direction = direction
 	s.speed = speed
-	s.target = target
+	s.target = scr_get_idd(target)
 	s.image_angle = image_angle
-	s.idd = id
+	s.idd = idd
 	return s
 }
 

@@ -7,8 +7,8 @@ if(variable_instance_exists(id, "owner")) {
 }
 save = function() {
 	var s = {
-		target : target.id,
-		owner : owner.owner.id,
+		target : scr_get_idd(target),
+		owner : scr_get_idd(owner.owner),
 		duration_left : duration_left,
 		x : x,
 		y : y

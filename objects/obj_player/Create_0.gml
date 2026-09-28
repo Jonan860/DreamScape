@@ -1,4 +1,5 @@
-idd = noone
+idd = global.next_idd
+global.next_idd += 1
 money = 100 //100
 footman_has_defend_upgrade = 0
 elven_archers_has_improved_bows = 0
@@ -23,7 +24,7 @@ save = function() {
 		case global.player : s.identity = "player"; break;
 		case global.creep_lord : s.identity = "creep lord"; break;
 	}
-	s.idd = id
+	s.idd = idd
 	return s
 }
 

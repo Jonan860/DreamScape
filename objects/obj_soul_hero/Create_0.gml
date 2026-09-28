@@ -19,7 +19,7 @@ save = function() {
 	s._x = x; s._y = y
 	s.tileX = tile.tile_x
 	s.tileY = tile.tile_y
-	s.instance = instance
+	s.instance = scr_get_idd(instance)
 	s.revival_time_left_sec = revival_time_left_sec
 	s.image_xscale = image_xscale
 	s.image_yscale = image_yscale

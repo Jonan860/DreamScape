@@ -1,3 +1,5 @@
+idd = global.next_idd
+global.next_idd += 1
 event_inherited()
 if(variable_instance_exists(id, "owner")) {
 	total_time_after_effect_end_sec = owner.duration[1]
@@ -10,7 +12,7 @@ save = function() {
 	s.lifeTimeSec = lifeTimeSec
 	s.total_time_after_effect_end_sec = total_time_after_effect_end_sec
 	s.total_time_sec = total_time_sec
-	s.owner = owner.owner.id
+	s.owner = scr_get_idd(owner.owner)
 	s.targetX = target.tile_x
 	s.targetY = target.tile_y
 	return s

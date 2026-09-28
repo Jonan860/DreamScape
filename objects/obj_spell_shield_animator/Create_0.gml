@@ -8,7 +8,7 @@ save = function() {
 	s.x = x; s.y = y
 	s.HP = HP
 	s.alarm = alarm[0]
-	s.owner = owner.owner.id
+	s.owner = scr_get_idd(owner.owner)
 	return s
 }
 

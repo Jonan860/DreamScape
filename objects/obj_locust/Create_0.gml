@@ -22,8 +22,8 @@ save = function() {
 	var s = {}
 	s.x = x; s.y = y
 	s.food_amount = food_amount
-	s.target = target
-	s.owner = owner.id
+	s.target = scr_get_idd(target)
+	s.owner = scr_get_idd(owner)
 	return s
 }
 

@@ -38,6 +38,11 @@ abilities_button = {
 	_y : r_button._y - spell_button_height
 }
 
+sell_button = {
+	_x : e_button._x,
+	_y : e_button._y - 2 * spell_button_height
+}
+
 charToButton = ds_map_create()
 ds_map_add(charToButton, "q", q_button)
 ds_map_add(charToButton, "w", w_button)
@@ -46,6 +51,7 @@ ds_map_add(charToButton, "r", r_button)
 ds_map_add(charToButton, "a", a_button)
 ds_map_add(charToButton, "s", s_button)
 ds_map_add(charToButton, "d", abilities_button)
+ds_map_add(charToButton, "c", sell_button)
 
 gui_display_abilities = 0
 
@@ -73,8 +79,8 @@ armor_coverage_text_x = mana_text_x
 armor_coverage_text_y = damage_text_y + stats_text_y_space
 attack_rate_text_x = mana_text_x
 attack_rate_text_y = armor_coverage_text_y + stats_text_y_space
-damage_amplification_text_x = mana_text_x
-damage_amplification_text_y = attack_rate_text_y + stats_text_y_space
+amplification_text_x = mana_text_x
+amplification_text_y = attack_rate_text_y + stats_text_y_space
 
 summon_time_bar_x1 = var_camera_width/2 - 2 * spell_button_width
 summon_timer_bar_y1 = var_camera_height - 4 * spell_button_height

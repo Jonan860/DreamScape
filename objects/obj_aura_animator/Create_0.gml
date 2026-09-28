@@ -1,9 +1,9 @@
 event_inherited()
 save = function() {
 	var s = {}
-	s.owner = owner.owner.id
+	s.owner = scr_get_idd(owner.owner)
 	s.ownername = owner.name
-	s.idd = id
+	s.idd = idd
 	return s
 }
 

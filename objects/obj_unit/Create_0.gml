@@ -1,16 +1,20 @@
+idd = global.next_idd
+global.next_idd += 1
 skills = []
 buttonToSkill = ds_map_create()
 decloak = createSpell(SPELLS.decloak, "s")
 decloak.lvl = 1
 action_bar = 0
 action_bar_speed = 1
-damage_amplification = 1
+amplification = 1
 setAltitude = function(_altitude) {
-	scr_make_room_for_instance_on_tile(tile, _altitude)
-	tile.occupants[? altitude] = array_filter(tile.occupants[? altitude], function(value, index) {return value != id})
-	//array_remove_value(tile.occupants[? altitude], id)
+	if(tile != noone) {
+		scr_make_room_for_instance_on_tile(tile, _altitude)
+		tile.occupants[? altitude] = array_filter(tile.occupants[? altitude], function(value, index) {return value != id})
+		//array_remove_value(tile.occupants[? altitude], id)
+		array_push(tile.occupants[? _altitude], id)
+	}
 	altitude = _altitude
-	array_push(tile.occupants[? altitude], id)
 }
 list_of_territory_tiles = []
 var var_tile_scale = sprite_get_height(spr_hexagon_pink) / max(sprite_height, sprite_width)
@@ -41,6 +45,11 @@ attack_animator = noone
 creep_buddies = []
 piercing = 0
 
+
+if(variable_instance_exists(id, "owner") and owner == global.player and !object_is_ancestor(object_index, obj_hero) and object_index != obj_lille_skutt) {
+	sell = createSpell(SPELLS.sell, "c")
+	sell.lvl = 1;
+}
 gosas = false
 armor_coverage = []
 armor = []
@@ -105,6 +114,7 @@ scr_update_action_bar_speed = function() {
 
 evaluate_HP_goodness = function() {
 	var footmodel = instance_create_depth(-10000, -10000, 0, obj_footman)
+	footmodel.owner = owner == global.player ? global.enemy : global.player
 	var damage_store = damage
 	var hpStore = HP
 	scr_convert_damage_to_accuracy_included_damage(footmodel)
@@ -153,14 +163,14 @@ save = function() {
 	s._depth = depth
 	s._speed = speed
 	s.phase = phase
-	s.owner = owner
+	s.owner = scr_get_idd(owner)
 	s.stunned = stunned
 	s.gosas = gosas
 	s.enemy_ai_spell_counter = enemy_ai_spell_counter
 	s.movement_cost = movement_cost
 	s.attack_cost = attack_cost
 	s.damage = damage
-	s.damage_amplification = damage_amplification
+	s.amplification = amplification
 	s.armor = armor
 	s.range = range
 	s.accuracy = accuracy
@@ -172,8 +182,8 @@ save = function() {
 	s.max_action_bar = max_action_bar
 	s.HP = HP
 	s.max_HP = max_HP
-	s.idd = id
-	s.target = target
+	s.idd = idd
+	s.target = scr_get_idd(target)
 	if(destination != noone) {
 		s.destinationX = destination.tile_x
 		s.destinationY = destination.tile_y
@@ -220,7 +230,7 @@ save = function() {
 		s.lvl = lvl
 	}
 	if(variable_instance_exists(id, "object_in_stomach")) {
-		s.object_in_stomach = object_in_stomach
+		s.object_in_stomach = scr_get_idd(object_in_stomach)
 	}
 	if(variable_instance_exists(id, "list_of_territory_tiles")) {
 		s.list_of_territory_tiles = saveTileList(list_of_territory_tiles)
@@ -255,7 +265,7 @@ load = function(s) {
 	movement_cost = s.movement_cost
 	attack_cost = s.attack_cost
 	damage = s.damage
-	damage_amplification = s.damage_amplification
+	amplification = s.amplification
 	armor = s.armor
 	range = s.range
 	stunned = s.stunned
@@ -292,7 +302,11 @@ load = function(s) {
 	altitude = s.altitude
 	x = s.x; y = s.y
 	if(variable_struct_exists(s, "tileX")) {
-		scr_move_to_tile(getTile(s.tileX, s.tileY))
+		if(!eaten) {
+			scr_move_to_tile(getTile(s.tileX, s.tileY))
+		} else {
+			tile = getTile(s.tileX, s.tileY)
+		}
 	}
 	if(s.selected) {
 		with(global.tile_selected) {

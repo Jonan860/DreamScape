@@ -11,6 +11,8 @@ damage = 10
 
 base_armor = [3, 1, 0]
 armor = base_armor
+base_armor_coverage = [50, 25, 25]
+armor_coverage = base_armor_coverage
 accuracy = 1
 base_accuracy = 1
 evasiveness = 0.5

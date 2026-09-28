@@ -1,6 +1,6 @@
 
 function scr_left_hud_pressed() {
-	var buttons = ["q", "w", "e", "r", "a", "s", "d"]
+	var buttons = ["q", "w", "e", "r", "a", "s", "d", "c"]
 	with(obj_battle_hud) {
 		for(var i = 0; i < array_length(buttons); i++) {
 			if(scr_is_button_pressed(buttons[i])) {

@@ -1,7 +1,7 @@
 event_inherited()
 save = function(s) {
 	return {
-		owner : s.owner.owner.id
+		owner : scr_get_idd(s.owner.owner)
 	}
 }
 
