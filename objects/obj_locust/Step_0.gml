@@ -62,5 +62,5 @@ switch(phase) {
 }
 else
 {
-show_debug_message("grattis din debug verkar funka")
+//show_debug_message("grattis din debug verkar funka")
 }

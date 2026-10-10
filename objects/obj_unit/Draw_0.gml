@@ -48,5 +48,7 @@ if(!eaten and !tied_up and phase != UNIT_PHASES.gosing) {
 	}
 }
 else if(tied_up) {
-draw_self()
+		var varXscale2 = sprite_get_width(spr_hexagon_pink)/sprite_get_width(sprite_index)
+		var varYscale2 = sprite_get_height(spr_hexagon_pink)/sprite_get_height(sprite_index)
+		draw_sprite_ext(sprite_index, 0, x, y, varXscale2, varYscale2, 0, -1, 1)
 }

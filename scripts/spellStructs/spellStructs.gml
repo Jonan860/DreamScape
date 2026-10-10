@@ -127,7 +127,7 @@ function spellToAmount(spell) {
 		case SPELLS.haste : return 25
 		case SPELLS.flash_heal : return 1
 		case SPELLS.soul_harvest : return 7
-		case SPELLS.imba_heal : return 25
+		case SPELLS.imba_heal : return 50
 		case SPELLS.abolish_magic : return 100
 		case SPELLS.death_pact : return [1, 1.5, 2]
 		default : return noone
@@ -175,7 +175,7 @@ function spellToRange(spell) {
 		case SPELLS.life_drain : return 2
 		case SPELLS.dark_arrow : return 2
 		case SPELLS.silence : return 6
-		case SPELLS.imba_heal : return 2
+		case SPELLS.imba_heal : return 6
 		case SPELLS.abolish_magic : return 4
 		case SPELLS.death_pact : return 4
 		default : return noone
@@ -378,7 +378,7 @@ function spellToManaCosts(spell) {
 		case SPELLS.silence : return [10, 20, 30]
 		case SPELLS.haste : return 40
 		case SPELLS.flash_heal : return 1
-		case SPELLS.imba_heal : return 25
+		case SPELLS.imba_heal : return 50
 		case SPELLS.abolish_magic : return 25
 		case SPELLS.death_pact : return [50, 100, 150]
 		default : return noone
@@ -993,7 +993,7 @@ function createSpell(spellEnum, _letter) {
 		}
 		
 		createDebufforBuff = function(_victim) constructor {
-			total_duration = other.getDuration()
+			total_duration = other.getDuration() / _victim.amplification
 			spellHealth = other.getSpellHealth()
 			duration = other.getDuration() / _victim.amplification
 			icon = other.icon

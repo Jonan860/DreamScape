@@ -1,5 +1,5 @@
 function scr_right_pressed_unit(var_selected_unit) {
-	if(var_selected_unit.phase != UNIT_PHASES.sleep) {
+	if(var_selected_unit.phase != UNIT_PHASES.sleep and !var_selected_unit.tied_up) {
 		with(global.selectedSpell) {
 			if(lvl > 0 and (owner.mana == noone or owner.mana > getManaCost()) and cooldown_current == 0 and (range == noone or scr_get_distance(var_selected_unit.tile, global.clicked_tile) <= range) and shouldRightPerform()) {
 				if(owner.mana != noone) {

@@ -214,6 +214,11 @@ save = function() {
 	} else {
 		show_debug_message("heuj")
 	}
+	if(start_tile != noone) { // could be soul
+		s.start_tileX = start_tile.tile_x; s.start_tileY = start_tile.tile_y
+	} else {
+		show_debug_message("hseuj")
+	}
 	s.x = x; s.y = y
 	if(variable_instance_exists(id, "skills")) {
 		s.skillLevels = []
@@ -307,6 +312,9 @@ load = function(s) {
 		} else {
 			tile = getTile(s.tileX, s.tileY)
 		}
+	}
+	if(variable_struct_exists(s, "start_tileX")) {
+		start_tile = getTile(s.start_tileX, s.start_tileY)
 	}
 	if(s.selected) {
 		with(global.tile_selected) {

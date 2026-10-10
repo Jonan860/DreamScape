@@ -74,15 +74,6 @@ with(scr_instance_create_at_tile_with_owner(obj_sakura, getTile(2, 0), global.pl
 	
 	var var_alt_list = tile.occupants[?altitude]
 	tile.occupants[?altitude] = array_filter(var_alt_list, function(value, index) {return value != id})
-	//array_remove_value(var_alt_list, id)
-	repeat(5) {
-		scr_level_up()
-	}
-	iryo_ninjutsu.level_up()
-	kai.level_up()
-	shannaro.level_up()
-	shannaro.level_up()
-	shannaro.level_up()
 }
 
 //scr_instance_create_at_tile_with_owner(obj_valkyrie, getTile(7, 15), global.player)

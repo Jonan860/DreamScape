@@ -21,5 +21,7 @@ function attackEffectWrapper(_perputrator, _target, sureHit = false) {
 			}
 			scr_attack_hp_reduction(_perputrator, _target, varArmor)
 		}
+	} else {
+		_perputrator.missing_time = 30
 	}
 }

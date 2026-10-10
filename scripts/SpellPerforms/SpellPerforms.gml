@@ -354,8 +354,9 @@ function spellCanPerform() {
 		var silenced = scr_is_debuffed(SPELLS.silence)
 		var freezed = scr_is_debuffed(SPELLS.freeze)
 		var polymorphed = scr_is_debuffed(SPELLS.polymorph)
+		var sleeped = scr_is_debuffed(SPELLS.sleep)
 	}
-	var Disarmed = silenced or freezed or polymorphed
+	var Disarmed = silenced or freezed or polymorphed or sleeped
 	return (owner.mana == noone or owner.mana > getManaCost()) and cooldown_current == 0 and !Disarmed
 }
 

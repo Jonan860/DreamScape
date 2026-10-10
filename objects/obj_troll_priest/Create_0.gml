@@ -20,6 +20,7 @@ experience_to_give = 100
 mana = 200
 max_mana = 200
 mana_regen_rate_per_sec = 10
+start_tile = noone
 imba_heal = createSpell(SPELLS.imba_heal, "q")
 imba_heal.level_up()
 imba_heal.autocast = 1
