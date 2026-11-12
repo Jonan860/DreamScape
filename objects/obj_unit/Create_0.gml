@@ -23,6 +23,7 @@ path = []
 list_path_arrow_directions = []
 tile = coordToTile()
 destination = noone
+start_tile = noone
 phase = UNIT_PHASES.idle
 target = noone
 optimal_path = []
@@ -72,6 +73,8 @@ HP_bar_height = sprite_get_height(spr_hexagon_pink)/16
 HP_bar_width = sprite_get_width(spr_hexagon_pink) * 2/3
 hp_bar_translate_y = sprite_get_height(spr_hexagon_pink)/2 * 3/4
 
+
+
 has_waited_for_blocker_to_move = 0
 
 reduceDebuffDuration = function(dispelAmount) {
@@ -108,7 +111,24 @@ scr_update_accuracy = function() {
 }
 
 scr_update_action_bar_speed = function() {
-	action_bar_speed = (1 - (scr_is_debuffed(SPELLS.slow) ? (find_active_debuff(SPELLS.slow).amount) : 0))
+	var slowFactor = 1 - (scr_is_debuffed(SPELLS.slow) ? (find_active_debuff(SPELLS.slow).amount) : 0)
+	var crippleFactor = 1 - (scr_is_debuffed(SPELLS.cripple) ? (find_active_debuff(SPELLS.cripple).amount / 100) : 0)
+	var frenzyAmountMap = spellToAmount(SPELLS.unholy_frenzy)
+	var frenzyAmount = array_first(frenzyAmountMap[? "speed"]) / 100
+	var frenzyFactor = 1 + (scr_is_debuffed(SPELLS.unholy_frenzy) ? frenzyAmount : 0)
+	
+	var hastes = 0
+	var haste_bonus = spellToAmount(SPELLS.haste) / 100
+	if(scr_is_buffed(SPELLS.haste)) {
+		for(var i = 0; i < array_length(list_of_active_buff_structs); i++) {
+			if(list_of_active_buff_structs[i].Enum == SPELLS.haste) {
+				hastes += 1
+			}
+		}
+	}
+	
+	var hasteFactor =  power(1 + haste_bonus, hastes)
+	action_bar_speed = frenzyFactor * hasteFactor * crippleFactor * slowFactor
 }
 
 
@@ -141,8 +161,10 @@ unapply = function(buffEnum) {
 		for(var i = 0; i < array_length(thisList); i++) {
 			
 				if(thisList[i].Enum == buffEnum) {
-					thisList[i].unapply()
+					var varbuff = thisList[i]
+					
 					thisList = array_delete(thisList, i, 1)
+					varbuff.unapply()
 					//thisList = array_filter(thisList, function(value, index) {return value.Enum != weirdVar})
 					//array_remove_value(other.list_of_active_debuff_structs, self)
 					exit;

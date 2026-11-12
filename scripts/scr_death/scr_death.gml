@@ -120,8 +120,8 @@ function scr_death() {
 		scr_disblend_list(path)
 		
 		if(object_get_parent(object_index) != obj_hero and object_index != obj_lille_skutt or owner == global.enemy or owner == global.creep_lord) {
-			if(object_index == obj_golden_dragon) {
-				with(obj_light_beam) {
+			if(object_index == obj_golden_dragon or object_index == obj_frost_wyrm) {
+				with(obj_beam) {
 					if(owner == other.id) {
 						instance_destroy()
 					}

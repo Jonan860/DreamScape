@@ -14,9 +14,12 @@ function scr_ai_player() {
 		} else if(healskill.getManaCost() < mana and healskill.cooldown_current <= 0) {
 			with(healskill) {
 				var temp = global.clicked_tile
+				var tempalt = global.clicked_alt
 				global.clicked_tile = other.target.tile
+				global.clicked_alt = other.target.altitude
 				rightPerform()
 				global.clicked_tile = temp
+				global.clicked_alt = tempalt
 				cooldown_current = getCooldown()
 				owner.mana -= getManaCost()
 			}

@@ -1,5 +1,5 @@
 
-if(scr_is_enemies(owner.owner, other.id)) {
+if(scr_is_enemies(owner.owner, other.id) and other.altitude != ALTITUDES.air) {
 	if(array_get_index(nisses_lista, other.id) < 0 and other != global.ida) {
 		with(owner.owner) {
 			var var_stored_damage = damage  ///element också!

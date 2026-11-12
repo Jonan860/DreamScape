@@ -27,10 +27,29 @@ a_button = {
 	_x : q_button._x,
 	_y : q_button._y - spell_button_height
 }
+z_button = {
+	_x : q_button._x,
+	_y : a_button._y - spell_button_height
+}
+
 ///hud_r_spell_y=hud_w_button_y
 s_button = {
 	_x : w_button._x,
 	_y : q_button._y - spell_button_height
+}
+x_button = {
+	_x : w_button._x,
+	_y : s_button._y - spell_button_height
+}
+
+d_button = {
+	_x : e_button._x,
+	_y : e_button._y - spell_button_height
+} 
+
+c_button = {
+	_x : d_button._x,
+	_y : d_button._y - spell_button_height
 }
 
 abilities_button = {
@@ -43,6 +62,10 @@ sell_button = {
 	_y : e_button._y - 2 * spell_button_height
 }
 
+inventory = {
+	_x : 0
+}
+
 charToButton = ds_map_create()
 ds_map_add(charToButton, "q", q_button)
 ds_map_add(charToButton, "w", w_button)
@@ -52,6 +75,8 @@ ds_map_add(charToButton, "a", a_button)
 ds_map_add(charToButton, "s", s_button)
 ds_map_add(charToButton, "d", abilities_button)
 ds_map_add(charToButton, "c", sell_button)
+ds_map_add(charToButton, "z", z_button)
+ds_map_add(charToButton, "x", x_button)
 
 gui_display_abilities = 0
 

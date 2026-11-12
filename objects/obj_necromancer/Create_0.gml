@@ -24,7 +24,9 @@ mana_regen_rate_per_sec = 0.3
 attack_animator = obj_magic_projectile_animator
 
 raise = createSpell(SPELLS.raise, "q")
-skills = [raise]
-
+unholy_frenzy = createSpell(SPELLS.unholy_frenzy, "w")
+cripple = createSpell(SPELLS.cripple, "e")
+skills = [raise, unholy_frenzy, cripple]
+raise.lvl = 1
 ai = method(undefined, scr_ai_spell_necromancer)
 attack_target = function() {attack_target_magic_projectile(c_lime)}

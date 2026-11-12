@@ -3,6 +3,8 @@ function spellToRightPerform(spell) {
 		case SPELLS.carrion_beetles : return method(undefined, carrionBeetleRightPerform)
 		case SPELLS.carrion_swarm : return;
 		case SPELLS.curse : return method(undefined, curseRightPerform)
+		case SPELLS.unholy_frenzy : return method(undefined, unholyFrenzyRightPerform)
+		case SPELLS.cripple : return method(undefined, crippleRightPerform)
 		case SPELLS.dark_ritual : return method(undefined, darkSacrificeRightPerform)
 		case SPELLS.earthshatter : return method(undefined, earthshatterRightPerform)
 		case SPELLS.freeze : return method(undefined, freezeRightPerform)
@@ -67,9 +69,13 @@ function silenceRightPerform(varTile) {
 	
 	var varTileList = scr_get_tiles_within_range(getAoe(), varTile)
 	for(i = 0; i < array_length(varTileList); i++) {
-		for(var j = 0; j < array_length(varTileList[i].occupants[? ALTITUDES.ground]); j++) {
-			if(object_is_ancestor(varTileList[i].occupants[? ALTITUDES.ground][j].object_index, obj_unit)) {
-				scr_apply_debuff(varTileList[i].occupants[? ALTITUDES.ground][j])
+		var var_altitudes = [ALTITUDES.ground, ALTITUDES.invisible, ALTITUDES.air]
+		for(k = 0; k < array_length(var_altitudes); k++) {
+			var var_alt = var_altitudes[k]
+			for(var j = 0; j < array_length(varTileList[i].occupants[? var_alt]); j++) {
+				if(object_is_ancestor(varTileList[i].occupants[? var_alt][j].object_index, obj_unit)) {
+					scr_apply_debuff(varTileList[i].occupants[? var_alt][j])
+				}
 			}
 		}
 	}
@@ -84,7 +90,8 @@ function lifeDrainRightPerform(varTarget = undefined ) {
 	var varduration = getDuration()
 	with(instance_create_depth(owner.x, owner.y, 0, obj_life_drain_animator)) {
 		if(varTarget == undefined) {
-			target = array_first(global.clicked_tile.occupants[? ALTITUDES.ground])
+			var var_alt = getAltPressed()
+			target = array_first(global.clicked_tile.occupants[? var_alt])
 		} 
 		else
 		{
@@ -105,7 +112,8 @@ function lifeDrainRightPerform(varTarget = undefined ) {
 function iryoNinjutsuRightPerform() {
 	owner.phase = UNIT_PHASES.channeling
 	with(instance_create_depth(owner.x, owner.y, 0, obj_iryo_ninjutsu_animator)) {
-		target = array_first(global.clicked_tile.occupants[? ALTITUDES.ground])
+		var var_alt = getAltPressed()
+		target = array_first(global.clicked_tile.occupants[? var_alt])
 		owner = other
 		x = (owner.owner.x + target.x) / 2
 		y = (owner.owner.y + target.y) / 2
@@ -155,8 +163,8 @@ function abolishMagicRightPerform(varTile = global.clicked_tile) {
 	varTile.reduceDebuffDuration(getAmount())
 	varTile.reduceBuffDuration(getAmount())
 }
-function deathPactRightPerform(varTile = global.clicked_tile) {
-	var varTarget = array_first(varTile.occupants[? ALTITUDES.ground])
+function deathPactRightPerform(varTile = global.clicked_tile, varAlt = global.clicked_alt) {
+	var varTarget = array_first(varTile.occupants[? varAlt])
 	var healthpool = varTarget.HP * getAmount()
 	owner.HP = min(owner.HP + healthpool, owner.max_HP)
 	
@@ -169,6 +177,7 @@ function spellToLeastAcceptableGoodness(spellEnum) {
 		case SPELLS.silence : return 200
 		case SPELLS.imba_heal : return 1
 		case SPELLS.abolish_magic : return 25
+		case SPELLS.cripple : return 40
 		default : return 0
 	}
 }
@@ -186,6 +195,8 @@ function spellToIconPerform(spellenum) {
 		case SPELLS.holy_light : return method(undefined, selectSwitchCursor)
 		case SPELLS.abilities : return method(undefined, abilitiesIconPerform)
 		case SPELLS.sell : return method(undefined, sellIconPerform)
+		case SPELLS.health_stone : return method(undefined, healthStoneIconPerform)
+		case SPELLS.mana_stone : return method(undefined, manaStoneIconPerform)
 		case SPELLS.spell_shield : return method(undefined, spellShieldIconPerform)
 		case SPELLS.freeze : return method(undefined, selectSwitchCursor)
 		case SPELLS.slow : return method(undefined, selectSwitchCursor)
@@ -221,6 +232,46 @@ function spellToIconPerform(spellenum) {
 		case SPELLS.abolish_magic : return function(){}
 	}
 }
+
+function spellToIconRightPerform(spellenum) {
+	switch(spellenum) {
+		case  SPELLS.health_stone : 
+		case  SPELLS.mana_stone : 
+		return method(undefined, itemRightPerform)
+			
+	}
+}
+
+function itemRightPerform() {
+	var varname = string_replace_all(string_lower(name), " ", "_")
+	var varitem = self
+	var varowner = owner
+	with(obj_hero) {
+		if(id != varowner.id and owner == global.player and scr_get_distance(tile, varowner.tile) < 2) {
+			
+
+            // Remove it from the original inventory
+           
+			var varletters = ["z", "x", "c"]
+			for(var i = 0; i < array_length(varletters); i++) {
+				if(!ds_map_exists(buttonToSkill, varletters[i])) {
+					var _index = array_get_index(varowner.skills, varitem);
+			        if (_index != -1) {
+			            array_delete(varowner.skills, _index, 1);
+			        }
+					var newitem = createSpell(varitem.Enum, varletters[i])
+					newitem.lvl = 1
+					array_push(skills, newitem);
+					variable_instance_set(id, varname, newitem)
+					ds_map_delete(varowner.buttonToSkill, varletters[i])
+					variable_instance_set(varowner, varname, undefined)
+					exit
+				}
+			}
+		}
+	}
+}
+
 
 function hasteIconPerform() {
 	if(cooldown_current == 0 and owner.mana >= getManaCost()) {
@@ -294,13 +345,14 @@ function spellToShouldIconPerformLocal(_Enum) {
 
 
 function slowShouldRightPerformLocal() {
+	
 	return array_first(global.clicked_tile.occupants[? ALTITUDES.ground]) != undefined and scr_is_enemies(owner, array_first(global.clicked_tile.occupants[? ALTITUDES.ground]))
 }
 
 
 
 function healShouldRightPerformLocal() {
-	return array_first(global.clicked_tile.occupants[? ALTITUDES.ground]) != undefined and !scr_is_enemies(owner, array_first(global.clicked_tile.occupants[? ALTITUDES.ground]))
+	return array_first(global.clicked_tile.occupants[? global.clicked_alt]) != undefined and !scr_is_enemies(owner, array_first(global.clicked_tile.occupants[? global.clicked_alt]))
 }
 
 function carrionBeetleRightPerform(soul_to_raise) {
@@ -312,7 +364,7 @@ function raiseSkeletonRightPerform() {
 }
 
 function goldenDragonRightPerform() {
-	scr_make_room_for_instance_on_tile(global.clicked_tile, ALTITUDES.ground)
+	scr_make_room_for_instance_on_tile(global.clicked_tile, ALTITUDES.air)
 	scr_instance_create_at_tile_with_owner(obj_golden_dragon, global.clicked_tile, owner.owner)
 }
 
@@ -338,7 +390,8 @@ array_push(earthshatter_stun_per_distance, 10, 5, 2)
 
 function spellToShouldPerform(_spell) {
 	switch(_spell) {
-		case SPELLS.curse : 
+		case SPELLS.curse :
+		case SPELLS.cripple : 
 			return function() {
 				with(owner) {
 					return !(array_length(scr_find_enemies_within_range(other.range)) == 0)
@@ -365,6 +418,8 @@ function spellToCanPerformLocal(_spell) {
 		case SPELLS.frost_nova : return function() {return owner.phase != UNIT_PHASES.frostNova}
 		case SPELLS.life_drain : return function() {return owner.phase != UNIT_PHASES.channeling}
 		case SPELLS.curse : return function() {return owner.altitude != ALTITUDES.invisible}
+		case SPELLS.unholy_frenzy : return function() {return return lvl > 0 and owner.altitude != ALTITUDES.invisible}
+		case SPELLS.cripple : return function() {return return lvl > 0 and owner.altitude != ALTITUDES.invisible}
 		case SPELLS.dark_ritual : return function() {return lvl > 0 and owner.phase != "frost nova"}
 		default : return function() {return true} 
 	}
@@ -414,7 +469,7 @@ function invisibilityShouldIconPerform() {return global.player.sorceress_has_inv
 
 
 function healRightPerform(varTile = global.clicked_tile) {
-		var varTarget = array_first(varTile.occupants[? ALTITUDES.ground])
+		var varTarget = array_first(varTile.occupants[? global.clicked_alt])
 		instance_create_depth(varTarget.x, varTarget.y, varTarget.depth - 1, obj_heal_animator, {target : varTarget, owner : other})
 }
 
@@ -426,6 +481,24 @@ function abilitiesIconPerform() {
 function sellIconPerform() {
 	global.player.money += ds_map_find_value(global.map_object_to_costs, owner.object_index) * max(0, owner.HP / owner.max_HP)
 	owner.HP = -1000;
+}
+
+function healthStoneIconPerform() {
+	var amountMap = getAmount()
+	var varHeal = amountMap[? "heal"]
+	with(owner) {
+		HP = min(max_HP, HP + varHeal)
+		variable_instance_remove(inst, "health_stone");
+	}
+}
+
+function manaStoneIconPerform() {
+	var amountMap = getAmount()
+	var varRestore = amountMap[? "restoration"]
+	with(owner) {
+		mana = min(mana_HP, HP + varRestore)
+		variable_instance_remove(inst, "mana_stone");
+	}
 }
 
 function spellShieldIconPerform() {
@@ -451,8 +524,8 @@ function revivePerform() {
 }
 
 function sleepRightPerform() {
-	scr_apply_debuff(array_first(global.clicked_tile.occupants[? ALTITUDES.ground]))
-	array_first(global.clicked_tile.occupants[? ALTITUDES.ground]).phase = UNIT_PHASES.idle
+	scr_apply_debuff(array_first(global.clicked_tile.occupants[? global.clicked_alt]))
+	array_first(global.clicked_tile.occupants[? global.clicked_alt]).phase = UNIT_PHASES.idle
 	//instance_create_depth(varTarget.x, varTarget.y, varTarget.depth - 1, obj_sleep_animator, {owner : other, target : varTarget})
 	//with(varTarget) {
 	//	phase = UNIT_PHASES.sleep
@@ -475,8 +548,8 @@ function freezeRightPerform(perputrator, victim) {
 }
 
 function polymorphRightPerform(perputrator, victim) {
-	scr_apply_debuff(array_first(global.clicked_tile.occupants[? ALTITUDES.ground]))
-	array_first(global.clicked_tile.occupants[? ALTITUDES.ground]).phase = UNIT_PHASES.idle
+	scr_apply_debuff(array_first(global.clicked_tile.occupants[? global.clicked_alt]))
+	array_first(global.clicked_tile.occupants[? global.clicked_alt]).phase = UNIT_PHASES.idle
 }
 
 
@@ -539,7 +612,7 @@ function buildImprovedBowsPerform() {
 	}
 }
 
-function slowRightPerform(_victim = array_first(global.clicked_tile.occupants[? ALTITUDES.ground])) {
+function slowRightPerform(_victim = array_first(global.clicked_tile.occupants[? global.clicked_alt])) {
 	scr_apply_debuff(_victim)
 }
 
@@ -550,11 +623,15 @@ function cloakRightPerform(targeto) {
 }
 
 function invisibilityRightPerform(){
-	scr_apply_debuff(array_first(global.clicked_tile.occupants[? ALTITUDES.ground]))
+	scr_apply_debuff(array_first(global.clicked_tile.occupants[? global.clicked_alt]))
 	with(obj_unit) {
-		unit_detarget(array_first(global.clicked_tile.occupants[? ALTITUDES.ground]))
+		var var_altitudes = [ALTITUDES.ground, ALTITUDES.air, ALTITUDES.invisible]
+		for(var i = 0; i < array_length(var_altitudes); i++) {
+			var var_alt = var_altitudes[i]
+			unit_detarget(array_first(global.clicked_tile.occupants[? var_alt]))
+		}
 	}
-	with(array_first(global.clicked_tile.occupants[? ALTITUDES.ground])) {
+	with(array_first(global.clicked_tile.occupants[? global.clicked_alt])) {
 		setAltitude(ALTITUDES.invisible)
 		phase = UNIT_PHASES.idle
 		action_bar = 0
@@ -572,7 +649,10 @@ function frostNovaRightPerform(var_target_tile) {
 
 
 function invisibilityShouldRightPerform() {
-	with(array_first(global.clicked_tile.occupants[? ALTITUDES.ground])) {
+	if(global.clicked_alt == ALTITUDES.invisible) {
+		return false
+	}
+	with(array_first(global.clicked_tile.occupants[? global.clicked_alt])) {
 		return !scr_is_enemies(id, other.owner.id)
 	}
 	return false
@@ -580,10 +660,24 @@ function invisibilityShouldRightPerform() {
 	
 function curseRightPerform(_unit = noone) {
 	if(_unit == noone) {
-		_unit = array_first(global.clicked_tile.occupants[? ALTITUDES.ground])
+		_unit = array_first(global.clicked_tile.occupants[? global.clicked_alt])
 	}
 	scr_apply_debuff(_unit)
 	_unit.scr_update_accuracy()
+}
+
+function unholyFrenzyRightPerform(_unit = noone) {
+	if(_unit == noone) {
+		_unit = array_first(global.clicked_tile.occupants[? global.clicked_alt])
+	}
+	scr_apply_debuff(_unit)
+}
+
+function crippleRightPerform(_unit = noone) {
+	if(_unit == noone) {
+		_unit = array_first(global.clicked_tile.occupants[? global.clicked_alt])
+	}
+	scr_apply_debuff(_unit)
 }
 
 function earthshatterRightPerform() {
@@ -598,13 +692,13 @@ function kawarimiRightPerform()	{
 		owner.mana += getManaCost()
 		cooldown_current = 0
 	if(global.game.unit_to_kawarimi1 == noone) {
-		var var_unit_to_kawarimi1 = array_first(global.clicked_tile.occupants[? ALTITUDES.ground])
+		var var_unit_to_kawarimi1 = array_first(global.clicked_tile.occupants[? global.clicked_alt])
 		if(object_is_ancestor(var_unit_to_kawarimi1.object_index, obj_unit) and var_unit_to_kawarimi1.owner == global.player) {
 			global.game.unit_to_kawarimi1 = var_unit_to_kawarimi1
 			instance_create_depth(0, 0, var_unit_to_kawarimi1.depth + 1, animator, {owner : other})
 		}
 	} else {	
-	var var_unit_to_kawarimi2 = array_first(global.clicked_tile.occupants[? ALTITUDES.ground])
+	var var_unit_to_kawarimi2 = array_first(global.clicked_tile.occupants[? global.clicked_alt])
 	if(object_is_ancestor(var_unit_to_kawarimi2.object_index, obj_unit) and var_unit_to_kawarimi2.owner == global.player) {
 		owner.mana -= getManaCost()
 		cooldown_current = getCooldown()
@@ -617,7 +711,7 @@ function kawarimiRightPerform()	{
 }
 
 function holyLightRightPerform() {
-	var _target = array_first(global.clicked_tile.occupants[? ALTITUDES.ground])
+	var _target = array_first(global.clicked_tile.occupants[? global.clicked_alt])
 	with(_target) {
 		HP = min(max_HP, HP + other.getAmount())
 	}
@@ -627,8 +721,8 @@ function holyLightRightPerform() {
 
 
 function holyLightShouldRightShouldPerform() {
-	if( !is_undefined(array_first(global.clicked_tile.occupants[? ALTITUDES.ground]))) {
-		return !scr_is_enemies(owner, array_first(global.clicked_tile.occupants[? ALTITUDES.ground])) and owner.id !=  array_first(global.clicked_tile.occupants[? ALTITUDES.ground])
+	if( !is_undefined(array_first(global.clicked_tile.occupants[? global.clicked_alt]))) {
+		return !scr_is_enemies(owner, array_first(global.clicked_tile.occupants[? global.clicked_alt])) and owner.id !=  array_first(global.clicked_tile.occupants[? global.clicked_alt])
 	} else {
 		return false
 	}

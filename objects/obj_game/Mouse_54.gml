@@ -2,6 +2,7 @@ if(room == room_map) {
 	if(!scr_is_cursor_on_hud()) {
 		show_debug_message("before clickedT_TIle = moustotile")
 		global.clicked_tile = mouseToTile()
+		global.clicked_alt = getAltPressed()
 		if(global.tile_selected != noone) {
 			var var_selected_unit = array_first(global.tile_selected.selected_units)
 			if(global.clicked_tile != noone) {
@@ -14,7 +15,7 @@ if(room == room_map) {
 			}
 		}
 	} else {
-		var buttons = ["q", "w", "e", "r", "a", "s", "d"]
+		var buttons = ["q", "w", "e", "r", "a", "s", "d", "z", "x"]
 		with(obj_battle_hud) {
 			for(var i = 0; i < array_length(buttons); i++) {
 				if(scr_is_button_pressed(buttons[i])) {
@@ -26,13 +27,17 @@ if(room == room_map) {
 										if(lvl > 0 or object_is_ancestor(other.object_index, obj_building)) {
 											if(array_contains([SPELLS.heal, SPELLS.slow, SPELLS.haste, SPELLS.imba_heal], Enum)) {
 												autocast = !autocast
+											} 
+											else if(array_contains([SPELLS.health_stone, SPELLS.mana_stone], Enum))
+											{
+												iconRightPerform()
 											}
 											owner.phase = UNIT_PHASES.idle
 											exit
 										}
 									}
 								}
-							}
+							} 
 						}
 					}
 				}

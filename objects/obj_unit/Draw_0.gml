@@ -15,8 +15,18 @@ if(!eaten and !tied_up and phase != UNIT_PHASES.gosing) {
 	if(scr_is_debuffed(SPELLS.slow)) {
 		var varXscale2 = sprite_get_width(spr_hexagon_pink)/sprite_get_width(spr_slow)
 		var varYscale2 = sprite_get_height(spr_hexagon_pink)/sprite_get_height(spr_slow)
-		draw_sprite_ext(spr_slow, 0, x, y, varXscale2, varYscale2, 0, -1, 1)
+		draw_sprite_ext(spr_slow, image_index, x, y, varXscale2, varYscale2, 0, -1, 1)
 	}
+	
+	if(object_is_ancestor(object_index, obj_hero)) {
+		for(var i = 0; i < array_length(inventory); i++) {
+			var varXscale2 = sprite_get_width(spr_hexagon_pink)/sprite_get_width(spr_slow)
+		var varYscale2 = sprite_get_height(spr_hexagon_pink)/sprite_get_height(spr_slow)
+		draw_sprite_ext(spr_slow, image_index, x, y, varXscale2, varYscale2, 0, -1, 1)
+		}
+	}
+	
+	
 	image_alpha = altitude == ALTITUDES.invisible ? 0.5 : 1
 	if(!scr_is_debuffed(SPELLS.polymorph)){
 		draw_self()
@@ -25,6 +35,21 @@ if(!eaten and !tied_up and phase != UNIT_PHASES.gosing) {
 		var varYscale2 = sprite_get_height(spr_hexagon_pink)/sprite_get_height(spr_sheep)
 		draw_sprite_ext(spr_sheep, 0, x, y, varXscale2, varYscale2, 0, -1, 1)
 	}
+	
+	if(scr_is_debuffed(SPELLS.unholy_frenzy)) {
+		var varXscale2 = sprite_get_width(spr_hexagon_pink)/sprite_get_width(spr_unholy_frenzy)/2
+		var varYscale2 = sprite_get_height(spr_hexagon_pink)/sprite_get_height(spr_unholy_frenzy)/2
+		var frame = (current_time div 100) mod sprite_get_number(spr_unholy_frenzy);
+		draw_sprite_ext(spr_unholy_frenzy, frame, x, y - sprite_get_height(spr_hexagon_pink) / 4, varXscale2, varYscale2, 0, -1, 1)
+		
+	}
+	if(scr_is_debuffed(SPELLS.cripple)) {
+		var varXscale2 = sprite_get_width(spr_hexagon_pink)/sprite_get_width(spr_cripple_no_middle)
+		var varYscale2 = sprite_get_height(spr_hexagon_pink)/sprite_get_height(spr_cripple_no_middle)
+		var frame = (current_time div 100) mod sprite_get_number(spr_cripple_no_middle);
+		draw_sprite_ext(spr_cripple_no_middle, frame, x, y, varXscale2, varYscale2, 0, -1, 0.9)
+	}
+	
 	draw_healthbar(x - HP_bar_width/2, y + hp_bar_translate_y, x + HP_bar_width/2, y + hp_bar_translate_y + HP_bar_height, 100 * HP/max_HP, c_black, c_red, c_green, 0, 1, 0)
 	draw_healthbar(x - sprite_width/4, y + sprite_height * 3/8 - sprite_height * 1/4 * 1/8, x + sprite_width/4, y + sprite_height * 3/8 - 2 * sprite_height * 1/4 * 1/8, 100 * action_bar/max_action_bar, c_black, c_red, c_green, 0, 1, 0)
 	if(missing_time > 0) {

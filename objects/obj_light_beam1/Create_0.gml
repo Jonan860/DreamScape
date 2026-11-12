@@ -14,11 +14,13 @@ alarm[0] = 2 * room_speed
 save = function() {
 	var s = {}
 	s.owner = scr_get_idd(owner)
+	s.target_altitude = target_altitude
 	s.alarm = alarm[0]
 	return s
 }
 
 load = function(s) {
 	owner = s.owner
+	target_altitude = s.target_altitude
 	alarm[0] = s.alarm
 }

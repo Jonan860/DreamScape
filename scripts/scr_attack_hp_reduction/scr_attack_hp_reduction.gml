@@ -26,7 +26,7 @@ function scr_attack_hp_reduction(var_perputrator, var_victim, _armor) {
 			}
 		}
 	}
-	if(var_perputrator.object_index == obj_light_beam) {
+	if(object_is_ancestor(var_perputrator.object_index.attack_animator, obj_beam) and false) {
 		var var_creator = var_perputrator.creator
 		var_creator.HP = min(var_creator.max_HP, var_creator.HP + get_max_aura(var_creator, obj_vampiric_aura_animator) * var_hp_to_remove)
 		var_victim.HP -= var_hp_to_remove / room_speed

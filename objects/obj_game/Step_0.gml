@@ -37,7 +37,7 @@ if(room == room_map) {
 			scr_stun_countdown()
 			scr_buff_duration_countdown()
 			scr_enemies_wave_generation()
-			scr_light_beam_damage()
+			scr_beam_damage()
 
 			with(obj_unit) { //////maybe solves bug instance_destroy is not immidiate
 				scr_death()   

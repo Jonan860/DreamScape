@@ -33,3 +33,4 @@ list_level_sprites = [0, spr_sakura, spr_sakura, spr_sakura, spr_sakura, spr_sak
 spr_height = sprite_height
 spr_width = sprite_width
 sprite_index = spr_sakura_tied_up
+attack_animator = obj_scratch_attack

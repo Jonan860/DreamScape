@@ -25,4 +25,4 @@ summon_time_left = 180
 
 attack_animator = obj_light_beam
 
-attack_target = method(undefined, scr_attack_target_golden_dragon)
+attack_target = method(undefined, scr_attack_target_beam)

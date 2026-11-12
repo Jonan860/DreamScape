@@ -8,7 +8,8 @@ function attackEffectWrapper(_perputrator, _target, sureHit = false) {
 		var coverageLeft = 1
 		if(!sureHit) {
 			for(i = 0; i < array_length(_target.armor_coverage); i++) {
-				if(random(1)  < (1 - (1 - _target.armor_coverage[i]/100 / coverageLeft)^_perputrator.accuracy)) {
+				var chance_to_hit_something_better = (1 - power(_target.armor_coverage[i]/100 / coverageLeft, _perputrator.accuracy))
+				if(random(1)  > chance_to_hit_something_better) {
 					scr_attack_hp_reduction(_perputrator, _target, _target.armor[i])
 					break
 				}

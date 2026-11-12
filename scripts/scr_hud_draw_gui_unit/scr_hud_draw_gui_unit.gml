@@ -67,6 +67,10 @@ function draw_skills_buttons() {
 			if(number_of_ability_points > 0 and !global.hud.gui_display_abilities) {	
 				draw_text_ext_transformed_color(xx, yy, string(number_of_ability_points), -1, -1, 4, 4, 0, c_green, c_green, c_green, c_green, 1)
 			}
+			
+			var item_letter = ["z", "x", "c"]
+			
+			
 		} else if(object_index != obj_lille_skutt) {
 			with(global.hud) {
 				var xx = sell_button._x; var yy = sell_button._y

@@ -51,7 +51,13 @@ function scr_wave_generate() {
 									locust_swarm.level_up()
 								}
 								break;
-						}
+							case obj_necromancer : if(other.wave_number > 17) {
+								with(instance) {
+									unholy_frenzy.level_up()
+									cripple.level_up()
+								}
+							}
+							}
 						break;
 					}
 				}

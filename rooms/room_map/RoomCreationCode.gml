@@ -45,7 +45,8 @@ global.saveData = {}
 //	unholy_aura.iconPerform()
 //}
 
-//scr_instance_create_at_tile_with_owner(obj_banshee, getTile(10, 2), global.enemy)
+
+scr_instance_create_at_tile_with_owner(obj_ghoul, getTile(12, 2), global.enemy)
 //with(global.jonathan) {
 //	HP = max_HP/4
 //	repeat(9) {
@@ -80,6 +81,9 @@ with(scr_instance_create_at_tile_with_owner(obj_sakura, getTile(2, 0), global.pl
 
 with(scr_instance_create_at_tile_with_owner(obj_ida, getTile(10, 14), global.player))
 {
+	health_stone = createSpell(SPELLS.health_stone, "z")
+	health_stone.lvl = 1
+	array_push(skills, health_stone)
 //repeat(10) {
 //	scr_level_up()
 //}

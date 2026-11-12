@@ -22,7 +22,7 @@ scr_map_object_to_build_time_content()
 
 unit_to_kawarimi1 = noone; unit_to_kawarimi2 = noone
 enemies_wave_length_list = []
-array_push(enemies_wave_length_list, 80, 55, 55, 55, 40, 160, 5, 240, 5, 240, 5, 180, 30, 30, 30, 30, 30) //in seconds
+array_push(enemies_wave_length_list, 80, 55, 55, 55, 40, 160, 5, 240, 5, 240, 5, 180, 30, 30, 30, 30, 30, 180, 5) //in seconds
 enemies_wave_timer = 0
 wave_number = 0 // whole number
 wave1 = [obj_necromancer]
@@ -42,6 +42,8 @@ wave14 = [obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_
 wave15 = [obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul]
 wave16 = [obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul]
 wave17 = [obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul, obj_ghoul]
+wave18 = [obj_frost_wyrm, obj_frost_wyrm, obj_sylvanas, obj_jonathan, obj_frost_wyrm, obj_frost_wyrm]
+wave19 = [obj_necromancer, obj_necromancer, obj_necromancer, obj_necromancer, obj_necromancer, obj_necromancer]
 wave1_x = [11]
 wave2_x = [11]
 wave3_x = [9, 11]
@@ -59,8 +61,10 @@ wave14_x = [7, 8, 9, 10, 11, 12, 13]
 wave15_x = [7, 8, 9, 10, 11, 12, 13]
 wave16_x = [7, 8, 9, 10, 11, 12, 13]
 wave17_x = [7, 8, 9, 10, 11, 12, 13]
-wave_x_list_of_lists = [wave1_x, wave2_x, wave3_x, wave4_x, wave5_x, wave6_x, wave7_x, wave8_x, wave9_x, wave10_x, wave11_x, wave12_x, wave13_x, wave14_x, wave15_x, wave16_x, wave17_x]
-wave_list = [wave1, wave2, wave3, wave4, wave5, wave6, wave7, wave8, wave9, wave10, wave11, wave12, wave13, wave14, wave15, wave16, wave17]
+wave18_x = [7, 8, 9, 10, 11, 12, 13]
+wave19_x = [7, 8, 9, 10, 11, 12, 13]
+wave_x_list_of_lists = [wave1_x, wave2_x, wave3_x, wave4_x, wave5_x, wave6_x, wave7_x, wave8_x, wave9_x, wave10_x, wave11_x, wave12_x, wave13_x, wave14_x, wave15_x, wave16_x, wave17_x, wave18_x, wave19_x]
+wave_list = [wave1, wave2, wave3, wave4, wave5, wave6, wave7, wave8, wave9, wave10, wave11, wave12, wave13, wave14, wave15, wave16, wave17, wave18, wave19]
 
 phase = GAME_PHASES.dialogue
 lose_text = ""

@@ -136,12 +136,18 @@ function scr_find_spell_target(spell) {
 		var var_optimal_unit = noone
 		var var_optimal_goodness = getLeastAcceptableGoodness()
 		var varTiles = scr_get_tiles_within_range(range, owner.tile)
-		for(i = 0; i < array_length(varTiles); i++) {
-			var varunit = array_first(varTiles[i].occupants[? ALTITUDES.ground])
-			if(!is_undefined(varunit) and targetable(varunit)) {
-				if(evaluateGoodness(varunit) > var_optimal_goodness) {
-					var_optimal_goodness = evaluateGoodness(varunit)
-					var_optimal_unit = varunit
+		for(var i = 0; i < array_length(varTiles); i++) {
+			var var_altitudes = [ALTITUDES.air, ALTITUDES.ground]
+			for(var j = 0; j < array_length(var_altitudes); j++) {
+				var var_alt = var_altitudes[j]
+				var varunit = array_first(varTiles[i].occupants[? var_alt])
+				if(!is_undefined(varunit) and !object_is_ancestor(varunit.object_index, obj_building)) {
+					if(targetable(varunit)) {
+						if(evaluateGoodness(varunit) > var_optimal_goodness) {
+							var_optimal_goodness = evaluateGoodness(varunit)
+							var_optimal_unit = varunit
+						}
+					}
 				}
 			}
 		}

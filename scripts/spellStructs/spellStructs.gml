@@ -55,6 +55,8 @@ function spellToCooldown(spell) {
 		case SPELLS.polymorph : return 20
 		case SPELLS.invisibility : return 1
 		case SPELLS.curse : return 3
+		case SPELLS.unholy_frenzy : return 3
+		case SPELLS.cripple : return 10
 		case SPELLS.heal : return 2
 		case SPELLS.buildArcaneSanctum : return 0
 		case SPELLS.buildBarracks : return 0
@@ -93,6 +95,11 @@ function spellToAmount(spell) {
 		case SPELLS.polymorph : return 20
 		case SPELLS.heal : return [4]
 		case SPELLS.curse : return ln(2/3) / ln(1/2)
+		case SPELLS.unholy_frenzy : var mapp = ds_map_create()
+			ds_map_add(mapp, "speed", [75]) //acc = 3
+			ds_map_add(mapp, "damage", [2])
+			return mapp  // per distance
+		case SPELLS.cripple : return 75
 		case SPELLS.holy_light : return [30, 60, 90]
 		case SPELLS.spell_shield : return [200, 400, 600] //max health
 		case SPELLS.buildFootman : return 100
@@ -130,6 +137,16 @@ function spellToAmount(spell) {
 		case SPELLS.imba_heal : return 50
 		case SPELLS.abolish_magic : return 100
 		case SPELLS.death_pact : return [1, 1.5, 2]
+		case SPELLS.health_stone : 
+			var mapp = ds_map_create()
+			ds_map_add(mapp, "heal", [150]) //acc = 3
+			ds_map_add(mapp, "regen", [0.5])
+			return mapp  // per distance
+		case SPELLS.mana_stone : 
+			var mapp = ds_map_create()
+			ds_map_add(mapp, "restoration", [150]) //acc = 3
+			ds_map_add(mapp, "regen", [0.25])
+			return mapp  // per distance
 		default : return noone
 	}
 }
@@ -156,6 +173,8 @@ function spellToRange(spell) {
 		case SPELLS.invisibility : return 4
 		case SPELLS.heal : return 2
 		case SPELLS.curse : return 4
+		case SPELLS.unholy_frenzy : return 4
+		case SPELLS.cripple : return 4
 		case SPELLS.earthshatter : return 4
 		case SPELLS.golden_dragon : return 1
 		case SPELLS.holy_light : return 4
@@ -194,6 +213,8 @@ function spellToTargetable(spell) {
 		case SPELLS.invisibility : return method(undefined, targetableFriendly)
 		
 		case SPELLS.curse : return method(undefined, targetableEnemy) 
+		case SPELLS.cripple : return method(undefined, targetableEnemy) 
+		case SPELLS.unholy_frenzy : return method(undefined, targetableFriendly)
 		case SPELLS.frost_nova : return method(undefined, targetableEnemy) 
 		case SPELLS.impale : return method(undefined, targetableEnemy)
 		case SPELLS.freeze : return method(undefined, targetableEnemy)
@@ -233,6 +254,8 @@ function targetableEnemy(varunit) {
 function spellToEvaluateGoodness(spell) {
 	switch(spell) {
 		case SPELLS.curse : return method(undefined, evaluateProcentageDebuff)
+		case SPELLS.cripple : return method(undefined, evaluateProcentageDebuff)
+		case SPELLS.unholy_frenzy : return method(undefined, evaluateUnholyFrenzy)
 		case SPELLS.freeze : return method(undefined, evaluateProcentageDebuff)
 		case SPELLS.frost_nova : return method(undefined, evaluateProcentageDebuff)
 		case SPELLS.sleep : return method(undefined, evaluateProcentageDebuff)
@@ -246,6 +269,7 @@ function spellToEvaluateGoodness(spell) {
 		case SPELLS.death_coil : return method(undefined, evaluateDeathCoil)
 		case SPELLS.ninja_gos : return method(undefined, evaluateNinjaGos)
 		case SPELLS.death_pact : return method(undefined, evaluateDeathPact)
+		case SPELLS.raise : return method(undefined, evaluateRaise)
 		//case SPELLS
 	}
 }
@@ -285,6 +309,26 @@ function evaluateProcentageDebuff(_unit) {
 	var vargoodnessnew = _unit.HP * _unit.evaluate_HP_goodness()
 	_unit.unapply(Enum)
 	return vargoodness - vargoodnessnew
+}
+
+function evaluateProcentageBuff(_unit) {
+	
+	//return (_unit.damage + _unit.armor) * _unit.HP / _unit.attack_cost
+	var vargoodness = _unit.HP * _unit.evaluate_HP_goodness()
+	rightPerform(_unit)
+	_unit.scr_update_action_bar_speed()
+	var vargoodnessnew = _unit.HP * _unit.evaluate_HP_goodness()
+	_unit.unapply(Enum)
+	_unit.scr_update_action_bar_speed()
+	return vargoodnessnew - vargoodness
+}
+
+function evaluateUnholyFrenzy(_unit) {
+	var goodness = evaluateProcentageBuff(_unit)
+	var amountMap = getAmount()
+	damagePerSec = array_first(amountMap[? "damage"])
+	var badness = duration / 2 * damagePerSec * _unit.evaluate_HP_goodness()
+	return goodness - badness 
 }
 
 function evaluateLinearHeal(_unit) {
@@ -327,6 +371,14 @@ function evaluateDeathPact(_unit) {
 	return ret
 }
 
+function evaluateRaise() {
+	var varSkeleton = instance_create_depth(-10000, -10000, 0, obj_skeleton)
+	varSkeleton.owner = owner.owner
+	var vargoodness = varSkeleton.evaluate_HP_goodness() * varSkeleton.HP / 2
+	instance_destroy(varSkeleton, false)
+	return vargoodness
+}
+
 function evaluateSilence(_unit) {
 	return _unit.mana > 50 ? _unit.max_mana : 0
 }
@@ -364,6 +416,8 @@ function spellToManaCosts(spell) {
 		case SPELLS.raise : return 40
 		case SPELLS.heal : return 4
 		case SPELLS.curse : return 25
+		case SPELLS.unholy_frenzy : return 35
+		case SPELLS.cripple : return 50
 		case SPELLS.invisibility : return 15
 		case SPELLS.golden_dragon : return 80
 		case SPELLS.ninjago : return [30, 60, 90]
@@ -510,10 +564,12 @@ function spellToSpellHealth(spell) {
 		case SPELLS.katon_gokakyu_no_jutsu : return ;
 		case SPELLS.freeze : return 100;
 		case SPELLS.polymorph : return 300;
+		case SPELLS.cripple : return 200
 		case SPELLS.slow : return 100;
 		case SPELLS.invisibility : return 100;
 		case SPELLS.raise : return 100;
 		case SPELLS.curse : return 100;
+		case SPELLS.unholy_frenzy : return 150
 		case SPELLS.heal : return 100;
 		case SPELLS.dark_arrow : return	1;
 		case SPELLS.silence : return [40, 80, 100]
@@ -547,9 +603,13 @@ function spellToIcon(spell) {
 		case SPELLS.polymorph : return spr_polymorph_icon
 		case SPELLS.invisibility : return spr_invisibility_icon
 		case SPELLS.curse : return spr_curse_icon
+		case SPELLS.unholy_frenzy : return spr_unholy_frenzy_icon
+		case SPELLS.cripple : return spr_cripple_icon
 		case SPELLS.revive : return spr_resurrection_icon
 		case SPELLS.abilities : return spr_abilities_button
 		case SPELLS.sell : return spr_sell_button
+		case SPELLS.health_stone : return spr_health_stone
+		case SPELLS.mana_stone : return spr_mana_stone
 		case SPELLS.buildFootman : return spr_footman_icon
 		case SPELLS.buildValkyrie : return spr_valkyrie_icon
 		case SPELLS.buildArcher : return spr_elven_archer_icon
@@ -608,6 +668,8 @@ function spellToDuration(spell) {
 		case SPELLS.polymorph : return 45
 		case SPELLS.invisibility : return 60
 		case SPELLS.curse : return 60
+		case SPELLS.unholy_frenzy : return 60
+		case SPELLS.cripple : return 60
 		case SPELLS.heal : return 0.5
 		case SPELLS.dark_ritual : return 2
 		case SPELLS.buildBarracks : return 30
@@ -656,6 +718,8 @@ function spellToName(spell) {
 		case SPELLS.buildPriest : return "Build Priest"
 		case SPELLS.buildSorceress : return "Build Sorceress"
 		case SPELLS.curse : return "Curse"
+		case SPELLS.unholy_frenzy : return "Unholy Frenzy"
+		case SPELLS.cripple : return "Cripple"
 		case SPELLS.raise : return "Raise"
 		case SPELLS.dispel : return "Dispel"
 		case SPELLS.revive : return "Revive"
@@ -673,6 +737,8 @@ function spellToName(spell) {
 		case SPELLS.soul_harvest : return "Soul Harvest"
 		case SPELLS.abolish_magic : return "Abolish Magic"
 		case SPELLS.death_coil : return "Death Coil"
+		case SPELLS.health_stone : return "Health Stone"
+		case SPELLS.mana_stone : return "Mana Stone"
 		}
 }
 
@@ -775,6 +841,17 @@ function spellToInfo(spell) {
 		case SPELLS.imba_heal : return "Totally Imba, Slay!"
 		case SPELLS.abolish_magic : return "Dispels positive buffs from enemy units, and negative buffs from friendly units. Deals " + string(getAmount) + " dispel damage."
 		case SPELLS.soul_harvest : return "Each meelee hit increases mana by " + string(getAmount())
+		case SPELLS.health_stone :
+									var amountList = getAmount()
+									var varregen = array_first(amountList[? "regen"])
+									var varheal = array_first(amountList[? "heal"])
+									return "Increases the life regeneration rate of the Hero by " + string(varregen) + " hit points per second when worn. \n Can be consumed for " + string(varheal) + " health. "
+	   case SPELLS.mana_stone : 
+									var amountList = getAmount()
+									var varregen = array_first(amountList[? "regen"])
+									var varrestoration = array_first(amountList[? "heal"])
+									return "Increases the mana regeneration rate of the Hero by " + string(varregen) + " % when worn. Can be consumed for " + string(varrestoration) + " mana."
+	   
 		
 	}
 }
@@ -783,6 +860,8 @@ function spellToUnapply(spellEnum) {
 	switch(spellEnum) {
 		case SPELLS.sleep : return method(undefined, sleepUnapply)
 		case SPELLS.invisibility : return method(undefined, invisibilityUnapply)
+		case SPELLS.cripple : return method(undefined, crippleUnapply)
+		case SPELLS.unholy_frenzy : return method(undefined, crippleUnapply)
 		default : return function() {}
 	}
 }
@@ -790,6 +869,12 @@ function spellToUnapply(spellEnum) {
 function invisibilityUnapply() {
 	with(victim) {
 		become_visible()
+	}
+}
+
+function crippleUnapply() {
+	with(victim) {
+		scr_update_action_bar_speed()
 	}
 }
 
@@ -972,6 +1057,7 @@ function createSpell(spellEnum, _letter) {
 		rightPerform = spellToRightPerform(spellEnum)
 		perform = spellToPerform(spellEnum)
 		iconPerform = spellToIconPerform(spellEnum)
+		iconRightPerform = spellToIconRightPerform(spellEnum)
 		cursor = spellToCursor(spellEnum)
 		name = spellToName(spellEnum)
 		 
@@ -1059,6 +1145,8 @@ enum SPELLS {
 	invisibility,
 	curse,
 	raise,
+	unholy_frenzy,
+	cripple,
 	abilities,
 	buildFootman,
 	buildValkyrie,
@@ -1091,7 +1179,9 @@ enum SPELLS {
 	soul_harvest,
 	imba_heal,
 	abolish_magic,
-	sell
+	sell,
+	health_stone,
+	mana_stone
 }
 
 #macro learnSpellManaMultiplicator 1.25
